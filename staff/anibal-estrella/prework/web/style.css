@@ -30,7 +30,7 @@ body {
     font-weight: 200;
     background-color: #ffffff;
     border-radius: 15px;
-    padding: 20px;
+    padding: 20px 70px ;
     box-shadow: 0px 0px 10px #888888;
     min-width: 50vw;
     margin: 0 auto;
@@ -38,7 +38,6 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    
 }
 
 h1 {
@@ -46,6 +45,7 @@ h1 {
     font-weight: 700;
     text-transform: uppercase;
 }
+
 form label{
     font-weight: 500;
     font-size: .8rem;
@@ -53,23 +53,27 @@ form label{
 }
 
 input[type="text"], input[type="password"] {
-    padding: 10px;
+    padding: 10px 25px;
     margin: 10px 0;
     width: 100%;
-    border-radius: 5px;
+    height: 50px;
+    border-radius: 25px;
     border: none;
     box-shadow: 0px 0px 5px #cccccc;
 }
 
-input[type="submit"] {
+button {
     color: #ffffff;
     border: none;
-    border-radius: 5px;
+    border-radius:25px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
     cursor: pointer;
+    height: 50px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px #999;
 }
 
 input[type="submit"]:focus {
@@ -77,12 +81,13 @@ input[type="submit"]:focus {
     border: none;
 }
 
-.button-submit:hover{
-    background-color: #006a04;
-    box-shadow: 0px 0px 5px #999;
+button:hover{
+    background-color: #00e608;
+    box-shadow: 3px 3px 5px #0000002b;
+    text-shadow: none;
 }
 
-.button-submit{
+button{
     width: 50%;
     align-self: center;
     background-color: #00ff08;
@@ -92,15 +97,16 @@ input[type="submit"]:focus {
     display: none;
 }
 
-.on{
-    display:flex;
-} 
 
-@media {
-    min-width: 768px;
+@media (max-width: 768px){
+  
+    .register, .login{ 
 
-    .button-submit{
+        width: 50vw;
+        margin: 0 auto;
+    }
+
+    button{
         background-color: red;
-        
     }
 }
