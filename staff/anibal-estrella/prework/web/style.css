@@ -99,6 +99,9 @@ button{
 
 
 @media (max-width: 768px){
+    body {
+        background-color: #00e608;
+    }
   
     .register, .login{ 
 

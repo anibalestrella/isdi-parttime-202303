@@ -9,10 +9,10 @@
         
         
         <div class="login">
-            <form  action="" method="get">
+            <form>
                 <h1>Login</h1>
                 <label for="username">E-mail:</label>
-                <input type="text" class="email" name="E-mail" placeholder="Enter your e-mail">
+                <input type="text" class="email" name="email" placeholder="Enter your e-mail">
                 <label for="lastname">Password:</label>
                 <input type="password" class="password" name="password" placeholder="Enter your password">
                 <button class="button-submit" type="submit">Login</button>
@@ -29,14 +29,34 @@
                 <input type="text" class="lastname" name="lastname" placeholder="Enter your lastname">
                 <label for="email">E-mail:</label>
                 <input type="text" class="email" name="email" placeholder="Enter your e-mail">
-                <label for="lastname">Password:</label>
+                <label for="password">Password:</label>
                 <input type="text" class="password" name="password" placeholder="Enter your password">
-                <input class="button-submit" type="submit" value="register">
+                <button class="buttom button-submit" type="submit" value="register">Register</button>
             </form>
-            <p class="goto-login"> Already registered? go to<a href="login">login</a></p>
+            <p class="goto-login"> Already registered? go to <a href="login">login</a></p>
         </div>
+    
         
-    </div>
-    <script src="./main.js" defer></script>
+        <div class="home off">
+            <header class="header"></header>
+            <h1>Home</h1>
+            <p class="helloUser">Hello. Pepito!</p>
+            <button type="submit">Logout</button>
+            <div class="changePassword">
+                <form action="">
+                <input type="text"  name="password" placeholder="Enter your password">
+                <input type="text"  name="newPassword" placeholder="Enter your new password">
+                <input type="text"  name="newPasswordConfirm" placeholder="Confirm your new password">
+                <button type="submit">Update Password</button>
+            </div>
+         </div>
+
+
+
+    <script src="./scripts/data.js"></script>
+    <script src="./scripts/logic.js"></script>
+    <script src="./scripts/main.js"></script>
+
+
 </body>
 </html>
