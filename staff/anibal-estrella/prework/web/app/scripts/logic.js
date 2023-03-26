@@ -3,9 +3,9 @@ function authentificateUser(email, password){
 
     for (let i = 0; i < users.length; i++) {
         var user = users[i]
-        console.log(user, email)
+
         if (user.email === email) {
-          foundUser =user
+          foundUser = user
           break
         }
       }
@@ -17,7 +17,29 @@ function authentificateUser(email, password){
     return true
     };
     
-    function registerUser(){}
+
+
+    function registerUser(name, email, password){
+      for (let i = 0; i < users.length; i++) {
+        var user = users[i]
+        
+        if (user.email === email) {
+          return false
+        } else{
+          users.push({
+            name:`${name}`,
+            email:`${email}`,
+            password: `${password}`,
+          });
+          foundUser = user
+          return true
+
+        }
+      }
+
+     
+
+    }
 
     //TODO:
 // show "Hola USENAME"

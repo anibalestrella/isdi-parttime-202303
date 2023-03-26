@@ -3,18 +3,18 @@ var users=[]
 
 users.push({
   name:'Lars Ulrich',
-  email:'lars@gmail.com',
-  password:'asdfasdfewr',
+  email:'metallica@gmail.com',
+  password:'123',
 });
 
 users.push({
   name:'Eddie Veder',
   email:'veder@gmail.com',
-  password:'asdfasdfewr',
+  password:'123',
 });
 
 users.push({
   name:'Bruce Dickinson',
   email:'iron@gmail.com',
-  password:'asdfasdfewr',
+  password:'123',
 });
