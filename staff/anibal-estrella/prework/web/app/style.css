@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;1,700&display=swap');
 
 *{
  box-sizing: border-box;
@@ -9,7 +9,9 @@
 
 :root{
     --montserrat: 'Montserrat', sans-serif;
-    --basecolor: #f1f1f1 ;
+    --basecolor: #040404 ;
+    --backcolor:#3a3a3a;
+    --fontcolorlight:#dddcd9;
 }
 
 body {
@@ -19,6 +21,10 @@ body {
     padding: 0;
     margin: 0;
 }
+h1,h2,h3,p,a,label{
+    color: var(--fontcolorlight);
+}
+
 .container{
     display: flex;
     align-items: center;
@@ -27,11 +33,11 @@ body {
 }
 .register, .login, .home{ 
     font-family: var(--montserrat);
-    font-weight: 200;
-    background-color: #ffffff;
+    font-weight: 300;
+    background-color: var(--backcolor);
     border-radius: 15px;
     padding: 20px 70px ;
-    box-shadow: 0px 0px 10px #888888;
+    box-shadow: 0px 0px 10px #000;
     min-width: 50vw;
     margin: 0 auto;
     animation: fade-in 0.3s ease;
@@ -40,6 +46,7 @@ form {
     display: flex;
     flex-direction: column;
 }
+
 
 h1 {
     text-align: center;
@@ -60,7 +67,8 @@ input[type="text"], input[type="password"] {
     height: 50px;
     border-radius: 25px;
     border: none;
-    box-shadow: 0px 0px 5px #cccccc;
+    box-shadow: 0px 0px 5px #000;
+    background-color: #b1b1b1;
 }
 
 button {
@@ -74,7 +82,7 @@ button {
     cursor: pointer;
     height: 50px;
     text-transform: uppercase;
-    text-shadow: 2px 2px 5px #999;
+    text-shadow: 2px 2px 5px #000;
 }
 
 input[type="submit"]:focus {

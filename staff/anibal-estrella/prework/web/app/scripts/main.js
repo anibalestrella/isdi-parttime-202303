@@ -53,3 +53,19 @@ resgisterPage.querySelector('p a').addEventListener('click', function (event) {
   resgisterPage.classList.add("off");
   loginPage.classList.remove("off");
 })
+
+
+
+homePage.querySelector('form').addEventListener('submit',function (event){
+  event.preventDefault()
+
+  var password = resgisterPage.querySelector('input.password').value
+  var result = registerUser(, email, password)
+
+  if (result === false) {
+    alert(`The Email: ${email} is already registered in our DB, try it again.`)
+  } else {
+    resgisterPage.classList.add("off");
+    homePage.classList.remove("off");
+  }
+})
