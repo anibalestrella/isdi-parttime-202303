@@ -8,7 +8,7 @@
     <div class="container">
         
         
-        <div class="login">
+        <div class="login off">
             <form>
                 <h1>Login</h1>
                 <label for="username">E-mail:</label>
@@ -37,22 +37,42 @@
         </div>
     
         
-        <div class="home off">
-            <header class="header"></header>
-            <h1>Home</h1>
-            <p class="hello-user">Hello. <span class="hello-user-name"></span> !</p>
-            <button type="submit">Logout</button>
-            <div class="change -password">
-                <form action="">
-                    <h2 class="change-password">Change Your Password.</h2>
-                <input type="text"  name="password" placeholder="Enter your password">
-                <input type="text"  name="newPassword" placeholder="Enter your new password">
-                <input type="text"  name="newPasswordConfirm" placeholder="Confirm your new password">
-                <button type="submit">Update Password</button>
+        <div class="home _off">
+            <header class="header">
+                <h1>Home</h1>
+                <h2 class="hello-user">Hello. <span class="hello-user-name"></span> !</h2>
+                <ul class="menu">
+                <li class="menu-logout"><a href="">Logout</a></li>
+                <li class="menu-profile"><a href="">Profile</a></li>
+                </ul>
+            </header>
+
+            <div class="profile off">
+               <h1>Profile</h1>
+               <h2 class="hello-user">Hello. <span class="hello-user-name"></span> !</h2>
+               <div class="container-profile-change">
+    
+                   <form action="">
+                   <div class="change-password">
+                           <h3 class="change-password">Change Your Password.</h3>
+                       <input type="text"  name="password" placeholder="Enter your password">
+                       <input type="text"  name="newPassword" placeholder="Enter your new password">
+                       <input type="text"  name="newPasswordConfirm" placeholder="Confirm your new password">
+                   </div>
+                   <button type="submit">Update Profile</button>
+                   <div class="change-email">
+                   
+                           <h3 class="change-email">Change Your Password.</h3>
+                       <input type="text"  name="password" placeholder="Enter your password">
+                       <input type="text"  name="newEmail" placeholder="Enter your new password">
+                       <input type="text"  name="newEmailConfirm" placeholder="Confirm your new password">
+                       <button type="submit">Update Password</button>
+                   </div>
+                   </form>
+               </div>
+        </div>
+
             </div>
-         </div>
-
-
 
     <script src="./scripts/data.js"></script>
     <script src="./scripts/logic.js"></script>

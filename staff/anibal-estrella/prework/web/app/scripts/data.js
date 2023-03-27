@@ -18,3 +18,19 @@ users.push({
   email:'iron@gmail.com',
   password:'123',
 });
+
+function findUserByEmail(email){
+  var foundUser
+  for (let i = 0; i < users.length; i++) {
+    var user = users[i]
+    
+    if (user.email === email) {
+      foundUser = user
+      break
+    }
+
+    if (!foundUser)
+      return false
+    
+      return true
+}
