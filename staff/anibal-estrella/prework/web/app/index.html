@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="_container">
         
         
         <div class="login off">
@@ -38,16 +38,16 @@
     
         
         <div class="home _off">
-            <header class="header">
+            <header class="home-header">
                 <h1>Home</h1>
-                <h2 class="hello-user">Hello. <span class="hello-user-name"></span> !</h2>
-                <ul class="menu">
-                <li class="menu-logout"><a href="">Logout</a></li>
-                <li class="menu-profile"><a href="">Profile</a></li>
-                </ul>
+                <div class="home-menu">
+                    <li><img class="home-header-avatar" src="https://i.stack.imgur.com/gdlU5.png?s=192&g=1" alt=""></li>
+                    <li class="menu-logout"><a href="">Logout</a></li>
+                    <li class="menu-profile"><a href="">Profile</a></li>
+                </div>
             </header>
 
-            <div class="profile off">
+            <div class="profile _off">
                <h1>Profile</h1>
                <h2 class="hello-user">Hello. <span class="hello-user-name"></span> !</h2>
                <div class="container-profile-change">
@@ -60,7 +60,7 @@
                        <input type="text"  name="newPasswordConfirm" placeholder="Confirm your new password">
                    </div>
                    <button type="submit">Update Profile</button>
-                   <div class="change-email">
+                   <div class="change-email">_
                    
                            <h3 class="change-email">Change Your Password.</h3>
                        <input type="text"  name="password" placeholder="Enter your password">
@@ -77,6 +77,7 @@
     <script src="./scripts/data.js"></script>
     <script src="./scripts/logic.js"></script>
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/validators.jsv"></script>
 
 
 </body>

@@ -126,3 +126,19 @@ button{
     }
 
 }
+
+/* components */
+header{
+    color: #000;
+    display: flex;
+    position: fixed;
+    top:0;
+    width: 100%;
+    background-color: #00ff08;
+}
+.home-header-avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #3a3a3a;
+}

@@ -1,8 +1,7 @@
 
 function authenticateUser(email, password){
-
-if(typeof email !== 'string') throw new Error('email must be a string');
-if(typeof password!=='string') throw new Error('password must be a string');
+validateEmail(email, )
+validatePassword(password, 'new password')
 
     for (let i = 0; i < users.length; i++) {
         var user = users[i]
@@ -15,14 +14,20 @@ if(typeof password!=='string') throw new Error('password must be a string');
 
 
     if (!foundUser ) 
-throw new Error('User not found');      
+throw new Error('User not found')   
     if (foundUser.password !== password)
-throw new Error('Wrong password');
-  };
+throw new Error('Wrong password')
+
+
+  }
     
 
 
     function registerUser(name, email, password){
+if (typeof name!== 'string') throw new Error('name must be a string');
+if (!name.length) throw new Error('name cannot be empty');
+      
+
       for (let i = 0; i < users.length; i++) {
         var user = users[i]
         
@@ -42,7 +47,7 @@ throw new Error('Wrong password');
     }
 
 
-    const retrieveUser(email){
+    function retrieveUser(email){
       var foundUser
       for (let i = 0; i < users.length; i++) {
         var user = users[i]
@@ -57,6 +62,7 @@ throw new Error('Wrong password');
         } else{
 
         }
+        if (foundUser)
       }
     }
 
@@ -70,26 +76,34 @@ var foundUser
 
 for (let i = 0; i < users.length; i++) {
 var user = users[i]
+
 if (user.email === email) {
   foundUser = user
   break
 }
 
-if (!foundUser){
+
+if (!foundUser)
   return false
 
     if (newPassword !== foundUser.password)
       return false
-    if { newPassword !== newPasswordConfirm }
+    if (newPassword !== newPasswordConfirm)
     return false
-
-    if {foundUser.password =newPassword}
+    if (foundUser.password =newPassword)
     return true
-  
 
+
+}
 }
 
 
+function updadateUserAvatar(email, avatar){
+  // TODO input validation
+  validateEmail(email)
+  // TODO
+  
+} 
 
-    //TODO:
-
+    //TODO: 
+    //SIEMPRE TESTEAR LA LOGICA NO EN LA CAPA SUPERIOR!!
