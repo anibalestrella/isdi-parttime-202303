@@ -2,7 +2,7 @@
 // PRESENTATION /main.js
 // LOGIC /logic.js
 
-var resgisterPage= document.querySelector(".register")
+var registerPage= document.querySelector(".register")
 var loginPage= document.querySelector(".login")
 var homePage= document.querySelector(".home")
 var profilePanel = document.querySelector('.profile')
@@ -32,26 +32,26 @@ loginPage.querySelector('form').addEventListener('submit', function (event) {
 
 loginPage.querySelector('p a').onclick = function (event) {
   loginPage.classList.add("off");
-  resgisterPage.classList.remove("off");
+  registerPage.classList.remove("off");
 }
 
-resgisterPage.querySelector('form').onsubmit = function (event){
+registerPage.querySelector('form').onsubmit = function (event){
   event.preventDefault()
-  var name = resgisterPage.querySelector('input.name').value
-  var email = resgisterPage.querySelector('input.email').value
-  var password = resgisterPage.querySelector('input.password').value
+  var name = registerPage.querySelector('input.name').value
+  var email = registerPage.querySelector('input.email').value
+  var password = registerPage.querySelector('input.password').value
   var result = registerUser(name, email, password)
 
   if (result === false) {
     alert(`The Email: ${email} is already registered in our DB, try it again.`)
   } else {
-    resgisterPage.classList.add("off");
+    registerPage.classList.add("off");
     homePage.classList.remove("off");
   }
 }
 
-resgisterPage.querySelector('p a').onclick = function (event) {
-  resgisterPage.classList.add("off");
+registerPage.querySelector('p a').onclick = function (event) {
+  registerPage.classList.add("off");
   loginPage.classList.remove("off");
 }
 
@@ -60,13 +60,13 @@ resgisterPage.querySelector('p a').onclick = function (event) {
 homePage.querySelector('form').addEventListener('submit',function (event){
   event.preventDefault()
 
-  var password = resgisterPage.querySelector('input.password').value
+  var password = registerPage.querySelector('input.password').value
   var result = registerUser(email, password)
 
   if (result === false) {
     alert(`The Email: ${email} is already registered in our DB, try it again.`)
   } else {
-    resgisterPage.classList.add("off");
+    registerPage.classList.add("off");
     homePage.classList.remove("off");
   }
 })
@@ -90,4 +90,33 @@ if (condition) {
 } else {
   
 }
+}
+
+homePage.querySelector('.menu-logout').onclick =
+function () {
+  homePage.classList.add("off");
+  loginPage.classList.add("off");
+  profilePanel.classList.add("off");
+}
+
+
+
+updateUserAvatarForm.onsubmit = function (event) {
+  event.preventDefault()
+}
+
+homePage.querySelector('.logout').onclick = 
+function (){
+  hide(homePage, profilePanel, registerPage)
+}
+
+//pasas multiples arguments gracias a "..." y con un loop los tratas como array
+function show(...containers) {
+  for (var i = 0; i < containers.length; i++) 
+  containers[i].classList.remove = "off";
+}
+
+function hide(...containers) {
+  for (var i = 0; i < containers.length; i++) 
+  containers[i].classList.add = "off";
 }

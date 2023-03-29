@@ -14,22 +14,35 @@
     --fontcolorlight:#dddcd9;
 }
 
+html, body{
+    height: 100%;
+}
 body {
     background-color: var(--basecolor);
     font-family: Arial, sans-serif;
     font-size: 1em;
     padding: 0;
     margin: 0;
+    
 }
+
 h1,h2,h3,p,a,label{
     color: var(--fontcolorlight);
+}
+
+
+.page{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .container{
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    align-items: center;
 }
 .register, .login, .home{ 
     font-family: var(--montserrat);
@@ -47,12 +60,16 @@ form {
     flex-direction: column;
 }
 
+h1, h2, h3{
+    
+    text-transform: uppercase;
+}
 
 h1 {
     text-align: center;
     font-weight: 700;
-    text-transform: uppercase;
 }
+
 
 
 
@@ -105,9 +122,6 @@ button{
 }
 
 
-.off{
-    display: none;
-}
 
 @keyframes fade-in {
     from { opacity: 0;
@@ -120,15 +134,15 @@ button{
     body {
         background-color: #00e608;
     }
-  
+    
     .register, .login{ 
         width: 70vw;
     }
-
+    
 }
 
 /* components */
-header{
+.home-header{
     color: #000;
     display: flex;
     position: fixed;
@@ -141,4 +155,34 @@ header{
     height: 50px;
     border-radius: 50%;
     background-color: #3a3a3a;
+}
+
+.home-menu{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;   
+ background-color: #040404dd;
+ backdrop-filter: blur(10px);
+ position: fixed;
+ top: 0;
+ width: 100%;
+ height: 100%;
+}
+.home-menu nav {
+    display: flex;
+}
+
+nav {
+    
+}
+
+.home-footer{
+    width: 100%;
+    height: 50px;
+    background-color:#00e608;
+}
+
+.off{
+    display: none;
 }

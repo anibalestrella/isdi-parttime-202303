@@ -5,10 +5,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="_container">
         
         
-        <div class="login off">
+        <div class="page login off">
             <form>
                 <h1>Login</h1>
                 <label for="username">E-mail:</label>
@@ -22,7 +21,7 @@
         </div>
         
         
-        <div class="register off">
+        <div class="page register off">
             <form  action="" method="get"class="register-form">
                 <h1>Register</h1>
                 <label for="name">Name:</label>
@@ -37,47 +36,55 @@
         </div>
     
         
-        <div class="home _off">
+        <div class="page home _off">
             <header class="home-header">
                 <h1>Home</h1>
-                <div class="home-menu">
-                    <li><img class="home-header-avatar" src="https://i.stack.imgur.com/gdlU5.png?s=192&g=1" alt=""></li>
-                    <li class="menu-logout"><a href="">Logout</a></li>
-                    <li class="menu-profile"><a href="">Profile</a></li>
-                </div>
+                <img class="home-header-avatar" src="https://i.stack.imgur.com/gdlU5.png?s=192&g=1" alt="">
+                <a href="" class="menu-open">Menu</a>
             </header>
-
+            <nav class="home-menu container off">
+                <li class="menu-close">X</li>
+                <li class="menu-logout"><a href="">Logout</a></li>
+                <li class="menu-profile"><a href="">Profile</a></li>
+            </nav>
+            
             <div class="profile _off">
                <h1>Profile</h1>
-               <h2 class="hello-user">Hello. <span class="hello-user-name"></span> !</h2>
+               <h2 class="hello-user">Hello. <span class="hello-user-name"></span>!</h2>
                <div class="container-profile-change">
     
                    <form action="">
+                    <div class="change-password">
+                        <h3 class="change-password">Change avatar</h3>
+                        <input type="text"  name="avatarUrl" placeholder="Avatar image URL">
+                        <button type="submit">Update Avatar</button>
+                        
+                    </div>
                    <div class="change-password">
-                           <h3 class="change-password">Change Your Password.</h3>
-                       <input type="text"  name="password" placeholder="Enter your password">
-                       <input type="text"  name="newPassword" placeholder="Enter your new password">
-                       <input type="text"  name="newPasswordConfirm" placeholder="Confirm your new password">
+                        <h3 class="change-password">Change Your Password</h3>
+                        <input type="text"  name="password" placeholder="Enter your password">
+                        <input type="text"  name="newPassword" placeholder="Enter your new password">
+                        <input type="text"  name="newPasswordConfirm" placeholder="Confirm your new password">
                    </div>
-                   <button type="submit">Update Profile</button>
-                   <div class="change-email">_
+                   <button type="submit">Update Password</button>
+                   <div class="change-email">
                    
-                           <h3 class="change-email">Change Your Password.</h3>
-                       <input type="text"  name="password" placeholder="Enter your password">
-                       <input type="text"  name="newEmail" placeholder="Enter your new password">
-                       <input type="text"  name="newEmailConfirm" placeholder="Confirm your new password">
-                       <button type="submit">Update Password</button>
+                        <h3 class="change-email">Change Your e-mail</h3>
+                        <input type="text"  name="newEmail" placeholder="Enter your new e-mail">
+                        <input type="text"  name="newEmailConfirm" placeholder="Confirm your new e-mail">
+                        <button type="submit">Change e-mail</button>
                    </div>
                    </form>
+                   <footer class="home-footer"><h1>Footer</h1></footer>
                </div>
         </div>
 
-            </div>
 
     <script src="./scripts/data.js"></script>
     <script src="./scripts/logic.js"></script>
-    <script src="./scripts/main.js"></script>
     <script src="./scripts/validators.jsv"></script>
+    <script src="./scripts/ui.js"></script>
+    <script src="./scripts/main.js"></script>
 
 
 </body>
