@@ -18,33 +18,23 @@ function registerUser(name, email, password) {
 function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password, 'new password')
-  var foundUser = findUserByEmail(email)
+  foundUser = findUserByEmail(email)
   if (!foundUser)
     throw new Error('User does not exist in the database')
 
   if (foundUser.password !== password)
     throw new Error('Wrong password')
+
+  return foundUser
 }
 
-
-function retrieveUser(email) {
-  var foundUser
+function findUserByEmail(email) {
   for (let i = 0; i < users.length; i++) {
-    var user = users[i]
-
-    if (user.email === email) {
-      foundUser = user
-      break
-    }
-
-    if (!foundUser) {
-      return false
-    } else {
-
-    }
-    if (foundUser)
-      return true
-  }
+    user = users[i]
+    if (users[i].email === email)
+    return users[i]
+}
+return user
 }
 
 

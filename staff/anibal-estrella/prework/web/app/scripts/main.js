@@ -11,13 +11,14 @@ var changeUserAvatarForm = homePage.querySelector('.change-user-avatar')
 var foundUser;
 var name;
 var authenticatedUserEmail;
+var authenticatedUserName;
 
 loginPage.querySelector('form').addEventListener('submit', function (event) {
   event.preventDefault()
 
   var email = loginPage.querySelector('input.email').value
   var password = loginPage.querySelector('input.password').value
-  var result = authenticateUser(name,email, password);
+  var result = authenticateUser(email, password);
 
   if (result === false) {
     alert('Wrong email or password!')
@@ -75,39 +76,28 @@ profilePanel.querySelector('form').onsubmit = function (event) {
   var newPasswordConfirm = profilePanel.querySelector('input.newPasswordConfirm').value
 
   console.log({ password }, { newPassword }, { newPasswordConfirm });
-
-  if (condition) {
-
-  } else {
-
-  }
 }
-
-homePage.querySelector('.menu-logout').onclick =
-  function () {
-    homePage.classList.add("off");
-    loginPage.classList.add("off");
-    profilePanel.classList.add("off");
-  }
-
 
 
 changeUserAvatarForm.onsubmit = function (event) {
   event.preventDefault()
 }
 
+homePage.querySelector('.home-header .menu-open').onclick = function (event) {
+  event.preventDefault()
+  console.log('show menuuuu!');
+show(homeMenu)
+}
+homeMenu.querySelector('.menu-close').onclick = function (event) {
+  event.preventDefault()
+  console.log('CLOSEEEEE');
+ hide(homeMenu)
+}
+
 homeMenu.querySelector('.menu-logout').onclick =
   function () {
+    event.preventDefault()
     hide(homePage, profilePanel, registerPage)
+    show(loginPage)
   }
 
-//pasas multiples arguments gracias a "..." y con un loop los tratas como array
-function show(...containers) {
-  for (var i = 0; i < containers.length; i++)
-    containers[i].classList.remove = "off";
-}
-
-function hide(...containers) {
-  for (var i = 0; i < containers.length; i++)
-    containers[i].classList.add = "off";
-}

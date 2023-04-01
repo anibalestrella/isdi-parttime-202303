@@ -8,7 +8,7 @@ users.push({
 });
 
 users.push({
-  name:'Eddie Veder',
+  name:'Eddie Vedder',
   email:'pj@gmail.com',
   password:'123',
 });
@@ -19,18 +19,3 @@ users.push({
   password:'123',
 });
 
-function findUserByEmail(email){
-  var foundUser
-  for (let i = 0; i < users.length; i++) {
-    var user = users[i]
-    
-    if (user.email === email) {
-      foundUser = user
-      break
-    }
-
-    if (!foundUser)
-      return false
-    
-      return true
-}}

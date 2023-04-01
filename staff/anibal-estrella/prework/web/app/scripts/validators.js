@@ -1,6 +1,6 @@
 function validateEmail(email) {
     if (typeof email !== 'string') throw new Error('email must be a string')
-    if (email.trim().length) throw new Error('email is blank')
+    if (!email.trim().length) throw new Error('email is blank')
 }
 
 function validatePassword(password, explain = "new password") {
