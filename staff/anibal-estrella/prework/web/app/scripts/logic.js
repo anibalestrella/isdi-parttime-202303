@@ -2,7 +2,7 @@
 function registerUser(name, email, password) {
   validateName(name)
   validateEmail(email)
-  validatePassword(password, 'new password')
+  validatePassword(password)
 
   var foundUser = findUserByEmail(email)
   if (!foundUser)
@@ -19,6 +19,7 @@ function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password, 'new password')
   foundUser = findUserByEmail(email)
+
   if (!foundUser)
     throw new Error('User does not exist in the database')
 
@@ -28,44 +29,30 @@ function authenticateUser(email, password) {
   return foundUser
 }
 
-function findUserByEmail(email) {
-  for (let i = 0; i < users.length; i++) {
-    user = users[i]
-    if (users[i].email === email)
-    return users[i]
-}
-return user
-}
-
-
-
-
 function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+  //validate 
+  validateEmail(email)
+  validatePassword(password, 'new password')
+  validatePassword(newPassword, 'new password confirmation')
+  var foundUser = findUserByEmail(email)
+
   //lookup user data in db
+
   //check password is correct against user
-  var foundUser
 
-  for (let i = 0; i < users.length; i++) {
-    var user = users[i]
+  if (!foundUser)
+    throw new Error('user not found')
 
-    if (user.email === email) {
-      foundUser = user
-      break
-    }
+  if (password !== foundUser.password)
+    throw new Error('wrong password')
 
+  if (newPassword !== newPasswordConfirm)
+    throw new Error('your new passwords don\'t match the confirmation')
 
-    if (!foundUser)
-      return false
+  if (newPassword === password)
+    throw new Error('your new password match the old password, please try another')
 
-    if (newPassword !== foundUser.password)
-      return false
-    if (newPassword !== newPasswordConfirm)
-      return false
-    if (foundUser.password = newPassword)
-      return true
-
-
-  }
+  foundUser.password = newPassword
 }
 
 
@@ -74,6 +61,27 @@ function updadateUserAvatar(email, avatar) {
   validateEmail(email)
   // TODO
 
+}
+
+
+
+function retrieveUser(email) {
+  validateEmail(email)
+
+  var foundUser = findUserByEmail(email)
+
+  if (!foundUser)
+    throw new Error('user not found')
+
+  var user = {
+    name: foundUser.name,
+    email: foundUser.email
+  }
+
+  if (foundUser.avatar)
+    user.avatar = foundUser.avatar
+
+  return user
 }
 
     //TODO: 

@@ -1,34 +1,38 @@
-// DATA /data.js
-// PRESENTATION /main.js
-// LOGIC /logic.js
-
-var registerPage = document.querySelector(".register")
-var loginPage = document.querySelector(".login")
-var homePage = document.querySelector(".home")
-var profilePanel = document.querySelector('.profile')
-var homeMenu = homePage.querySelector('.home-menu')
-var changeUserAvatarForm = homePage.querySelector('.change-user-avatar')
-var foundUser;
 var name;
 var authenticatedUserEmail;
 var authenticatedUserName;
 
-loginPage.querySelector('form').addEventListener('submit', function (event) {
+var registerPage = document.querySelector(".register")
+var registerForm = registerPage.querySelector('form')
+
+var loginPage = document.querySelector(".login")
+var loginForm = loginPage.querySelector('form')
+
+var homePage = document.querySelector(".home")
+var changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
+var changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
+var homeMenu = homePage.querySelector('.home-menu')
+
+loginForm.addEventListener('submit', function (event) {
   event.preventDefault()
 
-  var email = loginPage.querySelector('input.email').value
-  var password = loginPage.querySelector('input.password').value
-  var result = authenticateUser(email, password);
+  var email = event.target.email.value
+  var password = event.target.password.value
 
-  if (result === false) {
-    alert('Wrong email or password!')
-  } else {
-    authenticatedUserEmail = foundUser.email
-    authenticatedUserName = foundUser.name;
+  try {
+   
+      authenticateUser(email, password)
+      authenticatedUserEmail = email
+      var user = retrieveUser(email)
 
-    loginPage.classList.add("off");
-    homePage.classList.remove("off")
-    homePage.querySelector('.hello-user-name').innerHTML = `${authenticatedUserName}`;
+      homePage.querySelector('.hello-user-name').innerHTML = user.name;
+      
+      loginPage.classList.add("off");
+      homePage.classList.remove("off")
+
+      loginForm.reset()
+  } catch (error) {
+    alert(error.message)
   }
 })
 
@@ -42,10 +46,14 @@ registerPage.querySelector('form').onsubmit = function (event) {
   var name = registerPage.querySelector('input.name').value
   var email = registerPage.querySelector('input.email').value
   var password = registerPage.querySelector('input.password').value
-  var result = registerUser(name, email, password)
-
+  try{
+    registerUser(name, email, password)
+    
     registerPage.classList.add("off");
     homePage.classList.remove("off");
+  } catch (error) {
+    alert(error.message)
+}
 }
 
 registerPage.querySelector('p a').onclick = function (event) {
@@ -54,27 +62,16 @@ registerPage.querySelector('p a').onclick = function (event) {
 }
 
 
-
-homePage.querySelector('form').addEventListener('submit', function (event) {
+changeUserPasswordForm.onsubmit = function (event) {
   event.preventDefault()
-
-  var password = registerPage.querySelector('input.password').value
-  var result = registerUser(email, password)
-
-})
-
-homePage.querySelector('.menu-profile').onclick = function (event) {
-  profilePanel.classList.remove("off");
+  var password = event.target.password.value
+  var newPassword = homePage.querySelector('input[name="newPassword"]').value
+  var newPasswordConfirm = homePage.querySelector('input[name="newPasswordConfirm"]').value
+try {
+  updateUserPassword(authenticatedUserEmail,password, newPassword, newPasswordConfirm)
+} catch (error) {
+  alert(error.message)
 }
-
-
-profilePanel.querySelector('form').onsubmit = function (event) {
-  event.preventDefault()
-
-  var password = profilePanel.querySelector('input.password').value
-  var newPassword = profilePanel.querySelector('input.newPassword').value
-  var newPasswordConfirm = profilePanel.querySelector('input.newPasswordConfirm').value
-
   console.log({ password }, { newPassword }, { newPasswordConfirm });
 }
 
@@ -86,18 +83,18 @@ changeUserAvatarForm.onsubmit = function (event) {
 homePage.querySelector('.home-header .menu-open').onclick = function (event) {
   event.preventDefault()
   console.log('show menuuuu!');
-show(homeMenu)
+  show(homeMenu)
 }
+
 homeMenu.querySelector('.menu-close').onclick = function (event) {
   event.preventDefault()
   console.log('CLOSEEEEE');
- hide(homeMenu)
+  hide(homeMenu)
 }
 
 homeMenu.querySelector('.menu-logout').onclick =
   function () {
     event.preventDefault()
-    hide(homePage, profilePanel, registerPage)
+    hide(homePage, homePage, registerPage)
     show(loginPage)
   }
-
