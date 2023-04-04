@@ -1,3 +1,7 @@
+// ESTA ES LA CAPA De PRESENTACION
+//SOLO IMPORTA LÓGICA
+//NO EXPORTA NADA
+
 var name;
 var authenticatedUserEmail;
 var authenticatedUserName;

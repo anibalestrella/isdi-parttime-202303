@@ -1,5 +1,5 @@
-
-function registerUser(name, email, password) {
+    
+export function registerUser(name, email, password) {
   validateName(name)
   validateEmail(email)
   validatePassword(password)
@@ -15,7 +15,7 @@ function registerUser(name, email, password) {
   })
 }
 
-function authenticateUser(email, password) {
+export function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password, 'new password')
   foundUser = findUserByEmail(email)
@@ -29,7 +29,7 @@ function authenticateUser(email, password) {
   return foundUser
 }
 
-function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
+export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
   //validate 
   validateEmail(email)
   validatePassword(password, 'new password')
@@ -55,17 +55,21 @@ function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
   foundUser.password = newPassword
 }
 
-
-function updadateUserAvatar(email, avatar) {
-  // TODO input validation
+export function updateUserAvatar(email, avatar) {
   validateEmail(email)
-  // TODO
+  validateUrl(avatar, 'avatar url')
 
+  var foundUser = findUserByEmail(email)
+
+  if (!foundUser)
+      throw new Error('user not found')
+
+  foundUser.avatar = avatar
 }
 
 
 
-function retrieveUser(email) {
+export function retrieveUser(email) {
   validateEmail(email)
 
   var foundUser = findUserByEmail(email)
@@ -84,5 +88,19 @@ function retrieveUser(email) {
   return user
 }
 
-    //TODO: 
-    //SIEMPRE TESTEAR LA LOGICA NO EN LA CAPA SUPERIOR!!
+
+/// helper de uso solo en logic no se exporta
+function findUserByEmail(email) {
+  var foundUser
+
+  for (let i = 0; i < users.length; i++) {
+    user = users[i]
+    if (users[i].email === email){
+
+      foundUser = user
+      
+      break;
+    }
+  }
+  return foundUser;
+}

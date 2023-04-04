@@ -19,17 +19,3 @@ users.push({
   password: '123',
 });
 
-function findUserByEmail(email) {
-  var foundUser
-
-  for (let i = 0; i < users.length; i++) {
-    user = users[i]
-    if (users[i].email === email){
-
-      foundUser = user
-      
-      break;
-    }
-  }
-  return foundUser;
-}
