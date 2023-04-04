@@ -17,11 +17,11 @@
 
 html,
 body {
+  font-family: var(--montserrat);
   height: 100%;
 }
 body {
   background-color: var(--basecolor);
-  font-family: Arial, sans-serif;
   font-size: 1em;
   padding: 0;
   margin: 0;
@@ -44,7 +44,6 @@ label {
 }
 
 .page {
-  font-family: var(--montserrat);
   display: flex;
   align-items: center;
   justify-content: center;

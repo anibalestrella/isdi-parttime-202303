@@ -8,9 +8,11 @@ var registerForm = registerPage.querySelector('form')
 var loginPage = document.querySelector(".login")
 var loginForm = loginPage.querySelector('form')
 
+
 var homePage = document.querySelector(".home")
-var changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
+var avatarImage = homePage.querySelector('.home-header-avatar')
 var changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
+var changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
 var homeMenu = homePage.querySelector('.home-menu')
 
 loginForm.addEventListener('submit', function (event) {
@@ -78,11 +80,31 @@ try {
 
 changeUserAvatarForm.onsubmit = function (event) {
   event.preventDefault()
+
+    /* NOTE
+    var url0 = event.target.url.value
+    var url1 = updateUserAvatarForm.url.value
+    var url2 = this.url.value
+
+    console.log(url0, url1, url2)
+    */
+
+    var url = event.target.url.value
+
+    try {
+        updateUserAvatar(authenticatedEmail, url)
+
+        alert('avatar updated')
+
+        avatarImage.src = url
+    } catch (error) {
+        alert(error.message)
+    }
+
 }
 
 homePage.querySelector('.home-header .menu-open').onclick = function (event) {
   event.preventDefault()
-  console.log('show menuuuu!');
   show(homeMenu)
 }
 
