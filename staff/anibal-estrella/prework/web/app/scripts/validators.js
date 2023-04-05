@@ -1,3 +1,5 @@
+console.log('//// VALIDATORS');
+
 export function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) throw new Error(`${email} is not an email`)

@@ -12,6 +12,7 @@
   --montserrat: "Montserrat", sans-serif;
   --basecolor: #040404;
   --backcolor: #3a3a3a;
+  --myLime:#00e608;
   --fontcolorlight: #dddcd9;
 }
 
@@ -27,12 +28,7 @@ body {
   margin: 0;
 }
 
-h1,
-h2,
-h3,
-p,
-a,
-label {
+h1,h2,h3,p,a,label {
   color: var(--fontcolorlight);
 }
 
@@ -111,7 +107,7 @@ button {
   text-transform: uppercase;
   text-shadow: 2px 2px 5px #000;
   width: 50%;
-  background-color: #00ff08;
+  background-color: var(--myLime);
   align-self: center;
 }
 
@@ -121,12 +117,12 @@ input[type="submit"]:focus {
 }
 
 button:hover {
-  background-color: #00e608;
+  background-color: var(--myLime);
   box-shadow: 3px 3px 5px #000000d5;
   text-shadow: none;
 }
 button:active {
-  background-color: #00e608;
+  background-color: var(--myLime);
   text-shadow: none;
   box-shadow: none;
 }
@@ -144,7 +140,7 @@ button:active {
 
 @media screen and (min-width: 420px) and (max-width: 480px) {
   body {
-    background-color: #00e608;
+    background-color: var(--myLime);
   }
 
   .register,
@@ -164,7 +160,7 @@ button:active {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #00ff08;
+  background-color: var(--myLime);
 }
 .home-header-avatar {
   width: 50px;
@@ -195,7 +191,7 @@ nav {
 .home-footer {
   width: 100%;
   height: 50px;
-  background-color: #00e608;
+  background-color: var(--myLime);
 }
 
 .off {

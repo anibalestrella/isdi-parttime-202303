@@ -1,4 +1,8 @@
-    
+ console.log('//// LOGIC');
+
+import {validateEmail, validateName,validatePassword,validateUrl} from "./validators.js"
+import {users} from "./data.js"
+
 export function registerUser(name, email, password) {
   validateName(name)
   validateEmail(email)
@@ -9,6 +13,7 @@ export function registerUser(name, email, password) {
     throw new Error('User exists in the database')
 
   users.push({
+    id: id,
     name: name,
     email: email,
     password: password,
@@ -89,7 +94,7 @@ export function retrieveUser(email) {
 }
 
 
-/// helper de uso solo en logic no se exporta
+/// helper de uso solo en logic.js no se exporta
 function findUserByEmail(email) {
   var foundUser
 

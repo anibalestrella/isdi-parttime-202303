@@ -1,6 +1,10 @@
 // ESTA ES LA CAPA De PRESENTACION
-//SOLO IMPORTA LÓGICA
-//NO EXPORTA NADA
+// SOLO IMPORTA LÓGICA
+// NO EXPORTA NADA
+console.log('//// MAIN');
+
+import {show,hide} from "./ui.js"
+import {registerUser,authenticateUser,updateUserPassword,updateUserAvatar,retrieveUser} from "./logic.js"
 
 var name;
 var authenticatedUserEmail;
@@ -38,6 +42,7 @@ loginForm.addEventListener('submit', function (event) {
 
       loginForm.reset()
   } catch (error) {
+    debugger;
     alert(error.message)
   }
 })
