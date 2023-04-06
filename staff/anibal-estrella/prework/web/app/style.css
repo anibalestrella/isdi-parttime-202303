@@ -197,3 +197,7 @@ nav {
 .off {
   display: none;
 }
+.add-post{
+  display:flex;
+
+}

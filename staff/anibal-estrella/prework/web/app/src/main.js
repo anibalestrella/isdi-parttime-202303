@@ -12,6 +12,7 @@ let authenticatedUserId;
 const registerPage = document.querySelector(".register")
 const registerForm = registerPage.querySelector('form')
 
+const DEFAULT_AVATAR_URL = 'https://i.stack.imgur.com/gdlU5.png?s=192&g=1'
 const loginPage = document.querySelector(".login")
 const loginForm = loginPage.querySelector('form')
 
@@ -20,6 +21,8 @@ const homePage = document.querySelector(".home")
 const avatarImage = homePage.querySelector('.home-header-avatar')
 const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
+const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
+
 const homeMenu = homePage.querySelector('.home-menu')
 
 loginForm.onsubmit = function (event) {
@@ -62,8 +65,8 @@ registerForm.onsubmit = function (event) {
           loginForm.reset()
           homePage.querySelector('.hello-user-name').innerHTML = name;
 
-    show(registerPage)
-    hide(homePage)
+    hide(registerPage)
+    show(homePage)
   } catch (error) {
     alert(error.message)
 }
@@ -81,7 +84,20 @@ changeUserPasswordForm.onsubmit = function (event) {
   var newPassword = homePage.querySelector('input[name="newPassword"]').value
   var newPasswordConfirm = homePage.querySelector('input[name="newPasswordConfirm"]').value
 try {
-  updateUserPassword(authenticatedUserEmail,password, newPassword, newPasswordConfirm)
+  updateUserPassword(authenticatedUserId,password, newPassword, newPasswordConfirm)
+} catch (error) {
+  alert(error.message)
+}
+  console.log({ password }, { newPassword }, { newPasswordConfirm });
+}
+
+changeUserEmailForm.onsubmit = function (event) {
+  event.preventDefault()
+  var password = event.target.password.value
+  var newPassword = homePage.querySelector('input[name="newPassword"]').value
+  var newPasswordConfirm = homePage.querySelector('input[name="newPasswordConfirm"]').value
+try {
+  updateUserPassword(authenticatedUserId,password, newPassword, newPasswordConfirm)
 } catch (error) {
   alert(error.message)
 }
@@ -96,7 +112,6 @@ changeUserAvatarForm.onsubmit = function (event) {
     var url0 = event.target.url.value
     var url1 = updateUserAvatarForm.url.value
     var url2 = this.url.value
-
     console.log(url0, url1, url2)
     */
 
@@ -128,6 +143,7 @@ homeMenu.querySelector('.menu-close').onclick = function (event) {
 homeMenu.querySelector('.menu-logout').onclick =
   function () {
     event.preventDefault()
+    avatarImage.src = DEFAULT_AVATAR_URL;
     hide(homeMenu, homePage, homePage, registerPage)
     show(loginPage)
   }

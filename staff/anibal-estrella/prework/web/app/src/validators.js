@@ -29,3 +29,7 @@ export function validateId(id, explain = 'id') {
     if (typeof id !== 'string') throw new Error('id must be a string')
     if (!id.trim().length) throw new Error(`${id} is empty`)
 }
+
+export function validateText(){
+
+}
