@@ -1,6 +1,6 @@
  console.log('//// LOGIC');
 
-import {validateEmail, validateName,validatePassword,validateUrl, validateId} from "./validators.js"
+import {validateEmail, validateName,validatePassword,validateUrl} from "./validators.js"
 import {users} from "./data.js"
 
 export function registerUser(name, email, password) {
@@ -55,12 +55,12 @@ export function authenticateUser(email, password) {
   return foundUser
 }
 
-export function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
+export function updateUserPassword(email, password, newPassword, newPasswordConfirm) {
   //validate 
-validateId(userId,'user id') 
-validatePassword(password, 'new password')
+  validateEmail(email)
+  validatePassword(password, 'new password')
   validatePassword(newPassword, 'new password confirmation')
-  const foundUser = findUserById(userId)
+  const foundUser = findUserByEmail(email)
 
   //lookup user data in db
 
@@ -81,59 +81,47 @@ validatePassword(password, 'new password')
   foundUser.password = newPassword
 }
 
+export function updateUserAvatar(email, avatar) {
+  validateEmail(email)
+  validateUrl(avatar, 'avatar url')
 
+  const foundUser = findUserByEmail(email)
 
-
-export function retrieveUser(userId) {
-  validateId(userId, 'user id')
-  
-  const foundUser = findUserById(userId)
-  
   if (!foundUser)
-  throw new Error('user not found')
-  
-  const user = {
+      throw new Error('user not found')
+
+  foundUser.avatar = avatar
+}
+
+
+
+export function retrieveUser(email) {
+  validateEmail(email)
+
+  var foundUser = findUserByEmail(email)
+
+  if (!foundUser)
+    throw new Error('user not found')
+
+  var user = {
     name: foundUser.name,
+    email: foundUser.email
   }
 
   if (foundUser.avatar)
     user.avatar = foundUser.avatar
-    
-    return user
-  }
-  
-  export function updateUserAvatar(userId, avatar) {
-    validateId(userId, 'user id')
-    validateUrl(avatar, 'avatar url')
-  
-    const foundUser = findUserById(userId)
-  
-    if (!foundUser)
-        throw new Error('user not found')
-  
-    foundUser.avatar = avatar
-  }
-  // HELPERS:
-// de uso solo en logic.js no se exporta
+
+  return user
+}
+
+
+/// helper de uso solo en logic.js no se exporta
 function findUserByEmail(email) {
   let foundUser
 
   for (let i = 0; i < users.length; i++) {
     let user = users[i]
     if (users[i].email === email){
-      foundUser = user
-      break;
-    }
-  }
-  return foundUser;
-}
-
-function findUserById(userId) {
-  let foundUser
-
-  for (let i = 0; i < users.length; i++) {
-    let user = users[i]
-    if (users[i].id === userId){
       foundUser = user
       break;
     }

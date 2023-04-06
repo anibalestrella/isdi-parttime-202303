@@ -7,7 +7,7 @@ import {show,hide} from "./ui.js"
 import {registerUser,authenticateUser,updateUserPassword,updateUserAvatar,retrieveUser} from "./logic.js"
 
 let name;
-let authenticatedUserId;
+var authenticatedUserEmail;
 
 const registerPage = document.querySelector(".register")
 const registerForm = registerPage.querySelector('form')
@@ -29,8 +29,9 @@ loginForm.onsubmit = function (event) {
   const password = event.target.password.value
 
   try {
-    authenticatedUserId = authenticateUser(email, password)
-      const user = retrieveUser(authenticatedUserId)
+      authenticateUser(email, password)
+      authenticatedUserEmail = email
+      const user = retrieveUser(email)
       
       homePage.querySelector('.hello-user-name').innerHTML = user.name;
       
@@ -54,16 +55,16 @@ loginPage.querySelector('p a').onclick = function (event) {
 
 registerForm.onsubmit = function (event) {
   event.preventDefault()
-  const name = event.target.name.value
-  const email = event.target.email.value
-  const password = event.target.password.value
+  const name = registerPage.querySelector('input.name').value
+  const email = registerPage.querySelector('input.email').value
+  const password = registerPage.querySelector('input.password').value
   try{
     registerUser(name, email, password)
           loginForm.reset()
           homePage.querySelector('.hello-user-name').innerHTML = name;
 
-    show(registerPage)
-    hide(homePage)
+    registerPage.classList.add("off");
+    homePage.classList.remove("off");
   } catch (error) {
     alert(error.message)
 }

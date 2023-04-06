@@ -19,13 +19,8 @@ export function validateName(name) {
 }
 export function validateUrl(url, explain = 'URL') {
     if (typeof url !== 'string') throw new Error('url must be a string')
-    if (!url.trim().length) throw new Error(`${url} is empty`)
+    if (!url.trim().length) throw new Error(`${url}`)
 
     var foundUser = findUserByMail(email)
     foundUser.vatar = avatar
-}
-
-export function validateId(id, explain = 'id') {
-    if (typeof id !== 'string') throw new Error('id must be a string')
-    if (!id.trim().length) throw new Error(`${id} is empty`)
 }
