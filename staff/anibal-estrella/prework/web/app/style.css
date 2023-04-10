@@ -194,10 +194,10 @@ nav {
   background-color: var(--myLime);
 }
 
-.off {
-  display: none;
-}
 .add-post{
   display:flex;
-
+  
+}
+.off {
+  display: none;
 }

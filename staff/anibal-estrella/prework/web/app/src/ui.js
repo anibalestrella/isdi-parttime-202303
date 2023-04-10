@@ -17,3 +17,8 @@ export function toggle(...containers) {
   for (var i = 0; i < containers.length; i++)
     containers[i].classList.toggle("off");
 }
+
+
+export const context = {
+  userId: null
+}

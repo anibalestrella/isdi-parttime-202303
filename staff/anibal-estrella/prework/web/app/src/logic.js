@@ -81,6 +81,23 @@ export function updateUserPassword(userId, password, newPassword, newPasswordCon
   foundUser.password = newPassword
 }
 
+export function updateUserEmail(userId, newEmail, confirmEmail) {
+  validateEmail(newEmail)
+  validateEmail(confirmEmail)
+  const foundUser = findUserById(userId)
+
+  if (confirmEmail === newEmail){
+  foundUser.email = newEmail
+  console.log(foundUser)
+} else {
+  throw new Error('your new emails don\'t match the confirmation')
+  
+}
+
+
+
+}
+
 
 
 
@@ -115,6 +132,8 @@ export function updateUserAvatar(userId, avatar) {
 }
 // HELPERS:
 // de uso solo en logic.js no se exporta
+
+
 function findUserByEmail(email) {
   let foundUser
 
