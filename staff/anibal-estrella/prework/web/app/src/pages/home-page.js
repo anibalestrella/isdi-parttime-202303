@@ -1,9 +1,9 @@
 console.log('// home-page')
 
 import { context, show, hide } from "../ui.js"
-import {updateUserPassword} from "../logic/update-user-password.js"
-import {updateUserAvatar} from '../logic/update-user-avatar.js'
-import {updateUserEmail } from "../logic/update-user-email.js"
+import { updateUserPassword } from "../logic/update-user-password.js"
+import { updateUserAvatar } from '../logic/update-user-avatar.js'
+import { updateUserEmail } from "../logic/update-user-email.js"
 import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
 
@@ -13,6 +13,13 @@ const avatarImage = homePage.querySelector('.home-header-avatar')
 const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
 const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
+
+const homefooter = document.querySelectorAll('.home-footer')
+
+const addPost = document.querySelector('.add-post')
+const adPostForm = document.querySelector('.ad-post-form')
+
+
 
 const homeMenu = homePage.querySelector('.home-menu')
 
@@ -90,3 +97,51 @@ homeMenu.querySelector('.menu-logout').onclick =
     hide(homeMenu, homePage, homePage, registerPage)
     show(loginPage)
   }
+
+homefooter.querySelector('add-post-button').onclick = function () {
+  console.log('POST!')
+  show(adPostForm)
+}
+
+export function renderPosts() {
+  //empty the posts
+  postListPanel.innerHTML = ''
+
+  try {
+    const posts = retrievePosts(context.userId)
+    posts.forEach(post => {
+      // IMPERATIVE WAY
+      // const postItem = document.createElement('article')
+      // const image = document.createElement('img')
+      // const title = document.createElement('h3')
+      // const text = document.createElement('p')
+      // const date = document.createElement('time')
+
+      // date.innerText = post.date.toLocaleDateString()
+
+      // postItem.appendChild(image, title, text, date)
+
+      // DECLARATIVE WAY
+      postListPanel.innerHTML = posts.reduce((accum, post) => {
+        return accum + `
+        <article class="post">
+          <img src="${post.image}" alt="${post.title}">
+          <h3>${post.title}</h3>
+          <p>${post.text}</p>
+          <date>${post.date.toLocaleDateString()}</date>
+        </article>
+        `
+      })
+
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+addPostForm.querySelector('cancel').onclick = function (event) {
+  event.preventDefault()
+
+  hide(addPostPanel)
+  reset.
+}

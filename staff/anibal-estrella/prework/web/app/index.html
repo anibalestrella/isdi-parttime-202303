@@ -1,112 +1,161 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>ISDI APP</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <title>ISDI  APP</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <div class="login page _off">
-    
-    <form>
-      <h1>Login</h1>
-      <label for="username">E-mail:</label>
-      <input type="text" class="email" name="email" placeholder="Enter your e-mail" value="pj@gmail.com"/>
-      <label for="lastname">Password:</label>
-      <input type="password" class="password" name="password" placeholder="Enter your password" value="123"/>
-      <button class="button-submit" type="submit">Login</button>
-    </form>
-    <p class="goto goto-register">
-      Not registered? Do it <a href="#">here</a>.
-    </p>
-  </div>
-
-  <div class="register page off">
-    <form action="" method="get" class="register-form">
-      <h1>Register</h1>
-      <label for="name">Name:</label>
-      <input type="text" class="name" name="name" placeholder="Enter your name" />
-      <label for="email">E-mail:</label>
-      <input type="text" class="email" name="email" placeholder="Enter your e-mail" />
-      <label for="password">Password:</label>
-      <input type="password" class="password" name="password" placeholder="Enter your password" />
-      <button class="buttom button-submit" type="submit" value="register">
-        Register
-      </button>
-    </form>
-    <p class="goto goto-login">
-      Already registered? Login <a href="#">here</a>.
-    </p>
-  </div>
-
-  <div class="home page off">
-    <header class="home-header">
-      <h1>Home</h1>
-      <img class="home-header-avatar" src="" alt="" />
-      <a href="" class="menu-open">Menu</a>
-    </header>
-    <div class="home-menu container off">
-      <ul>
-        <li class="menu-close">
-          <a href="#" class="close-menu">Close Menu</a>
-        </li>
-        <li class="menu-logout"><a href="#">Logout</a></li>
-        <li class="menu-profile"><a href="#">Profile</a></li>
-      </ul>
+  <body>
+    <div class="login page _off">
+      <form>
+        <h1>Login</h1>
+        <label for="username">E-mail:</label>
+        <input
+          type="text"
+          class="email"
+          name="email"
+          placeholder="Enter your e-mail"
+          value="pj@gmail.com"
+        />
+        <label for="lastname">Password:</label>
+        <input
+          type="password"
+          class="password"
+          name="password"
+          placeholder="Enter your password"
+          value="123"
+        />
+        <button class="button-submit" type="submit">Login</button>
+      </form>
+      <p class="goto goto-register">
+        Not registered? Do it <a href="#">here</a>.
+      </p>
     </div>
 
-    <h1>Profile</h1>
-    <h2 class="hello-user">
-      Hello. <span class="hello-user-name"></span>!
-    </h2>
+    <div class="register page off">
+      <form action="" method="get" class="register-form">
+        <h1>Register</h1>
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          class="name"
+          name="name"
+          placeholder="Enter your name"
+        />
+        <label for="email">E-mail:</label>
+        <input
+          type="text"
+          class="email"
+          name="email"
+          placeholder="Enter your e-mail"
+        />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          class="password"
+          name="password"
+          placeholder="Enter your password"
+        />
+        <button class="buttom button-submit" type="submit" value="register">
+          Register
+        </button>
+      </form>
+      <p class="goto goto-login">
+        Already registered? Login <a href="#">here</a>.
+      </p>
+    </div>
+
+    <div class="home page off">
+      <header class="home-header">
+        <h1>Home</h1>
+        <img class="home-header-avatar" src="" alt="" />
+        <a href="" class="menu-open">Menu</a>
+      </header>
+      <div class="home-menu container off">
+        <ul>
+          <li class="menu-close">
+            <a href="#" class="close-menu">Close Menu</a>
+          </li>
+          <li class="menu-logout"><a href="#">Logout</a></li>
+          <li class="menu-profile"><a href="#">Profile</a></li>
+          <li class="menu-creatre-post"><a href="#">Create Post</a></li>
+        </ul>
+      </div>
+
+      <h1>Profile</h1>
+      <h2 class="hello-user">Hello. <span class="hello-user-name"></span>!</h2>
 
       <form action="" class="change-user-avatar-form">
         <h3 class="change-user-avatar-headline">Change avatar</h3>
-        <input type="text" name="avatarUrl" placeholder="Avatar image URL"
-          accept="image/png, image/jpeg, image/gif, image/png, image/webp" />
+        <input
+          type="text"
+          name="avatarUrl"
+          placeholder="Avatar image URL"
+          accept="image/png, image/jpeg, image/gif, image/png, image/webp"
+        />
         <button type="submit">Update Avatar</button>
       </form>
-    
 
-      <form action="" class="change-user-password-form">
-        <h3 class="change-password">Change Your Password</h3>
-        <input type="password" name="password" placeholder="Enter your password" />
-        <input type="password" name="newPassword" placeholder="Enter your new password" />
-        <input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
-        <button type="submit">Update Password</button>
+      <section class="">
+        <form action="" class="change-user-password-form">
+          <h3 class="change-password">Change Your Password</h3>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+          />
+          <input
+            type="password"
+            name="newPassword"
+            placeholder="Enter your new password"
+          />
+          <input
+            type="password"
+            name="newPasswordConfirm"
+            placeholder="Confirm your new password"
+          />
+          <button type="submit">Update Password</button>
+        </form>
+      </section>
+
+      <section class="">
+        <form action="" class="change-user-email-form">
+          <h3 class="change-user-email">Change Your e-mail</h3>
+          <input
+            type="text"
+            name="newEmail"
+            placeholder="Enter your new e-mail"
+          />
+          <input
+            type="text"
+            name="newEmailConfirm"
+            placeholder="Confirm your new e-mail"
+          />
+          <button type="submit">Change e-mail</button>
+        </form>
+      </section>
+    </div>
+
+    <section class="add-post off">
+      <form action="" class="add-post-form">
+        <label for="">Image:</label>
+        <input class="" type="text" />
+        <label for="">Text:</label>
+        <input class="" type="text" />
+        <button class="create">create</button>
+        <button class="cancel">cancel</button>
       </form>
-    
-  
-      <form action="" class="change-user-email-form">
-        <h3 class="change-user-email">Change Your e-mail</h3>
-        <input type="text" name="newEmail" placeholder="Enter your new e-mail" />
-        <input type="text" name="newEmailConfirm" placeholder="Confirm your new e-mail" />
-        <button type="submit">Change e-mail</button>
-      </form>
-  
-  </div>
+    </section>
 
-  <div class="add-post off">
-    <form action="" class="">
-      <label for="">Image:</label>
-      <input class="" type="text">
-      <label for="">Text:</label>
-      <input class="" type="text">
-<button class="cancel">cancel</button>
-<button class="create">create</button>
-    </form>
-  </div>
-  
-  <div class="post-list off"></div>
+    <section class="post-list off">
 
-  <footer class="home-footer">
-    <h1>Footer</h1>
-    <button class="add-post-button">+</button>
-  </footer>
+    </section>
 
+    <footer class="home-footer">
+      <h1>Footer</h1>
+      <button class="add-post-button off">+</button>
+    </footer>
 
-  <script type="module" src="./src/main.js"></script>
-</body>
-
+    <script type="module" src="./src/main.js"></script>
+  </body>
 </html>

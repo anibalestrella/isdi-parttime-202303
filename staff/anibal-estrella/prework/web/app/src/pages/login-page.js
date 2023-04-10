@@ -27,7 +27,8 @@ loginForm.onsubmit = function (event) {
       loginForm.reset()
 
       hide(loginPage)
-      show(homePage)
+      show(homePage,)
+      
 
   } catch (error) {
     alert(error.message)

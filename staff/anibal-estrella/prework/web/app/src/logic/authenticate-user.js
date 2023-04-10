@@ -1,6 +1,5 @@
 console.log('// LOGIC // authenticateUser');
 
-
 import { validateEmail, validatePassword} from "./helpers/validators.js"
 import {findUserByEmail} from "./helpers/data-managers.js"
 

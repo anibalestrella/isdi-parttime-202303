@@ -32,7 +32,7 @@ posts.push({
   author:'user-01',
   image:'http://lorempixel.com/600/400/people/1/',
   etxt:'',
-  date: new Date(),
+  date: new Date( ),
 })
 
 posts.push({
