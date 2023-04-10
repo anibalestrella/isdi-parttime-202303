@@ -1,8 +1,7 @@
 console.log('// LOGIC // createPost');
 
 
-import { validateId, va } from "./helpers/validators.js" 
-imprt { posts } from './data.js'
+import { validateId, validateUrl, validateText } from "./helpers/validators.js" 
 
 export default function createPost(userId, image, text){
     validateId(userId, 'user id')

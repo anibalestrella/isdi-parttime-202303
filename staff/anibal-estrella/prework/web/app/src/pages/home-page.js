@@ -1,7 +1,9 @@
 console.log('// home-page')
 
 import { context, show, hide } from "../ui.js"
-import {updateUserPassword, updateUserAvatar, updateUserEmail } from "../logic.js"
+import {updateUserPassword} from "../logic/update-user-password.js"
+import {updateUserAvatar} from '../logic/update-user-avatar.js'
+import {updateUserEmail } from "../logic/update-user-email.js"
 import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
 

@@ -1,6 +1,6 @@
 console.log('// LOGIC // registerUser');
 
-import { validateEmail, validateName, validatePassword } from "..validators.js"
+import { validateEmail, validateName, validatePassword } from "./helpers/validators.js"
 import {findUserByEmail} from "./helpers/data-managers.js"
 import { users } from "../data.js";
 

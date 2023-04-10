@@ -1,13 +1,13 @@
 console.log('// login-page' )
 
-import { authenticateUser, retrieveUser } from "../logic.js"
+import { authenticateUser} from '../logic/authenticate-user.js'
+import {retrieveUser } from "../logic/retrieve-user.js"
 import { context, show, hide } from "../ui.js"
 import { registerPage } from "./register-page.js"
 import { homePage } from "./home-page.js"
 
 export const loginPage = document.querySelector(".login")
 const loginForm = loginPage.querySelector('form')
-
 
 loginForm.onsubmit = function (event) {
   event.preventDefault()

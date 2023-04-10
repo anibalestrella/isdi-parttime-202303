@@ -1,6 +1,6 @@
 console.log('// register-page');
 
-import {registerUser} from '../logic.js'
+import {registerUser} from '../logic/register-user.js'
 import { show, hide } from "../ui.js"
 import { loginPage} from './login-page.js';
 import { homePage } from "./home-page.js"
