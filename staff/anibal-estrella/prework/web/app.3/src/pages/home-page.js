@@ -16,8 +16,8 @@ const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
 
 export const homeFooter = document.querySelector('.home-footer')
 
-const addPostPanel = document.querySelector('.add-post-panel')
-const addPostPanelForm = document.querySelector('.add-post-panel-form')
+ const addPostPanel = document.querySelector('.add-post-panel')
+ const addPostPanelForm = document.querySelector('.add-post-panel-form')
 
 
 
@@ -92,11 +92,11 @@ homeMenu.querySelector('.menu-logout').onclick = function (event) {
   event.preventDefault()
 
   context.userId = null
-  avatarImage.src = DEFAULT_AVATAR_URL;
+    avatarImage.src = DEFAULT_AVATAR_URL;
 
-  hide(homeMenu, homePage, homePage, registerPage)
-  show(loginPage)
-}
+    hide(homeMenu, homePage, homePage, registerPage)
+    show(loginPage)
+  }
 
 homeFooter.querySelector('.add-post-button').onclick = function (event) {
   event.preventDefault()
@@ -145,5 +145,5 @@ addPostPanelForm.querySelector('.cancel').onclick = function (event) {
 }
 
 document.querySelector('.overlay-panel-close').onclick = function (event) {
-  hide(addPostPanel)
+hide(addPostPanel)
 }
