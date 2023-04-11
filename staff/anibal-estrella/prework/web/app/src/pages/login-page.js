@@ -4,7 +4,7 @@ import { authenticateUser} from '../logic/authenticate-user.js'
 import {retrieveUser } from "../logic/retrieve-user.js"
 import { context, show, hide } from "../ui.js"
 import { registerPage } from "./register-page.js"
-import { homePage } from "./home-page.js"
+import { homePage, homeFooter } from "./home-page.js"
 
 export const loginPage = document.querySelector(".login")
 const loginForm = loginPage.querySelector('form')
@@ -28,7 +28,7 @@ loginForm.onsubmit = function (event) {
 
       hide(loginPage)
       show(homePage,)
-      
+      show(homeFooter)
 
   } catch (error) {
     alert(error.message)

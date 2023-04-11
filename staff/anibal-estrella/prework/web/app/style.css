@@ -13,13 +13,13 @@
   --basecolor: #040404;
   --backcolor: #3a3a3a;
   --myLime:#00e608;
+  --myRed:#ff3478;
   --fontcolorlight: #dddcd9;
 }
 
 html,
 body {
   font-family: var(--montserrat);
-  height: 100%;
 }
 body {
   background-color: var(--basecolor);
@@ -51,19 +51,27 @@ h1,h2,h3,p,a,label {
 .register,
 .login,
 .home {
+  min-width: 50vw;
+}
+
+.register,
+.login,
+.home,
+.add-post-panel form {
   background-color: var(--backcolor);
   border-radius: 15px;
   box-shadow: 0px 0px 10px #000;
-  min-width: 50vw;
   animation: fade-in 0.3s ease;
 }
 
-
+section {
+width: 100%;
+}
 form {
   display: flex;
   flex-direction: column;
   width: 100%;
-} 
+}
 
 h1,
 h2,
@@ -82,6 +90,7 @@ form label {
   text-transform: uppercase;
 }
 
+textarea,
 input[type="text"],
 input[type="password"] {
   padding: 10px 25px;
@@ -106,20 +115,21 @@ button {
   height: 50px;
   text-transform: uppercase;
   text-shadow: 2px 2px 5px #000;
+  box-shadow: 2px 2px 2px #000000d5;
   width: 50%;
   background-color: var(--myLime);
   align-self: center;
 }
 
-input[type="submit"]:focus {
+textarea:focus, input[type="submit"]:focus, input[type="text"]:focus {
   box-shadow: none;
   border: none;
 }
 
 button:hover {
   background-color: var(--myLime);
-  box-shadow: 3px 3px 5px #000000d5;
-  text-shadow: none;
+  text-shadow: 0px 0px 5px #00000098;
+  box-shadow: 5px 5px 5px #000000d5;
 }
 button:active {
   background-color: var(--myLime);
@@ -137,7 +147,16 @@ button:active {
     margin-top: 0;
   }
 }
-
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    margin-top: 2rem;
+  }
+  to {
+    opacity: 0;
+    margin-top: 0;
+  }
+}
 @media screen and (min-width: 420px) and (max-width: 480px) {
   body {
     background-color: var(--myLime);
@@ -188,16 +207,63 @@ button:active {
 nav {
 }
 
-.home-footer {
+.overlay-panel-close {
+  position: absolute;
+  top:0;
+  z-index: -1;
   width: 100%;
+  height: 100%;
+}
+
+.home-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+bottom: 0;
+  width: 100vw;
   height: 50px;
   background-color: var(--myLime);
 }
-
-.add-post{
-  display:flex;
-  
+.home-footer button{
+  font-weight: 700;
+  background-color: var(--myRed);
+  opacity: 80%;
+color:var(--backcolor);
+margin: 0;
+box-shadow: none;
+text-shadow: none;
+width: 50px;
+height: 100%;
+border-radius: 0px;
+padding: 0;
 }
+
+.add-post-panel{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000c7;
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  padding: 2rem;
+}
+.add-post-panel form{
+  min-width: 300px;
+  max-width: 50vw ;
+  padding: 2rem;
+}
+.add-post-panel textarea{
+  padding: 1rem;
+height: auto;
+}
+
 .off {
   display: none;
+  animation: fade-out 0.3s ease;
 }

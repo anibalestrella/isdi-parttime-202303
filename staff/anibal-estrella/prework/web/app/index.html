@@ -84,21 +84,23 @@
 
       <h1>Profile</h1>
       <h2 class="hello-user">Hello. <span class="hello-user-name"></span>!</h2>
+      
+      <section class="change-user-avatar">
+        <form action="" class="change-user-avatar-form">
+          <h3 class="change-user-avatar-headline">Change avatar</h3>
+          <input
+            type="text"
+            name="avatarUrl"
+            placeholder="Avatar image URL"
+            accept="image/png, image/jpeg, image/gif, image/png, image/webp"
+          />
+          <button type="submit">Update Avatar</button>
+        </form>
+      </section>
 
-      <form action="" class="change-user-avatar-form">
-        <h3 class="change-user-avatar-headline">Change avatar</h3>
-        <input
-          type="text"
-          name="avatarUrl"
-          placeholder="Avatar image URL"
-          accept="image/png, image/jpeg, image/gif, image/png, image/webp"
-        />
-        <button type="submit">Update Avatar</button>
-      </form>
-
-      <section class="">
+      <section class="change-user-password">
         <form action="" class="change-user-password-form">
-          <h3 class="change-password">Change Your Password</h3>
+          <h3 class="change-password-headline">Change Your Password</h3>
           <input
             type="password"
             name="password"
@@ -135,27 +137,33 @@
         </form>
       </section>
     </div>
+    
+    <section class="add-post-panel off">
+      <form action="" class="add-post-panel-form">
+        <h3 class="create-post-headline">Shoot your post!</h3>
+        <label for="add-post-image">Image:</label>
+        <input class="" type="text" placeholder="Paste image URL in here." />
+        <label for="add-post-text">Text:</label>
+        <textarea
+        class=""
+        type="text"
+          cols="25"
+          rows="15"
+          placeholder="Write whatever you want in here."
+          ></textarea>
+          <button class="create">create</button>
+          <button class="cancel">cancel</button>
+        </form>
+        <div class="overlay-panel-close"></div>
+      </section>
+      
+      <section class="post-list off"></section>
+  
+      <footer class="home-footer off">
+        <button class="add-post-button">+</button>
 
-    <section class="add-post off">
-      <form action="" class="add-post-form">
-        <label for="">Image:</label>
-        <input class="" type="text" />
-        <label for="">Text:</label>
-        <input class="" type="text" />
-        <button class="create">create</button>
-        <button class="cancel">cancel</button>
-      </form>
-    </section>
-
-    <section class="post-list off">
-
-    </section>
-
-    <footer class="home-footer">
-      <h1>Footer</h1>
-      <button class="add-post-button off">+</button>
-    </footer>
-
-    <script type="module" src="./src/main.js"></script>
-  </body>
-</html>
+      </footer>
+      
+      <script type="module" src="./src/main.js"></script>
+    </body>
+    </html>

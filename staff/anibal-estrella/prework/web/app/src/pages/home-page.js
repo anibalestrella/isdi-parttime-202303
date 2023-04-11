@@ -14,10 +14,10 @@ const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
 const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
 
-const homefooter = document.querySelectorAll('.home-footer')
+export const homeFooter = document.querySelector('.home-footer')
 
-const addPost = document.querySelector('.add-post')
-const adPostForm = document.querySelector('.ad-post-form')
+ const addPostPanel = document.querySelector('.add-post-panel')
+ const addPostPanelForm = document.querySelector('.add-post-panel-form')
 
 
 
@@ -77,7 +77,7 @@ changeUserAvatarForm.onsubmit = function (event) {
 
 }
 
-homePage.querySelector('.home-header .menu-open').onclick = function (event) {
+homePage.querySelector('.home-header .menu-open').onclick = (event) => {
   event.preventDefault()
   show(homeMenu)
 }
@@ -88,60 +88,62 @@ homeMenu.querySelector('.menu-close').onclick = function (event) {
   hide(homeMenu)
 }
 
-homeMenu.querySelector('.menu-logout').onclick =
-  function () {
+homeMenu.querySelector('.menu-logout').onclick = function (event) {
+  event.preventDefault()
 
-    context.userId = null
+  context.userId = null
     avatarImage.src = DEFAULT_AVATAR_URL;
 
     hide(homeMenu, homePage, homePage, registerPage)
     show(loginPage)
   }
 
-homefooter.querySelector('add-post-button').onclick = function () {
-  console.log('POST!')
-  show(adPostForm)
-}
-
-export function renderPosts() {
-  //empty the posts
-  postListPanel.innerHTML = ''
-
-  try {
-    const posts = retrievePosts(context.userId)
-    posts.forEach(post => {
-      // IMPERATIVE WAY
-      // const postItem = document.createElement('article')
-      // const image = document.createElement('img')
-      // const title = document.createElement('h3')
-      // const text = document.createElement('p')
-      // const date = document.createElement('time')
-
-      // date.innerText = post.date.toLocaleDateString()
-
-      // postItem.appendChild(image, title, text, date)
-
-      // DECLARATIVE WAY
-      postListPanel.innerHTML = posts.reduce((accum, post) => {
-        return accum + `
-        <article class="post">
-          <img src="${post.image}" alt="${post.title}">
-          <h3>${post.title}</h3>
-          <p>${post.text}</p>
-          <date>${post.date.toLocaleDateString()}</date>
-        </article>
-        `
-      })
-
-    } catch (error) {
-      alert(error.message)
-    }
-  }
-}
-
-addPostForm.querySelector('cancel').onclick = function (event) {
+homeFooter.querySelector('.add-post-button').onclick = function (event) {
   event.preventDefault()
+  console.log('POST!')
+  show(addPostPanel)
+}
 
+// export function renderPosts() {
+//   //empty the posts
+//   postListPanel.innerHTML = ''
+
+//   try {
+//     const posts = retrievePosts(context.userId)
+//     posts.forEach(post => {
+//       // IMPERATIVE WAY
+//       // const postItem = document.createElement('article')
+//       // const image = document.createElement('img')
+//       // const title = document.createElement('h3')
+//       // const text = document.createElement('p')
+//       // const date = document.createElement('time')
+
+//       // date.innerText = post.date.toLocaleDateString()
+
+//       // postItem.appendChild(image, title, text, date)
+
+//       // DECLARATIVE WAY
+//       postListPanel.innerHTML = posts.reduce((accum, post) => {
+//         return accum + `
+//         <article class="post">
+//           <img src="${post.image}" alt="${post.title}">
+//           <h3>${post.title}</h3>
+//           <p>${post.text}</p>
+//           <date>${post.date.toLocaleDateString()}</date>
+//         </article>`})
+//     }
+//   } catch(error) {
+//       alert(error.message)
+//     }
+//   }
+
+
+addPostPanelForm.querySelector('.cancel').onclick = function (event) {
+  event.preventDefault()
   hide(addPostPanel)
-  reset.
+  addPostPanelForm.reset()
+}
+
+document.querySelector('.overlay-panel-close').onclick = function (event) {
+hide(addPostPanel)
 }
