@@ -67,9 +67,12 @@
 
     <div class="home page off">
       <header class="home-header">
-        <h1>Home</h1>
-        <img class="home-header-avatar" src="" alt="" />
-        <a href="" class="menu-open">Menu</a>
+        <div class="header-items-container">
+
+          <h1>Home</h1>
+          <img class="home-header-avatar" src="" alt="" />
+          <button href="" class="menu-open">&#9776;</button>
+        </div>
       </header>
       <div class="home-menu container off">
         <ul>
@@ -81,12 +84,14 @@
           <li class="menu-creatre-post"><a href="#">Create Post</a></li>
         </ul>
       </div>
-
+      
       <h1>Profile</h1>
+      
       <h2 class="hello-user">Hello. <span class="hello-user-name"></span>!</h2>
       
+      <img class="home-profile-avatar" src="" alt="" />
       <section class="change-user-avatar">
-        <form action="" class="change-user-avatar-form">
+        <form action="" class="change-user-avatar-form off">
           <h3 class="change-user-avatar-headline">Change avatar</h3>
           <input
             type="text"
@@ -98,7 +103,7 @@
         </form>
       </section>
 
-      <section class="change-user-password">
+      <section class="change-user-password off">
         <form action="" class="change-user-password-form">
           <h3 class="change-password-headline">Change Your Password</h3>
           <input
@@ -120,9 +125,9 @@
         </form>
       </section>
 
-      <section class="">
+      <section class="off">
         <form action="" class="change-user-email-form">
-          <h3 class="change-user-email">Change Your e-mail</h3>
+          <h3 class="change-user-email-headline">Change Your e-mail</h3>
           <input
             type="text"
             name="newEmail"
@@ -136,17 +141,15 @@
           <button type="submit">Change e-mail</button>
         </form>
       </section>
-    </div>
-    
-    <section class="add-post-panel off">
-      <form action="" class="add-post-panel-form">
-        <h3 class="create-post-headline">Shoot your post!</h3>
-        <label for="add-post-image">Image:</label>
-        <input class="" type="text" placeholder="Paste image URL in here." />
-        <label for="add-post-text">Text:</label>
-        <textarea
-        class=""
-        type="text"
+      <section class="add-post-panel off">
+        <form action="" class="add-post-panel-form">
+          <h3 class="create-post-headline">Shoot your post!</h3>
+          <label for="add-post-image">Image:</label>
+          <input class="" type="text" placeholder="Paste image URL in here." />
+          <label for="add-post-text">Text:</label>
+          <textarea
+          class=""
+          type="text"
           cols="25"
           rows="15"
           placeholder="Write whatever you want in here."
@@ -157,7 +160,9 @@
         <div class="overlay-panel-close"></div>
       </section>
       
-      <section class="post-list off"></section>
+      <section class="post-list-panel off"></section>
+    </div>
+    
   
       <footer class="home-footer off">
         <button class="add-post-button">+</button>

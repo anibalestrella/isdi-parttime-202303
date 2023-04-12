@@ -30,23 +30,23 @@ export const posts = []
 posts.push({
   id:'post-01',
   author:'user-01',
-  image:'http://lorempixel.com/600/400/people/1/',
-  etxt:'',
-  date: new Date( ),
+  image: 'https://picsum.photos/500',
+  text:'lorem ipsum dolor sit amet, consectetur adip',
+  date: new Date(2023,0,31,23,45,0),
 })
 
 posts.push({
   id: 'post-02',
   author: 'user-01',
-  image: 'https://img.icons8.com/color/512/avatar.png',
+  image: 'https://picsum.photos/500',
   text: 'I ♥️ Avatars!',
-  date: new Date()
+  date: new Date(2023,2,31,23,45,0),
 })
 
 posts.push({
   id: 'post-03',
   author: 'user-02',
-  image: 'https://img.icons8.com/color/512/avatar.png',
-  text: 'I ♥️ Avatars too!',
-  date: new Date()
+  image: 'https://picsum.photos/500',
+  text: 'I ♥️ Avatars too! lorem ipsum dolor sit amet, consectetur adip',
+  date: new Date(2023,3,11,23,45,0)
 })

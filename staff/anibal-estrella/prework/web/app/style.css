@@ -12,9 +12,14 @@
   --montserrat: "Montserrat", sans-serif;
   --basecolor: #040404;
   --backcolor: #3a3a3a;
+  --myGray:#a3b1a3;
+  --myLightGray:#cee1c8;
   --myLime: #00e608;
+  --myLimeDarker:#25c92b;
   --myRed: #ff3478;
+  --myDarkBlue:#090645;
   --fontcolorlight: #dddcd9;
+  --myBackgroundGradient:linear-gradient(315deg, var(--myDarkBlue) 0%, var(--myRed) 100%);
 }
 
 html{
@@ -67,7 +72,7 @@ label {
 .add-post-panel form {
   background-color: var(--backcolor);
   border-radius: 15px;
-  box-shadow: 0px 0px 10px #000;
+  box-shadow: 0px 0px 10px var(--basecolor);
   animation: fade-in 0.3s ease;
 }
 
@@ -106,12 +111,12 @@ input[type="password"] {
   height: 50px;
   border-radius: 25px;
   border: none;
-  box-shadow: 0px 0px 5px #000;
-  background-color: #b1b1b1;
+  box-shadow: 0px 0px 5px var(--basecolor);
+  background-color:var(--myGray);
 }
 
 button {
-  color: #ffffff;
+  color: var(--fontcolorlight);
   border: none;
   border-radius: 25px;
   padding: 10px 20px;
@@ -121,23 +126,23 @@ button {
   cursor: pointer;
   height: 50px;
   text-transform: uppercase;
-  text-shadow: 2px 2px 5px #000;
+  text-shadow: 2px 2px 5px var(--basecolor);
   box-shadow: 2px 2px 2px #000000d5;
   width: 50%;
-  background-color: var(--myLime);
+  background-color: var(--myLimeDarker);
   align-self: center;
 }
 
 textarea:focus,
-input[type="submit"]:focus,
-input[type="text"]:focus {
+input:focus {
   box-shadow: none;
   border: none;
+  background-color: var(--myLightGray);
 }
 
 button:hover {
   background-color: var(--myLime);
-  text-shadow: 0px 0px 5px #00000098;
+  text-shadow: 0px 0px 5px var(--basecolor);
   box-shadow: 5px 5px 5px #000000d5;
 }
 button:active {
@@ -166,35 +171,48 @@ button:active {
     margin-top: 0;
   }
 }
-@media screen and (min-width: 420px) and (max-width: 480px) {
-  body {
-    background-color: var(--myLime);
-  }
-
-  .register,
-  .login {
-    width: 70vw;
-  }
-}
 
 /* components */
 
 .goto {
   margin: 2rem 0;
 }
+.home {
+  margin-top: 7.5rem;
+}
 .home-header {
-  color: #000;
-  display: flex;
   position: fixed;
   top: 0;
-  width: 100%;
-  background-color: var(--myLime);
+  width: 100vw;
 }
-.home-header-avatar {
+.header-items-container h1 {
+  margin: 0px 0px 0px 2rem;
+}
+.header-items-container{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  max-width: 100%;
+  border-radius: 20px;
+  margin: 1rem;
+  background: var(--myBackgroundGradient);
+}
+.home-header-avatar{
+  margin: 0 1rem 0 auto;
+
+}
+.home-header-avatar, .home-profile-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #3a3a3a;
+  border: 2px solid var(--myRed);
+  background-color: var(--basecolor);
+}
+.home-profile-avatar {
+  width: 90px;
+  height: 90px;
 }
 
 .home-menu {
@@ -224,7 +242,9 @@ nav {
   width: 100%;
   height: 100%;
 }
-
+footer {
+  position: fixed !important;
+}
 .home-footer {
   display: flex;
   flex-direction: row;
@@ -232,14 +252,20 @@ nav {
   position: absolute;
   justify-content: center;
   bottom: 0;
-  width: 100vw;
+  width: calc(100vw - 2rem);
+  max-width:100%;
   height: 50px;
-  background-color: var(--myLime);
+  background: var(--myBackgroundGradient);
+  border-radius: 20px;
+  margin: 1rem;
+  box-sizing: border-box;
+  
 }
 .home-footer button {
+  font-size: 2rem;
   font-weight: 700;
   background-color: var(--myRed);
-  color: var(--backcolor);
+  color: var(--fontcolorlight);
   margin: 0;
   box-shadow: none;
   text-shadow: none;
@@ -248,13 +274,16 @@ nav {
   border-radius: 0px;
   padding: 0;
 }
+
 .home-footer button:hover {
-opacity: 80%;
+  opacity: 80%;
 }
+
 .home-footer button:active {
+  color: var(--backcolor);
   opacity: 100%;
   background-color: var(--fontcolorlight);
-  }
+}
 
 .add-post-panel {
   display: flex;
@@ -280,6 +309,44 @@ opacity: 80%;
   border-radius: 20px;
 }
 
+
+button.menu-open {
+  all: unset;
+  height:50px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--myLightGray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--backcolor);
+  padding: 10px;
+  border-radius: 0px 20px 20px 0px;
+  background-color: var(--myRed);
+}
+button.menu-open:hover{
+  opacity: 80%;
+}
+button.menu-open:active{
+  opacity: 100%;
+  background-color: var(--fontcolorlight);
+  color: var(--backcolor);
+}
+
+@media screen and  (max-width: 480px) {
+  body {
+    background-color: var(--myLime);
+  }
+
+  .register,
+  .login {
+    width: 70vw;
+  }
+  .add-post-panel form {
+    width: 100vw;
+    max-width: 100%;
+  }
+}
 .off {
   display: none;
   animation: fade-out 0.3s ease;

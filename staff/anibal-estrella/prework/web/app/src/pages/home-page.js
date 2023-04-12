@@ -6,6 +6,7 @@ import { updateUserAvatar } from '../logic/update-user-avatar.js'
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
+import { retrievePosts } from "../logic/retrieve-posts.js"
 
 
 export const homePage = document.querySelector(".home")
@@ -13,7 +14,7 @@ const avatarImage = homePage.querySelector('.home-header-avatar')
 const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
 const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
-
+const postListPanel = homePage.querySelector('.post-list-panel')
 export const homeFooter = document.querySelector('.home-footer')
 
 const addPostPanel = document.querySelector('.add-post-panel')
@@ -104,38 +105,39 @@ homeFooter.querySelector('.add-post-button').onclick = function (event) {
   show(addPostPanel)
 }
 
-// export function renderPosts() {
-//   //empty the posts
-//   postListPanel.innerHTML = ''
+export function renderPosts() {
 
-//   try {
-//     const posts = retrievePosts(context.userId)
-//     posts.forEach(post => {
-//       // IMPERATIVE WAY
-//       // const postItem = document.createElement('article')
-//       // const image = document.createElement('img')
-//       // const title = document.createElement('h3')
-//       // const text = document.createElement('p')
-//       // const date = document.createElement('time')
+  //empty the posts
+  postListPanel.innerHTML = ''
 
-//       // date.innerText = post.date.toLocaleDateString()
+  try {
+    const posts = retrievePosts(context.userId)
+    posts.forEach(post => {
+      // IMPERATIVE WAY
+      // const postItem = document.createElement('article')
+      // const image = document.createElement('img')
+      // const title = document.createElement('h3')
+      // const text = document.createElement('p')
+      // const date = document.createElement('time')
 
-//       // postItem.appendChild(image, title, text, date)
+      // date.innerText = post.date.toLocaleDateString()
 
-//       // DECLARATIVE WAY
-//       postListPanel.innerHTML = posts.reduce((accum, post) => {
-//         return accum + `
-//         <article class="post">
-//           <img src="${post.image}" alt="${post.title}">
-//           <h3>${post.title}</h3>
-//           <p>${post.text}</p>
-//           <date>${post.date.toLocaleDateString()}</date>
-//         </article>`})
-//     }
-//   } catch(error) {
-//       alert(error.message)
-//     }
-//   }
+      // postItem.appendChild(image, title, text, date)
+
+      // DECLARATIVE WAY
+      postListPanel.innerHTML = posts.reduce((accum, post) => {
+        return accum + `
+        <article class="post">
+          <img src="${post.image}" alt="${post.title}">
+          <h3>${post.title}</h3>
+          <p>${post.text}</p>
+          <date>${post.date.toLocaleDateString()}</date>
+        </article>`})
+    })
+  } catch(error) {
+      alert(error.message)
+    }
+  }
 
 
 addPostPanelForm.querySelector('.cancel').onclick = function (event) {
