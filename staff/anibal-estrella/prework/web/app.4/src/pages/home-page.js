@@ -128,9 +128,9 @@ export function renderPosts() {
       // DECLARATIVE WAY
       postListPanel.innerHTML = posts.reduce((accum, post) => {
         return accum + `<article class="post">
-        <date>${post.date.toLocaleDateString()}</date>
           <img src="${post.image}" alt="">
           <p>${post.text}</p>
+          <date>${post.date.toLocaleDateString()}</date>
         </article>`})
     })
   } catch(error) {

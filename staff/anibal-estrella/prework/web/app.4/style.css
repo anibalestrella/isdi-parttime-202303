@@ -201,12 +201,13 @@ button:active {
 }
 .home-header-avatar{
   margin: 0 1rem 0 auto;
+
 }
 .home-header-avatar, .home-profile-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid var(--myLime);
+  border: 2px solid var(--myRed);
   background-color: var(--basecolor);
 }
 .home-profile-avatar {
@@ -331,32 +332,6 @@ button.menu-open:active{
   opacity: 100%;
   background-color: var(--fontcolorlight);
   color: var(--backcolor);
-}
-
-article.post{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  margin: 1rem 0;
-  padding: 0 1rem;
-  background-color: var(--myGray);
-  border-radius: 10px;
-}
-article.post date{
-  order: 1;
-  width: 100%;
-  margin: 1rem 0;
-  color: var(--basecolor);
-
-}
-article.post img{
-  width: 100%;
-  order: 2;
-}
-article.post p{
-  color: var(--basecolor);
-  order: 3;
-  margin: 1rem 0;
 }
 
 @media screen and  (max-width: 480px) {
