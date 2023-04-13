@@ -37,7 +37,7 @@ posts.push({
 
 posts.push({
   id: 'post-02',
-  author: 'user-01',
+  author: 'user-02',
   image: 'https://picsum.photos/500',
   text: 'I ♥️ Avatars!',
   date: new Date(2023,2,31,23,45,0),
@@ -45,7 +45,7 @@ posts.push({
 
 posts.push({
   id: 'post-03',
-  author: 'user-01',
+  author: 'user-03',
   image: 'https://picsum.photos/500',
   text: 'I ♥️ Avatars too! lorem ipsum dolor sit amet, consectetur adip',
   date: new Date(2023,3,11,21,45,0)

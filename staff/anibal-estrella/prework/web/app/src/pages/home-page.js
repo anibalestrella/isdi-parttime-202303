@@ -117,7 +117,6 @@ export function renderPosts() {
   postListPanel.innerHTML = ''
 
   try {
-    console.log
     const posts = retrievePosts(context.userId)
     posts.forEach(post => {
       // IMPERATIVE WAY
@@ -134,10 +133,11 @@ export function renderPosts() {
       // DECLARATIVE WAY
       postListPanel.innerHTML = posts.reduce((accum, post) => {
         return accum + `<article class="post">
+        <p>${post.author}</p>
         <date>${post.date.toLocaleDateString()}</date>
           <img src="${post.image}" alt="">
           <p>${post.text}</p>
-        </article>`})
+        </article>`}, '')
     })
   } catch (error) {
     alert(error.message)
