@@ -12,6 +12,7 @@ import { updateUserAvatar } from '../logic/update-user-avatar.js'
 export const homePage = document.querySelector(".home")
 
 const homeMenu = homePage.querySelector('.home-menu')
+const homeProfile = homePage.querySelector('.home-profile')
 const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
 const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
 
@@ -19,7 +20,7 @@ const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 export const avatarImage = homePage.querySelectorAll('.user-avatar')
 export const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
 
-const postListPanel = homePage.querySelector('.post-list-panel')
+export const postListPanel = homePage.querySelector('.post-list-panel')
 export const homeFooter = document.querySelector('.home-footer')
 
 const addPostPanel = document.querySelector('.add-post-panel')
@@ -37,7 +38,6 @@ changeUserPasswordForm.onsubmit = function (event) {
   } catch (error) {
     alert(error.message)
   }
-  console.log({ password }, { newPassword }, { newPasswordConfirm });
 }
 
 changeUserEmailForm.onsubmit = function (event) {
@@ -55,12 +55,8 @@ changeUserEmailForm.onsubmit = function (event) {
 
 changeUserAvatarForm.onsubmit = function (event) {
   event.preventDefault()
-  console.log('test')
-
 
   const url = event.target.url.value
-
-  console.log(url)
 
   try {
     updateUserAvatar(context.userId, url)
@@ -81,6 +77,13 @@ homePage.querySelector('.home-header .menu-open').onclick = (event) => {
   event.preventDefault()
   show(homeMenu)
 }
+homeMenu.querySelector('.menu-profile').onclick = function (event) {
+  event.preventDefault()
+  
+  hide(homeMenu, postListPanel )
+  show(homeProfile)
+}
+
 
 homeMenu.querySelector('.menu-close').onclick = function (event) {
   event.preventDefault()

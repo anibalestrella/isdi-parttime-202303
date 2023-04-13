@@ -27,12 +27,11 @@ html{
 }
 body {
   font-family: var(--montserrat);
-}
-body {
   background-color: var(--basecolor);
   font-size: 1em;
   padding: 0;
   margin: 0;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -229,6 +228,18 @@ button:active {
   text-align: center;
   z-index: 2;
 }
+
+.home-menu ul{
+  list-style: none;
+  padding: 0;
+}
+.home-menu ul li a{
+  display: block;
+  margin: 1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
 .home-menu nav {
   display: flex;
 }
@@ -367,13 +378,14 @@ article.post p{
 
   .register,
   .login {
-    width: 70vw;
+    max-width: 70vw;
   }
   .add-post-panel form {
     width: 100vw;
     max-width: 100%;
   }
 }
+
 .off {
   display: none;
   animation: fade-out 0.3s ease;

@@ -4,7 +4,7 @@ import { authenticateUser } from '../logic/authenticate-user.js'
 import { retrieveUser } from "../logic/retrieve-user.js"
 import { context, show, hide } from "../ui.js"
 import { registerPage } from "./register-page.js"
-import { homePage, homeFooter, renderPosts, avatarImage, DEFAULT_AVATAR_URL } from "./home-page.js"
+import { homePage, homeFooter, renderPosts, avatarImage, DEFAULT_AVATAR_URL, postListPanel } from "./home-page.js"
 
 export const loginPage = document.querySelector(".login")
 const loginForm = loginPage.querySelector('form')
@@ -29,7 +29,7 @@ loginForm.onsubmit = function (event) {
 
     renderPosts()
 
-    show(homePage)
+    show(homePage, postListPanel)
 
   } catch (error) {
     alert(error.message)

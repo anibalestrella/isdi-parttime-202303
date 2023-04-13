@@ -52,39 +52,39 @@
 						<a href="#" class="close-menu">Close Menu</a>
 					</li>
 					<li class="menu-logout"><a href="#">Logout</a></li>
-					<li class="menu-profile"><a href="#">Profile</a></li>
+					<li class="menu-profile"><a href="#">Edit your profile</a></li>
 					<li class="menu-creatre-post"><a href="#">Create Post</a></li>
 				</ul>
 			</div>
 
-			<h1>Profile</h1>
-
+			
 			<h2 class="hello-user">Hello. <span class="hello-user-name"></span>!</h2>
-
+			
 			<a href="#" class="home-profile-avatar-link">
 				<img class="user-avatar home-profile-avatar" src="" alt="" />
 			</a>
-
-			<section class="change-user-avatar">
-				<form action="" class="change-user-avatar-form">
-					<h3 class="change-user-avatar-headline">Change avatar</h3>
-					<input type="url" name="url" placeholder="Avatar image URL" accept="image/png, image/jpeg, image/gif, image/png, image/webp" />
-					<button type="submit">Update Avatar</button>
-				</form>
+			
+			<div class="home-profile off">
+				<h1>Profile</h1>
+				<section class="change-user-avatar">
+					<form action="" class="change-user-avatar-form">
+						<h3 class="change-user-avatar-headline">Change avatar</h3>
+						<input type="url" name="url" placeholder="Avatar image URL" accept="image/png, image/jpeg, image/gif, image/png, image/webp" />
+						<button type="submit">Update Avatar</button>
+					</form>
+				</section>
+				
+				<section class="change-user-password">
+					<form action="" class="change-user-password-form">
+						<h3 class="change-password-headline">Change Your Password</h3>
+						<input type="password" name="password" placeholder="Enter your password" />
+						<input type="password" name="newPassword" placeholder="Enter your new password" />
+						<input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
+						<button type="submit">Update Password</button>
+					</form>
 			</section>
 
-			<section class="change-user-password off">
-				<form action="" class="change-user-password-form">
-					<h3 class="change-password-headline">Change Your Password</h3>
-					<input type="password" name="password" placeholder="Enter your password" />
-					<p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium iusto atque debitis amet distinctio fugit esse qui consectetur mollitia suscipit nesciunt architecto maiores at, inventore sunt accusamus assumenda tempore cupiditate!</p>
-					<input type="password" name="newPassword" placeholder="Enter your new password" />
-					<input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
-					<button type="submit">Update Password</button>
-				</form>
-			</section>
-
-			<section class="off">
+			<section class="change-user-email">
 				<form action="" class="change-user-email-form">
 					<h3 class="change-user-email-headline">Change Your e-mail</h3>
 					<input type="text" name="newEmail" placeholder="Enter your new e-mail" />
@@ -92,6 +92,8 @@
 					<button type="submit">Change e-mail</button>
 				</form>
 			</section>
+		</div>
+		<!-- end of profile section -->
 			<section class="add-post-panel off">
 				<form action="" class="add-post-panel-form">
 					<h3 class="create-post-headline">Shoot your post!</h3>
@@ -105,7 +107,7 @@
 				<div class="overlay-panel-close"></div>
 			</section>
 
-			<section class="post-list-panel"></section>
+			<section class="post-list-panel off"></section>
 			<footer class="home-footer">
 				<button class="add-post-button">+</button>
 			</footer>
