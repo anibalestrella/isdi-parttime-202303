@@ -2,7 +2,7 @@ console.log('// LOGIC // createPost');
 
 
 import { validateId, validateUrl, validateText } from "./helpers/validators.js" 
-import { posts, savePosts } from "../data.jsl"
+import { posts, savePosts } from "../data.js"
 import { findUserById } from "./helpers/data-managers.js";
 
 
