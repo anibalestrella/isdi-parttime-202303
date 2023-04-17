@@ -188,12 +188,13 @@ button:active {
 }
 .header-items-container h1 {
   margin: 0px 0px 0px 2rem;
+  align-self: flex-start;
 }
 .header-items-container{
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 70px;
   max-width: 100%;
   border-radius: 20px;

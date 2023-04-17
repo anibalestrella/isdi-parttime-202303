@@ -24,7 +24,7 @@ const avatarImage = homePage.querySelectorAll('.user-avatar')
 const avatarImageLink = homePage.querySelectorAll('.home-profile-avatar-link')
 const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
 
-export const postListPanel = homePage.querySelector('.post-list-panel')
+export const postListPanel = homePage.querySelector('.post-list')
 export const homeFooter = document.querySelector('.home-footer')
 
 const addPostPanel = document.querySelector('.add-post-panel')
