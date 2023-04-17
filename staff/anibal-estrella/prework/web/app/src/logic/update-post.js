@@ -1,7 +1,8 @@
-import { validateId, validaUrl, validateText } from '../helper/validators.js'
+import { validateId, validateUrl, validateText } from '../helper/validators.js'
 
-function updatePost(userId, postId, image, text) {
-    validateUrl(userId, 'user id')
+export function updatePost(userId, postId, image, text) {
+    validateUrl(image, 'user id')
+    validateId()
 
     const user = finddUserId(userId)
 
