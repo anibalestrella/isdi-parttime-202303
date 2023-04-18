@@ -43,21 +43,13 @@ label {
   color: var(--fontcolorlight);
 }
 
-.center-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-}
 
-.page {
+form {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  padding: 2rem;
-  margin: auto;
-  width: 60vw;
+  min-width: 200px;
+  width: 100%;
+  max-width: 50vw;
 }
 
 section {
@@ -66,12 +58,35 @@ section {
   padding: 1rem;
 }
 
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+.login, .register {
+  width: 60vw;
+  padding: 2rem;
+}
+
+.panel {
+  min-width: max-content;
+  min-height: fit-content;
+  border-radius: 20px;
+  background-color: var(--backcolor);
+}
+
+
 .home-profile  section > section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   border-radius: 12px;
   padding: 2rem;
+  min-width: max-content;
   margin-bottom: 2rem;
   background-color: var(--backcolor);
 }
@@ -82,20 +97,9 @@ min-width: 50px;
 align-self: center;
 }
 
-.register,
-.login,
-.home,
-.add-post-panel form {
-  animation: fade-in 0.3s ease;
-}
 
 
 
-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
 
 h1,
 h2,
@@ -120,7 +124,7 @@ input[type="password"],
 input[type="url"] {
   padding: 10px 25px;
   margin: 10px 0;
-  width: 100%;
+  min-width: max-content;
   height: 50px;
   border-radius: 25px;
   border: none;
@@ -141,7 +145,7 @@ button {
   text-transform: uppercase;
   text-shadow: 2px 2px 5px var(--basecolor);
   box-shadow: 2px 2px 2px #000000d5;
-  width: 50%;
+  width:max-content;
   background-color: var(--myLimeDarker);
   align-self: center;
 }
@@ -187,11 +191,29 @@ button:active {
 
 /* components */
 
+.register,
+.login,
+.home,
+.add-post-panel form {
+  animation: fade-in 0.3s ease;
+}
+
+.hello-user{
+  display:flex;
+  flex-direction: row;
+}
+
+.hello-user h2{
+  margin: 0 0 0 0;
+}
+.home-profile-avatar-link{
+  margin-right: 2rem;
+}
 .goto {
   margin: 2rem 0;
 }
 .home {
-  margin-top: 3.5rem;
+  margin-top: 6.5rem;
 }
 .header-items-wrapper, .footer-items-wrapper{
   box-shadow: 0px 0px 10px var(--basecolor);
@@ -330,8 +352,6 @@ footer.home-footer {
   padding: 2rem;
 }
 .add-post-panel form {
-  min-width: 300px;
-  max-width: 500px;
   padding: 2rem;
 }
 .add-post-panel textarea {
@@ -366,28 +386,26 @@ button.menu-open:active{
 
 article.post{
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
   margin: 1rem 0;
-  padding: 0 1rem;
-  background-color: var(--myGray);
+  padding: 1rem;
+  color: var(--fontcolorlight);
+  background-color: var(--backcolor);
   border-radius: 10px;
+  min-width: 370px;
 }
 article.post date{
-  order: 1;
   width: 100%;
   margin: 1rem 0;
-  color: var(--basecolor);
-
 }
 article.post img{
+  max-width: 800px;
   width: 100%;
-  order: 2;
 }
 article.post p{
-  color: var(--basecolor);
-  order: 3;
-  margin: 1rem 0;
+  margin: 0;
 }
 
 @media screen and  (max-width: 480px) {
@@ -400,7 +418,7 @@ article.post p{
     max-width: 70vw;
   }
   .add-post-panel form {
-    width: 100vw;
+  min-width: 200px;
     max-width: 100%;
   }
 }
