@@ -1,9 +1,9 @@
-export default function(array,  callback){
-const result=[]
-for (const element of array) {
-    if(callback(element))
-    result[result.length]=element
+export default function filter(array, callback) {
+    const filtered = []
 
-}
-return result
+    for (const element of array)
+        if (callback(element))
+            filtered[filtered.length] = element
+
+    return filtered
 }

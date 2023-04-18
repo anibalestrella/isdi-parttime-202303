@@ -1,6 +1,8 @@
-function Curri() {
+ function Curri() {
     this.length = 0
 }
+
+
 
 Curri.prototype.forEach = function(callback) {
     for (let i = 0; i < this.length; i++) {
@@ -9,6 +11,7 @@ Curri.prototype.forEach = function(callback) {
         callback(element)
     }
 }
+
 
 Curri.prototype.map = function map(callback) {
     const mapped = new Curri
@@ -25,4 +28,30 @@ Curri.prototype.map = function map(callback) {
 
 // TODO implement more Curri methods (same as Array methods)
 
+
+Curri.prototype.includes = function includes(searchElement) {
+    for (let i = 0; i < this.length; i++) {
+        let element = this[i] 
+        if (element === searchElement){ 
+        return true
+        }
+    }
+
+    return  false
+}
+
+Curri.prototype.some = function some(callback) {
+    for (let i = 0; i < this.length; i++) {
+        let element = this[i] 
+
+        if (callback(element))
+            return true
+    }
+
+    return false
+}
+
+
+
 export default Curri
+

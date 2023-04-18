@@ -1,3 +1,5 @@
+console.log('forEach demo')
+
 import forEach from './forEach.mjs'
 
 const array1 = ['a', 'b', 'c']

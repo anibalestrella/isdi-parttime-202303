@@ -1,8 +1,10 @@
-import filter from "./filter.mjs";
+console.log('filter demo')
 
-const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+import filter from './filter.mjs'
 
-const result = words.filter(word => word.length > 6);
+const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present']
 
-console.log(result);
+const result = filter(words, word => word.length > 6)
+
+console.log(result)
 // Expected output: Array ["exuberant", "destruction", "present"]

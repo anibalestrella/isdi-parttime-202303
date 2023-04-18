@@ -1,9 +1,4 @@
-function forEach(array, callback) {
-    for (let i = 0; i < array.length; i++) {
-        const element = array[i]
-        
+export default function forEach(array, callback) {
+    for (const element of array)
         callback(element)
-    }
 }
-
-export default forEach
