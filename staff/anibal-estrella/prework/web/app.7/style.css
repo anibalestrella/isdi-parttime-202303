@@ -80,9 +80,7 @@ section {
   border-radius: 20px;
   background-color: var(--backcolor);
 }
-.profile-headline{
-  margin: 2rem 0;
-}
+
 
 .home-profile  section > section {
   display: flex;
@@ -94,10 +92,6 @@ section {
   margin-bottom: 2rem;
   background-color: var(--backcolor);
 }
-
-.home-profile  section > section h3{
-  padding: 0 0 1rem 0;
-} 
 
 .home-profile  section > section form {
 max-width: 50vw;
@@ -113,8 +107,6 @@ h1,
 h2,
 h3 {
   text-transform: uppercase;
-  padding: 0;
-  margin: 0;
 }
 
 h1 {
@@ -405,9 +397,6 @@ article.post{
   border-radius: 10px;
   min-width: 370px;
 }
-
-
-
 article.post date{
   width: 100%;
   margin: 1rem 0;
