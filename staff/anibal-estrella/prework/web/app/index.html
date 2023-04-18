@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<title>ISDI APP</title>
 		<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/icons8-futurama-bender-color-16.png" />
@@ -15,9 +15,9 @@
 
 	<body>
 		<div class="login page off">
-			<section class="">
+			<section>
+				<h2>Login</h2>
 				<form>
-					<h1>Login</h1>
 					<label for="username">E-mail:</label>
 					<input type="text" class="email" name="email" placeholder="Enter your e-mail" value="pj@gmail.com" />
 					<label for="lastname">Password:</label>
@@ -29,9 +29,9 @@
 		</div>
 
 		<div class="register page off">
-			<section class="">
-				<form action="" method="get" class="register-form">
-					<h1>Register</h1>
+			<section>
+				<h2>Register</h2>
+				<form method="get" class="register-form">
 					<label for="name">Name:</label>
 					<input type="text" class="name" name="name" placeholder="Enter your name" />
 					<label for="email">E-mail:</label>
@@ -45,27 +45,29 @@
 		</div>
 
 		<div class="home off">
-			<header class="home-header">
-				<div class="header-items-container">
+			<section>
+
+				<header class="home-header">
+					<div class="header-items-wrapper">
 					<h1>Home</h1>
 					<a href="#" class="home-profile-avatar-link">
 						<img class="user-avatar home-header-avatar" src="" alt="" />
 					</a>
-					<button href="" class="menu-open">&#9776;</button>
+					<button class="menu-open">&#9776;</button>
 				</div>
+				
+				<nav class="home-menu center-container off">
+					<ul>
+						<li class="menu-close">
+							<a href="#" class="close-menu">Close Menu</a>
+						</li>
+						<li class="menu-logout"><a href="#">Logout</a></li>
+						<li class="menu-profile"><a href="#">Edit your profile</a></li>
+						<li class="menu-show-posts"><a href="#">Show Posts</a></li>
+						<li class="menu-create-post"><a href="#">Create Post</a></li>
+					</ul>
+				</nav>
 			</header>
-
-			<div class="home-menu container off">
-				<ul>
-					<li class="menu-close">
-						<a href="#" class="close-menu">Close Menu</a>
-					</li>
-					<li class="menu-logout"><a href="#">Logout</a></li>
-					<li class="menu-profile"><a href="#">Edit your profile</a></li>
-					<li class="menu-show-posts"><a href="#">Show Posts</a></li>
-					<li class="menu-create-post"><a href="#">Create Post</a></li>
-				</ul>
-			</div>
 
 			<div class="hello-user">
 				<h2 class="hello-user-headline">Hello. <span class="hello-user-name"></span>!</h2>
@@ -73,41 +75,43 @@
 					<img class="user-avatar home-profile-avatar" src="" alt="" />
 				</a>
 			</div>
-
+			
 			<div class="home-profile off">
-				<section class="change-user-avatar">
-					<h1>Profile</h1>
-					<form action="" class="change-user-avatar-form">
-						<h3 class="change-user-avatar-headline">Change avatar</h3>
-						<input type="url" name="url" placeholder="Avatar image URL" accept="image/png, image/jpeg, image/gif, image/png, image/webp" />
+				<section>
+					<h2>Profile</h2>
+					<section class="change-user-avatar">
+						<h3 class="change-user-avatar-headline">Change your avatar</h3>
+						<form action="" class="change-user-avatar-form">
+						<input type="url" name="url" placeholder="Avatar image URL" accept=".png, .jpeg,  .gif,  .png,  .webp" />
 						<button type="submit">Update Avatar</button>
 					</form>
 				</section>
-
+				
 				<section class="change-user-password">
+					<h3 class="change-password-headline">Change Your Password</h3>
 					<form action="" class="change-user-password-form">
-						<h3 class="change-password-headline">Change Your Password</h3>
 						<input type="password" name="password" placeholder="Enter your password" />
 						<input type="password" name="newPassword" placeholder="Enter your new password" />
 						<input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
 						<button type="submit">Update Password</button>
 					</form>
 				</section>
-
+				
 				<section class="change-user-email">
+					<h3 class="change-user-email-headline">Change Your e-mail</h3>
 					<form action="" class="change-user-email-form">
-						<h3 class="change-user-email-headline">Change Your e-mail</h3>
 						<input type="text" name="newEmail" placeholder="Enter your new e-mail" />
 						<input type="text" name="newEmailConfirm" placeholder="Confirm your new e-mail" />
 						<button type="submit">Change e-mail</button>
 					</form>
 				</section>
+			</section>
 			</div>
 			<!-- end of profile section -->
-
+			
 			<section class="add-post-panel off">
+				<h3 class="create-post-headline">Shoot your post!</h3>
 				<form action="" class="add-post-panel-form">
-					<h3 class="create-post-headline">Shoot your post!</h3>
 					<label for="add-post-image">Image:</label>
 					<input type="url" name="image" placeholder="Paste image URL in here." />
 					<label for="add-post-text">Text:</label>
@@ -118,13 +122,19 @@
 				<div class="overlay-panel-close"></div>
 			</section>
 
-			<section class="post-list off"></section>
+			<section class="post-list off">
+				<h2 class="post-list-headline">All Posts</h2>
+				<div></div>
+			</section>
 
 			<footer class="home-footer">
-				<button class="add-post-button">+</button>
+				<div class="footer-items-wrapper">
+					<button class="add-post-button">+</button>
+				</div>
 			</footer>
+		</section>
 		</div>
-
+		<!-- home end -->
 		<script type="module" src="./src/main.js"></script>
 	</body>
 </html>
