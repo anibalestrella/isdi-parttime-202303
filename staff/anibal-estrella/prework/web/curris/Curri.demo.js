@@ -108,3 +108,78 @@ c5.length++
 
 console.log(c5.some(color => color === undefined))
 // Expected output: true
+
+console.log('/// Curri.prototype.filter')
+
+const c6 = new Curri
+
+c6[0] = 'spray'
+c6.length++
+c6[1] = 'limit'
+c6.length++
+c6[2] = 'elite'
+c6.length++
+c6[3] = 'exuberant'
+c6.length++
+c6[4] = 'destruction'
+c6.length++
+c6[5] = 'present'
+c6.length++
+
+const result = c6.filter(word => word.length > 6)
+
+console.log(result)
+// Expected output: Array ["exuberant", "destruction", "present"]
+
+console.log('/// Curri.prototype.push')
+
+const c7 = new Curri
+
+c7[0] = 'pigs'
+c7.length++
+c7[1] = 'goats'
+c7.length++
+c7[2] = 'sheep'
+c7.length++
+
+const count = c7.push('cows')
+
+console.log(count)
+// Expected output: 4
+console.log(c7)
+// Expected output: Array ["pigs", "goats", "sheep", "cows"]
+
+const count2 = c7.push( 'chickens', 'cats', 'dogs')
+console.log(count2)
+// Expected output: 7
+console.log(c7)
+// Expected output: Array ["pigs", "goats", "sheep", "cows", "chickens", "cats", "dogs"]
+
+
+console.log('/// Curri.prototype.pop')
+
+const c8 = new Curri
+
+c8[0] = 'broccoli'
+c8.length++
+c8[1] = 'cauliflower'
+c8.length++
+c8[2] = 'cabbage'
+c8.length++
+c8[3] = 'kale'
+c8.length++
+c8[4] = 'tomato'
+c8.length++
+
+
+console.log(c8.pop(c8))
+// Expected output: "tomato"
+
+console.log(c8)
+// Expected output: Array ["broccoli", "cauliflower", "cabbage", "kale"]
+
+console.log(c8.pop(c8))
+// Expected output: "kale"
+
+console.log(c8)
+// Expected output: Array ["broccoli", "cauliflower", "cabbage"]

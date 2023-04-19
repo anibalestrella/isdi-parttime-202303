@@ -1,13 +1,15 @@
-import { validateId, validateUrl, validateText } from '../helper/validators.js'
+import { validateId, validateUrl, validateText } from './helpers/validators.js'
+import { findUserById, findPostById } from './helpers/data-managers.js' 
+import { savePosts } from '../data.js'
 
 export function updatePost(userId, postId, image, text) {
-    validateUrl(image, 'user id')
-    validateId()
+    validateUrl(image, 'image url')
+    validateId(userId, 'user id')
 
-    const user = finddUserId(userId)
+    const user = findUserById(userId)
 
     // - verify post exists
-    const post = finsPostById(postId)
+    const post = findPostById(postId)
 
     if (!user) throw new Error(`User ${userId} not found`)
 

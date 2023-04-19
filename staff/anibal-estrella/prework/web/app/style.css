@@ -17,10 +17,10 @@
   --myLime: #00e6a1;
   --myLimeDark:#18c28f;
   --myRed: #ff3478;
-  --myBlueDark:#090645;
+  --myBlueDark:#06006f;
   --fontcolorlight: #dddcd9;
-  --backgroundGradient:linear-gradient(315deg, var(--myBlueDark) 0%, var(--myRed) 100%);
-  --buttonGradient:linear-gradient(315deg, var(--myLime) 0%, var(--myBlueDark) 100%);
+  --backgroundGradient:linear-gradient(315deg, var(--myLime) 0%, var(--myBlueDark) 100%);
+  --buttonGradient:linear-gradient(315deg, var(--myBlueDark) 0%, var(--myRed) 100%);
 
 }
 
@@ -34,6 +34,7 @@ body {
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 h1,
@@ -67,19 +68,33 @@ section {
   align-items: center;
   flex-direction: column;
   margin: auto;
+  height: 100%;
 }
 
 .login, .register {
-  width: 60vw;
-  padding: 2rem;
+  min-width: fit-content;
+  width: 500px;
+  max-width: 50vw;
 }
-
+.login h2, .register h2 {
+margin: 2rem 0 2.5rem 0;
+}
+.login label, .register label {
+ margin: 1rem 0 0 0 ;
+}
+.goto-login, .goto-register{
+margin: 3rem 0 1rem 0;
+}
+.login button, .register button {
+  margin: 2rem 0 0 0 ;
+ }
 .panel {
+  padding: 2rem;
   min-width: max-content;
-  min-height: fit-content;
   border-radius: 20px;
   background-color: var(--backcolor);
 }
+
 .profile-headline{
   margin: 2rem 0;
 }
@@ -153,10 +168,9 @@ button {
   cursor: pointer;
   height: 50px;
   text-transform: uppercase;
-  text-shadow: 2px 2px 5px var(--basecolor);
   box-shadow: 2px 2px 2px #000000d5;
   width:max-content;
-  background-color: var(--myLimeDark);
+  background-image: var(--buttonGradient);
   align-self: center;
 }
 
@@ -168,11 +182,16 @@ input:focus {
 }
 
 button:hover {
-  background-color: var(--myLime);
-  text-shadow: 0px 0px 5px var(--basecolor);
+  background-image: none;
+  background-color: var(--myRed);
   box-shadow: 5px 5px 5px #000000d5;
 }
 button:active {
+  background-color: var(--myLime);
+  text-shadow: none;
+  box-shadow: none;
+}
+button:focus {
   background-color: var(--myLime);
   text-shadow: none;
   box-shadow: none;
@@ -214,7 +233,7 @@ button:active {
 }
 
 .hello-user h2{
-  margin: 0 0 0 0;
+  margin: 0;
 }
 .home-profile-avatar-link{
   margin-right: 1rem;
@@ -246,21 +265,22 @@ button:active {
   border-radius: 20px;
   background: var(--backgroundGradient);
 }
-.header-items-wrapper h1{
+.header-title-link {
   margin: 0px 0px 0px 2rem;
+  text-decoration: none;
 }
 
-.header-items-wrapper h1  ~ * {
+.header-items-wrapper a  ~ * {
   margin-left: auto;
 }
 .home-header-avatar{
   margin: .3rem 0 0 auto;
 }
-.home-header-avatar, .home-profile-avatar {
+.home-header-avatar, .home-profile-avatar, .home-post-avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 2px solid var(--myLime);
+  border: 2px solid var(--myRed);
   background-color: var(--basecolor);
 }
 .home-profile-avatar {
@@ -333,11 +353,12 @@ footer.home-footer {
   font-size: 2rem;
   border-radius: 0px;
   box-shadow: none;
-  background-color: var(--myLimeDark);
 }
 
 .home-footer button:hover {
-  background-color: var(--myLime);
+  background-image: none;
+  background-color: var(--myRed);
+
 }
 
 .home-footer button:active {
@@ -346,7 +367,7 @@ footer.home-footer {
   background-color: var(--fontcolorlight);
 }
 
-.add-post-panel {
+.add-post-panel, .edit-post-panel {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -357,13 +378,15 @@ footer.home-footer {
   width: 100vw;
   background-color: #000000c7;
   backdrop-filter: blur(10px);
+  padding: 2rem;
   z-index: 1;
-  padding: 2rem;
 }
-.add-post-panel form {
+.add-post-panel form,.edit-post-panel form {
   padding: 2rem;
+  z-index: 2;
+
 }
-.add-post-panel textarea {
+.add-post-panel textarea,.edit-post-panel textarea {
   padding: 1rem;
   height: auto;
   border-radius: 20px;
@@ -379,13 +402,13 @@ button.menu-open {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--backcolor);
   padding: 10px;
   border-radius: 0px 20px 20px 0px;
-  background-color: var(--myLimeDark);
+  background-image: var(--buttonGradient);
 }
 button.menu-open:hover{
-  background-color: var(--myLime);
+  background-image: none;
+  background-color: var(--myRed);
 }
 button.menu-open:active{
   opacity: 100%;
@@ -412,11 +435,17 @@ article.post date{
   width: 100%;
   margin: 1rem 0;
 }
-article.post img{
+.home-post-image{
   max-width: 800px;
   width: 100%;
   align-self: center;
+  margin: 1rem 0;
+  border-radius: 12px;
 }
+article.post time{
+  margin: 1rem 0 0 0;
+}
+
 article.post p{
   margin: 0;
 }
@@ -426,10 +455,7 @@ article.post p{
     background-color: var(--myLime);
   }
 
-  .register,
-  .login {
-    max-width: 70vw;
-  }
+
   .add-post-panel form {
   min-width: 200px;
     max-width: 100%;

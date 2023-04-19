@@ -2,11 +2,14 @@ console.log('// home-page')
 
 import { context, show, hide } from "../ui.js"
 import { updateUserPassword } from "../logic/update-user-password.js"
+import { updatePost } from "../logic/update-post.js"
 import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
 import { retrievePosts } from "../logic/retrieve-posts.js"
-import { retrieveUser } from "../logic/retrieve-user.js"
+import retrieveUser from "../logic/retrieve-user.js"
 import { createPost } from "../logic/create-post.js"
+import { users } from "../data.js"
+
 
 
 import { updateUserEmail } from "../logic/update-user-email.js"
@@ -23,6 +26,7 @@ const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 const avatarImage = homePage.querySelectorAll('.user-avatar')
 const avatarImageLink = homePage.querySelectorAll('.home-profile-avatar-link')
 const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
+const headerTitleLink = homePage.querySelector('.header-title-link')
 
 export const postListPanel = homePage.querySelector('.post-list')
 export const homeFooter = document.querySelector('.home-footer')
@@ -30,6 +34,8 @@ export const homeFooter = document.querySelector('.home-footer')
 const addPostPanel = document.querySelector('.add-post-panel')
 const addPostPanelForm = document.querySelector('.add-post-panel-form')
 
+const editPostPanel = document.querySelector('.edit-post-panel')
+const editPostPanelForm = document.querySelector('.edit-post-panel-form')
 
 changeUserPasswordForm.onsubmit = function (event) {
   event.preventDefault()
@@ -93,6 +99,11 @@ avatarImageLink.forEach(link => {
   });
 });
 
+headerTitleLink.onclick =  (event) => {
+  hide(homeProfile)
+    show(postListPanel )
+}
+
 
 
 homePage.querySelector('.home-header .menu-open').onclick = (event) => {
@@ -104,7 +115,7 @@ homePage.querySelector('.home-header .menu-open').onclick = (event) => {
 
 homeMenu.querySelector('.menu-close').onclick = function (event) {
   event.preventDefault()
-  
+
   avatarImage.src = DEFAULT_AVATAR_URL
   hide(homeMenu)
 }
@@ -118,7 +129,7 @@ homeMenu.querySelector('.menu-logout').onclick = function (event) {
 
   avatarImage.forEach((image) => image.src = DEFAULT_AVATAR_URL)
 
-  hide(homePage, homePage, registerPage,homeProfile)
+  hide(homePage, homePage, registerPage, homeProfile)
   show(loginPage)
 }
 
@@ -146,6 +157,42 @@ homeFooter.querySelector('.add-post-button').onclick = function (event) {
   show(addPostPanel)
 }
 
+// homePage.querySelector('.edit-post-button').onclick = function (event) {
+//   event.preventDefault()
+//   show(editPostPanel)
+// }
+
+editPostPanelForm.onsubmit = event => {
+  event.preventDefault()
+
+  const user = context.userId
+
+  const postId = event.target.postId.value
+  const image = event.target.image.value  
+  const text = event.target.text.value
+
+  try {
+    //createPost(context.userId, image, text)
+    console.log({postId},{image},{text}, {user})
+    //TODO updatePost{context.userID, postID, image, text}
+    updatePost(user, postId, image, text)
+
+    hide(editPostPanel)
+
+    renderPosts()
+  } catch (error) {
+    alert(error.message)
+  }
+
+  editPostPanelForm.reset()
+}
+
+editPostPanelForm.querySelector('.cancel').onclick = function (event) {
+  event.preventDefault()
+  hide(editPostPanel)
+  editPostPanelForm.reset()
+}
+
 export function renderPosts() {
 
   //empty the posts
@@ -154,25 +201,65 @@ export function renderPosts() {
   try {
     const posts = retrievePosts(context.userId)
     posts.forEach(post => {
+
       // IMPERATIVE WAY
-      // const postItem = document.createElement('article')
-      // const image = document.createElement('img')
-      // const title = document.createElement('h3')
-      // const text = document.createElement('p')
-      // const date = document.createElement('time')
+      const postItem = document.createElement('article')
+      postItem.classList.add("post");
 
-      // date.innerText = post.date.toLocaleDateString()
+      const author = users.find(element => element.id === post.author)
 
-      // postItem.appendChild(image, title, text, date)
+      const authorName = document.createElement('h3')
+      authorName.innerText = author.name
+
+      const authorAvatar = document.createElement('img')
+      authorAvatar.classList = 'user-avatar home-post-avatar'
+      authorAvatar.src = author.avatar
+      
+      const date = document.createElement('time')
+      date.innerText = post.date.toLocaleDateString()
+
+      const image = document.createElement('img')
+      image.classList = 'home-post-image'
+      image.src = post.image
+
+      const text = document.createElement('p')
+      text.innerText = post.text
+
+
+      if (post.author === context.userId) {
+        const button = document.createElement('button')
+        button.innerText = 'Edit'
+
+        //add onclick listener
+        button.onclick = () =>{
+
+          editPostPanelForm.querySelector('input[type=url]').value = post.image
+          editPostPanelForm.querySelector('input[type=hidden]').value = post.id
+          editPostPanelForm.querySelector('textarea').value = post.text
+
+          show(editPostPanel)
+
+        }
+
+        postItem.append(authorAvatar, authorName, date, image, text,  button)
+
+      } else {
+        postItem.append(authorAvatar, authorName, image, text, date)
+        
+      }
+
+
+      postListPanel.appendChild(postItem)
 
       // DECLARATIVE WAY
-      postListPanel.innerHTML = posts.reduce((accum, post) => {
-        return accum + `<article class="post">
-        <p>${post.author}</p>
-        <date>${post.date.toLocaleString()}</date>
-          <img src="${post.image}" alt="">
-          <p>${post.text}</p>
-        </article>`}, '')
+      //   postListPanel.innerHTML = posts.reduce((accum, post) => {
+      //     return accum + `<article class="post">
+      //     <p>${post.author}</p>
+      //         ${post.author === context.userId ? '<button>Edit</button>' : ''}
+      //     <date>${post.date.toLocaleString()}</date>
+      //       <img src="${post.image}" alt="">
+      //       <p>${post.text}</p>
+      //     </article>`}, '')
     })
 
     return true
@@ -184,21 +271,21 @@ export function renderPosts() {
 }
 addPostPanelForm.querySelector('.create').onclick = function (event) {
   event.preventDefault()
-console.log('shitty post!!');
+  console.log('shitty post!!');
   const user = context.userId
 
-  const image =  addPostPanelForm.querySelector('input[name="image"]').value
+  const image = addPostPanelForm.querySelector('input[name="image"]').value
   const text = addPostPanelForm.querySelector('textarea[name="text"]').value
-  
+
   try {
     createPost(context.userId, image, text)
 
     hide(addPostPanel)
 
     renderPosts()
-} catch (error) {
+  } catch (error) {
     alert(error.message)
-}
+  }
 
   addPostPanelForm.reset()
 }

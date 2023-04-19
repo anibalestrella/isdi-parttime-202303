@@ -1,6 +1,6 @@
 // HELPERS:
 // de uso solo en logic.js no se exporta
-import { users } from "../../data.js"
+import { users, posts } from "../../data.js"
 
 
 export function findUserByEmail(email) {
@@ -29,3 +29,15 @@ export function findUserById(userId) {
   return foundUser;
 }
 
+export function findPostById(postId) {
+  let foundPost
+
+  for (let i = 0; i < posts.length; i++) {
+    let post = posts[i]
+    if (posts[i].id === postId) {
+      foundPost = post
+      break;
+    }
+  }
+  return foundPost;
+}

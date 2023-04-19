@@ -29,6 +29,8 @@ export function validateId(id, explain = 'id') {
     if (!id.trim().length) throw new Error(`${id} is empty`)
 }
 
-export function validateText(){
-
+export function validateText(text) {
+    if (text.length < 1) throw new Error('text must be longer than one character')
+     if (typeof text !== 'string') throw new Error('text must be a string')
+    if (!text.trim().length) throw new Error('text is blank')
 }
