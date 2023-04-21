@@ -9,14 +9,13 @@ import { retrievePosts } from "../logic/retrieve-posts.js"
 import retrieveUser from "../logic/retrieve-user.js"
 import { createPost } from "../logic/create-post.js"
 import { users } from "../data.js"
-import { toggleLikePost } from "../logic/toggle-like-post.js"
+
+
 
 import { updateUserEmail } from "../logic/update-user-email.js"
 import { updateUserAvatar } from '../logic/update-user-avatar.js'
 
 export const homePage = document.querySelector(".home")
-
-const appBody = document.querySelector('body')
 
 const homeMenu = homePage.querySelector('.home-menu')
 const homeProfile = homePage.querySelector('.home-profile')
@@ -100,16 +99,15 @@ avatarImageLink.forEach(link => {
   });
 });
 
-headerTitleLink.onclick = (event) => {
+headerTitleLink.onclick =  (event) => {
   hide(homeProfile)
-  show(postListPanel)
+    show(postListPanel )
 }
 
 
 
 homePage.querySelector('.home-header .menu-open').onclick = (event) => {
   event.preventDefault()
-
   show(homeMenu)
 }
 
@@ -150,17 +148,12 @@ homeMenu.querySelector('.menu-show-posts').onclick = function (event) {
 
 homeMenu.querySelector('.menu-create-post').onclick = function (event) {
   event.preventDefault()
-
-  appBody.classList.add('block-scroll')
-
   hide(homeMenu)
   show(addPostPanel)
 }
 
 homeFooter.querySelector('.add-post-button').onclick = function (event) {
   event.preventDefault()
-
-  appBody.classList.add('block-scroll')
   show(addPostPanel)
 }
 
@@ -175,18 +168,16 @@ editPostPanelForm.onsubmit = event => {
   const user = context.userId
 
   const postId = event.target.postId.value
-  const image = event.target.image.value
+  const image = event.target.image.value  
   const text = event.target.text.value
 
   try {
     //createPost(context.userId, image, text)
-    console.log({ postId }, { image }, { text }, { user })
+    console.log({postId},{image},{text}, {user})
     //TODO updatePost{context.userID, postID, image, text}
     updatePost(user, postId, image, text)
 
     hide(editPostPanel)
-
-    appBody.classList.remove('block-scroll')
 
     renderPosts()
   } catch (error) {
@@ -198,8 +189,6 @@ editPostPanelForm.onsubmit = event => {
 
 editPostPanelForm.querySelector('.cancel').onclick = function (event) {
   event.preventDefault()
-
-  appBody.classList.remove('block-scroll')
   hide(editPostPanel)
   editPostPanelForm.reset()
 }
@@ -215,7 +204,7 @@ export function renderPosts() {
 
       // IMPERATIVE WAY
       const postItem = document.createElement('article')
-      postItem.classList.add("post", "panel");
+      postItem.classList.add("post");
 
       const author = users.find(element => element.id === post.author)
 
@@ -225,7 +214,7 @@ export function renderPosts() {
       const authorAvatar = document.createElement('img')
       authorAvatar.classList = 'user-avatar home-post-avatar'
       authorAvatar.src = author.avatar
-
+      
       const date = document.createElement('time')
       date.innerText = post.date.toLocaleDateString()
 
@@ -238,11 +227,11 @@ export function renderPosts() {
 
 
       if (post.author === context.userId) {
-        const editPostButton = document.createElement('button')
-        editPostButton.innerText = 'Edit Post'
+        const button = document.createElement('button')
+        button.innerText = 'Edit'
 
         //add onclick listener
-        editPostButton.onclick = () => {
+        button.onclick = () =>{
 
           editPostPanelForm.querySelector('input[type=url]').value = post.image
           editPostPanelForm.querySelector('input[type=hidden]').value = post.id
@@ -252,27 +241,13 @@ export function renderPosts() {
 
         }
 
-        postItem.append(authorAvatar, authorName, date, image, text, editPostButton)
+        postItem.append(authorAvatar, authorName, date, image, text,  button)
 
       } else {
-        postItem.append(authorAvatar, authorName, date, image, text)
-
+        postItem.append(authorAvatar, authorName, image, text, date)
+        
       }
 
-      const likeButton = document.createElement('button')
-      likeButton.innerText = post.likes && post.likes.includes(context.userId) ? `❤️ ${post.likes.length}` : `🤍 ${post.likes &&post.likes.length || 0}`
-
-      likeButton.onclick = () => {
-        try {
-          toggleLikePost(context.userId, post.id)
-
-          renderPosts()
-        } catch (error) {
-          alert(error.message)
-        }
-      }
-
-      postItem.appendChild(likeButton)
 
       postListPanel.appendChild(postItem)
 
@@ -306,7 +281,6 @@ addPostPanelForm.querySelector('.create').onclick = function (event) {
     createPost(context.userId, image, text)
 
     hide(addPostPanel)
-    appBody.classList.remove('block-scroll')
 
     renderPosts()
   } catch (error) {
@@ -318,8 +292,6 @@ addPostPanelForm.querySelector('.create').onclick = function (event) {
 
 addPostPanelForm.querySelector('.cancel').onclick = function (event) {
   event.preventDefault()
-  appBody.classList.remove('block-scroll')
-
   hide(addPostPanel)
   addPostPanelForm.reset()
 }

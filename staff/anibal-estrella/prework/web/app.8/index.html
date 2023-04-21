@@ -24,12 +24,12 @@
 					<input type="password" class="password" name="password" placeholder="Enter your password" value="123" />
 					<button class="button-submit" type="submit">Login</button>
 				</form>
-				<p class="goto-register">Not registered? <br />Do it <a href="#">here</a>.</p>
+				<p class=" goto-register">Not registered? <br />Do it <a href="#">here</a>.</p>
 			</section>
 		</div>
 
 		<div class="register center-container off">
-			<section class="panel">
+			<section class="panel"> 
 				<h2>Register</h2>
 				<form method="get" class="register-form">
 					<label for="name">Name:</label>
@@ -40,10 +40,7 @@
 					<input type="password" class="password" name="password" placeholder="Enter your password" />
 					<button class="buttom button-submit" type="submit" value="register">Register</button>
 				</form>
-				<p class="goto-login">
-					Already registered? <br />
-					Login <a href="#">here</a>.
-				</p>
+				<p class="goto-login">Already registered? <br> Login <a href="#">here</a>.</p>
 			</section>
 		</div>
 
@@ -52,7 +49,7 @@
 				<header class="home-header">
 					<div class="header-items-wrapper">
 						<a href="#" class="header-title-link">
-							<h1>APP Home</h1>
+							<h1>Home</h1>
 						</a>
 						<a href="#" class="home-profile-avatar-link">
 							<img class="user-avatar home-header-avatar" src="" alt="" />
@@ -69,7 +66,6 @@
 							<li class="menu-profile"><a href="#">Edit your profile</a></li>
 							<li class="menu-show-posts"><a href="#">Show Posts</a></li>
 							<li class="menu-create-post"><a href="#">Create Post</a></li>
-							<!-- <div class="overlay-panel-close"></div> -->
 						</ul>
 					</nav>
 				</header>
@@ -84,7 +80,7 @@
 				<div class="home-profile off">
 					<section>
 						<h2 class="profile-headline">Profile</h2>
-						<section class="change-user-avatar panel">
+						<section class="change-user-avatar">
 							<h3 class="change-user-avatar-headline">Change your avatar</h3>
 							<form action="" class="change-user-avatar-form">
 								<input type="url" name="url" placeholder="Avatar image URL" accept=".png, .jpeg,  .gif,  .png,  .webp" />
@@ -92,7 +88,7 @@
 							</form>
 						</section>
 
-						<section class="change-user-password panel">
+						<section class="change-user-password">
 							<h3 class="change-password-headline">Change Your Password</h3>
 							<form action="" class="change-user-password-form">
 								<input type="password" name="password" placeholder="Enter your password" />
@@ -102,7 +98,7 @@
 							</form>
 						</section>
 
-						<section class="change-user-email panel">
+						<section class="change-user-email">
 							<h3 class="change-user-email-headline">Change Your e-mail</h3>
 							<form action="" class="change-user-email-form">
 								<input type="text" name="newEmail" placeholder="Enter your new e-mail" />
@@ -116,15 +112,13 @@
 
 				<section class="add-post-panel off">
 					<h3 class="create-post-headline">Shoot your post!</h3>
-					<form action="" class="add-post-panel-form panel">
+					<form action="" class="add-post-panel-form">
 						<label for="add-post-image">Image:</label>
 						<input type="url" name="image" placeholder="Paste image URL in here." />
 						<label for="add-post-text">Text:</label>
 						<textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
-						<div class="inline-container">
-							<button class="create">create</button>
-							<button class="cancel">cancel</button>
-						</div>
+						<button class="create">create</button>
+						<button class="cancel">cancel</button>
 					</form>
 					<div class="overlay-panel-close"></div>
 				</section>
@@ -137,10 +131,8 @@
 						<input type="url" name="image" placeholder="Paste image URL in here." />
 						<label for="edit-post-text">Text:</label>
 						<textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
-						<div class="inline-container">
-							<button class="edit">edit</button>
-							<button class="cancel">cancel</button>
-						</div>
+						<button class="edit">edit</button>
+						<button class="cancel">cancel</button>
 					</form>
 					<div class="overlay-panel-close"></div>
 				</section>

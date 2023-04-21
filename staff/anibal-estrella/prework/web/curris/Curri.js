@@ -72,7 +72,7 @@ Curri.prototype.push = function push(...elements) {
         let element = elements[i]
 
         this[this.length] = element
-        this.length ++
+        this.length++
     }
 
     return this.length
@@ -83,12 +83,40 @@ Curri.prototype.pop = function pop() {
     const last = this[this.length - 1]
 
     delete this[this.length - 1]
-    
+
     this.length--
 
     return last
 }
 
+
+Curri.prototype.join = function join(separator) {
+    let result = ''
+    let element
+
+    for (let i = 0; i < this.length; i++) {
+        element = this[i]
+
+        if (i < this.length - 1) {
+            if (separator === undefined)
+                result += element + ','
+            else if (separator || separator === '')
+                result += element + separator
+        
+        } else {
+
+            result += element;
+        }
+        
+    }
+
+    this[this.length] = this.length
+
+    return  result
+}
+
+
+window.Curri = Curri
 
 export default Curri
 

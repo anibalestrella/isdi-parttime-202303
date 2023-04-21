@@ -183,3 +183,24 @@ console.log(c8.pop(c8))
 
 console.log(c8)
 // Expected output: Array ["broccoli", "cauliflower", "cabbage"]
+
+
+console.log('/// prototype.join');
+
+const c9 = new Curri
+
+c9[0] = 'Fire'
+c9.length++
+c9[1] = 'Air'
+c9.length++
+c9[2] = 'Water'
+c9.length++
+
+console.log(c9.join());
+// Expected output: "Fire,Air,Water"
+
+console.log(c9.join(''));
+// Expected output: "FireAirWater"
+
+console.log(c9.join('-'));
+// Expected output: "Fire-Air-Water"
