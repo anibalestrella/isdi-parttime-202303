@@ -23,10 +23,10 @@ export function createPost(userId, image, text){
     if (!user) throw new Error(`User ${userId} not found`)
 
     let id ='post-01'
-    const lastPost = posts[postMessage.length -1]
+    const lastPost = posts[postMessage.length - 1]
 
     if (lastPost)
-    id= 'post-0' + (parseInt(lastPost.id.slice(5)) + 1)
+    id= 'post-0' + (parseInt(lastPost.id.slice(6)) + 1)
 
 const post ={
     id,
