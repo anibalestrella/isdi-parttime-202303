@@ -119,6 +119,28 @@ class Curri {
         return result
     }
 
+
+    unshift(...elements) {
+        let last = this
+        let result = []
+        let element
+
+        for (let i = 0; i < elements.length; i++) {
+            element = elements[i]
+            this[i - 1] += element
+        }
+
+        if (this) {
+            for (let i = 0; i < this.length; i++) {
+                element = this[i]
+                result += element
+            }
+        }
+         this.length = result.length
+
+        return result.length
+
+    }
 }
 
 window.Curri = Curri
