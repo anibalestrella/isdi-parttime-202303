@@ -2,7 +2,7 @@ import Curri from './Curri.js'
 
 
 describe('Curri', () => {
-    describe('constructur', () => {
+    describe('constructor', () => {
         it('should create instance of elements', () => {
 
             const c = new Curri(10, 20, 30)
@@ -112,8 +112,6 @@ describe('Curri', () => {
                 c3[4] = '5'
                 c3.length++
 
-
-                // Checks whether an element is even
                 const even = (element) => element % 2 === 0
 
                 expect(c3).toBeInstanceOf(Curri)
@@ -172,7 +170,6 @@ describe('Curri', () => {
                 expect(c6).toBeInstanceOf(Curri)
                 expect(c6.length).toBe(6)
                 expect(result).toEqual(['exuberant', 'destruction', 'present'])
-                // Expected output: Array ["exuberant", "destruction", "present"]
             })
         })
     })
@@ -188,9 +185,10 @@ describe('Curri', () => {
                 expect(c7).toBeInstanceOf(Curri)
                 expect(c7.length).toBe(4)
                 expect(count).toBe(4)
-                // Expected output: 4
-                expect(c7).toBe("Curri({ 0: 'pigs', 1: 'goats', 2: 'sheep', 3: 'cows', length: 4})")
-                // Expected output: Array ["pigs", "goats", "sheep", "cows"]
+               expect(c7[0]).toBe("pigs")
+               expect(c7[1]).toBe("goats")
+               expect(c7[2]).toBe("sheep")
+               expect(c7[3]).toBe("cows")
 
                 const count2 = c7.push('chickens', 'cats', 'dogs')
 
@@ -267,7 +265,10 @@ describe('Curri', () => {
                 expect(c9.length).toBe(3)
                 
                 expect(c9.unshift(4, 5)).toBe(5)
-                expect(c9).toBe([4, 5, 1, 2, 3])
+                expect(c9.length).toBe(5);
+                expect(c9[0]).toBe(4);
+                expect(c9[2]).toBe(1);
+                expect(c9[4]).toBe(3);
                 
 
             })
