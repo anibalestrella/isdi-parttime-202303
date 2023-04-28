@@ -19,16 +19,15 @@ export const homePage = document.querySelector(".home")
 const appBody = document.querySelector('body')
 
 const homeMenu = homePage.querySelector('.home-menu')
-const headerTitleLink = homePage.querySelector('.header-title-link')
-
 const homeProfile = homePage.querySelector('.home-profile')
 const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
 const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
 
-export const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
+const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
 const avatarImage = homePage.querySelectorAll('.user-avatar')
 const avatarImageLink = homePage.querySelectorAll('.home-profile-avatar-link')
-const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
+const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
+const headerTitleLink = homePage.querySelector('.header-title-link')
 
 export const postListPanel = homePage.querySelector('.post-list')
 export const homeFooter = document.querySelector('.home-footer')
@@ -106,6 +105,8 @@ headerTitleLink.onclick = (event) => {
   show(postListPanel)
 }
 
+
+
 homePage.querySelector('.home-header .menu-open').onclick = (event) => {
   event.preventDefault()
 
@@ -117,7 +118,7 @@ homePage.querySelector('.home-header .menu-open').onclick = (event) => {
 homeMenu.querySelector('.menu-close').onclick = function (event) {
   event.preventDefault()
 
-  //avatarImage.src = DEFAULT_AVATAR_URL
+  avatarImage.src = DEFAULT_AVATAR_URL
   hide(homeMenu)
 }
 
@@ -243,7 +244,6 @@ export function renderPosts() {
           editPostPanelForm.querySelector('input[type=url]').value = post.image
           editPostPanelForm.querySelector('input[type=hidden]').value = post.id
           editPostPanelForm.querySelector('textarea').value = post.text
-          appBody.classList.add('block-scroll')
 
           show(editPostPanel)
 
@@ -323,8 +323,6 @@ addPostPanelForm.querySelector('.cancel').onclick = function (event) {
 }
 
 document.querySelector('.overlay-panel-close').onclick = function (event) {
-  appBody.classList.remove('block-scroll')
-
   hide(addPostPanel)
 }
 

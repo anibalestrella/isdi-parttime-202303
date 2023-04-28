@@ -11,6 +11,13 @@ export function createPost(userId, image, text){
     validateUrl(image, 'image url')
     validateText(text)
 
+    //TODO steps
+    //check user with userId exixts
+    //create post id
+    //create post object and add authe, image, text, and date
+    // add post to posts array in  Db
+
+
     const user = findUserById(userId)
 
     if (!user) throw new Error(`User ${userId} not found`)
