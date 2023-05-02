@@ -1,44 +1,97 @@
 console.log('// home-page')
 
 import { context, show, hide } from "../ui.js"
-
+import { updateUserPassword } from "../logic/update-user-password.js"
+import { updatePost } from "../logic/update-post.js"
 import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
 import { retrievePosts } from "../logic/retrieve-posts.js"
 import retrieveUser from "../logic/retrieve-user.js"
+import { createPost } from "../logic/create-post.js"
 import { users } from "../data.js"
 import { toggleLikePost } from "../logic/toggle-like-post.js"
 
-// components
-// call the profile component
-import initHomeProfile from "../components/home-profile.js"
-import initAddPostPanel from "../components/add-post-panel.js"  
-import initEditPostPanel from "../components/edit-post-panel.js" 
-import { updatePost } from "../logic/update-post.js"
-
+import { updateUserEmail } from "../logic/update-user-email.js"
+import { updateUserAvatar } from '../logic/update-user-avatar.js'
 
 export const homePage = document.querySelector(".home")
-export const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
+
+const appBody = document.querySelector('body')
+
+const homeMenu = homePage.querySelector('.home-menu')
+const homeProfile = homePage.querySelector('.home-profile')
+const changeUserPasswordForm = homePage.querySelector('.change-user-password-form')
+const changeUserEmailForm = homePage.querySelector('.change-user-email-form')
+
+const changeUserAvatarForm = homePage.querySelector('.change-user-avatar-form')
+const avatarImage = homePage.querySelectorAll('.user-avatar')
+const avatarImageLink = homePage.querySelectorAll('.home-profile-avatar-link')
+const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
+const headerTitleLink = homePage.querySelector('.header-title-link')
+
 export const postListPanel = homePage.querySelector('.post-list')
 export const homeFooter = document.querySelector('.home-footer')
 
-const appBody = document.querySelector('body')
-const homeMenu = homePage.querySelector('.home-menu')
-const headerTitleLink = homePage.querySelector('.header-title-link')
-const avatarImage = homePage.querySelectorAll('.user-avatar')
-const avatarImageLink = homePage.querySelectorAll('.home-profile-avatar-link')
+const addPostPanel = document.querySelector('.add-post-panel')
+const addPostPanelForm = document.querySelector('.add-post-panel-form')
 
+const editPostPanel = document.querySelector('.edit-post-panel')
+const editPostPanelForm = document.querySelector('.edit-post-panel-form')
 
+changeUserPasswordForm.onsubmit = function (event) {
+  event.preventDefault()
 
+  const password = event.target.password.value
+  const newPassword = homePage.querySelector('input[name="newPassword"]').value
+  const newPasswordConfirm = homePage.querySelector('input[name="newPasswordConfirm"]').value
 
+  try {
 
+    updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
 
-// initialize Components
-// the profile component using destructuring
-const { homeProfile } = initHomeProfile(homePage, avatarImage)
-const { addPostPanel } = initAddPostPanel(appBody, renderPosts)
-const {editPostPanel,editPostPanelForm} = initEditPostPanel (renderPosts,appBody)
+    alert('password changed')
 
+    changeUserPasswordForm.reset()
+  } catch (error) {
+    alert(error.message)
+  }
+}
+
+changeUserEmailForm.onsubmit = function (event) {
+  event.preventDefault()
+
+  const newEmail = event.target.newEmail.value
+  const newEmailConfirm = homePage.querySelector('input[name="newEmailConfirm"]').value
+  const userId = context.userId
+
+  try {
+    updateUserEmail(userId, newEmail, newEmailConfirm)
+  } catch (error) {
+    alert(error.message)
+  }
+
+  changeUserEmailForm.reset()
+
+}
+
+changeUserAvatarForm.onsubmit = function (event) {
+  event.preventDefault()
+
+  const url = event.target.url.value
+
+  try {
+    updateUserAvatar(context.userId, url)
+
+    alert('avatar updated')
+
+    avatarImage.forEach((image) => image.src = url)
+
+    changeUserAvatarForm.reset()
+  } catch (error) {
+    alert(error.message)
+  }
+
+}
 
 avatarImageLink.forEach(link => {
   link.addEventListener('click', () => {
@@ -52,15 +105,20 @@ headerTitleLink.onclick = (event) => {
   show(postListPanel)
 }
 
+
+
 homePage.querySelector('.home-header .menu-open').onclick = (event) => {
   event.preventDefault()
 
   show(homeMenu)
 }
 
+
+
 homeMenu.querySelector('.menu-close').onclick = function (event) {
   event.preventDefault()
 
+  avatarImage.src = DEFAULT_AVATAR_URL
   hide(homeMenu)
 }
 
@@ -107,6 +165,41 @@ homeFooter.querySelector('.add-post-button').onclick = function (event) {
 }
 
 
+editPostPanelForm.onsubmit = event => {
+  event.preventDefault()
+
+  const user = context.userId
+
+  const postId = event.target.postId.value
+  const image = event.target.image.value
+  const text = event.target.text.value
+
+  try {
+    //createPost(context.userId, image, text)
+    console.log({ postId }, { image }, { text }, { user })
+    //TODO updatePost{context.userID, postID, image, text}
+    updatePost(user, postId, image, text)
+
+    hide(editPostPanel)
+
+    appBody.classList.remove('block-scroll')
+
+    renderPosts()
+  } catch (error) {
+    alert(error.message)
+  }
+
+  editPostPanelForm.reset()
+}
+
+editPostPanelForm.querySelector('.cancel').onclick = function (event) {
+  event.preventDefault()
+
+  appBody.classList.remove('block-scroll')
+  hide(editPostPanel)
+  editPostPanelForm.reset()
+}
+
 export function renderPosts() {
 
   //empty the posts
@@ -151,7 +244,6 @@ export function renderPosts() {
           editPostPanelForm.querySelector('input[type=url]').value = post.image
           editPostPanelForm.querySelector('input[type=hidden]').value = post.id
           editPostPanelForm.querySelector('textarea').value = post.text
-          appBody.classList.add('block-scroll')
 
           show(editPostPanel)
 
@@ -200,9 +292,37 @@ export function renderPosts() {
   }
 }
 
-document.querySelector('.overlay-panel-close').onclick = function (event) {
+addPostPanelForm.querySelector('.create').onclick = function (event) {
+  event.preventDefault()
+  console.log('shitty post!!');
+  const user = context.userId
+
+  const image = addPostPanelForm.querySelector('input[name="image"]').value
+  const text = addPostPanelForm.querySelector('textarea[name="text"]').value
+
+  try {
+    createPost(context.userId, image, text)
+
+    hide(addPostPanel)
+    appBody.classList.remove('block-scroll')
+
+    renderPosts()
+  } catch (error) {
+    alert(error.message)
+  }
+
+  addPostPanelForm.reset()
+}
+
+addPostPanelForm.querySelector('.cancel').onclick = function (event) {
+  event.preventDefault()
   appBody.classList.remove('block-scroll')
 
+  hide(addPostPanel)
+  addPostPanelForm.reset()
+}
+
+document.querySelector('.overlay-panel-close').onclick = function (event) {
   hide(addPostPanel)
 }
 
