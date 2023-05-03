@@ -23,7 +23,7 @@ export function registerUser(name, email, password) {
   // by default add a first user an id
   // if ther's a user in the DB
   // create user id from the last user ID + 1
-  const lastUser = _users[users.length - 1]
+  const lastUser = _users[_users.length - 1]
 
   if (lastUser)
     id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
