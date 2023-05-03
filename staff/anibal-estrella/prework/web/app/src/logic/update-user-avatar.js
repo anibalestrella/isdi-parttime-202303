@@ -2,7 +2,7 @@ console.log('// LOGIC // updateUserAvatar');
 
 import {findUserById} from "./helpers/data-managers.js"
 import { validateId, validateUrl } from "./helpers/validators.js"
-import { saveUsers } from "../data.js"
+import { saveUser } from "../data.js"
 
 export function updateUserAvatar(userId, url) {
     validateId(userId, 'user id')
@@ -15,6 +15,6 @@ export function updateUserAvatar(userId, url) {
   
     user.avatar = url
 
-    saveUsers()
+    saveUser(user)
   }
   

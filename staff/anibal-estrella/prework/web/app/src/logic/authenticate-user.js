@@ -6,13 +6,13 @@ import {findUserByEmail} from "./helpers/data-managers.js"
 export function authenticateUser(email, password) {
   validateEmail(email)
   validatePassword(password, 'new password')
-  const foundUser = findUserByEmail(email)
+  const user = findUserByEmail(email)
 
-  if (!foundUser)
+  if (!user)
     throw new Error('User does not exist in the database')
 
-  if (foundUser.password !== password)
+  if (user.password !== password)
     throw new Error('Wrong password')
 
-  return foundUser.id
+  return user.id
 }

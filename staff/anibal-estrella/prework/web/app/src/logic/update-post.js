@@ -1,6 +1,6 @@
 import { validateId, validateUrl, validateText } from './helpers/validators.js'
 import { findUserById, findPostById } from './helpers/data-managers.js'
-import { savePosts } from '../data.js'
+import { savePost } from '../data.js'
 
 export function updatePost(userId, postId, image, text) {
     validateUrl(image, 'image url')
@@ -22,6 +22,6 @@ export function updatePost(userId, postId, image, text) {
     post.text = text
     post.date = new Date
 
-    //- save posts
-    savePosts()
+    //- save post
+    savePost(post)
 }

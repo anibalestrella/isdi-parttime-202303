@@ -2,7 +2,7 @@ console.log('/// toggle-like-post');
 
 import { validateId } from './helpers/validators.js'
 import { findUserById, findPostById } from './helpers/data-managers.js'
-import { savePosts } from '../data.js'
+import { savePost } from '../data.js'
 
 
 export function toggleLikePost(userId, postId) {
@@ -22,16 +22,16 @@ export function toggleLikePost(userId, postId) {
     } else {
         const index = post.likes.indexOf(userId)
         if (index < 0)
-        // If user index is -1(userId not in array) add it to LIKE
+            // If user index is -1(userId not in array) add it to LIKE
             post.likes.push(userId)
-        else{
-        // take userId out of array to UNLIKE post
+        else {
+            // take userId out of array to UNLIKE post
             post.likes.splice(index, 1)
             if (!post.likes.length) delete post.likes
         }
     }
 
-    savePosts()
+    savePost(post)
 }
 
 // trick to test it with the app loaded and acces function through the window memory

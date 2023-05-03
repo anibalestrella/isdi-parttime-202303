@@ -6,7 +6,7 @@ import { registerPage } from "./register-page.js"
 import { loginPage } from "./login-page.js"
 import { retrievePosts } from "../logic/retrieve-posts.js"
 import retrieveUser from "../logic/retrieve-user.js"
-import { users } from "../data.js"
+import { users, posts } from "../data.js"
 import { toggleLikePost } from "../logic/toggle-like-post.js"
 
 // components
@@ -14,8 +14,6 @@ import { toggleLikePost } from "../logic/toggle-like-post.js"
 import initHomeProfile from "../components/home-profile.js"
 import initAddPostPanel from "../components/add-post-panel.js"  
 import initEditPostPanel from "../components/edit-post-panel.js" 
-import { updatePost } from "../logic/update-post.js"
-
 
 export const homePage = document.querySelector(".home")
 export const DEFAULT_AVATAR_URL = '../../assets/avatar-default.svg'
@@ -120,7 +118,7 @@ export function renderPosts() {
       const postItem = document.createElement('article')
       postItem.classList.add("post", "panel");
 
-      const author = users.find(element => element.id === post.author)
+      const author = users().find(element => element.id === post.author)
 
       const authorName = document.createElement('h3')
       authorName.innerText = author.name

@@ -41,6 +41,8 @@ export default function initHomeProfile(homePage, avatarImage) {
 
         try {
             updateUserEmail(userId, newEmail, newEmailConfirm)
+            alert('email updated')
+
         } catch (error) {
             alert(error.message)
         }
