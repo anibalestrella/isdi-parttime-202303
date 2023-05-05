@@ -22,7 +22,7 @@ export default class App extends Component {
 
     handleGoToLogin = () => this.setState({ view: 'login' })
 
-    handleGoToHomePage = () => this.setState({ view: 'home' })
+    handleGoToHome = () => this.setState({ view: 'home' })
 
     // is a method REFRESHES to Render in the DOM
     render() {

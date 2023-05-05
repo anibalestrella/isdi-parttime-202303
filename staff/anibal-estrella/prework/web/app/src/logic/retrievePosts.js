@@ -3,7 +3,7 @@ console.log('// LOGIC // retrievePosts');
 import { validateId } from "./helpers/validators.js";
 import { users, posts } from "../data.js"
 
-export function retrievePosts(userId) {
+export default function retrievePosts(userId) {
     validateId(userId, 'user id')
 
     const found=users().some(user => user.id === userId)
