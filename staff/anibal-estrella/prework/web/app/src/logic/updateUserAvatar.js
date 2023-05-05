@@ -1,6 +1,6 @@
 console.log('// LOGIC // updateUserAvatar');
 
-import {findUserById} from "./helpers/data-managers.js"
+import {findUserById} from "./helpers/dataManagers.js"
 import { validateId, validateUrl } from "./helpers/validators.js"
 import { saveUser } from "../data.js"
 

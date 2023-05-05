@@ -1,6 +1,3 @@
-console.log('//// DATA');
-
-// use a  function to access data so every time it's invoked it will referesh the updated  DB
 export const users = () => 'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
 
 export const posts = () => {

@@ -1,5 +1,3 @@
-// HELPERS:
-// de uso solo en logic.js no se exporta
 import { users, posts } from "../../data.js"
 
 export function findUserById(userId) {

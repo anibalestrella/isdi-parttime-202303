@@ -9,16 +9,17 @@
 }
 
 :root {
+	--a100:100%;
 	--montserrat: "Montserrat", sans-serif;
-	--basecolor: #040404;
-	--backcolor: #3a3a3a;
-	--myGray: #a3b1a3;
-	--myLightGray: #cee1c8;
-	--myLime: #00e6a1;
-	--myLimeDark: #18c28f;
-	--myRed: #ff3478;
-	--myBlueDark: #06006f;
-	--fontcolorlight: #dddcd9;
+	--basecolor: hsl(162, 5%, 6%);
+	--backcolor: hsl(162, 5%, 20%);
+	--myGray: hsl(162, 10%, 40%);
+	--myLightGray: hsl(162, 10%, 70%);
+	--myLime: hsl(162, 100%, 45%);
+	--myLimeDark: hsl(162,100%, 35%);
+	--myRed: hsl(340, 100%, 60%);
+	--myBlueDark: hsl(243, 100%, 22%);
+	--fontcolorlight: hsl(45, 6%, 86%);
 	--backgroundGradient: linear-gradient(315deg, var(--myLime) 0%, var(--myBlueDark) 100%);
 	--buttonGradient: linear-gradient(315deg, var(--myBlueDark) 0%, var(--myRed) 100%);
 }
@@ -26,6 +27,7 @@
 html {
 	height: 100%;
 }
+
 body {
 	font-family: var(--montserrat);
 	background-color: var(--basecolor);
@@ -193,7 +195,7 @@ button {
 	margin-top: 10px;
 	cursor: pointer;
 	text-transform: uppercase;
-	box-shadow: 2px 2px 2px #000000d5;
+	box-shadow: 2px 2px 2px var(--basecolor);
 	width: max-content;
 	min-width: 7rem;
 	background-image: var(--buttonGradient);
@@ -203,7 +205,7 @@ button {
 button:hover {
 	background-image: none;
 	background-color: var(--myRed);
-	box-shadow: 5px 5px 5px #000000d5;
+	box-shadow: 5px 5px 5px var(--basecolor)
 }
 button:active {
 	background-color: var(--myLime);
@@ -320,7 +322,7 @@ button:focus {
 	width: 100%;
 	height: 100%;
 	text-align: center;
-	background-color: #040404b7;
+	background-color: var(--backcolor);
 	backdrop-filter: blur(10px);
 }
 
@@ -336,13 +338,13 @@ button:focus {
 }
 .home-menu ul li a:hover {
 	color: var(--fontcolorlight);
-	box-shadow: 2px 2px 2px #000000d5;
+	box-shadow: 2px 2px 2px var(--basecolor);
 	border-radius: 20px;
 	font-weight: 700;
 	background-image: var(--buttonGradient);
 }
 .home-menu ul li a:active {
-	box-shadow: 2px 2px 2px #000000d5;
+	box-shadow: 2px 2px 2px var(--basecolor);
 	background-image: none;
 	box-shadow: none;
 	background-color: var(--myLimeDark);
@@ -415,7 +417,7 @@ footer.home-footer {
 	left: 0;
 	height: 100vh;
 	width: 100vw;
-	background-color: #000000a5;
+	background-color: var(--backcolor);
 	backdrop-filter: blur(10px);
 	padding: 2rem;
 	z-index: 1;

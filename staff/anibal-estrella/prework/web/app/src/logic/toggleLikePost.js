@@ -1,7 +1,7 @@
 console.log('/// toggle-like-post');
 
 import { validateId } from './helpers/validators.js'
-import { findUserById, findPostById } from './helpers/data-managers.js'
+import { findUserById, findPostById } from './helpers/dataManagers.js'
 import { savePost } from '../data.js'
 
 

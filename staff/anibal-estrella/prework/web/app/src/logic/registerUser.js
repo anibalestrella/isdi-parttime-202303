@@ -1,7 +1,7 @@
 console.log('// LOGIC // registerUser');
 
 import { validateEmail, validateName, validatePassword } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/data-managers.js"
+import { findUserByEmail } from "./helpers/dataManagers.js"
 import { users, saveUsers } from "../data.js";
 import { DEFAULT_AVATAR_URL } from "../pages/home-page.js"
 

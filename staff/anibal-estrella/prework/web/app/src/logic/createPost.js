@@ -3,7 +3,7 @@ console.log('// LOGIC // createPost');
 
 import { validateId, validateUrl, validateText } from "./helpers/validators.js"
 import { posts, savePosts } from "../data.js"
-import { findUserById } from "./helpers/data-managers.js";
+import { findUserById } from "./helpers/dataManagers.js";
 
 
 export function createPost(userId, image, text) {

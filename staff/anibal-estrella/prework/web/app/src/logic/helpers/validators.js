@@ -1,6 +1,4 @@
-import { findUserById } from "./data-managers";
-
-console.log('//// VALIDATORS');
+import { findUserById } from "./dataManagers";
 
 export function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
