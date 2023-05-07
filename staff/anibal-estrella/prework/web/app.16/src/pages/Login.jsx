@@ -2,7 +2,7 @@ import { context } from "../ui.js"
 import { authenticateUser } from "../logic/authenticateUser.js"
 
 export default function Login({onRegisterClick, onUserLoggedIn}) {
-    console.log('// Login -> RENDER \npj@gmail.com');
+    console.log('// Login -> RENDER');
 
     // 2 // this function will send the event to its parent 
     function handleGoToRegisterClick(event) {

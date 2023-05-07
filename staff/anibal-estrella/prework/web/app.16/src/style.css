@@ -9,17 +9,17 @@
 }
 
 :root {
-	--a100: 100%;
+	--a100:100%;
 	--montserrat: "Montserrat", sans-serif;
 	--backcolor-values: 162 5% 20%;
-	--opacity-80: /80%;
+	--opacity-80: / 80%;
 	--basecolor: hsl(162, 5%, 6%);
 	--backcolor: hsl(var(--backcolor-values));
-	--backcolor-80: hsl(var(--backcolor-values) var(--opacity-80));
+	--backcolor-80:hsl(var(--backcolor-values) var(--opacity-80));
 	--myGray: hsl(162, 10%, 40%);
 	--myLightGray: hsl(162, 10%, 70%);
 	--myLime: hsl(162, 100%, 45%);
-	--myLimeDark: hsl(162, 100%, 35%);
+	--myLimeDark: hsl(162,100%, 35%);
 	--myRed: hsl(340, 100%, 60%);
 	--myBlueDark: hsl(243, 100%, 22%);
 	--fontcolorlight: hsl(45, 6%, 86%);
@@ -70,8 +70,8 @@ form {
 	max-width: 50vw;
 }
 
-#root {
-	height: 100%;
+#root{
+height: 100%;
 }
 
 section {
@@ -215,7 +215,7 @@ button {
 button:hover {
 	background-image: none;
 	background-color: var(--myRed);
-	box-shadow: 5px 5px 5px var(--basecolor);
+	box-shadow: 5px 5px 5px var(--basecolor)
 }
 button:active {
 	background-color: var(--myLime);
@@ -297,18 +297,14 @@ button:focus {
 	border-radius: 20px;
 	background: var(--backgroundGradient);
 }
-
 .header-title-link {
 	margin: 0px 0px 0px 2rem;
 	text-decoration: none;
 }
 
-/* General sibling combinator
-The general sibling combinator (~) separates two selectors and matches all iterations of the second element, that are following the first element (though not necessarily immediately), and are children of the same parent element. */
-.header-items-wrapper h1 ~ * {
+.header-items-wrapper a ~ * {
 	margin-left: auto;
 }
-
 .home-header-avatar {
 	margin: 0.3rem 0 0 auto;
 }
@@ -453,7 +449,7 @@ footer.home-footer {
 }
 .add-post-modal button,
 .edit-post-panel button {
-	margin: 1rem 1rem 0 0;
+	margin:  1rem 1rem 0 0;
 }
 
 button.menu-open {
