@@ -336,8 +336,8 @@ The general sibling combinator (~) separates two selectors and matches all itera
 	width: 100%;
 	height: 100%;
 	text-align: center;
-	background-color: var(--backcolor);
-	backdrop-filter: blur(10px);
+	background-color: var(--backcolor-80);
+ 		backdrop-filter: blur(10px);
 }
 
 .home-menu ul {

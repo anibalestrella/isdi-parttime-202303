@@ -4,6 +4,8 @@ import retrieveUser from "../logic/retrieveUser"
 import { context } from "../ui"
 import AddPostModal from '../components/AddPostModal'
 import Profile from '../components/Profile'
+import Menu from '../components/Menu'
+
 
 export default class Home extends Component {
 
@@ -17,7 +19,7 @@ export default class Home extends Component {
             this.name = loggedUser.name
             this.avatar = loggedUser.avatar
 
-            this.state = { view: 'posts', modal: null }
+            this.state = { view: 'posts', modal: null, menu: null }
 
         } catch (error) {
             alert(error.message)
@@ -38,8 +40,21 @@ export default class Home extends Component {
         this.setState({ view: 'posts' })
     }
 
+    handleOpenMenu = event => {
+        
+        event.preventDefault()
+        console.log('open menu')
+        this.setState({ menu: 'menu' })
+    }
+
+    handleCloseMenu = event => {
+        console.log('close menu')
+        this.setState({ menu: null })
+    }
+    
     render() {
         console.log('// Home -> RENDER')
+
         return <div className="home ">
             <section>
                 <header className="home-header">
@@ -50,20 +65,16 @@ export default class Home extends Component {
                         <a href="#" className="home-profile-avatar-link" onClick={this.handleGoToProfile}>
                             <img className="user-avatar home-header-avatar" src={this.avatar} alt="" />
                         </a>
-                        <button className="menu-open">&#9776;</button>
+                        <button className="menu-open" onClick={this.handleOpenMenu}>&#9776;</button>
                     </div>
 
-                    <nav className="home-menu center-container off">
-                        <ul>
-                            <li className="menu-close">
-                                <a href="#" className="close-menu">Close Menu</a>
-                            </li>
-                            <li className="menu-logout"><a href="#">Logout</a></li>
-                            <li className="menu-profile"><a href="#" onClick={this.handleGoToProfile}>Edit your profile</a></li>
-                            <li className="menu-show-posts" onClick={this.handleGoToHome}><a href="#">Show Posts</a></li>
-                            <li className="menu-create-post"><a href="#" onClick={this.handleOpenAddPost}>Create Post</a></li>
-                        </ul>
-                    </nav>
+                    {this.state.menu === 'menu' && <Menu
+                    onCloseMenu={this.handleCloseMenu}
+                    // onClick={this.handleGoToProfile}
+                    // onClick={this.handleGoToHome}
+                    // onClick={this.handleOpenAddPost}
+                    />}
+
                 </header>
 
                 <div className="hello-user">
@@ -77,7 +88,10 @@ export default class Home extends Component {
  
                 {this.state.view === 'profile' && <Profile />}
 
-                {this.state.modal === 'add-post' && <AddPostModal onCancel={this.handleCloseAddPost} />}
+                {this.state.modal === 'add-post' && <AddPostModal 
+                    onCancel={this.handleCloseAddPost} 
+                    onPostCreated={this.handleCloseAddPost}
+                />}
 
                 <footer className="home-footer">
                     <div className="footer-items-wrapper">
