@@ -132,11 +132,15 @@ section {
 	box-shadow: 0px 0px 10px var(--basecolor);
 }
 
+.profile-headline {
+	margin: 2rem 0;
+}
+
 .home-profile section > section {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin: 1rem 0;
+	margin-bottom: 2rem;
 }
 
 .home-profile section > section h3 {
@@ -270,12 +274,22 @@ button:focus {
 .goto {
 	margin: 2rem 0;
 }
-
+.home {
+	padding: 6.5rem 0 2rem 0;
+}
 .header-items-wrapper,
 .footer-items-wrapper {
 	box-shadow: 0px 0px 10px var(--basecolor);
 }
-
+.home-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	max-width: 100%;
+	height: 70px;
+	z-index: 1;
+}
 .header-items-wrapper {
 	display: flex;
 	flex-direction: row;
@@ -291,7 +305,8 @@ button:focus {
 	text-decoration: none;
 }
 
-
+/* General sibling combinator
+The general sibling combinator (~) separates two selectors and matches all iterations of the second element, that are following the first element (though not necessarily immediately), and are children of the same parent element. */
 .header-items-wrapper h1 ~ * {
 	margin-left: auto;
 }
@@ -314,6 +329,10 @@ button:focus {
 }
 
 .home-menu {
+	/* display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap; */
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -359,8 +378,50 @@ button:focus {
 	width: 100%;
 	height: 100%;
 }
+footer.home-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	max-width: 100%;
+}
 
+.footer-items-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 
+	margin: 1rem;
+	height: 50px;
+	border-radius: 20px;
+	background: var(--backgroundGradient);
+}
+.home-footer button {
+	height: 100%;
+	width: 50px;
+	padding: 0;
+	margin: 0;
+	color: var(--fontcolorlight);
+	font-weight: 700;
+	font-size: 2rem;
+	border-radius: 0px;
+	box-shadow: none;
+}
+
+.home-footer button:hover {
+	background-image: none;
+	background-color: var(--myRed);
+}
+
+.home-footer button:active {
+	color: var(--backcolor);
+	opacity: 100%;
+	background-color: var(--fontcolorlight);
+}
+.footer-items-wrapper .add-post-button {
+	min-width: 0;
+}
 .add-post-modal,
 .edit-post-modal {
 	display: flex;
@@ -468,10 +529,26 @@ article.post .home-post-image,
 article.post button {
 	justify-self: center;
 }
+.home-post-image{
+	filter: grayscale();
+	mix-blend-mode: screen;
 
+}
 @media screen and (max-width: 599px) {
-	
-	
+	.home-header {
+		height: 50px;
+	}
+	.header-items-wrapper {
+		margin: 0;
+		border-radius: 0;
+	}
+	.home-header-avatar {
+		display: none;
+	}
+	.header-title-link {
+		margin: 0px 0px 0px 1rem;
+		text-decoration: none;
+	}
 	button.menu-open {
 		height: 50px;
 		padding: 0 1rem;

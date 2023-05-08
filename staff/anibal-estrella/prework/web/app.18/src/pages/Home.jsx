@@ -6,7 +6,7 @@ import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
 import Profile from '../components/Profile'
 import Menu from '../components/Menu'
-import './Home.css'
+
 
 export default class Home extends Component {
 
@@ -20,7 +20,7 @@ export default class Home extends Component {
             this.name = loggedUser.name
             this.avatar = loggedUser.avatar
 
-            this.state = { view: 'posts', modal: null, menu: null, postId: null }
+            this.state = { view: 'posts', modal: null, menu: null }
 
         } catch (error) {
             alert(error.message)
@@ -34,7 +34,7 @@ export default class Home extends Component {
 
     openEditPostModal = () => {
         console.log('edit modal!!!')
-        this.setState({ modal: 'edit-post', postId })
+        this.setState({ modal: 'edit-post' })
     }
 
     handleGoToProfile = event => {
@@ -103,10 +103,7 @@ export default class Home extends Component {
                     onPostCreated={this.closeModal}
                 />}
 
-                {this.state.modal === 'edit-post' && <EditPostModal
-                onCancelEditPost={this.closeModal}
-                
-                />}
+                {this.state.modal === 'edit-post' && <EditPostModal onCancelEditPost={this.closeModal}/>}
 
                 <footer className="home-footer">
                     <div className="footer-items-wrapper">

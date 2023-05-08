@@ -5,7 +5,7 @@ export default function Post(props) {
   console.log('// Post -> RENDER')
 
   function handleOpenEditPost() {
-    props.onEditPost(props.post.id)
+    props.onEditPost()
   }
 
   return <article className="post panel">
