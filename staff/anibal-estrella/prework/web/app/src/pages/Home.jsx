@@ -6,6 +6,7 @@ import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
 import Profile from '../components/Profile'
 import Menu from '../components/Menu'
+//import each component styles
 import './Home.css'
 
 export default class Home extends Component {

@@ -6,6 +6,7 @@ export default function Post(props) {
 
   function handleOpenEditPost() {
     props.onEditPost(props.post.id)
+    
   }
 
   return <article className="post panel">

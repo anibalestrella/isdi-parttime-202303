@@ -1,5 +1,6 @@
 console.log('// LOGIC // retrievePosts');
 
+
 import { validateId } from "./helpers/validators.js";
 import { users, posts } from "../data.js"
 
