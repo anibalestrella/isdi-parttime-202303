@@ -1,17 +1,22 @@
 import { context } from "../ui"
+
 // call post PROPS data as destructuring parameters, instead of src={props.post.image} then we'll use only src={image} to call PORPS data
-export default function Post({ post: { author, date, id, image, text, likes }, user: { avatar, name } }) {
+export default function Post(props) {
   console.log('// Post -> RENDER')
 
+  function handleOpenEditPost() {
+    props.onEditPost()
+  }
+
   return <article className="post panel">
-    <img className="user-avatar home-post-avatar" src={avatar} />
-    <h3>{name}</h3>
-    <time>{date.toLocaleString()}</time>
-    <img className="home-post-image" src={image} alt="" />
-    <p>{text}</p>
+    <img className="user-avatar home-post-avatar" src={props.user.avatar} />
+    <h3>{props.user.name}</h3>
+    <time>{props.post.date.toLocaleString()}</time>
+    <img className="home-post-image" src={props.post.image} alt="" />
+    <p>{props.post.text}</p>
     <button>
-      {likes && likes.includes(context.userId) ? '❤️ {likes.length}' : '🤍'} {likes ? likes.length : 0} 
+      {props.post.likes && props.post.likes.includes(context.userId) ? '❤️ {likes.length}' : '🤍'} {props.post.likes ? props.post.likes.length : 0}
     </button>
-    {author === context.userId ? <button>Edit</button> : ''}
+    {props.post.author === context.userId ? <button onClick={handleOpenEditPost}>Edit</button> : ''}
   </article>
 }

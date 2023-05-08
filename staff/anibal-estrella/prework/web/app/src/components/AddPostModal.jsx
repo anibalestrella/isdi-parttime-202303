@@ -29,9 +29,9 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
     return <section className="add-post-modal">
         <h3 className="create-post-headline">Shoot your post!</h3>
         <form action="" className="add-post-modal-form panel" onSubmit={handleCreatePost}>
-            <label for="add-post-image">Image:</label>
+            <label htmlfor="add-post-image">Image:</label>
             <input type="url" name="image" placeholder="Paste image URL in here." />
-            <label for="add-post-text">Text:</label>
+            <label htmlfor="add-post-text">Text:</label>
             <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
             <div className="inline-container">
                 <button className="create">create</button>
