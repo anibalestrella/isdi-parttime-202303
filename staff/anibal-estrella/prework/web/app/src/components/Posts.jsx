@@ -3,7 +3,7 @@ import Post from "./Post.jsx"
 import retrievePosts from "../logic/retrievePosts"
 import retrieveUser from "../logic/retrieveUser"
 
-export default function Posts({ onEditPost }) {
+export default function Posts({ onEditPost, onDeletedPost }) {
     console.log('// Posts -> RENDER');
 
     function handleEditPost(postId) {
@@ -23,6 +23,7 @@ export default function Posts({ onEditPost }) {
                 {posts.map(post => <Post post={post}
                     user={user}
                     onEditPost={handleEditPost}
+                    onDeletedPost={onDeletedPost}
                     // onEditPost={onEditPost} we can use it like this so we avois using handleEditPost
                 />)}
             </section>

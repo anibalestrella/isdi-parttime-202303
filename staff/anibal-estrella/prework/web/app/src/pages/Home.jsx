@@ -64,6 +64,9 @@ export default class Home extends Component {
 
     }
 
+    HandleDeletedPost = () => {
+        this.setState({ view: 'posts', modal: null })
+    }
     render() {
         console.log('// Home -> RENDER')
 
@@ -111,6 +114,7 @@ export default class Home extends Component {
                     onPostEdited={this.closeModal}
                     //pass the postId to the state constructor
                     postId={this.state.postId}
+                    onDeletedPost={this.HandleDeletedPost}
                 />}
 
                 <footer className="home-footer">

@@ -4,7 +4,10 @@ import { savePost } from '../data.js'
 
 export function updatePost(userId, postId, image, text) {
     validateUrl(image, 'image url')
+    validateText(text, 'text')
     validateId(userId, 'user id')
+    validateId(postId, 'post id')
+
 
     const user = findUserById(userId)
     if (!user) throw new Error(`User ${userId} not found`)
