@@ -1,12 +1,11 @@
 import { Component } from 'react'
-import { context } from "../ui"
 import Posts from "../components/Posts"
 import retrieveUser from "../logic/retrieveUser"
+import { context } from "../ui"
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
 import Profile from '../components/Profile'
 import Menu from '../components/Menu'
-import retrieveUser from '../logic/retrieveUser'
 //import each component styles
 import './Home.css'
 
@@ -17,14 +16,14 @@ export default class Home extends Component {
     constructor(props) {
         super(props)
         try {
-            const user = retrieveUser(context.userId)
             const loggedUser = retrieveUser(context.userId)
 
             this.name = loggedUser.name
             this.avatar = loggedUser.avatar
-            this.state = { view: 'posts', modal: null, menu: null, postId: null, user }
+            // we keep postId in state so that we can retrieve it later when the postModal opens
+            this.state = { view: 'posts', modal: null, menu: null, postId: null }
 
-        } catch (error) 
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -72,8 +71,6 @@ export default class Home extends Component {
     handleSwitchMode = () => {
         document.querySelector(':root').classList.toggle('dark')
     }
-
-
 
     render() {
         console.log('// Home -> RENDER')
