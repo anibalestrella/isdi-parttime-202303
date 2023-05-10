@@ -11,7 +11,7 @@ import './Home.css'
 
 export default class Home extends Component {
 
-
+// no logro que se repinte home con los cambios, oneditpost, onavatarupdate, ondeletepost....
 
     constructor(props) {
         super(props)
@@ -69,21 +69,24 @@ export default class Home extends Component {
 
     handleLogOut = () => {
         console.log('LOG OUT MOTHERFUCKER!!!');
-        this.setState({ view: null })
+        this.props.onLogOut()
 
     }
 
     HandleDeletedPost = () => {
-        this.setState({ view: 'posts', modal: null })
+        this.setState({ view: 'home', modal: null })
     }
 
     handleSwitchMode = () => {
         document.querySelector(':root').classList.toggle('dark')
     }
 
-    handleAvatarUpdated = () => {
-        this.setState({ view: 'home' })
+    onAvatarUpdated = () => {
+        this.setState({view: 'posts'})
+        this.props.onAvatarUpdatedProfile()
     }
+
+   
 
     render() {
         console.log('// Home -> RENDER')
@@ -123,7 +126,7 @@ export default class Home extends Component {
                     lastPostsUpdate={this.state.lastPostsUpdate}
                 />}
 
-                {this.state.view === 'profile' && <Profile onAvatarUpdated={this.handleAvatarUpdated} />}
+                {this.state.view === 'profile' && <Profile onAvatarUpdated={this.onAvatarUpdated} />}
 
                 {this.state.modal === 'add-post' && <AddPostModal
                     onCancel={this.closeModal}

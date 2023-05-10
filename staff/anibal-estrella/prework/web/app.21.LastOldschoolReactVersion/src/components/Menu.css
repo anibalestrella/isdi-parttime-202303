@@ -1,0 +1,17 @@
+.menu-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem;
+    border: 1px solid var(--fontcolorlight);
+    width: 25px;
+    height: 25px;
+}
+.menu-close a {
+    line-height: 0; 
+    font-size: 0;
+    color: transparent; 
+}
+.menu-close a:hover {
+    background-color: unset; 
+}

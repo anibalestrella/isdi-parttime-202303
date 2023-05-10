@@ -11,7 +11,7 @@ export default function Profile({ onAvatarUpdated }) {
         const url = event.target.url.value
 
         try {
-
+console.log('update-avataar');
             updateUserAvatar(context.userId, url)
             onAvatarUpdated()
 

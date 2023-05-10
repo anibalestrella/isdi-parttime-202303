@@ -1,0 +1,44 @@
+article.post {
+    display: flex;
+	justify-content: center;
+    flex-direction: column;
+	margin: 1rem 0;
+	color: var(--fontcolorlight);
+	min-width: 370px;
+}
+
+article.post * {
+    max-width: 800px;
+}
+
+article.post .home-post-image {
+	width: 100%;
+	margin: 1rem 0;
+	border-radius: 12px;
+	align-self: center;
+}
+
+article.post p{
+    margin: 1rem 0;
+	align-self: center;
+}
+
+.home-post-avatar {
+	grid-row: span 2;
+	margin-right: 1rem;
+}
+
+.post-info {
+	display: flex;
+	align-items: center;
+
+}
+
+article.post h3 {
+	/* align-self: end; */
+}
+
+article.post time {
+	font-size: smaller;
+	margin-left: 1rem;
+}
