@@ -8,7 +8,7 @@
 	outline: none;
 }
 
-:root {
+:root.light {
 	--opacity-50: /50%;
 	--opacity-80: /80%;
 	--montserrat: "Montserrat", sans-serif;

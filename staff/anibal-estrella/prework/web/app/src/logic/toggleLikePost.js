@@ -5,7 +5,7 @@ import { findUserById, findPostById } from './helpers/dataManagers.js'
 import { savePost } from '../data.js'
 
 
-export function toggleLikePost(userId, postId) {
+export default function toggleLikePost(userId, postId) {
     validateId(postId, 'post id')
     validateId(userId, 'user id')
 

@@ -14,7 +14,6 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
   function handleEditPost(event) {
     event.preventDefault()
-    setIsClicked(true);
 
     const image = event.target.image.value
     const text = event.target.text.value
@@ -41,7 +40,6 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         console.log('DELETE THE MOTHERFICKER!!!');
         deletePost(context.userId, postId); // Invoke deletePost when the button is clicked
         onDeletedPost()
-
       }
 
     } catch (error) {

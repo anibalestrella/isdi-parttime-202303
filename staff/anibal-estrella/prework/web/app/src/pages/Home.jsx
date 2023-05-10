@@ -6,7 +6,6 @@ import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
 import Profile from '../components/Profile'
 import Menu from '../components/Menu'
-import retrieveUser from '../logic/retrieveUser'
 //import each component styles
 import './Home.css'
 
@@ -22,9 +21,15 @@ export default class Home extends Component {
 
             this.name = loggedUser.name
             this.avatar = loggedUser.avatar
-            this.state = { view: 'posts', modal: null, menu: null, postId: null, user }
+            this.state = {
+                view: 'posts',
+                modal: null,
+                menu: null,
+                postId: null,
+                lastPostsUpdate: Date.now(),
+                user }
 
-        } catch (error) 
+        } catch (error) {
             alert(error.message)
         }
     }
@@ -38,7 +43,7 @@ export default class Home extends Component {
         console.log('edit modal!!!')
         // we keep the postId in state so that we can retrieve it later when the postModal is called
         // this.setState({ modal: 'edit-post', postId : postId }) Old
-        this.setState({ modal: 'edit-post', postId })
+        this.setState({ modal: 'edit-post', postId, view: 'posts' })
     }
 
     handleGoToProfile = event => {
@@ -58,6 +63,7 @@ export default class Home extends Component {
 
     handleCloseMenu = () => this.setState({ menu: null })
 
+    handlePostCreated = () => this.setState({modal: null, lastPostsUpdate: Date.now() })
 
     handleLogOut = () =>{
         console.log('LOG OUT MOTHERFUCKER!!!');
@@ -109,13 +115,15 @@ export default class Home extends Component {
                 </div>
 
                 {this.state.view === 'posts' && <Posts 
-                    onEditPost={this.HandleOpenEditPostModal} />}
+                    onEditPost={this.HandleOpenEditPostModal}
+                    lastPostsUpdate={this.state.lastPostsUpdate}
+                    />}
 
                 {this.state.view === 'profile' && <Profile />}
 
                 {this.state.modal === 'add-post' && <AddPostModal
                     onCancel={this.closeModal}
-                    onPostCreated={this.closeModal}
+                    onPostCreated={this.handlePostCreated}
                 />}
 
                 {this.state.modal === 'edit-post' && <EditPostModal

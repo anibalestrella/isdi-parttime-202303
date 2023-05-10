@@ -4,7 +4,7 @@ import {findUserById} from "./helpers/dataManagers.js"
 import { validateId, validateUrl } from "./helpers/validators.js"
 import { saveUser } from "../data.js"
 
-export function updateUserAvatar(userId, url) {
+export default function updateUserAvatar(userId, url) {
     validateId(userId, 'user id')
     validateUrl(url, 'avatar url')
   
