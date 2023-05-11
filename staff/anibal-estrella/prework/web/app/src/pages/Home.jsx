@@ -1,150 +1,157 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import { context } from "../ui"
-import Posts from "../components/Posts"
 import retrieveUser from "../logic/retrieveUser"
+
+import Posts from "../components/Posts"
 import AddPostModal from '../components/AddPostModal'
 import EditPostModal from '../components/EditPostModal'
 import Profile from '../components/Profile'
 import Menu from '../components/Menu'
+
+
 //import each component styles
 import './Home.css'
+import { PencilSquareIcon } from '@heroicons/react/24/solid'
+import { Bars3BottomRightIcon } from '@heroicons/react/24/solid' 
 
-export default class Home extends Component {
+
+export default function Home({ onLoggedOut }) {
+
+    const [view, setView] = useState('posts')
+    const [modal, setModal] = useState(null)
+    const [menu, setMenu] = useState(null)
+    const [postId, setPostId] = useState(null)
+    const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
+
+    let _user
+
+    try {
+        _user = retrieveUser(context.userId)
+        const name = _user.name
+        const avatar = _user.avatar
+
+    } catch (error) {
+        alert(error.message)
+    }
+
+    const [user, setUser] = useState(_user)
 
 
 
-    constructor(props) {
-        super(props)
+    const closeModal = () => setModal(null)
+
+    const handleGoToProfile = event => setView('profile')
+
+    const handleGoToHome = event => {
+        event.preventDefault()
+        setView('posts')
+    }
+
+    const handleOpenAddPostModal = () => setModal('add-post')
+
+    const handleOpenEditPostModal = postId => {
+        console.log('edit modal!!!')
+        setModal('edit-post')
+        setPostId(postId)
+        setView('posts')
+    }
+
+
+    const handleOpenMenu = event => {
+        event.preventDefault()
+
+        setMenu('menu')
+    }
+
+    const handleCloseMenu = () => setMenu(null)
+
+    const handlePostCreated = () => {
+        setModal(null)
+        setLastPostsUpdate(Date.now())
+    }
+
+    const handleLogOut = () => {
+        console.log('LOG OUT MOTHERFUCKER!!!');
+        delete context.userId
+
+        onLoggedOut()    }
+
+    const HandleDeletedPost = () => {
+        setView('posts')
+        setModal(null)
+    }
+
+    const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
+
+    const handleAvatarUpdated = () => {
         try {
             const user = retrieveUser(context.userId)
-            const loggedUser = retrieveUser(context.userId)
 
-            this.name = loggedUser.name
-            this.avatar = loggedUser.avatar
-            this.state = {
-                view: 'posts',
-                modal: null,
-                menu: null,
-                postId: null,
-                lastPostsUpdate: Date.now(),
-                user
-            }
-
+            setUser(user)
         } catch (error) {
-            alert(error.message)
+            
         }
+        setView('home')
     }
 
-    closeModal = () => this.setState({ modal: null })
+    console.log('// Home -> RENDER')
 
-    handleGoToProfile = event => {
-        this.setState({ view: 'profile' })
-    }
-
-    handleGoToHome = event => {
-        event.preventDefault()
-        this.setState({ view: 'posts' })
-    }
-
-    handleOpenAddPostModal = () => this.setState({
-        modal: 'add-post'
-    })
-
-    handleOpenEditPostModal = postId => {
-        console.log('edit modal!!!')
-        // we keep the postId in state so that we can retrieve it later when the postModal is called
-        // this.setState({ modal: 'edit-post', postId : postId }) Old
-        this.setState({ modal: 'edit-post', postId, view: 'posts' })
-    }
-
-    handleOpenMenu = event => {
-        event.preventDefault()
-
-        this.setState({ menu: 'menu' })
-    }
-
-    handleCloseMenu = () => this.setState({ menu: null })
-
-    handlePostCreated = () => this.setState({ modal: null, lastPostsUpdate: Date.now() })
-
-    handleLogOut = () => {
-        console.log('LOG OUT MOTHERFUCKER!!!');
-        this.setState({ view: null })
-
-    }
-
-    HandleDeletedPost = () => {
-        this.setState({ view: 'posts', modal: null })
-    }
-
-    handleSwitchMode = () => {
-        document.querySelector(':root').classList.toggle('dark')
-    }
-
-    handleAvatarUpdated = () => {
-        this.setState({ view: 'home' })
-    }
-
-    render() {
-        console.log('// Home -> RENDER')
-
-        return <div className="home ">
-            <section>
-                <header className="home-header">
-                    <div className="header-items-wrapper">
-                        <h1> <a href="#" className="header-title-link" onClick={this.handleGoToHome} >
-                            APP Home
-                        </a></h1>
-                        <a href="#" className="home-profile-avatar-link" onClick={this.handleGoToProfile}>
-                            <img className="user-avatar home-header-avatar" src={this.avatar} alt="" />
-                        </a>
-
-                        <button className="menu-open" onClick={this.handleOpenMenu}>&#9776;</button>
-                    </div>
-
-                    {this.state.menu === 'menu' && <Menu
-                        openProfile={this.handleGoToProfile}
-                        onCloseMenu={this.handleCloseMenu}
-                        createPost={this.handleOpenAddPostModal}
-                        onLogOut={this.handleLogOut}
-                    />}
-
-                </header>
-
-                <div className="hello-user">
-                    <a href="#" className="home-profile-avatar-link" onClick={this.handleGoToProfile}>
-                        <img className="user-avatar home-profile-avatar" src={this.avatar} alt="" />
+    return <div className="home ">
+        <section>
+            <header className="home-header">
+                <div className="header-items-wrapper">
+                    <h1> <a href="#" className="header-title-link" onClick={handleGoToHome} >
+                        APP Home
+                    </a></h1>
+                    <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
+                        <img className="user-avatar home-header-avatar" src={user.avatar} alt="" />
                     </a>
-                    <h2 className="hello-user-headline">Hi <span className="hello-user-name">{this.name}</span>! <br />What's up?</h2>
+
+                    <button className="menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon'/></button>
                 </div>
 
-                {this.state.view === 'posts' && <Posts
-                    onEditPost={this.handleOpenEditPostModal}
-                    lastPostsUpdate={this.state.lastPostsUpdate}
+                {menu === 'menu' && <Menu
+                    openProfile={handleGoToProfile}
+                    onCloseMenu={handleCloseMenu}
+                    createPost={handleOpenAddPostModal}
+                    onLogOut={handleLogOut}
                 />}
 
-                {this.state.view === 'profile' && <Profile onAvatarUpdated={this.handleAvatarUpdated} />}
+            </header>
 
-                {this.state.modal === 'add-post' && <AddPostModal
-                    onCancel={this.closeModal}
-                    onPostCreated={this.handlePostCreated}
-                />}
+            <div className="hello-user">
+                <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
+                    <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
+                </a>
+                <h2 className="hello-user-headline">Hi <span className="hello-user-name">{user.name}</span>! <br />What's up?</h2>
+            </div>
 
-                {this.state.modal === 'edit-post' && <EditPostModal
-                    onCancel={this.closeModal}
-                    onPostEdited={this.closeModal}
-                    //pass the postId to the state constructor
-                    postId={this.state.postId}
-                    onDeletedPost={this.HandleDeletedPost}
-                />}
+            {view === 'posts' && <Posts
+                onEditPost={handleOpenEditPostModal}
+                lastPostsUpdate={lastPostsUpdate}
+            />}
 
-                <footer className="home-footer">
-                    <div className="footer-items-wrapper">
-                        <button className="add-post-button" onClick={this.handleOpenAddPostModal}>+</button>
-                    </div>
-                </footer>
-            </section>
-        </div>
-    }
+            {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated} />}
+
+            {modal === 'add-post' && <AddPostModal
+                onCancel={closeModal}
+                onPostCreated={handlePostsUpdated}
+            />}
+
+            {modal === 'edit-post' && <EditPostModal
+                onCancel={closeModal}
+                onPostEdited={closeModal}
+                //pass the postId to the state constructor
+                postId={postId}
+                onDeletedPost={HandleDeletedPost} 
+            />}
+
+            <footer className="home-footer">
+                <div className="footer-items-wrapper">
+                    <button className="add-post-button" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="icon" /></button>
+                </div>
+            </footer>
+        </section>
+    </div>
 
 }

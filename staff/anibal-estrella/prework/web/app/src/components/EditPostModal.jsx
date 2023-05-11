@@ -3,7 +3,7 @@ import { updatePost } from "../logic/updatePost.js"
 import retrievePost from "../logic/retrievePost.js"
 import deletePost from "../logic/deletePost.js"
 
-export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
+export default function EditPostModal({ onCancel, onEditPost, onPostEdited, postId, onDeletedPost, post }) {
   console.log('// EditPostModal -> RENDER')
 
   function handleCancel(event) {
@@ -48,9 +48,6 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
   };
 
-  try {
-
-    const { image, text } = retrievePost(context.userId, postId)
 
     return <section className="edit-post-modal">
 
@@ -60,7 +57,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
         <label htmlFor="edit-post-image">Image:</label>
 
-        <img src={image} alt="" className="edit-post-th" width="200px" />
+        <img src={post.image} alt="" className="edit-post-th" width="200px" />
 
         <input type="url" name="image" placeholder="Paste image URL in here." defaultValue={image} />
 
@@ -81,9 +78,5 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
       <div className="overlay-panel-close"></div>
 
     </section>
-  } catch (error) {
-    alert(error.message)
 
-    return null
-  }
 }

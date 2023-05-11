@@ -1,24 +1,26 @@
 article.post {
     display: flex;
+	justify-content: center;
     flex-direction: column;
 	margin: 1rem 0;
 	color: var(--fontcolorlight);
 	min-width: 370px;
 }
 
-article.post * {
-    justify-self: center;
+.post * {
     max-width: 800px;
 }
 
-article.post .home-post-image {
+.home-post-image {
 	width: 100%;
 	margin: 1rem 0;
 	border-radius: 12px;
+	align-self: center;
 }
 
-article.post p{
+.post p{
     margin: 1rem 0;
+	align-self: center;
 }
 
 .home-post-avatar {
@@ -26,12 +28,38 @@ article.post p{
 	margin-right: 1rem;
 }
 
+.post-info {
+	display: flex;
+	align-items: center;
+}
+.post-info div{
+display: flex;
+flex: 1;
+flex-direction: column;
+overflow: hidden;
+flex-basis: content;
+justify-content:flex-start;
+}
 
-
-article.post h3 {
+.post h3 {
 	/* align-self: end; */
 }
 
-article.post time {
+.post time {
 	font-size: smaller;
+}
+
+.HeartIcon{
+	width: 24px;
+}
+
+.post-like-button {
+	justify-content: center;
+	display: flex;
+	align-items: center;
+}
+
+.post-like-button svg{
+	/* padding-left: 5px; */
+	margin: 0 3px;
 }

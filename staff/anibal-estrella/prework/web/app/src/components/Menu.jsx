@@ -1,3 +1,6 @@
+import { XCircleIcon } from '@heroicons/react/24/solid'
+
+import "./Menu.css"
 
 export default function Menu(props) {
     console.log('// Menu -> RENDER')
@@ -33,7 +36,7 @@ export default function Menu(props) {
     return <nav className="home-menu center-container">
         <ul>
             <li className="menu-close">
-                <a href="#" className="close-menu" onClick={handleClose} >Close Menu</a>
+                <a href="#" className="close-menu" onClick={handleClose} >Close Menu<XCircleIcon className='XCircleIcon icon'/></a>
             </li>
             <li className="menu-profile" ><a href="#" onClick={handleOpenProfile}>Edit your profile</a></li>
             {/* <li className="menu-show-posts" ><a href="#">Show Posts</a></li> */}

@@ -1,5 +1,6 @@
 import { context } from "../ui.js"
 import { authenticateUser } from "../logic/authenticateUser.js"
+import "./Login.css"
 
 export default function Login({onRegisterClick, onUserLoggedIn}) {
     console.log('// Login -> RENDER \npj@gmail.com');

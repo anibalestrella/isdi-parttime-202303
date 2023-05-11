@@ -1,48 +1,44 @@
-import { Component } from "react"
+import { useState } from "react"
+import { context } from "./ui.js"
+
 import Login from "./pages/Login.jsx"
 import Register from "./pages/Register.jsx"
 import Home from "./pages/Home.jsx"
-import {context } from "./ui.js"
 
-// this function composite the components and it saves STATES
-// STATE handles visual elements of the APP
-export default class App extends Component {
-    constructor(props) {
-        super(props)
+export default function App() {
+ /* We create a STATE with an initial value using a HOOK. 
+        const viewState = useState(view: context.userId? 'home' : 'login')
+    the STATE returns an array with 2 things, [0] position: the actual state, [1] a setter to change that state later.
 
-        // this is the default state of the App component
-        this.state = { view: context.userId? 'home' : 'login' }
+        const view = viewState[0]
+        const setView = viewState[1]
 
-    }
-    // 5 // this function changes the STATE in the App component from 'login' to 'register'
-    //converting to arrow functions will AUTOBIND to its parent
-    handleGoToRegister = () => {
-        // 6 // setState changes the state.view to REGISTER in the RENDER function
-        this.setState({ view: 'register' })
-    }
+    we decosntruct an array instead of above to make it shorter */
 
-    handleGoToLogin = () => this.setState({ view: 'login' })
+    // we can set any names to the variables
+    const [view, setView] = useState(context.userId ? 'home' : 'login')
 
-    handleGoToHome = () => this.setState({ view: 'home' })
+    const handleGoToRegister = () => setView('register')
 
-    // is a method REFRESHES to Render in the DOM
-    render() {
-        console.log('// App -> RENDER');
+    const handleGoToLogin = () => setView('login')
 
-        // 4 // call function through props (property)
-        switch (this.state.view) {
-            case 'login':
-                return <Login onRegisterClick={this.handleGoToRegister} onUserLoggedIn={this.handleGoToHome} />
-         
-           case 'register':
-                return <Register onLoginClick={this.handleGoToLogin} />
+    const handleGoToHome = () => setView('home')
 
-            case 'home':
-                 return <Home />
-        }
+    console.log('// App -> RENDER');
 
+    // now we use a FUNCTION type COMPO to RENDER
+    switch (view) {
+        case 'login':
+            return <Login onRegisterClick={handleGoToRegister} onUserLoggedIn={handleGoToHome} />
+
+        case 'register':
+            return <Register onLoginClick={handleGoToLogin} />
+
+        case 'home':
+            return <Home />
     }
 }
+
 
 
 

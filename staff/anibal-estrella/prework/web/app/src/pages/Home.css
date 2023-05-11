@@ -98,6 +98,10 @@
 	display: flex;
 }
 
+.Bars3BottomRightIcon{
+
+}
+
 footer.home-footer {
 	position: fixed;
 	bottom: 0;
@@ -142,9 +146,13 @@ footer.home-footer {
 
 .footer-items-wrapper .add-post-button {
 	min-width: 0;
+	border-radius: 5px;
 }
 
 @media screen and (max-width: 600px) {
+	.home {
+		padding-top:4rem;
+	}
     
     .home-header {
 		height: 50px;
