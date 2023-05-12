@@ -202,7 +202,7 @@ button {
 	color: var(--fontcolorlight);
 	border: none;
 	border-radius: 25px;
-	padding: 5px 20px;
+	padding: 1rem;
 	font-size: 0.8rem;
 	letter-spacing: 0.1rem;
 	cursor: pointer;
@@ -230,6 +230,11 @@ button:focus {
 	background-color: var(--myLime);
 	text-shadow: none;
 	box-shadow: none;
+}
+
+.grayscale-img{
+	filter: grayscale();
+	mix-blend-mode: screen;
 }
 
 @keyframes fade-in {

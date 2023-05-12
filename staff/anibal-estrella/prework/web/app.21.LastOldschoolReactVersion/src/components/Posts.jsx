@@ -25,7 +25,7 @@ export default class Posts extends Component {
 
     // we need to use a class function to change the STATE so it rendes the updated posts
     //we use an arrow function to autobind it (this)
- 
+
     handleRefreshPosts = () => {
         try {
             const posts = retrievePosts(context.userId)
@@ -38,20 +38,22 @@ export default class Posts extends Component {
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log('posts -> componentWillUnmount');
     }
-    componentWillMount(){
+    componentWillMount() {
         console.log('posts -> componentWillMount');
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log('posts -> componentDidMount');
     }
+
     // we receive the updated props to compare with the oldones
     componentWillReceiveProps(newProps) {
         console.log('posts -> componentWillReceiveProps');
+        console.log(this.props.lastPostsUpdate + ' > new ' + newProps.lastPostsUpdate);
 
-        if  (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
+        if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
             this.handleRefreshPosts()
     }
 
@@ -63,11 +65,12 @@ export default class Posts extends Component {
                 <h2 className="post-list-headline">All Posts</h2>
 
                 {/* // 3 we call the PROPS from THIS.STATE, that's why we use a class instead of a function component */}
-                {this.state.posts.map(post => <Post post={ post }
+                {this.state.posts.map(post => <Post post={post}
                     user={this.state.user}
                     onEditPost={this.props.onEditPost}
                     onDeletedPost={this.handleRefreshPosts}
                     onToggledLikePost={this.handleRefreshPosts}
+                    onPostEdited={this.handleRefreshPosts}
                 />)}
             </section>
         )

@@ -43,6 +43,7 @@ export default class App extends Component {
             case 'home':
                  return <Home onLogOut={this.handleGoToLogin}
                  onAvatarUpdatedProfile={this.handleGoToHome}
+                 onPostEdited={this.handleGoToHome}
                  />
         }
 

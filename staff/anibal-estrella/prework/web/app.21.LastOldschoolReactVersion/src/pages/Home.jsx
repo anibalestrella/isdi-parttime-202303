@@ -73,10 +73,6 @@ export default class Home extends Component {
 
     }
 
-    HandleDeletedPost = () => {
-        this.setState({ view: 'home', modal: null })
-    }
-
     handleSwitchMode = () => {
         document.querySelector(':root').classList.toggle('dark')
     }
@@ -123,6 +119,7 @@ export default class Home extends Component {
 
                 {this.state.view === 'posts' && <Posts
                     onEditPost={this.handleOpenEditPostModal}
+                    // onPostEdited={this.handlePostCreated}
                     lastPostsUpdate={this.state.lastPostsUpdate}
                 />}
 
@@ -134,11 +131,12 @@ export default class Home extends Component {
                 />}
 
                 {this.state.modal === 'edit-post' && <EditPostModal
-                    onCancel={this.closeModal}
-                    onPostEdited={this.closeModal}
-                    //pass the postId to the state constructor
                     postId={this.state.postId}
-                    onDeletedPost={this.HandleDeletedPost}
+                    // once edited update send a new time stamp
+                    onPostEdited={this.handlePostCreated}
+                    onDeletedPost={this.handlePostCreated}
+                    //pass the postId to the state constructor
+                    onCancel={this.closeModal}
                 />}
 
                 <footer className="home-footer">

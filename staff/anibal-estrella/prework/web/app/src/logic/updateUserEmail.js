@@ -1,12 +1,8 @@
-console.log('// LOGIC // updateUserEmail');
-
-
 import { validateEmail } from "./helpers/validators.js"
-import { findUserById } from "./helpers/data-managers.js"
+import {findUserById} from  "./helpers/dataManagers.js"
 import { saveUser } from "../data.js"
 
-
-export function updateUserEmail(userId, newEmail, confirmEmail) {
+export default function updateUserEmail(userId, newEmail, confirmEmail) {
     validateEmail(newEmail)
     validateEmail(confirmEmail)
     const user = findUserById(userId)

@@ -22,6 +22,10 @@ export default function App() {
 
     const handleGoToLogin = () => setView('login')
 
+    const onLoggedOut = () => {
+        console.log('Logged OUT!!');
+    }
+
     const handleGoToHome = () => setView('home')
 
     console.log('// App -> RENDER');
@@ -35,7 +39,7 @@ export default function App() {
             return <Register onLoginClick={handleGoToLogin} />
 
         case 'home':
-            return <Home />
+            return <Home onLoggedOut={handleGoToLogin} />
     }
 }
 

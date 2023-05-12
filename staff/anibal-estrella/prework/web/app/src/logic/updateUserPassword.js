@@ -1,10 +1,8 @@
-console.log('// LOGIC // updateUserPassword');
-
 import { validateId, validatePassword } from "./helpers/validators.js"
 import {findUserById} from  "./helpers/dataManagers.js"
 import { saveUser } from "../data.js"
 
-export function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
+export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
     //validate 
     validateId(userId, 'user id')
     validatePassword(password, 'new password')

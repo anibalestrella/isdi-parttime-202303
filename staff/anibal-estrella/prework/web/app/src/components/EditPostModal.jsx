@@ -1,10 +1,15 @@
+import { useState } from 'react';
+
 import { context } from "../ui.js"
 import { updatePost } from "../logic/updatePost.js"
 import retrievePost from "../logic/retrievePost.js"
 import deletePost from "../logic/deletePost.js"
+import "./EditPostModal.css"
 
-export default function EditPostModal({ onCancel, onEditPost, onPostEdited, postId, onDeletedPost, post }) {
+export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
   console.log('// EditPostModal -> RENDER')
+
+  const [previewUrl, setPreviewUrl] = useState('');
 
   function handleCancel(event) {
     event.preventDefault()
@@ -19,7 +24,6 @@ export default function EditPostModal({ onCancel, onEditPost, onPostEdited, post
     const text = event.target.text.value
 
     try {
-
       updatePost(context.userId, postId, image, text)
 
       // close the modal when post saved
@@ -30,8 +34,15 @@ export default function EditPostModal({ onCancel, onEditPost, onPostEdited, post
     }
   }
 
+  const handleInputChange = (event) => {
+    const image = event.target.image.value    
+      setPreviewUrl(image);
+    
+  }
+  
   const handleDeletePost = (event) => {
     event.preventDefault()
+
     try {
 
       const answer = confirm('Do you really want to delete this post?')
@@ -48,6 +59,10 @@ export default function EditPostModal({ onCancel, onEditPost, onPostEdited, post
 
   };
 
+  const { image, text } = retrievePost(context.userId, postId)
+
+
+
 
     return <section className="edit-post-modal">
 
@@ -57,9 +72,9 @@ export default function EditPostModal({ onCancel, onEditPost, onPostEdited, post
 
         <label htmlFor="edit-post-image">Image:</label>
 
-        <img src={post.image} alt="" className="edit-post-th" width="200px" />
+        {previewUrl && <img src={image} alt="" className="edit-post-th grayscale-img" alt="Preview" />}
 
-        <input type="url" name="image" placeholder="Paste image URL in here." defaultValue={image} />
+        <input type="url" name="image" placeholder="Paste image URL in here." defaultValue={image} onChange={handleInputChange}/>
 
         <label htmlFor="edit-post-text">Text:</label>
 
@@ -67,7 +82,7 @@ export default function EditPostModal({ onCancel, onEditPost, onPostEdited, post
 
         <div className="inline-container">
 
-          <button className="save">Save</button>
+          <button className="save" type="submit">Save</button>
           <button className="delete" onClick={handleDeletePost}>Delete</button>
           <button className="cancel" onClick={handleCancel}>cancel</button>
 

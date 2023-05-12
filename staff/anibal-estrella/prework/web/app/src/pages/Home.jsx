@@ -12,7 +12,7 @@ import Menu from '../components/Menu'
 //import each component styles
 import './Home.css'
 import { PencilSquareIcon } from '@heroicons/react/24/solid'
-import { Bars3BottomRightIcon } from '@heroicons/react/24/solid' 
+import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 
 
 export default function Home({ onLoggedOut }) {
@@ -50,7 +50,6 @@ export default function Home({ onLoggedOut }) {
     const handleOpenAddPostModal = () => setModal('add-post')
 
     const handleOpenEditPostModal = postId => {
-        console.log('edit modal!!!')
         setModal('edit-post')
         setPostId(postId)
         setView('posts')
@@ -71,27 +70,22 @@ export default function Home({ onLoggedOut }) {
     }
 
     const handleLogOut = () => {
-        console.log('LOG OUT MOTHERFUCKER!!!');
         delete context.userId
-
-        onLoggedOut()    }
-
-    const HandleDeletedPost = () => {
-        setView('posts')
-        setModal(null)
+        onLoggedOut()
     }
+
 
     const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
 
     const handleAvatarUpdated = () => {
         try {
             const user = retrieveUser(context.userId)
-
             setUser(user)
         } catch (error) {
-            
+
         }
         setView('home')
+        setView('posts')
     }
 
     console.log('// Home -> RENDER')
@@ -107,7 +101,7 @@ export default function Home({ onLoggedOut }) {
                         <img className="user-avatar home-header-avatar" src={user.avatar} alt="" />
                     </a>
 
-                    <button className="menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon'/></button>
+                    <button className="menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon' /></button>
                 </div>
 
                 {menu === 'menu' && <Menu
@@ -135,15 +129,14 @@ export default function Home({ onLoggedOut }) {
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={closeModal}
-                onPostCreated={handlePostsUpdated}
+                onPostCreated={handlePostCreated}
             />}
 
             {modal === 'edit-post' && <EditPostModal
                 onCancel={closeModal}
-                onPostEdited={closeModal}
-                //pass the postId to the state constructor
+                onPostEdited={handlePostCreated}
                 postId={postId}
-                onDeletedPost={HandleDeletedPost} 
+                onDeletedPost={handlePostCreated}
             />}
 
             <footer className="home-footer">

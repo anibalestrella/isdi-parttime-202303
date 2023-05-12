@@ -18,7 +18,7 @@ export function createPost(userId, image, text) {
     let id = 'post-01'
 
     const _posts = posts()
-    const lastPost = _posts[postMessage.length - 1]
+    const lastPost = _posts[_posts.length - 1]
 
     if (lastPost)
         id = 'post-0' + (parseInt(lastPost.id.slice(6)) + 1)
