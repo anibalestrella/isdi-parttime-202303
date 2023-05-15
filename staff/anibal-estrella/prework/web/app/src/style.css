@@ -87,6 +87,11 @@ section {
 
 .icon {
 	width: 24px;
+	font-size: 0;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	/* opacity: 0%; */
 }
 
 .block-scroll {
@@ -204,7 +209,7 @@ button {
 	color: var(--fontcolorlight);
 	border: none;
 	border-radius: 25px;
-	padding: 1rem;
+	padding: .5rem;
 	font-size: 0.8rem;
 	letter-spacing: 0.1rem;
 	cursor: pointer;
@@ -325,9 +330,8 @@ button:focus {
 	height: auto;
 	border-radius: 20px;
 }
-.add-post-modal h3,
-.edit-post-modal h3 {
-	margin: 0 0 2rem 0;
+.modal-post-headline {
+	margin: 0 0 1rem 0;
 }
 
 

@@ -1,5 +1,6 @@
 import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
+import formatTimeSince from "../logic/formatTimeSince"
 
 import { HeartIcon } from '@heroicons/react/24/solid'
 import { HeartIcon as HeartIconLine } from '@heroicons/react/24/outline'
@@ -11,6 +12,8 @@ import './Post.css'
 
 export default function Post({ post: { author, id, image, text, date, likes }, user: { avatar, name }, onEditPost, onToggledLikePost }) {
   console.log('// Post -> RENDER')
+
+  date = formatTimeSince(date)
 
   const handleOpenEditPost = () => onEditPost(id)
 

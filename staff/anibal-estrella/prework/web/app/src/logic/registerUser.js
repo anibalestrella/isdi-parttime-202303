@@ -3,17 +3,21 @@ console.log('// LOGIC // registerUser');
 import { validateEmail, validateName, validatePassword } from "./helpers/validators.js"
 import { findUserByEmail } from "./helpers/dataManagers.js"
 import { users, saveUsers } from "../data.js";
-import { DEFAULT_AVATAR_URL } from "../pages/home-page.js"
 
-export function registerUser(name, email, password) {
+export default function registerUser(name, email, password, repeatPasword) {
   validateName(name)
   validateEmail(email)
   validatePassword(password)
+  validatePassword(repeatPasword)
 
   const foundUser = findUserByEmail(email)
 
   if (foundUser)
     throw new Error(`OOPS!\n A user with the email: ${email} already exists in the database`)
+
+
+    if (password !== repeatPasword)
+      throw new Error(`OOPS!\n passwords don't match`)
 
   let id = 'user-1'
 
@@ -34,7 +38,7 @@ export function registerUser(name, email, password) {
     name,
     email,
     password,
-    avatar: DEFAULT_AVATAR_URL
+    avatar:'../../assets/avatar-default.svg'
   }
 
   _users.push(user)

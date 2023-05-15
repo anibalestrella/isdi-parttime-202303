@@ -1,11 +1,9 @@
 @layer edit-post-modal {
-
 	.edit-post-th {
 		aspect-ratio: 1 / 1;
 		width: 250px;
 		align-self: center;
 		border-radius: 10px;
-		border: 1px solid red;
 	}
 
 	.preview-image-container {
@@ -14,17 +12,25 @@
 		align-items: center;
 	}
 
-	button {
+	.edit-post-modal button {
 		margin: 0 1rem 0 0;
 	}
 
-	.preview-image {
+	.edit-post-modal .preview-image {
 		margin: 1rem 0;
 	}
+
 	button.preview-image-button {
 		margin: 0 1rem 0 1rem;
 	}
-	.inline-container{
-	margin: 1rem 0;
+
+.edit-post-modal textarea {
+	align-self: center;
+	width: 100%;
+}
+	.modal-actions-container {
+		display: flex;
+		justify-content: center;
+		margin: 0.5rem 0 0 0;
 	}
 }
