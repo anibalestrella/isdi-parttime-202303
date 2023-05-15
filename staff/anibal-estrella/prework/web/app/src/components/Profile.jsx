@@ -2,10 +2,25 @@ import { context } from '../ui'
 import updateUserAvatar from "../logic/updateUserAvatar"
 import updateUserPassword from "../logic/updateUserPassword"
 import updateUserEmail from "../logic/updateUserEmail"
+import retrieveUser from "../logic/retrieveUser"
+
 import './Profile.css'
 
 export default function Profile({ onAvatarUpdated }) {
     console.log('// Profile -> RENDER');
+
+    let _user
+    let avatar
+
+    try {
+        _user = retrieveUser(context.userId)
+        const name = _user.name
+        avatar = _user.avatar
+
+    } catch (error) {
+        alert(error.message)
+    }
+
 
     const handleUpdateAvatar = event => {
         event.preventDefault()
@@ -63,6 +78,7 @@ export default function Profile({ onAvatarUpdated }) {
             <section className="change-user-avatar panel">
                 <h3 className="change-user-avatar-headline">Change your avatar</h3>
                 <form action="" className="change-user-avatar-form" onSubmit={handleUpdateAvatar}>
+                <img className="user-avatar home-profile-avatar" src={avatar} alt="" />
                     <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" />
                     <button type="submit">Update Avatar</button>
                 </form>

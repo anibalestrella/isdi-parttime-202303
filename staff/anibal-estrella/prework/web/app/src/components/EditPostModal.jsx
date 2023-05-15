@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 import { context } from "../ui.js"
 import { updatePost } from "../logic/updatePost.js"
@@ -8,8 +8,6 @@ import "./EditPostModal.css"
 
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
   console.log('// EditPostModal -> RENDER')
-
-  const [previewUrl, setPreviewUrl] = useState('');
 
   function handleCancel(event) {
     event.preventDefault()
@@ -26,7 +24,6 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
     try {
       updatePost(context.userId, postId, image, text)
 
-      // close the modal when post saved
       onPostEdited()
 
     } catch (error) {
@@ -34,12 +31,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
     }
   }
 
-  const handleInputChange = (event) => {
-    const image = event.target.image.value    
-      setPreviewUrl(image);
-    
-  }
-  
+
   const handleDeletePost = (event) => {
     event.preventDefault()
 
@@ -48,7 +40,6 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
       const answer = confirm('Do you really want to delete this post?')
 
       if (answer) {
-        console.log('DELETE THE MOTHERFICKER!!!');
         deletePost(context.userId, postId); // Invoke deletePost when the button is clicked
         onDeletedPost()
       }
@@ -60,38 +51,47 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
   };
 
   const { image, text } = retrievePost(context.userId, postId)
+  const imageInputRef = useRef(null);
+
+  const [previewImage, setPreviewImage] = useState(image);
+
+  const handleImagePreview = (event) => {
+    event.preventDefault()
+
+    setPreviewImage( imageInputRef.current.value);
+  }
 
 
+  return <section className="edit-post-modal">
 
+    <h3 className="create-post-headline">Edit your post!</h3>
 
-    return <section className="edit-post-modal">
+    <form action="" className="edit-post-modal-form panel" onSubmit={handleEditPost}>
 
-      <h3 className="create-post-headline">Edit your post!</h3>
+      <label htmlFor="edit-post-image">Image:</label>
+      <img src={previewImage} alt="" className="edit-post-th grayscale-img" alt="Preview" />
 
-      <form action="" className="edit-post-modal-form panel" onSubmit={handleEditPost}>
+      <div className='preview-image-container'>
+      <input type="url" name="image" placeholder="Paste image URL in here." defaultValue={previewImage} ref={imageInputRef} />
+      <button className="preview-image-button" onClick={handleImagePreview}>Preview</button>
+      </div>
 
-        <label htmlFor="edit-post-image">Image:</label>
+      <label htmlFor="edit-post-text">Text:</label>
 
-        {previewUrl && <img src={image} alt="" className="edit-post-th grayscale-img" alt="Preview" />}
+      <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here." defaultValue={text}></textarea>
 
-        <input type="url" name="image" placeholder="Paste image URL in here." defaultValue={image} onChange={handleInputChange}/>
+      <div className="inline-container">
 
-        <label htmlFor="edit-post-text">Text:</label>
+        <button className="save" type="submit">Save</button>
+        <button className="delete" onClick={handleDeletePost}>Delete</button>
+        <button className="cancel" onClick={handleCancel}>cancel</button>
 
-        <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here." defaultValue={text}></textarea>
+      </div>
 
-        <div className="inline-container">
+    </form>
 
-          <button className="save" type="submit">Save</button>
-          <button className="delete" onClick={handleDeletePost}>Delete</button>
-          <button className="cancel" onClick={handleCancel}>cancel</button>
+    <div className="overlay-panel-close" onClick={handleCancel}></div>
 
-        </div>
-
-      </form>
-
-      <div className="overlay-panel-close"></div>
-
-    </section>
+  </section>
 
 }

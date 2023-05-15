@@ -62,6 +62,7 @@ a:hover h1 {
 h2 {
 	font-size: 1.2rem;
 }
+
 h3 {
 	font-size: 0.9rem;
 }
@@ -199,6 +200,7 @@ input:focus {
 	background-color: var(--myLightGray);
 }
 button {
+	align-self: center;
 	color: var(--fontcolorlight);
 	border: none;
 	border-radius: 25px;
@@ -206,19 +208,22 @@ button {
 	font-size: 0.8rem;
 	letter-spacing: 0.1rem;
 	cursor: pointer;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	cursor: pointer;
 	text-transform: uppercase;
 	box-shadow: 2px 2px 2px var(--basecolor);
 	width: max-content;
 	min-width: 7rem;
 	background-image: var(--buttonGradient);
-	align-self: center;
+	background-position: center;
+	background-size: 110%;
+	transition: box-shadow 0.2s ease, background-size .2s ease;
 }
 
 button:hover {
-	background-image: none;
-	background-color: var(--myRed);
+	/* background-image: none;
+	background-color: var(--myRed); */
+	background-size: 500%;
 	box-shadow: 5px 5px 5px var(--basecolor);
 }
 button:active {
@@ -232,7 +237,7 @@ button:focus {
 	box-shadow: none;
 }
 
-.grayscale-img{
+.grayscale-img {
 	filter: grayscale();
 	mix-blend-mode: screen;
 }
@@ -282,7 +287,6 @@ button:focus {
 	margin: 2rem 0;
 }
 
-
 .overlay-panel-close {
 	position: absolute;
 	top: 0;
@@ -291,7 +295,6 @@ button:focus {
 	width: 100%;
 	height: 100%;
 }
-
 
 .add-post-modal,
 .edit-post-modal {
@@ -315,11 +318,7 @@ button:focus {
 	z-index: 2;
 }
 
-.edit-post-th{
-	width: 200px;
-	align-self: center;
-	border-radius: 10px;
-}
+
 .add-post-modal textarea,
 .edit-post-modal textarea {
 	padding: 1rem;
@@ -330,10 +329,7 @@ button:focus {
 .edit-post-modal h3 {
 	margin: 0 0 2rem 0;
 }
-.add-post-modal button,
-.edit-post-modal button {
-	margin: 1rem 1rem 0 0;
-}
+
 
 button.menu-open {
 	all: unset;
@@ -361,7 +357,6 @@ button.menu-open:active {
 }
 
 @media screen and (max-width: 600px) {
-	
 	button.menu-open {
 		height: 50px;
 		padding: 0 1rem;
@@ -373,8 +368,6 @@ button.menu-open:active {
 		min-width: 200px;
 		max-width: 100%;
 	}
-
-
 }
 
 .off {

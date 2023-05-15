@@ -1,3 +1,30 @@
-.edit-post-th{
-    width: 200px;
+@layer edit-post-modal {
+
+	.edit-post-th {
+		aspect-ratio: 1 / 1;
+		width: 250px;
+		align-self: center;
+		border-radius: 10px;
+		border: 1px solid red;
+	}
+
+	.preview-image-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	button {
+		margin: 0 1rem 0 0;
+	}
+
+	.preview-image {
+		margin: 1rem 0;
+	}
+	button.preview-image-button {
+		margin: 0 1rem 0 1rem;
+	}
+	.inline-container{
+	margin: 1rem 0;
+	}
 }

@@ -8,12 +8,16 @@ import EditPostModal from '../components/EditPostModal'
 import Profile from '../components/Profile'
 import Menu from '../components/Menu'
 
-
-//import each component styles
-import './Home.css'
 import { PencilSquareIcon } from '@heroicons/react/24/solid'
 import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 
+import './Home.css'
+
+/* 
+TODO:
+register new user not saving new user
+
+*/
 
 export default function Home({ onLoggedOut }) {
 
@@ -117,7 +121,7 @@ export default function Home({ onLoggedOut }) {
                 <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
                     <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
                 </a>
-                <h2 className="hello-user-headline">Hi <span className="hello-user-name">{user.name}</span>! <br />What's up?</h2>
+                <h2 className="hello-user-headline">Hi <span className="hello-user-name">{user.name}</span>.<br />Show us what you got!</h2>
             </div>
 
             {view === 'posts' && <Posts
