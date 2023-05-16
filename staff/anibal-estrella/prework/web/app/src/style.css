@@ -28,9 +28,11 @@
 	--backgroundGradient: linear-gradient(315deg, var(--myLime) 0%, var(--myBlueDark) 100%);
 	--buttonGradient: linear-gradient(315deg, var(--myBlueDark) 0%, var(--myRed) 100%);
 }
+
 :root.dark {
 	background-color: aqua;
 }
+
 html {
 	height: 100%;
 }
@@ -57,6 +59,7 @@ label {
 a:hover,
 a:hover h1 {
 	color: var(--myRed);
+	text-decoration: none;
 }
 
 h2 {
@@ -86,17 +89,19 @@ section {
 }
 
 .icon {
-	width: 24px;
+	width: 1.5rem;
 	font-size: 0;
 	display: flex;
 	justify-content: center;
-    align-items: center;
-	/* opacity: 0%; */
+	align-items: center;
+	flex-direction: column;
+
 }
 
 .block-scroll {
 	overflow: hidden;
 }
+
 .center-container {
 	display: flex;
 	align-items: center;
@@ -106,31 +111,35 @@ section {
 	margin: auto;
 	height: 100%;
 }
+
 .inline-container {
 	display: flex;
 	align-items: center;
 	flex-direction: row;
 	margin: auto;
 }
+
 .login,
 .register {
 	min-width: fit-content;
 	width: 500px;
 	max-width: 50vw;
 }
+
 .login h2,
 .register h2 {
-	margin: 2rem 0 2.5rem 0;
+	margin: 1rem 0 2rem 0;
 }
-.login label,
-.register label {
-	margin: 1rem 0 0 0;
-}
+
+
+
 .goto-login,
 .goto-register {
-	margin: 3rem 0 1rem 0;
+	margin: 2rem 0 0 0;
+	padding: 1rem 0 0 0;
 	font-size: 0.9rem;
 }
+
 .login button,
 .register button {
 	margin: 2rem 0 0 0;
@@ -144,18 +153,18 @@ section {
 	box-shadow: 0px 0px 10px var(--basecolor);
 }
 
-.home-profile section > section {
+.home-profile section>section {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	margin: 1rem 0;
 }
 
-.home-profile section > section h3 {
+.home-profile section>section h3 {
 	padding: 0 0 1rem 0;
 }
 
-.home-profile section > section form {
+.home-profile section>section form {
 	max-width: 50vw;
 	min-width: 50px;
 	align-self: center;
@@ -175,11 +184,23 @@ h1 {
 	font-weight: 700;
 }
 
+
+.border-top-gradient {
+	border-width: 2px;
+	border-style: solid;
+	border-bottom: 0;
+	border-left: 0;
+	border-right: 0;
+	border-image: var(--buttonGradient) 1 100;
+}
+
 form label {
 	font-weight: 500;
 	font-size: 0.8rem;
+	margin: 2rem 0 0.5rem 0;
 	text-transform: uppercase;
 }
+
 ::placeholder {
 	color: var(--basecolor);
 }
@@ -188,10 +209,9 @@ textarea,
 input[type="text"],
 input[type="password"],
 input[type="url"] {
-	padding: 10px 25px;
-	margin: 10px 0;
+	padding: 1rem 2rem;
 	min-width: max-content;
-	height: 50px;
+	height: 3rem;
 	border-radius: 25px;
 	border: none;
 	box-shadow: 0px 0px 5px var(--basecolor);
@@ -204,7 +224,10 @@ input:focus {
 	border: none;
 	background-color: var(--myLightGray);
 }
+
 button {
+	width: max-content;
+	min-height: 3rem;
 	align-self: center;
 	color: var(--fontcolorlight);
 	border: none;
@@ -217,7 +240,6 @@ button {
 	cursor: pointer;
 	text-transform: uppercase;
 	box-shadow: 2px 2px 2px var(--basecolor);
-	width: max-content;
 	min-width: 7rem;
 	background-image: var(--buttonGradient);
 	background-position: center;
@@ -231,50 +253,22 @@ button:hover {
 	background-size: 500%;
 	box-shadow: 5px 5px 5px var(--basecolor);
 }
+
 button:active {
 	background-color: var(--myLime);
 	text-shadow: none;
 	box-shadow: none;
 }
+
 button:focus {
 	background-color: var(--myLime);
 	text-shadow: none;
 	box-shadow: none;
 }
 
-.grayscale-img {
-	filter: grayscale();
-	mix-blend-mode: screen;
-}
 
-@keyframes fade-in {
-	from {
-		opacity: 0;
-		margin-top: 2rem;
-	}
-	to {
-		opacity: 1;
-		margin-top: 0;
-	}
-}
-@keyframes fade-out {
-	from {
-		opacity: 1;
-		margin-top: 2rem;
-	}
-	to {
-		opacity: 0;
-		margin-top: 0;
-	}
-}
-
-/* components */
-
-.register,
-.login,
-.home,
-.add-post-modal form {
-	animation: fade-in 0.3s ease;
+.side-in {
+	animation: fade-in 1s ease;
 }
 
 .hello-user {
@@ -285,11 +279,9 @@ button:focus {
 .hello-user h2 {
 	margin: 0;
 }
+
 .home-profile-avatar-link {
 	margin-right: 1rem;
-}
-.goto {
-	margin: 2rem 0;
 }
 
 .overlay-panel-close {
@@ -317,6 +309,7 @@ button:focus {
 	padding: 2rem;
 	z-index: 1;
 }
+
 .add-post-modal form,
 .edit-post-modal form {
 	padding: 2rem;
@@ -330,10 +323,10 @@ button:focus {
 	height: auto;
 	border-radius: 20px;
 }
+
 .modal-post-headline {
 	margin: 0 0 1rem 0;
 }
-
 
 button.menu-open {
 	all: unset;
@@ -370,6 +363,10 @@ button.menu-open:active {
 
 	.add-post-modal form {
 		min-width: 200px;
+		max-width: 100%;
+	}
+
+	.home-post-image {
 		max-width: 100%;
 	}
 }

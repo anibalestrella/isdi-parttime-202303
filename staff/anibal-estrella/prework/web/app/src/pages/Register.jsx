@@ -31,7 +31,7 @@ export default function Register({onUserRegistered, onLoginClick}) {
     return <div className="register center-container">
         <section className="panel">
             <h2>Register</h2>
-            <form method="get" className="register-form" onSubmit={handleRegister}>
+            <form method="get" className="register-form border-top-gradient" onSubmit={handleRegister}>
                 <label htmlFor="name">Name:</label>
                 <input type="text" className="name" name="name" placeholder="Enter your name" />
                 <label htmlFor="email">E-mail:</label>
@@ -42,7 +42,7 @@ export default function Register({onUserRegistered, onLoginClick}) {
                 <input type="password" className="password" name="repeatPassword" placeholder="Repeat your password" />
                 <button className="buttom button-submit" type="submit" value="register">Register</button>
             </form>
-            <p className="goto-login">
+            <p className="goto-login border-top-gradient">
                 Already registered? <br />
                 Login <a href="#" onClick={handleLoginClick}>here</a>.
             </p>

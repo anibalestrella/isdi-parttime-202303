@@ -92,6 +92,19 @@ export default function Home({ onLoggedOut }) {
         setView('posts')
     }
 
+    const salutations = [
+        "Long time no see!",
+        "What's crackin'?",
+        "How's it going?",
+        "What's up, my friend?",
+        "What's good?",
+        "Let's catch up!",
+      ]
+      const randomSalutation = () => {
+        const randomNumber = Math.floor(Math.random() * salutations.length);
+        return salutations[randomNumber];
+      };
+
     console.log('// Home -> RENDER')
 
     return <div className="home ">
@@ -99,7 +112,7 @@ export default function Home({ onLoggedOut }) {
             <header className="home-header">
                 <div className="header-items-wrapper">
                     <h1> <a href="#" className="header-title-link" onClick={handleGoToHome} >
-                        APP Home
+                        Logo
                     </a></h1>
                     <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
                         <img className="user-avatar home-header-avatar" src={user.avatar} alt="" />
@@ -121,7 +134,7 @@ export default function Home({ onLoggedOut }) {
                 <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
                     <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
                 </a>
-                <h2 className="hello-user-headline">Hi <span className="hello-user-name">{user.name}</span>.<br />Show us what you got!</h2>
+                <h2 className="hello-user-headline">Hi <span className="hello-user-name">{user.name}</span>.<br />{randomSalutation()}</h2>
             </div>
 
             {view === 'posts' && <Posts
@@ -145,7 +158,7 @@ export default function Home({ onLoggedOut }) {
 
             <footer className="home-footer">
                 <div className="footer-items-wrapper">
-                    <button className="add-post-button" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="icon" /></button>
+                    <button className="add-post-button icon" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="add icon" />Add Post</button>
                 </div>
             </footer>
         </section>

@@ -75,9 +75,9 @@ export default function Profile({ onAvatarUpdated }) {
     return <div className="home-profile">
         <section>
             <h2 className="profile-headline">Profile</h2>
-            <section className="change-user-avatar panel">
+            <section className="change-user-avatar panel  ">
                 <h3 className="change-user-avatar-headline">Change your avatar</h3>
-                <form action="" className="change-user-avatar-form" onSubmit={handleUpdateAvatar}>
+                <form action="" className="change-user-avatar-form border-top-gradient" onSubmit={handleUpdateAvatar}>
                 <img className="user-avatar home-profile-avatar" src={avatar} alt="" />
                     <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" />
                     <button type="submit">Update Avatar</button>

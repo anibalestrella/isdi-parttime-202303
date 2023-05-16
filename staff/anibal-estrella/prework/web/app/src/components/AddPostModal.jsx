@@ -3,6 +3,11 @@ import { createPost } from "../logic/createPost.js"
 
 import { useState, useRef } from 'react';
 
+import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
+import { TrashIcon } from '@heroicons/react/24/solid'
+import { CheckIcon } from '@heroicons/react/24/solid'
+import { EyeIcon } from '@heroicons/react/24/solid'
+
 import "./AddPostModal.css"
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
@@ -46,18 +51,19 @@ const emptyImage ="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
         <h3 className="create-post-headline">Shoot your post!</h3>
         <form action="" className="add-post-modal-form panel" onSubmit={handleCreatePost}>
 
-                <label htmlFor="add-post-image">Image:</label>
+                <label htmlFor="add-post-image">Your awesome pic:</label>
                 <img src={previewImage} alt="" className="add-post-th grayscale-img" alt="Preview" />
             <div className='preview-image-container'>
                 <input type="url" name="image" placeholder="Paste image URL in here." ref={imageInputRef}/>
-                <button className="preview-image-button" onClick={handleImagePreview}>Preview</button>
+                <button className="preview-image-button icon" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
             </div>
 
-            <label htmlFor="add-post-text">Text:</label>
+            <label htmlFor="add-post-text">tell us something:</label>
             <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
             <div className="inline-container">
-                <button className="create">create</button>
-                <button className="cancel" onClick={handleCancel}>cancel</button>
+            <button className="save icon" type="submit">Save <CheckIcon className="save icon" /> </button>
+        <button className="cancel icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
+            
             </div>
         </form>
         <div className="overlay-panel-close" onClick={handleCancel}></div>

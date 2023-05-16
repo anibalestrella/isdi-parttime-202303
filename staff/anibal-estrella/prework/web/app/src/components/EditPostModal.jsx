@@ -87,7 +87,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
     <form action="" className="edit-post-modal-form panel" onSubmit={handleEditPost}>
 
-      <label htmlFor="edit-post-image">Image:</label>
+      <label htmlFor="edit-post-image ">Image:</label>
       <img src={previewImage} alt="" className="edit-post-th grayscale-img" alt="Preview" />
 
       <div className='modal-actions-container'>
@@ -95,7 +95,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         <button className="preview-image-button icon" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
       </div>
 
-      <label htmlFor="edit-post-text">Text:</label>
+      <label htmlFor="edit-post-text ">Text:</label>
 
       <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here." defaultValue={_text}></textarea>
 

@@ -32,6 +32,7 @@
 .header-title-link {
 	margin: 0px 0px 0px 2rem;
 	text-decoration: none;
+	transition: 1s ease;
 }
 
 
@@ -42,18 +43,23 @@
 .home-header-avatar {
 	margin: 0.3rem 0 0 auto;
 }
-.home-header-avatar,
-.home-profile-avatar,
-.home-post-avatar {
-	width: 50px;
+.user-avatar {
+	aspect-ratio: 1 / 1;
 	height: 50px;
 	border-radius: 50%;
 	border: 2px solid var(--myRed);
 	background-color: var(--basecolor);
+	transition: all 1s ease;
 }
+
+.user-avatar:hover {
+	border: 2px solid var(--myLime);
+}
+
+
 .home-profile-avatar {
-	width: 90px;
-	height: 90px;
+	width: 6rem;
+	height: 6rem;
 }
 
 .home-menu {
@@ -94,10 +100,6 @@
 	display: flex;
 }
 
-.Bars3BottomRightIcon{
-
-}
-
 footer.home-footer {
 	position: fixed;
 	bottom: 0;
@@ -112,32 +114,33 @@ footer.home-footer {
 	align-items: center;
 	justify-content: center;
 	margin: 1rem;
-	height: 50px;
+	height: 3rem;
 	border-radius: 20px;
 	background: var(--backgroundGradient);
 }
 
 .home-footer button {
+	aspect-ratio: 1 / 1;
 	height: 100%;
-	width: 50px;
+	width: 3rem;
 	padding: 0;
 	margin: 0;
 	color: var(--fontcolorlight);
-	font-weight: 700;
-	font-size: 2rem;
 	border-radius: 0px;
 	box-shadow: none;
 }
 
-.home-footer button:hover {
+/* .home-footer button:hover {
 	background-image: none;
 	background-color: var(--myRed);
-}
+} */
 
 .home-footer button:active {
-	color: var(--backcolor);
+
+	/* color: var(--fontcolorlight); */
 	opacity: 100%;
-	background-color: var(--fontcolorlight);
+
+	/* background-color: var(--fontcolorlight); */
 }
 
 .footer-items-wrapper .add-post-button {
