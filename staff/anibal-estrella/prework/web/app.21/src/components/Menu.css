@@ -1,0 +1,23 @@
+.menu-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 2rem;
+}
+
+.menu-close .close-menu {
+	font-size: 0;
+	width: 30px;
+	height: 30px;
+	padding: unset;
+	margin: unset;
+}
+a.close-menu:hover {
+	background-image: none !important;
+	/* border: 1px solid var(--fontcolorlight); */
+    opacity: 50%;
+}
+.menu-close .close-menu svg {
+	width: 30px;
+	height: 30px;
+}

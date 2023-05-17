@@ -45,7 +45,7 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
 
     console.log('// Posts -> RENDER');
 
-    return <section className="post-list border-top-gradient">
+    return <section className="post-list">
         <h2 className="post-list-headline">All Posts</h2>
 
         {posts.map(post => <Post post={post}

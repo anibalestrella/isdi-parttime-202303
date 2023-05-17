@@ -116,7 +116,6 @@ section {
 	display: flex;
 	align-items: center;
 	flex-direction: row;
-	align-self: center;
 	margin: auto;
 }
 
@@ -193,13 +192,12 @@ h1 {
 	border-left: 0;
 	border-right: 0;
 	border-image: var(--buttonGradient) 1 100;
-	padding-top: .5rem;
 }
 
 form label {
 	font-weight: 500;
 	font-size: 0.8rem;
-	margin: 1rem 0 0 0;
+	margin: 2rem 0 0.5rem 0;
 	text-transform: uppercase;
 }
 
@@ -211,7 +209,6 @@ textarea,
 input[type="text"],
 input[type="password"],
 input[type="url"] {
-	margin: 1rem 0 0 0;
 	padding: 1rem 2rem;
 	min-width: max-content;
 	height: 3rem;
@@ -219,7 +216,6 @@ input[type="url"] {
 	border: none;
 	box-shadow: 0px 0px 5px var(--basecolor);
 	background-color: var(--myGray);
-	transition: background-color .5s ease;
 }
 
 textarea:focus,
@@ -240,17 +236,20 @@ button {
 	font-size: 0.8rem;
 	letter-spacing: 0.1rem;
 	cursor: pointer;
+	/* margin-top: 10px; */
+	cursor: pointer;
 	text-transform: uppercase;
 	box-shadow: 2px 2px 2px var(--basecolor);
 	min-width: 7rem;
 	background-image: var(--buttonGradient);
 	background-position: center;
 	background-size: 110%;
-	transition: box-shadow 0.2s ease, background-size .2s ease, background-position .5s ease;
+	transition: box-shadow 0.2s ease, background-size .2s ease;
 }
 
 button:hover {
-	background-position: right;
+	/* background-image: none;
+	background-color: var(--myRed); */
 	background-size: 500%;
 	box-shadow: 5px 5px 5px var(--basecolor);
 }
@@ -272,7 +271,18 @@ button:focus {
 	animation: fade-in 1s ease;
 }
 
+.hello-user {
+	display: inline-grid;
+	grid-template-columns: auto auto;
+}
 
+.hello-user h2 {
+	margin: 0;
+}
+
+.home-profile-avatar-link {
+	margin-right: 1rem;
+}
 
 .overlay-panel-close {
 	position: absolute;
@@ -351,14 +361,6 @@ button.menu-open:active {
 		border-radius: 0;
 	}
 
-	section {
-		padding: .5rem;
-	}
-
-	article.post {
-		padding: 1rem;
-	}
-
 	.add-post-modal form {
 		min-width: 200px;
 		max-width: 100%;
@@ -366,58 +368,7 @@ button.menu-open:active {
 
 	.home-post-image {
 		max-width: 100%;
-		margin: .5rem 0 0 0;
 	}
-
-	.add-post-modal,
-	.edit-post-modal {
-		min-width: 300px;
-	}
-
-	.home-menu ul li a {
-		font-size: 2rem;
-	}
-
-	.menu-close {
-		margin: .5rem;
-	}
-
-	.post p {
-		margin: .5rem 0 0 0;
-	}
-
-	.post-buttons {
-		margin: .5rem 0 0 0;
-	}
-
-	.add-post-modal textarea,
-	.edit-post-modal textarea {
-		max-height: 150px;
-	}
-
-	.add-post-th,
-	.edit-post-th {
-		width: 150px;
-		margin: .5rem 0 0 0;
-	}
-
-	.preview-image-container,
-	.preview-image-container input {
-		margin: .5rem 0 0 0;
-		flex-direction: column;
-	}
-
-	.preview-image-button,
-	form label,
-	.inline-container {
-		margin: .5rem 0 0 0;
-		padding: 0 0;
-	}
-
-	.save {
-		margin: 0;
-	}
-
 }
 
 .off {

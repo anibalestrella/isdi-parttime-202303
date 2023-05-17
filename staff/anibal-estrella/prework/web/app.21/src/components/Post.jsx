@@ -42,10 +42,10 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
       <img className="home-post-image grayscale-img" src={image} alt="" />
       <p>{text}</p>
       <div className="post-buttons">
-      <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
+      <button onClick={handleToggleLikePost} name="like" className="post-like-button">
         {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes ? <span>{likes.length}</span> : ''}
       </button>
-      {author === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
+      {author === context.userId ? <button onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
       </div>
     </article>
 

@@ -7,15 +7,18 @@ export default function Menu(props) {
 
     function handleClose(event) {
         event.preventDefault()
+
         props.onCloseMenu()
     }
     
     function handleOpenProfile(event) {
+
         props.openProfile()
         props.onCloseMenu()
     }
 
     function handleCreatePost(event) {
+
         props.createPost()
         props.onCloseMenu()
     }
@@ -23,6 +26,7 @@ export default function Menu(props) {
     function handleLogOut(){
         props.onLogOut()
         props.onCloseMenu()
+
     }
 
     function handleDarkTheme(){

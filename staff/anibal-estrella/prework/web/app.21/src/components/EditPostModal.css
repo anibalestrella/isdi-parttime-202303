@@ -20,23 +20,17 @@
 		margin: 1rem 0;
 	}
 
-	.input-preview {
-		margin: 0 .5rem 0 0 !important;
-	}
-
-	
-	.edit-post-modal textarea {
-		align-self: center;
-		width: 100%;
-	}
-	
-	.modal-actions-container {
-		display: flex;
-		justify-content: space-evenly;
-		align-items: center;
-		margin: 1rem 0 0 0;
-	}
 	button.preview-image-button {
 		margin: 0 1rem 0 1rem;
+	}
+
+.edit-post-modal textarea {
+	align-self: center;
+	width: 100%;
+}
+	.modal-actions-container {
+		display: flex;
+		justify-content: center;
+		margin: 0.5rem 0 0 0;
 	}
 }

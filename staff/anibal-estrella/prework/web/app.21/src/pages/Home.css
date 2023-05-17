@@ -28,27 +28,7 @@
 	border-radius: 20px;
 	background: var(--backgroundGradient);
 }
-.hello-user {
-	width: 100%;
-	display: flex;
-	margin: 0 0 .5rem 0;
-}
 
-.hello-user h2 {
-	margin: 0;
-	font-weight: 500;
-	font-size: smaller;
-}
-
-.hello-user h2 span {
-	margin: 0;
-	font-weight: 700;
-	font-size: x-large;
-}
-
-.home-profile-avatar-link {
-	margin-right: 1rem;
-}
 .header-title-link {
 	margin: 0px 0px 0px 2rem;
 	text-decoration: none;
@@ -82,8 +62,43 @@
 	height: 6rem;
 }
 
+.home-menu {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background-color: var(--basecolor-80);
+ 		backdrop-filter: blur(10px);
+}
 
+.home-menu ul {
+	list-style: none;
+	padding: 0;
+}
+.home-menu ul li a {
+	display: block;
+	padding: 0.5rem;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+.home-menu ul li a:hover {
+	color: var(--fontcolorlight);
+	box-shadow: 2px 2px 2px var(--basecolor);
+	border-radius: 20px;
+	font-weight: 700;
+	background-image: var(--buttonGradient);
+}
+.home-menu ul li a:active {
+	box-shadow: 2px 2px 2px var(--basecolor);
+	background-image: none;
+	box-shadow: none;
+	background-color: var(--myLimeDark);
+}
 
+.home-menu nav {
+	display: flex;
+}
 
 footer.home-footer {
 	position: fixed;
@@ -140,7 +155,6 @@ footer.home-footer {
     
     .home-header {
 		height: 50px;
-		width: 100%;
 	}
 
     .header-items-wrapper {
@@ -163,8 +177,5 @@ footer.home-footer {
 		height: 40px;
 		border-radius: 0;
 		background: var(--backgroundGradient);
-	}
-	footer.home-footer{
-		width: 100%;
 	}
 }

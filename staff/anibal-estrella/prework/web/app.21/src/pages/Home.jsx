@@ -108,7 +108,7 @@ export default function Home({ onLoggedOut }) {
     console.log('// Home -> RENDER')
 
     return <div className="home ">
-        <section> 
+        <section>
             <header className="home-header">
                 <div className="header-items-wrapper">
                     <h1> <a href="#" className="header-title-link" onClick={handleGoToHome} >
@@ -130,11 +130,11 @@ export default function Home({ onLoggedOut }) {
 
             </header>
 
-            <div className="hello-user border-top-gradient">
+            <div className="hello-user">
                 <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
                     <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
                 </a>
-                <h2 className="hello-user-headline"><span className="hello-user-name">Hi {user.name}.</span><br />{randomSalutation()}</h2>
+                <h2 className="hello-user-headline">Hi <span className="hello-user-name">{user.name}</span>.<br />{randomSalutation()}</h2>
             </div>
 
             {view === 'posts' && <Posts

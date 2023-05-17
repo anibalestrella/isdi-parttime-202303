@@ -87,23 +87,23 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
     <form action="" className="edit-post-modal-form panel" onSubmit={handleEditPost}>
 
-      <label htmlFor="edit-post-image " className='border-top-gradient'>Image:</label>
+      <label htmlFor="edit-post-image ">Image:</label>
       <img src={previewImage} alt="" className="edit-post-th grayscale-img" alt="Preview" />
 
       <div className='modal-actions-container'>
-        <input className='input-preview' type="url" name="image" placeholder="Paste image URL in here." defaultValue={previewImage} ref={imageInputRef} />
-        <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
+        <input type="url" name="image" placeholder="Paste image URL in here." defaultValue={previewImage} ref={imageInputRef} />
+        <button className="preview-image-button icon" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
       </div>
 
       <label htmlFor="edit-post-text ">Text:</label>
 
       <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here." defaultValue={_text}></textarea>
 
-      <div className="modal-actions-container border-top-gradient">
+      <div className="modal-actions-container">
 
-        <button className="delete post-button icon" onClick={handleDeletePost}>Delete <TrashIcon className="delete icon" /></button>
-        <button className="cancel post-button icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
-        <button className="save post-button icon" type="submit">Save <CheckIcon className="save icon" /> </button>
+        <button className="save icon" type="submit">Save <CheckIcon className="save icon" /> </button>
+        <button className="delete icon" onClick={handleDeletePost}>Delete <TrashIcon className="delete icon" /></button>
+        <button className="cancel icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
 
       </div>
 
