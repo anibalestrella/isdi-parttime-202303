@@ -4,7 +4,6 @@ import { createPost } from "../logic/createPost.js"
 import { useState, useRef } from 'react';
 
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
-import { TrashIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
@@ -27,8 +26,14 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
         try {
 
-            createPost(context.userId, image, text)
-            onPostCreated()
+            createPost(context.userId, image, text, (error) =>{
+                if (error) {
+                    alert(error.message)
+    
+                    return
+                }
+                onPostCreated()
+            }) 
 
         } catch (error) {
             alert(error.message)
@@ -36,6 +41,7 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
     }
 
     const emptyImage = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+    
     const imageInputRef = useRef(null);
 
     const [previewImage, setPreviewImage] = useState(emptyImage);

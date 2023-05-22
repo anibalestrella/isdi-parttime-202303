@@ -13,7 +13,9 @@ import { EyeIcon } from '@heroicons/react/24/solid'
 
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
     const [post, setPost] = useState(null)
-    
+    const [previewImage, setPreviewImage] = useState(null)
+
+
     useEffect(() => {
         try {
             retrievePost(context.userId, postId, (error, post) => {
@@ -22,9 +24,9 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
     
                     return
                 }
-                //saleve loaded post
+                //save loaded post
                 setPost(post)
-                
+                setPreviewImage(post.image);
             })
             
         } catch (error) {
@@ -85,17 +87,10 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
     };
 
-
-    
-
-    //lets FIX the preview image
     const imageInputRef = useRef();
-    const [previewImage, setPreviewImage] = useState(post);
     
-
     const handleImagePreview = (event) => {
         event.preventDefault()
-        console.log(">>>>> "+previewImage);
         setPreviewImage(imageInputRef.current.value);
     }
     
@@ -107,32 +102,18 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
             <h3 className="modal-post-headline">Edit your post!</h3>
 
             <form action="" className="edit-post-modal-form panel" onSubmit={handleEditPost}>
-
                 <label htmlFor="edit-post-image " className='border-top-gradient'>Image:</label>
-                {/* <img src={previewImage} alt="" className="edit-post-th grayscale-img" alt="Preview" />
-
-                <div className='modal-actions-container'>
-                    <input className='input-preview' type="url" name="image" placeholder="Paste image URL in here."
-                    defaultValue={previewImage} ref={imageInputRef} />
-
-                    <button className="preview-image-button icon post-button"
-                    onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
-                </div> */}
-                
                  <img src={previewImage} className="edit-post-th grayscale-img" alt="Preview" />
-
                 <div className='modal-actions-container'>
                     <input className='input-preview' type="url" name="image" placeholder="Paste image URL in here."
-                    defaultValue={post.image} ref={imageInputRef}/>
+                    defaultValue={previewImage} ref={imageInputRef}/>
                     <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                 </div>
 
                 <label htmlFor="edit-post-text ">Text:</label>
-
                 <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here." defaultValue={post.text}></textarea>
 
                 <div className="modal-actions-container border-top-gradient">
-
                     <button className="delete post-button icon" onClick={handleDeletePost}>Delete <TrashIcon className="delete icon" /></button>
                     <button className="cancel post-button icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
                     <button className="save post-button icon" type="submit">Save <CheckIcon className="save icon" /> </button>

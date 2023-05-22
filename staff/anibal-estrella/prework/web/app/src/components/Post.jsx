@@ -7,8 +7,8 @@ import toggleFavPost from '../logic/toggleFavPost'
 import { PencilIcon } from '@heroicons/react/24/solid'
 import { HeartIcon } from '@heroicons/react/24/solid'
 import { HeartIcon as HeartIconLine } from '@heroicons/react/24/outline'
-import { StarIcon } from '@heroicons/react/24/solid'
-import { StarIcon as StarIconLine } from '@heroicons/react/24/outline'
+import { BookmarkIcon } from '@heroicons/react/24/solid'
+import { BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
 
 
 import './Post.css'
@@ -23,7 +23,13 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
   const handleToggleLikePost = () => {
 
     try {
-      toggleLikePost(context.userId, id)
+      toggleLikePost(context.userId, id, (error) => {
+        if (error) {
+            alert(error.message)
+
+            return
+        }
+      })
       onToggledLikePost()
 
     } catch (error) {
@@ -31,7 +37,7 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
     }
   }
 
-  const handleToggleFavPost = () => console.log('>>> handleToggleFavPost');
+  const handleToggleFavPost = () => toggleFavPost();
 
   return (
 
@@ -50,7 +56,7 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
         {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes ? <span>{likes.length}</span> : ''}
       </button>
       {author === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
-      <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav<StarIconLine className="favIcon icon"/></button>
+      <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav<BookmarkIconLine className="favIcon icon"/></button>
       </div>
     </article>
 

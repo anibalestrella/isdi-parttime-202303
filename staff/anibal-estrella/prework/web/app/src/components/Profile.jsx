@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { context } from '../ui'
 import updateUserAvatar from "../logic/updateUserAvatar"
@@ -11,34 +11,33 @@ import { EyeIcon } from '@heroicons/react/24/solid'
 import './Profile.css'
 
 export default function Profile({ onAvatarUpdated }) {
-    console.log('// Profile -> RENDER');
-
-    let user
-    let avatar
-
-    try {
-        retrieveUser(context.userId, (user, error) => {
-            if (error) {
-                alert(error.message)
-
-                return
-            }
-            const name = user.name
-            const avatar = user.avatar
+    const [name, setUserName] = useState()
+    const [previewImage, setPreviewImage] = useState();
 
 
-        })
+    useEffect(() => {
+        try {
+           retrieveUser(context.userId, (error, user) => {
+               if (error) {
+                   alert(error.message)
+    
+                   return
+                }
+               setUserName(user.name)
+               setPreviewImage(user.avatar)
+            })
+    
+       } catch (error) {
+           alert(error.message)
+        }
+        //we send an empty array just to load it for the first time
+   }, [])
 
-    } catch (error) {
-        alert(error.message)
-    }
-
-
-    const handleUpdateAvatar = event => {
+   const handleUpdateAvatar = event => {
         event.preventDefault()
-
+        
         const url = event.target.url.value
-
+        
         try {
 
             updateUserAvatar(context.userId, url, error => {
@@ -50,25 +49,25 @@ export default function Profile({ onAvatarUpdated }) {
 
                 onAvatarUpdated()
             })
-
+            
         } catch (error) {
             alert(error.message)
         }
     }
-
+    
     const handleUpdatePassword = event => {
         event.preventDefault()
-
+        
         const password = event.target.password.value
         const newPassword = event.target.newPassword.value
         const newPasswordConfirm = event.target.newPasswordConfirm.value
-
+        
         try {
-
+            
             updateUserPassword(context.userId, password, newPassword, newPasswordConfirm)
-
+            
             alert('Your Password has been Successfully updated.')
-
+            
         } catch (error) {
             alert(error.message)
         }
@@ -76,44 +75,41 @@ export default function Profile({ onAvatarUpdated }) {
 
     const handleChangeUserEmail = event => {
         event.preventDefault()
-
+        
         const emailConfirm = event.target.newEmail.value
         const newEmailConfirm = event.target.newEmailConfirm.value
-
+        
         try {
-
+            
             updateUserEmail(context.userId, emailConfirm, newEmailConfirm)
-
+            
             alert('Your email has been Successfully updated.')
-
+            
         } catch (error) {
             alert(error.message)
         }
     }
-
-    const _avatar = avatar
-
-    const imageInputRef = useRef(null);
-
-    const [previewImage, setPreviewImage] = useState(_avatar);
-
+    
+    const imageInputRef = useRef();
+    
     const handleImagePreview = (event) => {
         event.preventDefault()
 
         setPreviewImage(imageInputRef.current.value);
     }
-
+    
+    console.log('// Profile -> RENDER')
 
     return <div className="home-profile">
         <section className='border-top-gradient'>
-            <h2 className="profile-headline ">{user.name}'s Profile</h2>
+            <h2 className="profile-headline ">{name}'s Profile</h2>
             <section className="change-user-avatar panel  ">
                 <h3 className="change-user-avatar-headline">Change your avatar</h3>
                 <div>
                     <img className="user-avatar home-profile-avatar" src={previewImage} alt="" />
                     <form action="" className="change-user-avatar-form " onSubmit={handleUpdateAvatar}>
                         <div>
-                            <input type="url" name="url" placeholder="Avatar image URL" accept="image/*" ref={imageInputRef} />
+                            <input type="url" name="url"  placeholder="Avatar image URL" accept="image/*" ref={imageInputRef} onPaste={handleImagePreview} />
                             <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                         </div>
 

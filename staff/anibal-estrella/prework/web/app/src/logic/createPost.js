@@ -27,7 +27,8 @@ export function createPost(userId, image, text, callback) {
                 author: userId,
                 image,
                 text,
-                date: new Date
+                date: new Date,
+                visibility: 'public'
             }
     
             posts.push(post)

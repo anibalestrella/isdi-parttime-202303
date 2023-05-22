@@ -94,8 +94,9 @@ export default function Home({ onLoggedOut }) {
         } catch (error) {
 
         }
-        setView('home')
-        setView('posts')
+        // setView('home')
+        // setView('posts')
+        setView('profile')
     }
 
     const salutations = [
