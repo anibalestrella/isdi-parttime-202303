@@ -1,37 +1,40 @@
-console.log('// LOGIC // createPost');
+import { validateId, validateUrl, validateText, validateCallback } from "./helpers/validators.js"
+import { findUserById, loadPosts, savePosts } from "../data.js"
 
 
-import { validateId, validateUrl, validateText } from "./helpers/validators.js"
-import { posts, savePosts } from "../data.js"
-import { findUserById } from "./helpers/dataManagers.js";
-
-
-export function createPost(userId, image, text) {
+export function createPost(userId, image, text, callback) {
     validateId(userId, 'user id')
     validateUrl(image, 'image url')
-    validateText(text)
+    validateText(text, 'text')
+    validateCallback(callback, 'callback function')
 
-    const user = findUserById(userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`User ${userId} not found`))
+            return
+        }
 
-    if (!user) throw new Error(`User ${userId} not found`)
+        let id = 'post-01'
 
-    let id = 'post-01'
+        loadPosts(posts =>{
+            const lastPost = posts[posts.length - 1]
+    
+            if (lastPost)
+                id = 'post-0' + (parseInt(lastPost.id.slice(6)) + 1)
+    
+            const post = {
+                id,
+                author: userId,
+                image,
+                text,
+                date: new Date
+            }
+    
+            posts.push(post)
+    
+            savePosts(posts, () => callback(null))
+        })
 
-    const _posts = posts()
-    const lastPost = _posts[_posts.length - 1]
+    })
 
-    if (lastPost)
-        id = 'post-0' + (parseInt(lastPost.id.slice(6)) + 1)
-
-    const post = {
-        id,
-        author: userId,
-        image,
-        text,
-        date: new Date
-    }
-
-    _posts.push(post)
-
-    savePosts(_posts)
 }

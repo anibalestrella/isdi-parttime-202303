@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
 
@@ -13,12 +13,6 @@ import { Bars3BottomRightIcon } from '@heroicons/react/24/solid'
 
 import './Home.css'
 
-/* 
-TODO:
-register new user not saving new user
-
-*/
-
 export default function Home({ onLoggedOut }) {
 
     const [view, setView] = useState('posts')
@@ -26,19 +20,25 @@ export default function Home({ onLoggedOut }) {
     const [menu, setMenu] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostsUpdate, setLastPostsUpdate] = useState(Date.now())
+    const [user, setUser] = useState()
 
-    let _user
+    useEffect(() => {
+        try {
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
 
-    try {
-        _user = retrieveUser(context.userId)
-        const name = _user.name
-        const avatar = _user.avatar
+                    return
+                }
+                setUser(user)
+            })
 
-    } catch (error) {
-        alert(error.message)
-    }
+        } catch (error) {
+            alert(error.message)
+        }
 
-    const [user, setUser] = useState(_user)
+    }, [])
+
 
 
 
@@ -83,8 +83,14 @@ export default function Home({ onLoggedOut }) {
 
     const handleAvatarUpdated = () => {
         try {
-            const user = retrieveUser(context.userId)
-            setUser(user)
+            retrieveUser(context.userId, (error, user) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+                setUser(user)
+            })
         } catch (error) {
 
         }
@@ -99,23 +105,28 @@ export default function Home({ onLoggedOut }) {
         "What's up, my friend?",
         "What's good?",
         "Let's catch up!",
-      ]
-      const randomSalutation = () => {
+    ]
+
+    const randomSalutation = () => {
         const randomNumber = Math.floor(Math.random() * salutations.length);
         return salutations[randomNumber];
-      };
+    };
 
     console.log('// Home -> RENDER')
 
     return <div className="home ">
-        <section> 
+        <section>
             <header className="home-header">
                 <div className="header-items-wrapper">
                     <h1> <a href="#" className="header-title-link" onClick={handleGoToHome} >
                         Logo
                     </a></h1>
+
                     <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
-                        <img className="user-avatar home-header-avatar" src={user.avatar} alt="" />
+
+                        {user && <>
+                            <img className="user-avatar home-header-avatar" src={user.avatar} alt="" />
+                        </>}
                     </a>
 
                     <button className="menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon' /></button>
@@ -132,9 +143,17 @@ export default function Home({ onLoggedOut }) {
 
             <div className="hello-user border-top-gradient">
                 <a href="#" className="home-profile-avatar-link" onClick={handleGoToProfile}>
-                    <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
+
+                    {user && <>
+                        <img className="user-avatar home-profile-avatar" src={user.avatar} alt="" />
+                    </>}
+
                 </a>
-                <h2 className="hello-user-headline"><span className="hello-user-name">Hi {user.name}.</span><br />{randomSalutation()}</h2>
+                {user && <>
+                    <h2 className="hello-user-headline">
+                        <span className="hello-user-name">Hi {user.name}.</span>
+                        <br />{randomSalutation()}</h2>
+                </>}
             </div>
 
             {view === 'posts' && <Posts

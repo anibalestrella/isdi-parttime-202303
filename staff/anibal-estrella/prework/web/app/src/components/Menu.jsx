@@ -38,7 +38,7 @@ export default function Menu(props) {
             {/* <li className="menu-show-posts" ><a href="#">Show Posts</a></li> */}
             <li className="menu-create-post" > <a href="#" onClick={handleCreatePost}>Create Post</a></li>
             <li className="menu-logout" ><a href="#"  onClick={handleLogOut}>Logout</a></li>
-            <li className="menu-logout" ><a href="#" onClick={handleDarkTheme}>Dark Theme</a></li>
+            <li className='theme'>dark <input type="checkbox" className='toggle-theme' onClick={handleDarkTheme} /> light</li>
         </ul>
     </nav>
 

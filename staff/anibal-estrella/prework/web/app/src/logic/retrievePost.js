@@ -1,18 +1,27 @@
-import { findPostById } from "./helpers/dataManagers.js";
-import { validateId } from "./helpers/validators.js";
-import { users } from "../data.js"
+import { validateId, validateCallback } from "./helpers/validators.js";
+import { findPostById, findUserById } from "../data.js"
 
-export default function retrievePosts(userId, postId) {
+export default function retrievePost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateCallback(callback, 'callback function')
 
-    const found=users().some(user => user.id === userId)
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`User ${userId} not found`))
 
-    if (!found) throw new Error(`User ${userId} not found`)
+            return
+        }
 
-    const post = findPostById(postId)
-    
-    if (!post) throw new Error(`Post ${postId} not found`)
+        findPostById(postId, post => {
+            if (!post) {
+                callback(new Error(`Post ${postId} not found`))
 
-    return post
+                return
+            }
+
+            callback(null, post)
+
+        })
+    })
 }

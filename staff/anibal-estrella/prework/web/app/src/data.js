@@ -1,47 +1,76 @@
-export const users = () => 'usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : []
+const DELAY = 1000;
 
-export const posts = () => {
-  const posts = 'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : []
+export const loadUsers = callback => setTimeout(() => {
+    callback('usersJson' in localStorage ? JSON.parse(localStorage.usersJson) : [])
+}, DELAY)
 
-  posts.forEach(post => post.date = new Date(post.date))
 
-  return posts
+
+export function saveUsers(users, callback) {
+    setTimeout(() => {
+        localStorage.usersJson = JSON.stringify(users)
+
+        callback()
+    }, DELAY);
 }
 
+export const saveUser = (user, callback) => 
+    loadUsers(users => {
+        const index = users.findIndex(_user => _user.id === user.id)
 
-export function saveUsers(users) {
-  localStorage.usersJson = JSON.stringify(users)
+        if (index < 0)
+            users.push(user)
+        else
+            users.splice(index, 1, user)
+
+        saveUsers(users, callback)
+    })
+
+export function findUserByEmail(email, callback) {
+    loadUsers(users => {
+        const user = users.find(user => user.email === email)
+        callback(user)
+    })
 }
 
-export function savePosts(posts) {
-  localStorage.postsJson = JSON.stringify(posts)
-}
+export const findUserById = (userId, callback) => 
+loadUsers(users => callback(users.find(user => user.id === userId)))
+
+
+
+export const loadPosts = callback =>
+    setTimeout(() => {
+        const posts = 'postsJson' in localStorage ? JSON.parse(localStorage.postsJson) : []
+
+        posts.forEach(post => post.date = new Date(post.date))
+
+        callback(posts)
+    }, DELAY);
+
+export const savePosts = (posts, callback) =>
+    setTimeout(() => {
+        localStorage.postsJson = JSON.stringify(posts)
+
+        // why callback() with an emty parameter?
+        callback()
+    }, DELAY)
+
 
 // function to save only one post
-export function savePost(post) {
-  const _posts = posts()
+export const savePost = (post, callback) => {
 
-  const index = _posts.findIndex(_post => _post.id === post.id)
+    loadPosts(posts => {
+        const index = posts.findIndex(_post => _post.id === post.id)
 
-  if (index < 0)
-    _posts.push(post)
-  else
-    _posts.splice(index, 1, post)
+        if (index < 0)
+            posts.push(post)
+        else
+            posts.splice(index, 1, post)
 
-  savePosts(_posts)
+        savePosts(posts, callback)
+    })
 }
 
+export const findPostById = (postId, callback) =>
+    loadPosts(posts => callback(posts.find(post => post.id === postId)))
 
-// function to save only one post
-export function saveUser(user) {
-  const _users = users()
-
-  const index = _users.findIndex(_user => _user.id === user.id)
-
-  if (index < 0)
-    _users.push(user)
-  else
-    _users.splice(index, 1, user)
-
-  saveUsers(_users)
-}

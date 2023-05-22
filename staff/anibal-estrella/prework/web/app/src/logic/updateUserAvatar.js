@@ -1,20 +1,22 @@
-console.log('// LOGIC // updateUserAvatar');
+import { validateId, validateUrl, validateCallback } from "./helpers/validators.js"
+import { findUserById, saveUser } from "../data.js"
 
-import {findUserById} from "./helpers/dataManagers.js"
-import { validateId, validateUrl } from "./helpers/validators.js"
-import { saveUser } from "../data.js"
-
-export default function updateUserAvatar(userId, url) {
+export default function updateUserAvatar(userId, url, callback) {
     validateId(userId, 'user id')
     validateUrl(url, 'avatar url')
+    validateCallback(callback, 'callback function')
   
-    const user = findUserById(userId)
-  
-    if (!user)
-      throw new Error('user not found')
-  
-    user.avatar = url
+ findUserById(userId, user =>{
+     if (!user){
+         callback(new Error('user not found'))
 
-    saveUser(user)
+         return
+     }
+    
+     user.avatar = url
+    
+     saveUser(user, () => callback(null))
+ })
+  
   }
   

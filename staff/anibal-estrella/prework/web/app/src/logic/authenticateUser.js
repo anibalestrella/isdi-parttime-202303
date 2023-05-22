@@ -1,16 +1,31 @@
-import { validateEmail, validatePassword} from "./helpers/validators.js"
-import {findUserByEmail} from "./helpers/dataManagers.js"
+import { validateEmail, validatePassword, validateCallback } from "./helpers/validators.js"
+import { findUserByEmail } from "../data.js"
 
-export function authenticateUser(email, password) {
+/* 
+*
+* authenticates a user by email and password
+* @param {String} email The user's email
+* @param {String} password The user's passaword
+*
+*/
+export function authenticateUser(email, password, callback) {
   validateEmail(email)
   validatePassword(password, 'new password')
-  const user = findUserByEmail(email)
+  validateCallback(callback, 'callback function')
 
-  if (!user)
-    throw new Error('User does not exist in the database')
+  findUserByEmail(email, user => {
+    if (!user) {
+      callback(new Error('User does not exist in the database'))
 
-  if (user.password !== password)
-    throw new Error('Wrong password')
+      return
+    }
 
-  return user.id
+    if (user.password !== password) {
+      callback(new Error('Wrong password'))
+
+      return
+    }
+
+    callback(null, user.id)
+  })
 }

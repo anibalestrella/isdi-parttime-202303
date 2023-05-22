@@ -1,12 +1,15 @@
 import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import formatTimeSince from "../logic/formatTimeSince"
-
-import { HeartIcon } from '@heroicons/react/24/solid'
-import { HeartIcon as HeartIconLine } from '@heroicons/react/24/outline'
-import { PencilIcon } from '@heroicons/react/24/solid'
+import toggleFavPost from '../logic/toggleFavPost' 
 
 //https://heroicons.com/
+import { PencilIcon } from '@heroicons/react/24/solid'
+import { HeartIcon } from '@heroicons/react/24/solid'
+import { HeartIcon as HeartIconLine } from '@heroicons/react/24/outline'
+import { StarIcon } from '@heroicons/react/24/solid'
+import { StarIcon as StarIconLine } from '@heroicons/react/24/outline'
+
 
 import './Post.css'
 
@@ -26,8 +29,9 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
     } catch (error) {
       alert(error.message)
     }
-
   }
+
+  const handleToggleFavPost = () => console.log('>>> handleToggleFavPost');
 
   return (
 
@@ -35,7 +39,7 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
       <div className="post-info">
         <img className="user-avatar home-post-avatar" src={avatar} />
         <div>
-          <h3>{name}</h3>
+          <h3>{author}</h3>
           <time>{date.toLocaleString()}</time>
         </div>
       </div>
@@ -46,6 +50,7 @@ export default function Post({ post: { author, id, image, text, date, likes }, u
         {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes ? <span>{likes.length}</span> : ''}
       </button>
       {author === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
+      <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav<StarIconLine className="favIcon icon"/></button>
       </div>
     </article>
 

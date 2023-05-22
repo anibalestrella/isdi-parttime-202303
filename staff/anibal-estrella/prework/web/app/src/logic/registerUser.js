@@ -1,48 +1,47 @@
-console.log('// LOGIC // registerUser');
+import { validateEmail, validateName, validatePassword, validateCallback } from "./helpers/validators.js"
+import { saveUsers, findUserByEmail, loadUsers } from "../data.js";
 
-import { validateEmail, validateName, validatePassword } from "./helpers/validators.js"
-import { findUserByEmail } from "./helpers/dataManagers.js"
-import { users, saveUsers } from "../data.js";
+export default function registerUser(name, email, password, repeatPasword, callback) {
+  validateName(name, 'name')
+  validateEmail(email, 'password')
+  validatePassword(password, 'password')
+  validatePassword(repeatPasword, 'password')
+  validateCallback(callback, 'callback function')
 
-export default function registerUser(name, email, password, repeatPasword) {
-  validateName(name)
-  validateEmail(email)
-  validatePassword(password)
-  validatePassword(repeatPasword)
+  if (password !== repeatPasword) {
+    callback(new Error(`OOPS!\n passwords don't match`))
 
-  const foundUser = findUserByEmail(email)
-
-  if (foundUser)
-    throw new Error(`OOPS!\n A user with the email: ${email} already exists in the database`)
-
-
-    if (password !== repeatPasword)
-      throw new Error(`OOPS!\n passwords don't match`)
-
-  let id = 'user-1'
-
-  //create a fresh copy of the actual DB to amnipulate
-  const _users = users()
-
-  // by default add a first user an id
-  // if ther's a user in the DB
-  // create user id from the last user ID + 1
-  const lastUser = _users[_users.length - 1]
-
-  if (lastUser)
-    id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
-
-  // if property's name is the same as the variable's name
-  const user = {
-    id,
-    name,
-    email,
-    password,
-    avatar:'../../assets/avatar-default.svg'
+    return
   }
 
-  _users.push(user)
+  findUserByEmail(email, foundUser => {
+    if (foundUser) {
+      callback(new Error(`OOPS!\n A user with the email: ${email} already exists in the database`))
 
-  saveUsers(_users)
+      return
+    }
+
+    let id = 'user-1'
+
+    loadUsers(users => {
+      const lastUser = users[users.length - 1]
+
+      if (lastUser)
+        id = 'user-' + (parseInt(lastUser.id.slice(5)) + 1)
+
+      const user = {
+        id,
+        name,
+        email,
+        password,
+        avatar: '../../assets/avatar-default.svg'
+      }
+
+      users.push(user)
+      // This CALLBACK calls this parent Function's parameter CALLBACK sending a NULL to tell the CALLBACKthere's no erroers to be sent (Happy Path)
+      saveUsers(users, () => callback(null))
+    })
+
+  })
 
 }

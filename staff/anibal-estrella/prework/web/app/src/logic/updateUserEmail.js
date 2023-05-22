@@ -1,20 +1,26 @@
-import { validateEmail } from "./helpers/validators.js"
-import {findUserById} from  "./helpers/dataManagers.js"
-import { saveUser } from "../data.js"
+import { validateEmail, validateCallback } from "./helpers/validators.js"
+import { saveUser, findUserById } from "../data.js"
 
-export default function updateUserEmail(userId, newEmail, confirmEmail) {
+export default function updateUserEmail(userId, newEmail, confirmEmail, callback) {
     validateEmail(newEmail)
     validateEmail(confirmEmail)
-    const user = findUserById(userId)
+    validateCallback(callback, 'callback function')
 
-    if (!user)
-        throw new Error('user not found')
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error('user not found'))
 
-    if (confirmEmail === newEmail) {
+            return
+        }
+
+        if (confirmEmail !== newEmail) {
+            callback(new Error('your new emails don\'t match the confirmation'))
+
+            return
+        }
+
         user.email = newEmail
-        saveUser(user)
 
-    } else {
-        throw new Error('your new emails don\'t match the confirmation')
-    }
+        saveUser(user, () => callback(null))
+    })
 }

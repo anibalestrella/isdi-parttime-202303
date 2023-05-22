@@ -1,8 +1,7 @@
 import registerUser from '../logic/registerUser'
 
 
-export default function Register({onUserRegistered, onLoginClick}) {
-    console.log('// Register -> RENDER');
+export default function Register({ onUserRegistered, onLoginClick }) {
 
     function handleLoginClick(event) {
         event.preventDefault()
@@ -18,16 +17,27 @@ export default function Register({onUserRegistered, onLoginClick}) {
         const password = event.target.password.value
         const repeatPassword = event.target.repeatPassword.value
 
+        // handle synchronous errors with TRY/CATCH
         try {
-                
-                registerUser(name, email, password, repeatPassword)
+            //handle asynchronous errors with a CALLBACK
+            registerUser(name, email, password, repeatPassword, error => {
 
-            onUserRegistered()
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onUserRegistered()
+            })
+
         } catch (error) {
             alert(error.message)
         }
     }
 
+    console.log('// Register -> RENDER');
+    
     return <div className="register center-container">
         <section className="panel">
             <h2>Register</h2>

@@ -1,31 +1,31 @@
-import { validateId, validatePassword } from "./helpers/validators.js"
-import {findUserById} from  "./helpers/dataManagers.js"
-import { saveUser } from "../data.js"
+import { validateId, validatePassword, validateCallback } from "./helpers/validators.js"
+import { findUserById, saveUser } from "../data.js"
 
-export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm) {
-    //validate 
+export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
     validateId(userId, 'user id')
     validatePassword(password, 'new password')
-    validatePassword(newPassword, 'new password confirmation')
-    const user = findUserById(userId)
-  
-    //lookup user data in db
-  
-    //check password is correct against user
-  
-    if (!user)
-      throw new Error('user not found')
-  
-    if (password !== user.password)
-      throw new Error('wrong password')
-  
-    if (newPassword !== newPasswordConfirm)
-      throw new Error('your new passwords don\'t match the confirmation')
-  
-    if (newPassword === password)
-      throw new Error('your new password match the old password, please try another')
-  
-    user.password = newPassword
+    if (newPassword === password) throw new Error('your new password match the old password, please try another')
 
-    saveUser(user)
-  }
+    validatePassword(newPassword, 'new password confirmation')
+    if (newPassword !== newPasswordConfirm) throw new Error('your new passwords don\'t match the confirmation')
+
+    validateCallback(callback, 'callback function')
+
+    findUserById(userId, userId => {
+        if (!user) {
+            callback(new Error('user not found'))
+
+            return
+        }
+
+        if (password !== user.password) {
+            callback(new Error('wrong password'))
+
+            return
+        }
+
+        user.password = newPassword
+    
+        saveUser(user, () => callback(null))
+    })
+}

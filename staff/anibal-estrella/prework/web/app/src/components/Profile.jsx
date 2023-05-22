@@ -13,13 +13,21 @@ import './Profile.css'
 export default function Profile({ onAvatarUpdated }) {
     console.log('// Profile -> RENDER');
 
-    let _user
+    let user
     let avatar
 
     try {
-        _user = retrieveUser(context.userId)
-        const name = _user.name
-        avatar = _user.avatar
+        retrieveUser(context.userId, (user, error) => {
+            if (error) {
+                alert(error.message)
+
+                return
+            }
+            const name = user.name
+            const avatar = user.avatar
+
+
+        })
 
     } catch (error) {
         alert(error.message)
@@ -33,8 +41,15 @@ export default function Profile({ onAvatarUpdated }) {
 
         try {
 
-            updateUserAvatar(context.userId, url)
-            onAvatarUpdated()
+            updateUserAvatar(context.userId, url, error => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onAvatarUpdated()
+            })
 
         } catch (error) {
             alert(error.message)
@@ -91,7 +106,7 @@ export default function Profile({ onAvatarUpdated }) {
 
     return <div className="home-profile">
         <section className='border-top-gradient'>
-            <h2 className="profile-headline ">{_user.name}'s Profile</h2>
+            <h2 className="profile-headline ">{user.name}'s Profile</h2>
             <section className="change-user-avatar panel  ">
                 <h3 className="change-user-avatar-headline">Change your avatar</h3>
                 <div>

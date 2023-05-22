@@ -2,7 +2,7 @@ import { context } from "../ui.js"
 import { authenticateUser } from "../logic/authenticateUser.js"
 import "./Login.css"
 
-export default function Login({onRegisterClick, onUserLoggedIn}) {
+export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.log('// Login -> RENDER \npj@gmail.com');
 
     // 2 // this function will send the event to its parent 
@@ -21,11 +21,18 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
 
         try {
 
-            const userId = authenticateUser(email, password)
+            authenticateUser(email, password, (error, userId) => {
+                if (error) {
+                    alert(error.message)
 
-            context.userId = userId
+                    return
+                }
+                
+                context.userId = userId
+    
+                onUserLoggedIn()
+            })
 
-            onUserLoggedIn()
 
         } catch (error) {
             alert(error.message)
@@ -36,7 +43,7 @@ export default function Login({onRegisterClick, onUserLoggedIn}) {
         <section className="panel">
             <h2>Login</h2>
             <form className="border-top-gradient" onSubmit={handleLogin}>
-                <label  htmlFor="username">E-mail:</label>
+                <label htmlFor="username">E-mail:</label>
                 <input type="text" className="email" name="email" placeholder="Enter your e-mail" />
                 <label htmlFor="lastname">Password:</label>
                 <input type="password" className="password" name="password" placeholder="Enter your password" />

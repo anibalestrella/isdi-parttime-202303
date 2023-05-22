@@ -1,30 +1,37 @@
-import { validateId, validateUrl, validateText } from './helpers/validators.js'
-import { findUserById, findPostById } from './helpers/dataManagers.js'
-import { savePost } from '../data.js'
+import { validateId, validateUrl, validateText, validateCallback } from './helpers/validators.js'
+import { findUserById, findPostById, savePost } from '../data.js'
 
-export function updatePost(userId, postId, image, text) {
+export function updatePost(userId, postId, image, text, callback) {
     validateUrl(image, 'image url')
     validateText(text, 'text')
     validateId(userId, 'user id')
     validateId(postId, 'post id')
+    validateCallback(callback, 'callback function')
 
+    findUserById(userId, user => {
+        if (!user) {
+            callback(new Error(`User ${userId} not found`))
 
-    const user = findUserById(userId)
-    if (!user) throw new Error(`User ${userId} not found`)
+            return
+        }
+    })
 
-    // - verify post exists
-    const post = findPostById(postId)
-    if (!post) throw new Error(`Post ${postId} not found`)
+    findPostById(postId, post => {
+        if (!post) {
+            callback(new Error(`Post ${postId} not found`))
 
+            return
+        }
+        if (post.author !== userId) {
+            callback(new Error(`post with id ${postId} does not belong to user with id ${userId}`))
 
-    // - verify that the post belongs to user
-    if (post.author !== userId) throw new Error(`post with id ${postId} does not belong to user with id ${userId}`)
+            return
+        }
 
-    // - modify post with new data
-    post.image = image
-    post.text = text
-    post.date = new Date
+        post.image = image
+        post.text = text
+        post.date = new Date
 
-    //- save post
-    savePost(post)
+        savePost(post, () => callback(null))
+    })
 }
