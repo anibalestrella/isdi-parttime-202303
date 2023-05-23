@@ -16,24 +16,23 @@ export function createPost(userId, image, text, callback) {
 
         let id = 'post-01'
 
-        loadPosts(posts => {
+        loadPosts(posts =>{
             const lastPost = posts[posts.length - 1]
-
+    
             if (lastPost)
                 id = 'post-0' + (parseInt(lastPost.id.slice(6)) + 1)
-
+    
             const post = {
                 id,
                 author: userId,
                 image,
                 text,
                 date: new Date,
-                likes: [],
                 visibility: 'public'
             }
-
+    
             posts.push(post)
-
+    
             savePosts(posts, () => callback(null))
         })
 
