@@ -67,20 +67,24 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
                     <time>{date.toLocaleString()}</time>
                 </div>
             </div>
-            <img className="home-post-image grayscale-img" src={image} alt="" />
-            <p>{text}</p>
-            <div className="post-buttons">
-                <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
-                    {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes ? <span>{likes.length}</span> : ''}
-                </button>
+            <div className="post-wrapper">
 
-                {author.id === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
+            <img className="home-post-image grayscale-img" src={image} alt="" />
+
+            <div className="post-buttons-wrapper">
+                <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
+                    {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
+                </button>
 
                 <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav
                 // consultamos si FAV enviado es true o False
                     {fav? <BookmarkIcon className="favIcon icon" />  : < BookmarkIconLine className="favIcon icon" />}
                 </button>
+
+                {author.id === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
             </div>
+            </div>
+            <p>{text}</p>
         </article>
 
 )

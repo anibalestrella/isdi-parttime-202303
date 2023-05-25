@@ -133,7 +133,7 @@ export default function Home({ onLoggedOut }) {
                         </>}
                     </a>
 
-                    <button className="menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon' /></button>
+                    <button className="button menu-open" onClick={handleOpenMenu}><Bars3BottomRightIcon className='Bars3BottomRightIcon icon' /></button>
                 </div>
 
                 {menu === 'menu' && <Menu
@@ -185,7 +185,7 @@ export default function Home({ onLoggedOut }) {
 
             <footer className="home-footer">
                 <div className="footer-items-wrapper">
-                    <button className="add-post-button icon" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="add icon" />Add Post</button>
+                    <button className="button add-post-button icon" onClick={handleOpenAddPostModal}> <PencilSquareIcon className="add icon" />Add Post</button>
                 </div>
             </footer>
         </section>

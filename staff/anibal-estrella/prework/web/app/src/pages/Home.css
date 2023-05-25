@@ -131,6 +131,7 @@ footer.home-footer {
 .footer-items-wrapper .add-post-button {
 	min-width: 0;
 	border-radius: 5px;
+    font-size: 0;
 }
 
 @media screen and (max-width: 600px) {

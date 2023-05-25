@@ -53,7 +53,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 <input type="text" className="email" name="email" placeholder="Enter your e-mail" />
                 <label htmlFor="lastname">Password:</label>
                 <input type="password" className="password" name="password" placeholder="Enter your password" />
-                <button className="button-submit" type="submit">Login</button>
+                <button className="button-submit button" type="submit">Login</button>
             </form>
             {/* // 1 // we created a property to grab the onclick event and call a function  */}
             <p className="goto-register border-top-gradient ">Not registered? <br />Do it <a href="#" onClick={handleGoToRegisterClick}>here</a>.</p>

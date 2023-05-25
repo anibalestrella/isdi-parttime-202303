@@ -114,7 +114,7 @@ export default function Profile({ onAvatarUpdated }) {
                             <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
                         </div>
 
-                        <button className='change-avatar-submit' type="submit">Change Avatar</button>
+                        <button className='button change-avatar-submit' type="submit">Change Avatar</button>
                     </form>
                 </div>
 
@@ -126,7 +126,7 @@ export default function Profile({ onAvatarUpdated }) {
                     <input type="password" name="password" placeholder="Enter your password" />
                     <input type="password" name="newPassword" placeholder="Enter your new password" />
                     <input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
-                    <button type="submit">Change Password</button>
+                    <button type="button submit">Change Password</button>
                 </form>
             </section>
 
@@ -136,7 +136,7 @@ export default function Profile({ onAvatarUpdated }) {
                 <form action="" className="change-user-email-form" onSubmit={handleChangeUserEmail}>
                     <input type="text" name="newEmail" placeholder="Enter your new e-mail" />
                     <input type="text" name="newEmailConfirm" placeholder="Confirm your new e-mail" />
-                    <button type="submit" typeof='submit'>Change e-mail</button>
+                    <button type="submit" typeof='submit' className='button'>Change e-mail</button>
                 </form>
             </section>
         </section>
