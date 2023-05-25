@@ -1,4 +1,4 @@
-console.log('LOADED > validators.js')
+console.debug('LOADED > validators.js')
 
 /**
  * Validates an email

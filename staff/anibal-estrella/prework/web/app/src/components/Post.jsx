@@ -2,6 +2,8 @@ import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleFavPost from '../logic/toggleFavPost'
 import formatTimeSince from "../logic/formatTimeSince"
+import { useContext } from "react"
+import Context from "../Context"
 
 
 //https://heroicons.com/
@@ -14,7 +16,8 @@ import { BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
 import './Post.css'
 
 export default function Post({ post: { author, id, image, text, date, likes, fav}, onEditPost, onToggledLikePost, onToggledFavPost }) {
-    
+    const { alert } = useContext(Context)
+
     date = formatTimeSince(date)
     
     const handleOpenEditPost = () => onEditPost(id)
@@ -53,7 +56,7 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
         }
     }
     
-    console.log('// Post -> RENDER')
+    console.debug('// Post -> RENDER')
     return (
 
         <article className="post panel">
@@ -68,7 +71,7 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
             <p>{text}</p>
             <div className="post-buttons">
                 <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
-                    {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes ? <span>{likes.length}</span> : ' '}
+                    {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes ? <span>{likes.length}</span> : ''}
                 </button>
 
                 {author.id === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}

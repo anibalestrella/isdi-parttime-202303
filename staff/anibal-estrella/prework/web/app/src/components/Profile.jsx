@@ -98,7 +98,7 @@ export default function Profile({ onAvatarUpdated }) {
         setPreviewImage(imageInputRef.current.value);
     }
     
-    console.log('// Profile -> RENDER')
+    console.debug('// Profile -> RENDER')
 
     return <div className="home-profile">
         <section className='border-top-gradient'>

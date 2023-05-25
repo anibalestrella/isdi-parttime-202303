@@ -94,7 +94,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
         setPreviewImage(imageInputRef.current.value);
     }
     
-    console.log('// EditPostModal -> RENDER')
+    console.debug('// EditPostModal -> RENDER')
     
     return <>
         {post && <section className="edit-post-modal">

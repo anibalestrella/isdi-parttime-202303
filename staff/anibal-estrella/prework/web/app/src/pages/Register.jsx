@@ -36,7 +36,7 @@ export default function Register({ onUserRegistered, onLoginClick }) {
         }
     }
 
-    console.log('// Register -> RENDER');
+    console.debug('// Register -> RENDER');
     
     return <div className="register center-container">
         <section className="panel">

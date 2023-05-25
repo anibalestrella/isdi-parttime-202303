@@ -6,7 +6,7 @@ import retrieveUser from "../logic/retrieveUser"
 
 import Post from "./Post.jsx"
 
-export default function Posts({ onEditPost, lastPostsUpdate, user }) {
+export default function Posts({ onEditPost, lastPostsUpdate, user  }) {
 
     const [posts, setPosts] = useState()
     const [_user, setUser] = useState()
@@ -37,7 +37,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, user }) {
     }
 
     useEffect(() => {
-        console.log('Posts -> component will liseten for props changes using Hooks');
+        console.debug('Posts -> component will liseten for props changes using Hooks');
 
         if (lastPostsUpdate)
             handleRefreshPosts()
@@ -45,7 +45,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, user }) {
 
     )
 
-    console.log('// Posts -> RENDER');
+    console.debug('// Posts -> RENDER');
 
     return <section className="post-list border-top-gradient">
         <h2 className="post-list-headline">All Posts</h2>

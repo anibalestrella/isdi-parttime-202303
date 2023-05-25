@@ -21,4 +21,4 @@ export default function formatTimeSince(eventTime) {
   }
 
   //usage
-  console.log( formatTimeSince(new Date("2023-04-28T14:00:50.796Z")) )
+  console.debug( formatTimeSince(new Date("2023-04-28T14:00:50.796Z")) )

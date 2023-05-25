@@ -10,7 +10,7 @@ import { EyeIcon } from '@heroicons/react/24/solid'
 import "./AddPostModal.css"
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
-    console.log('// AddPostModal -> RENDER')
+    console.debug('// AddPostModal -> RENDER')
 
     function handleCancel(event) {
         event.preventDefault()
@@ -54,21 +54,21 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
 
     return <section className="add-post-modal">
-        <h3 className="create-post-headline">Shoot your post!</h3>
+        <h3 className="modal-post-headline">Shoot your post!</h3>
         <form action="" className="add-post-modal-form panel" onSubmit={handleCreatePost}>
 
             <label htmlFor="add-post-image" className="border-top-gradient">Your awesome pic:</label>
-            <img src={previewImage} alt="" className="add-post-th grayscale-img" alt="Preview" />
-            <div className='preview-image-container'>
-                <input type="url" name="image" placeholder="Paste image URL in here." ref={imageInputRef} />
-                <button className="preview-image-button icon" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
+            <img src={previewImage} className="add-post-th grayscale-img" alt="Preview" />
+            <div className='modal-actions-container'>
+                <input type="url" name="image" className='input-preview' placeholder="Paste image URL in here." ref={imageInputRef} />
+                <button className="preview-image-button icon post-button" onClick={handleImagePreview}>Preview<EyeIcon className="eye icon" /></button>
             </div>
 
             <label htmlFor="add-post-text" className="border-top-gradient">tell us something:</label>
             <textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
-            <div className="inline-container">
-                <button className="cancel icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
-                <button className="save icon" type="submit">Save <CheckIcon className="save icon" /> </button>
+            <div className="modal-actions-container border-top-gradient">
+                <button className="cancel post-button icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
+                <button className="save post-button icon" type="submit">Save <CheckIcon className="save icon" /> </button>
 
             </div>
         </form>

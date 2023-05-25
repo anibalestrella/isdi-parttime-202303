@@ -1,44 +1,50 @@
 import { context } from "../ui.js"
 import { authenticateUser } from "../logic/authenticateUser.js"
+import { useContext } from "react"
+import Context from "../Context.jsx"
+
 import "./Login.css"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    console.log('// Login -> RENDER \npj@gmail.com');
-
+    const { alert } = useContext(Context)
+    
+    
     // 2 // this function will send the event to its parent 
     function handleGoToRegisterClick(event) {
         event.preventDefault()
-
+        
         // 3 // ask the parent function for a function (sent through the CALLBACK component's props) when a click event occurs 
         onRegisterClick()
     }
-
+    
     function handleLogin(event) {
         event.preventDefault()
-
+        
         const email = event.target.email.value
         const password = event.target.password.value
 
         try {
-
+            
             authenticateUser(email, password, (error, userId) => {
                 if (error) {
                     alert(error.message)
-
+                    
                     return
                 }
                 
                 context.userId = userId
-    
+                
                 onUserLoggedIn()
             })
-
-
+            
+            
         } catch (error) {
             alert(error.message)
         }
     }
 
+    console.debug('// Login -> RENDER \npj@gmail.com');
+    
     return <div className="login center-container">
         <section className="panel">
             <h2>Login</h2>

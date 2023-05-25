@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
+import retrievePost from '../logic/retrievePost'
+import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 
 import Posts from "../components/Posts"
 import AddPostModal from '../components/AddPostModal'
@@ -41,12 +43,13 @@ export default function Home({ onLoggedOut }) {
 
     const closeModal = () => setModal(null)
 
-    const handleGoToProfile = event => setView('profile')
-
     const handleGoToHome = event => {
         event.preventDefault()
         setView('posts')
     }
+    
+    const handleGoToProfile = event => setView('profile')
+
 
     const handleOpenAddPostModal = () => setModal('add-post')
 
@@ -87,11 +90,16 @@ export default function Home({ onLoggedOut }) {
                     return
                 }
                 setUser(user)
-                // setView('profile')
             })
         } catch (error) {
             alert(error.message)
         }
+    }
+
+    const handleOpenSavedPosts = () => {
+    
+        setView('savedPosts')
+        console.debug('// OPEN => SAVED POSTS LIST 01');
     }
 
     const salutations = [
@@ -108,7 +116,7 @@ export default function Home({ onLoggedOut }) {
         return salutations[randomNumber];
     };
 
-    console.log('// Home -> RENDER')
+    console.debug('// Home -> RENDER')
 
     return <div className="home ">
         <section>
@@ -133,6 +141,7 @@ export default function Home({ onLoggedOut }) {
                     onCloseMenu={handleCloseMenu}
                     createPost={handleOpenAddPostModal}
                     onLogOut={handleLogOut}
+                    onOpenSavedPosts={handleOpenSavedPosts}
                 />}
 
             </header>
@@ -157,7 +166,10 @@ export default function Home({ onLoggedOut }) {
                 lastPostsUpdate={lastPostsUpdate}
             />}
 
+            {view === 'savedPosts' && <Posts onOpenSavedPosts={handleOpenSavedPosts} /> }
+
             {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated} />}
+
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={closeModal}
