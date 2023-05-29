@@ -51,11 +51,11 @@
 }
 
 .header-title-link {
-    margin: 0px 0px 0px 2rem;
-    text-decoration: none;
     transition: 1s ease;
+    margin: 0px 0px 0px 1rem;
+    text-decoration: none;
+    color: var(--fontcolorlight);
 }
-
 
 .header-items-wrapper h1~* {
     margin-left: auto;
@@ -163,11 +163,7 @@ footer.home-footer {
         display: none;
     }
 
-    .header-title-link {
-        margin: 0px 0px 0px 1rem;
-        text-decoration: none;
-        color: var(--fontcolorlight);
-    }
+  
 
     .footer-items-wrapper {
         display: flex;

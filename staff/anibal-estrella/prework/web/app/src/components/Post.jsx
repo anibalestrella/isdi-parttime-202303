@@ -75,9 +75,6 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
             <img className="home-post-image grayscale-img" src={image} alt="" />
 
             <div className="post-buttons-wrapper">
-                <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
-                    {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
-                </button>
 
                 <button onClick={handleToggleFavPost} className="post-button fav-button icon">Fav
                 // consultamos si FAV enviado es true o False
@@ -85,6 +82,9 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
                 </button>
 
                 {author.id === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
+                <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
+                    {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
+                </button>
             </div>
             </div>
             <p>{text}</p>
