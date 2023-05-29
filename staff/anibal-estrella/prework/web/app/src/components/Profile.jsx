@@ -126,7 +126,7 @@ export default function Profile({ onAvatarUpdated }) {
                     <input type="password" name="password" placeholder="Enter your password" />
                     <input type="password" name="newPassword" placeholder="Enter your new password" />
                     <input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
-                    <button type="button submit">Change Password</button>
+                    <button className='button change-password-submit' type="button submit">Change Password</button>
                 </form>
             </section>
 

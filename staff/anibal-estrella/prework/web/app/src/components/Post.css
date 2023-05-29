@@ -49,7 +49,7 @@ article.post {
     align-items: center;
     width: 2rem;
     padding: 0;
-    margin: 0 0 2rem 0;
+    margin: 0 0 1rem 0;
     border-radius: none;
     text-transform: uppercase;
     box-shadow: none;
@@ -93,6 +93,9 @@ article.post {
 
 .post p {
     margin: 1rem 0;
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+    margin: 1rem 0;
     align-self: center;
     max-width: 600px;
 }
@@ -121,15 +124,22 @@ article.post {
 }
 
 .post time {
+    color: var(--basecolor);
     font-size: smaller;
 }
-
+:root.dark-theme .post time {
+color:var(--fontcolorlight);
+}
 
 
 .grayscale-img {
     filter: grayscale();
-    mix-blend-mode: screen;
+    mix-blend-mode: multiply;
     transition: filter 2s ease-out;
+}
+
+:root.dark-theme .grayscale-img {
+    mix-blend-mode: screen;
 }
 
 .grayscale-img:hover {

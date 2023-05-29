@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
+import randomSalutation from "../logic/randomSalutation"
 import retrievePost from '../logic/retrievePost'
 import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 
@@ -43,13 +44,14 @@ export default function Home({ onLoggedOut }) {
 
     const closeModal = () => setModal(null)
 
-    const handleGoToHome = event => {
+    const handleOpenMenu = event => {
         event.preventDefault()
-        setView('posts')
+        setMenu('menu')
     }
-    
-    const handleGoToProfile = event => setView('profile')
 
+    const handleCloseMenu = () => setMenu(null)
+
+    const handleGoToProfile = event => setView('profile')
 
     const handleOpenAddPostModal = () => setModal('add-post')
 
@@ -58,15 +60,6 @@ export default function Home({ onLoggedOut }) {
         setPostId(postId)
         setView('posts')
     }
-
-
-    const handleOpenMenu = event => {
-        event.preventDefault()
-
-        setMenu('menu')
-    }
-
-    const handleCloseMenu = () => setMenu(null)
 
     const handlePostCreated = () => {
         setModal(null)
@@ -77,16 +70,13 @@ export default function Home({ onLoggedOut }) {
         delete context.userId
         onLoggedOut()
     }
-
-
-    const handleSwitchMode = () => document.querySelector(':root').classList.toggle('dark')
-
+    
     const handleAvatarUpdated = () => {
         try {
             retrieveUser(context.userId, (error, user) => {
                 if (error) {
                     alert(error.message)
-
+                    
                     return
                 }
                 setUser(user)
@@ -96,37 +86,30 @@ export default function Home({ onLoggedOut }) {
         }
     }
 
+    const handleOpenShowPosts = () => {
+        setView('posts')
+        console.debug('// OPEN => ALL POSTS');
+    }
+    
+    
     const handleOpenSavedPosts = () => {
         setView('saved-posts')
-        console.debug('// OPEN => SAVED POSTS LIST 01');
+        console.debug('// OPEN => SAVED POSTS');
     }
-
-    const handleOpenLikedPosts = () => {
-        setView('liked-posts')
-        console.debug('// OPEN => LIKED POSTS LIST 01');
+    
+    
+    const toggleTheme = () => {
+        console.debug('// TODO: DARK THEME');  
+        document.querySelector(':root').classList.toggle('dark-theme')
     }
-
-    const salutations = [
-        "Long time no see!",
-        "What's crackin'?",
-        "How's it going?",
-        "What's up, my friend?",
-        "What's good?",
-        "Let's catch up!",
-    ]
-
-    const randomSalutation = () => {
-        const randomNumber = Math.floor(Math.random() * salutations.length);
-        return salutations[randomNumber];
-    };
 
     console.debug('// Home -> RENDER')
 
-    return <div className="home ">
+    return <div className="home">
         <section>
             <header className="home-header">
                 <div className="header-items-wrapper">
-                    <h1> <a href="#" className="header-title-link" onClick={handleGoToHome} >
+                    <h1> <a href="#" className="header-title-link" onClick={handleOpenShowPosts} >
                         Logo
                     </a></h1>
 
@@ -145,8 +128,9 @@ export default function Home({ onLoggedOut }) {
                     onCloseMenu={handleCloseMenu}
                     createPost={handleOpenAddPostModal}
                     onLogOut={handleLogOut}
+                    onHandleTheme={toggleTheme}
+                    onOpenShowPosts={handleOpenShowPosts}
                     onOpenSavedPosts={handleOpenSavedPosts}
-                    onOpenLikedPosts={handleOpenLikedPosts}
                 />}
 
             </header>
@@ -167,14 +151,12 @@ export default function Home({ onLoggedOut }) {
             </div>
 
             {view === 'posts' && <Posts
+            onOpenShowPosts={handleOpenShowPosts}
                 onEditPost={handleOpenEditPostModal}
-                lastPostsUpdate={lastPostsUpdate}
-            />}
+                lastPostsUpdate={lastPostsUpdate} 
+            /> || view === 'saved-posts' && <Posts onOpenSavedPosts={view} />}
 
-            {view === 'saved-posts' && <Posts onOpenSavedPosts={handleOpenSavedPosts} /> }
-
-            {view === 'liked-posts' && <Posts onOpenLikedPosts={handleOpenLikedPosts} /> }
-
+           
             {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated} />}
 
             {modal === 'add-post' && <AddPostModal

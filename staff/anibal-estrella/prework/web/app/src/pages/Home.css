@@ -166,6 +166,7 @@ footer.home-footer {
     .header-title-link {
         margin: 0px 0px 0px 1rem;
         text-decoration: none;
+        color: var(--fontcolorlight);
     }
 
     .footer-items-wrapper {

@@ -24,6 +24,11 @@ export default function Menu(props) {
         props.onLogOut()
         props.onCloseMenu()
     }
+
+    function handleShowPosts(){
+        props.onOpenShowPosts()
+        props.onCloseMenu()
+    }
     
     function handleOpenSavedPosts(){
         props.onOpenSavedPosts()
@@ -31,13 +36,14 @@ export default function Menu(props) {
     }
     
     function handleOpenLikedPosts(){
-        console.debug('// handleOpenLikedPosts !!!');
         props.onOpenLikedPosts()
         props.onCloseMenu()
-    }
+    } 
+    
 
-    function handleDarkTheme(){
-        console.debug('// TODO:DARK THEME');  
+    function handleTheme(){
+        props.onHandleTheme()
+
     }
 
     return <nav className="home-menu center-container">
@@ -46,12 +52,12 @@ export default function Menu(props) {
                 <a href="#" className="close-menu" onClick={handleClose} >Close Menu<XCircleIcon className='XCircleIcon icon'/></a>
             </li>
             <li className="menu-profile" ><a href="#" onClick={handleOpenProfile}>Edit your profile</a></li>
-            {/* <li className="menu-show-posts" ><a href="#">Show Posts</a></li> */}
+            <li className="menu-show-posts" ><a href="#" onClick={handleShowPosts}>Show Posts</a></li>
             <li className="menu-create-post" > <a href="#" onClick={handleCreatePost}>Create Post</a></li>
             <li className="menu-saved" ><a href="#" onClick={handleOpenSavedPosts}>Saved Posts</a></li>
             <li className="menu-liked" ><a href="#" onClick={handleOpenLikedPosts}>Liked Posts</a></li>
             <li className="menu-logout" ><a href="#"  onClick={handleLogOut}>Logout</a></li>
-            <li className='theme'>dark <input type="checkbox" className='toggle-theme' onClick={handleDarkTheme} /> light</li>
+            <li className='theme'>dark <input type="checkbox" className='toggle-theme' onClick={handleTheme} /> light</li>
         </ul>
     </nav>
 

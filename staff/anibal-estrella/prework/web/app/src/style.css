@@ -30,8 +30,9 @@
     --buttonGradient: linear-gradient(315deg, var(--myBlueDark) 0%, var(--myRed) 100%);
 }
 
-:root.dark {
-    background-color: aqua;
+ :root.dark-theme body {
+    background-color: var(--basecolor);
+
 }
 
 html {
@@ -40,7 +41,7 @@ html {
 
 body {
     font-family: var(--montserrat);
-    background-color: var(--basecolor);
+    background-color: var(--myLightGray);
     font-size: 1em;
     padding: 0;
     margin: 0;
@@ -54,6 +55,15 @@ h3,
 p,
 a,
 label {
+    color: var(--basecolor);
+}
+
+:root.dark-theme h1,
+:root.dark-theme h2,
+:root.dark-theme h3,
+:root.dark-theme p,
+:root.dark-theme a,
+:root.dark-theme label {
     color: var(--fontcolorlight);
 }
 
@@ -90,7 +100,7 @@ section {
 }
 
 .icon {
-    width: 1.5rem;
+    width: 1.2rem;
     font-size: 0;
     display: flex;
     justify-content: center;
@@ -149,6 +159,11 @@ section {
     padding: 2rem;
     min-width: max-content;
     border-radius: 10px;
+    background-color: var(--fontcolorlight);
+    box-shadow: 0px 0px 10px var(--basecolor-50);
+}
+
+:root.dark-theme .panel {
     background-color: var(--backcolor);
     box-shadow: 0px 0px 10px var(--basecolor);
 }
@@ -254,8 +269,14 @@ button {
 .button:hover {
     background-position: right;
     background-size: 500%;
-    box-shadow: 5px 5px 5px var(--basecolor);
+    box-shadow: 5px 5px 5px var(--basecolor-50);
 }
+:root.dark-theme .buttom:hover{
+    box-shadow: 5px 5px 5px var(--basecolor);
+
+}
+
+
 
 .button:active {
      background-image: unset;
