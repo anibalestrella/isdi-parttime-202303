@@ -32,7 +32,7 @@ export default function Menu(props) {
     
     function handleOpenLikedPosts(){
         console.debug('// handleOpenLikedPosts !!!');
-        // props.onOpenLikedPosts()
+        props.onOpenLikedPosts()
         props.onCloseMenu()
     }
 

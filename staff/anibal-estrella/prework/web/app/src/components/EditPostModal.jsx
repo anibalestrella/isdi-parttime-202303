@@ -4,14 +4,18 @@ import { context } from "../ui.js"
 import { updatePost } from "../logic/updatePost.js"
 import retrievePost from "../logic/retrievePost.js"
 import deletePost from "../logic/deletePost.js"
-import "./EditPostModal.css"
 
+import { useContext } from "react"
+import Context from "../Context"
+
+import "./EditPostModal.css"
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { TrashIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
 export default function EditPostModal({ onCancel, onPostEdited, postId, onDeletedPost }) {
+    const { alert } = useContext(Context)
     const [post, setPost] = useState(null)
     const [previewImage, setPreviewImage] = useState(null)
 

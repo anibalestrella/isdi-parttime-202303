@@ -2,6 +2,7 @@ import { context } from "../ui"
 import toggleLikePost from "../logic/toggleLikePost"
 import toggleFavPost from '../logic/toggleFavPost'
 import formatTimeSince from "../logic/formatTimeSince"
+//CONTEXT/ALERTS/00// import to use context for dizxzplaying Alerts
 import { useContext } from "react"
 import Context from "../Context"
 
@@ -16,6 +17,7 @@ import { BookmarkIcon as BookmarkIconLine } from '@heroicons/react/24/outline'
 import './Post.css'
 
 export default function Post({ post: { author, id, image, text, date, likes, fav}, onEditPost, onToggledLikePost, onToggledFavPost }) {
+    //CONTEXT/ALERTS/02// Use the context to return the object alert tha's define in the parent object App.jsx
     const { alert } = useContext(Context)
 
     date = formatTimeSince(date)
@@ -27,6 +29,7 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
         try {
             toggleLikePost(context.userId, id, (error) => {
                 if (error) {
+                        //CONTEXT/ALERTS/01// an alert is called
                     alert(error.message)
                     
                     return
@@ -57,8 +60,8 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
     }
     
     console.debug('// Post -> RENDER')
-    return (
 
+    return (
         <article className="post panel">
             <div className="post-info">
                 <img className="user-avatar home-post-avatar" src={author.avatar} />

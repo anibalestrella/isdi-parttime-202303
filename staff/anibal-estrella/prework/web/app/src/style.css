@@ -18,6 +18,7 @@
     --backcolor: hsl(var(--backcolor-values));
     --backcolor-80: hsl(var(--backcolor-values) var(--opacity-80));
     --basecolor-80: hsl(var(--basecolor-values) var(--opacity-80));
+    --basecolor-50: hsl(var(--basecolor-values) var(--opacity-50));
     --myGray: hsl(162, 10%, 40%);
     --myLightGray: hsl(162, 10%, 70%);
     --myLime: hsl(162, 100%, 45%);
@@ -257,6 +258,8 @@ button {
 }
 
 .button:active {
+     background-image: unset;
+     color: var(--myBlueDark);
     background-color: var(--myLime);
     text-shadow: none;
     box-shadow: none;
@@ -269,10 +272,6 @@ button {
 }
 
 
-.side-in {
-    animation: fade-in 1s ease;
-}
-
 
 
 .overlay-panel-close {
@@ -284,8 +283,10 @@ button {
     height: 100%;
 }
 
+
 .add-post-modal,
-.edit-post-modal {
+.edit-post-modal,
+.alert {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -296,9 +297,12 @@ button {
     height: 100vh;
     width: 100vw;
     background-color: var(--basecolor-80);
-    backdrop-filter: blur(10px);
     padding: 2rem;
+}
+.add-post-modal,
+.edit-post-modal {
     z-index: 1;
+    backdrop-filter: blur(10px);
 }
 
 .add-post-modal form,
@@ -306,6 +310,7 @@ button {
     padding: 2rem;
     z-index: 2;
 }
+
 
 
 .add-post-modal textarea,
@@ -365,10 +370,9 @@ button.menu-open:active {
         max-width: 100%;
     }
 
-    /* .home-post-image {
-		max-width: 100%;
-		margin: .5rem 0 0 0;
-	} */
+    .post-buttons-wrapper{
+        padding: 1rem 0 0 0;
+    }
 
     .add-post-modal,
     .edit-post-modal {
@@ -421,7 +425,14 @@ button.menu-open:active {
 
 }
 
-.off {
-    display: none;
-    animation: fade-out 0.3s ease;
+@keyframes fade-in {
+    0% {
+        margin-top: 100px;
+        opacity: 0;
+    }
+
+    100% {
+        margin-top: 0px;
+        opacity: 100%;
+    }
 }

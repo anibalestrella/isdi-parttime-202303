@@ -7,14 +7,23 @@ import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
+import { useContext } from "react"
+import Context from "../Context"
+
 import "./AddPostModal.css"
 
 export default function AddPostModal({ onCancel, onPostCreated }) {
-    console.debug('// AddPostModal -> RENDER')
+    const { alert } = useContext(Context)
 
+    const emptyImage = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
+    
+    const imageInputRef = useRef(null);
+    
+    const [previewImage, setPreviewImage] = useState(emptyImage);
+    
     function handleCancel(event) {
         event.preventDefault()
-
+        
         onCancel()
     }
 
@@ -23,12 +32,12 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
         const image = event.target.image.value
         const text = event.target.text.value
-
+        
         try {
             createPost(context.userId, image, text, error => {
                 if (error) {
                     alert(error.message)
-    
+                    
                     return
                 }
                 onPostCreated()
@@ -38,19 +47,15 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
             alert(error.message)
         }
     }
-
-    const emptyImage = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs"
     
-    const imageInputRef = useRef(null);
-
-    const [previewImage, setPreviewImage] = useState(emptyImage);
-
+    
     const handleImagePreview = (event) => {
         event.preventDefault()
 
         setPreviewImage(imageInputRef.current.value);
     }
-
+    
+    console.debug('// AddPostModal -> RENDER')
 
     return <section className="add-post-modal">
         <h3 className="modal-post-headline">Shoot your post!</h3>

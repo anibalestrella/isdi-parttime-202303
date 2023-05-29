@@ -38,8 +38,8 @@ export function validateName(name) {
  * @param {string} explain alternative edescription in case of error
  */
 export function validateUrl(url, explain = 'URL') {
-    if (typeof url !== 'string') throw new Error('url must be a string')
-    if (!url.trim().length) throw new Error(`${url} is empty`)
+    if (typeof url !== 'string') throw new Error('URL must be a string')
+    if (!url.trim().length) throw new Error(`The URL field ${url} is empty`)
 }
 
 export function validateId(id, explain = 'id') {

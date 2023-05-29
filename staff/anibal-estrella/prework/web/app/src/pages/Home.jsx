@@ -97,9 +97,13 @@ export default function Home({ onLoggedOut }) {
     }
 
     const handleOpenSavedPosts = () => {
-    
-        setView('savedPosts')
+        setView('saved-posts')
         console.debug('// OPEN => SAVED POSTS LIST 01');
+    }
+
+    const handleOpenLikedPosts = () => {
+        setView('liked-posts')
+        console.debug('// OPEN => LIKED POSTS LIST 01');
     }
 
     const salutations = [
@@ -142,6 +146,7 @@ export default function Home({ onLoggedOut }) {
                     createPost={handleOpenAddPostModal}
                     onLogOut={handleLogOut}
                     onOpenSavedPosts={handleOpenSavedPosts}
+                    onOpenLikedPosts={handleOpenLikedPosts}
                 />}
 
             </header>
@@ -166,10 +171,11 @@ export default function Home({ onLoggedOut }) {
                 lastPostsUpdate={lastPostsUpdate}
             />}
 
-            {view === 'savedPosts' && <Posts onOpenSavedPosts={handleOpenSavedPosts} /> }
+            {view === 'saved-posts' && <Posts onOpenSavedPosts={handleOpenSavedPosts} /> }
+
+            {view === 'liked-posts' && <Posts onOpenLikedPosts={handleOpenLikedPosts} /> }
 
             {view === 'profile' && <Profile onAvatarUpdated={handleAvatarUpdated} />}
-
 
             {modal === 'add-post' && <AddPostModal
                 onCancel={closeModal}
