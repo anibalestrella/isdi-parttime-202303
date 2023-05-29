@@ -67,7 +67,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
     )
 
 
-    return <section className="post-list border-top-gradient">
+    return <section className="post-list">
         {/* <h2 className="post-list-headline">All Posts</h2> */}
 
         {posts && posts.map(post => <Post

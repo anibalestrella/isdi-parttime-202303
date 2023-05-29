@@ -4,12 +4,13 @@
 	width: 100%;
 	height: 100%;
 	text-align: center;
-	background-color: var(--myLightGray);
+	background-color: var(--c-gray_light--80);
 	backdrop-filter: blur(10px);
+    transition: ;
 }
 
 :root.dark-theme .home-menu {
-	background-color: var(--basecolor-80);
+	background-color: var(--c-base--80);
 }
 
 .home-menu ul {
@@ -26,23 +27,23 @@
 	font-weight: 700;
 	text-transform: uppercase;
 	text-decoration: none;
-	transition: padding-left .2s ease;
+	transition: padding-left 500ms ease;
 }
 
 .home-menu ul li a:hover {
-	color: var(--myRed);
+	color: var(--c-red);
 	border-radius: 20px;
 	box-shadow: none;
 	background-image: none;
-	padding-left: 2rem;
-
+	padding-left: 1.5rem;
+	transition: padding-left 100ms ease;
 }
 
 .home-menu ul li a:active {
-	box-shadow: 2px 2px 2px var(--basecolor);
+	box-shadow: 2px 2px 2px var(--c-base);
 	background-image: none;
 	box-shadow: none;
-	color: var(--myLime);
+	color: var(--c-lime);
 }
 
 .home-menu nav {
@@ -71,11 +72,15 @@
 }
 
 .theme {
-	color: #fff;
+	color:var(--c-gray);
 	text-transform: uppercase;
 	display: flex;
 	align-items: center;
 	padding:  1rem 0 0 1rem;
+}
+
+:root.dark-theme .theme {
+	color:var(--c-gray_light);
 }
 
 .toggle-theme {
@@ -84,7 +89,7 @@
 	height: 24px;
 	-webkit-appearance: none;
 	appearance: none;
-	background: var(--myRed);
+	background: var(--c-red);
 	outline: none;
 	border-radius: 2rem;
 	cursor: pointer;
@@ -110,12 +115,12 @@
 }
 
 .toggle-theme:checked {
-	background: var(--myLime);
+	background: var(--c-lime);
 }
 
 
 .home-menu ul li a.close-menu:hover {
 	background-image: none !important;
-	/* border: 1px solid var(--fontcolorlight); */
+	/* border: 1px solid var(--c-white); */
 	padding-left: 0;
 }

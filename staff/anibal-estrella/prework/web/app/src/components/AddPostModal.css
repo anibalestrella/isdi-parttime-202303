@@ -1,7 +1,7 @@
 @layer add-post-modal {
 	.add-post-th {
-		border: 1px solid var(--fontcolorlight);
-        background-color: var(--basecolor);
+		border: 1px solid var(--c-white);
+        background-color: var(--c-base);
         aspect-ratio: 1 / 1;
         width: 250px;
         align-self: center;

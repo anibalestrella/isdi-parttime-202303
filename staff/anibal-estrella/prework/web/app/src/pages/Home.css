@@ -15,7 +15,7 @@
 
 .header-items-wrapper,
 .footer-items-wrapper {
-    box-shadow: 0px 0px 10px var(--basecolor);
+    box-shadow: 0px 0px 10px var(--c-base);
 }
 
 .header-items-wrapper {
@@ -25,7 +25,7 @@
     justify-content: flex-end;
     margin: 1rem;
     border-radius: 20px;
-    background: var(--backgroundGradient);
+    background: var(--c-background--gradient);
 }
 
 .hello-user {
@@ -54,7 +54,7 @@
     transition: 1s ease;
     margin: 0px 0px 0px 1rem;
     text-decoration: none;
-    color: var(--fontcolorlight);
+    color: var(--c-white);
 }
 
 .header-items-wrapper h1~* {
@@ -69,13 +69,13 @@
     aspect-ratio: 1 / 1;
     height: 50px;
     border-radius: 50%;
-    border: 2px solid var(--myRed);
-    background-color: var(--basecolor);
+    border: 2px solid var(--c-red);
+    background-color: var(--c-base);
     transition: all 1s ease;
 }
 
 .user-avatar:hover {
-    border: 2px solid var(--myLime);
+    border: 2px solid var(--c-lime);
 }
 
 
@@ -103,7 +103,7 @@ footer.home-footer {
     margin: 1rem;
     height: 3rem;
     border-radius: 20px;
-    background: var(--backgroundGradient);
+    background: var(--c-background--gradient);
 }
 
 .home-footer button {
@@ -112,22 +112,22 @@ footer.home-footer {
     width: 3rem;
     padding: 0;
     margin: 0;
-    color: var(--fontcolorlight);
+    color: var(--c-white);
     border-radius: 0px;
     box-shadow: none;
 }
 
 /* .home-footer button:hover {
 	background-image: none;
-	background-color: var(--myRed);
+	background-color: var(--c-red);
 } */
 
 .home-footer button:active {
 
-    /* color: var(--fontcolorlight); */
+    /* color: var(--c-white); */
     opacity: 100%;
 
-    /* background-color: var(--fontcolorlight); */
+    /* background-color: var(--c-white); */
 }
 
 .footer-items-wrapper .add-post-button {
@@ -171,7 +171,7 @@ footer.home-footer {
         margin: 0;
         height: 40px;
         border-radius: 0;
-        background: var(--backgroundGradient);
+        background: var(--c-background--gradient);
     }
     .post-list {
        

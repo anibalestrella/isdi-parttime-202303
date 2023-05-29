@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=f-montserrat:ital,wght@0,300;0,500;1,700&display=swap");
 
 * {
     box-sizing: border-box;
@@ -9,30 +9,35 @@
 }
 
 :root {
-    --opacity-50: /50%;
+    --f-montserrat: "f-montserrat", sans-serif;
+    --opacity--50: /50%;
     --opacity-80: /80%;
-    --montserrat: "Montserrat", sans-serif;
-    --backcolor-values: 162 5% 20%;
-    --basecolor-values: 162 5% 6%;
-    --basecolor: hsl(var(--basecolor-values));
-    --backcolor: hsl(var(--backcolor-values));
-    --backcolor-80: hsl(var(--backcolor-values) var(--opacity-80));
-    --basecolor-80: hsl(var(--basecolor-values) var(--opacity-80));
-    --basecolor-50: hsl(var(--basecolor-values) var(--opacity-50));
-    --myGray: hsl(162, 10%, 40%);
-    --myLightGray: hsl(162, 10%, 70%);
-    --myLime: hsl(162, 100%, 45%);
-    --myLimeDark: hsl(162, 100%, 35%);
-    --myRed: hsl(340, 100%, 60%);
-    --myBlueDark: hsl(243, 100%, 22%);
-    --fontcolorlight: hsl(45, 6%, 86%);
-    --backgroundGradient: linear-gradient(315deg, var(--myLime) 0%, var(--myBlueDark) 100%);
-    --buttonGradient: linear-gradient(315deg, var(--myBlueDark) 0%, var(--myRed) 100%);
+    --c-back--values: 162 5% 20%;
+    --c-base--values: 162 5% 6%;
+    --c-gray-values: 162 10% 40%;
+    --c-lime--values: 162 100% 45%;
+    --c-gray_light-values: 162 10% 70%;
+    --c-lime: hsl(var(--c-lime--values));
+    --c-lime_dark: hsl(var(--c-lime_dark--values));
+    --c-base: hsl(var(--c-base--values));
+    --c-back: hsl(var(--c-back--values));
+    --c-gray: hsl(var(--c-gray-values));
+    --c-gray_light: hsl(var(--c-gray_light-values));
+    --c-back-80: hsl(var(--c-back--values) var(--opacity-80));
+    --c-base--80: hsl(var(--c-base--values) var(--opacity-80));
+    --c-base--50: hsl(var(--c-base--values) var(--opacity--50));
+    --c-gray_light--50: hsl(var(--c-gray_light-values) var(--opacity--50));
+    --c-gray_light--80: hsl(var(--c-gray_light-values) var(--opacity-80));
+    --c-lime_dark--values:162 100% 35%;
+    --c-red: hsl(340, 100%, 60%);
+    --c-blue_dark: hsl(243, 100%, 22%);
+    --c-white: hsl(45, 6%, 86%);
+    --c-background--gradient: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
+    --c-button--gradient: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
 }
 
  :root.dark-theme body {
-    background-color: var(--basecolor);
-
+    background-color: var(--c-base);
 }
 
 html {
@@ -40,8 +45,8 @@ html {
 }
 
 body {
-    font-family: var(--montserrat);
-    background-color: var(--myLightGray);
+    font-family: var(--f-montserrat);
+    background-color: var(--c-gray_light);
     font-size: 1em;
     padding: 0;
     margin: 0;
@@ -55,7 +60,7 @@ h3,
 p,
 a,
 label {
-    color: var(--basecolor);
+    color: var(--c-base);
 }
 
 :root.dark-theme h1,
@@ -64,12 +69,12 @@ label {
 :root.dark-theme p,
 :root.dark-theme a,
 :root.dark-theme label {
-    color: var(--fontcolorlight);
+    color: var(--c-white);
 }
 
 a:hover,
 a:hover h1 {
-    color: var(--myRed);
+    color: var(--c-red);
     text-decoration: none;
 }
 
@@ -159,13 +164,13 @@ section {
     padding: 2rem;
     min-width: max-content;
     border-radius: 10px;
-    background-color: var(--fontcolorlight);
-    box-shadow: 0px 0px 10px var(--basecolor-50);
+    background-color: var(--c-white);
+    box-shadow: 0px 0px 10px var(--c-base--50);
 }
 
 :root.dark-theme .panel {
-    background-color: var(--backcolor);
-    box-shadow: 0px 0px 10px var(--basecolor);
+    background-color: var(--c-back);
+    box-shadow: 0px 0px 10px var(--c-base);
 }
 
 .home-profile section>section {
@@ -206,7 +211,7 @@ h1 {
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
-    border-image: var(--buttonGradient) 1 100;
+    border-image: var(--c-button--gradient) 1 100;
     padding-top: .5rem;
 }
 
@@ -218,7 +223,7 @@ form label {
 }
 
 ::placeholder {
-    color: var(--basecolor);
+    color: var(--c-base);
 }
 
 textarea,
@@ -231,16 +236,26 @@ input[type="url"] {
     height: 3rem;
     border-radius: 25px;
     border: none;
-    box-shadow: 0px 0px 5px var(--basecolor);
-    background-color: var(--myGray);
+    box-shadow: 0px 0px 5px var(--c-base);
+    background-color: var(--c-gray_light);
     transition: background-color .5s ease;
 }
+
+:root.dark-theme textarea,
+:root.dark-theme input[type="text"],
+:root.dark-theme input[type="password"],
+:root.dark-theme input[type="url"] {
+    background-color: var(--c-gray);
+}
+
+
 
 textarea:focus,
 input:focus {
     box-shadow: none;
     border: none;
-    background-color: var(--myLightGray);
+    background-color: var(--c-gray);
+    color: var(--c-white);
 }
 
 button {
@@ -258,21 +273,27 @@ button {
     font-size: 0.8rem;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
-    color: var(--fontcolorlight);
+    color: var(--c-white);
     background-position: center;
     background-size: 110%;
-    background-image: var(--buttonGradient);
-    box-shadow: 2px 2px 2px var(--basecolor);
+    background-image: var(--c-button--gradient);
+    box-shadow: 2px 2px 2px var(--c-base--80);
+
     transition: box-shadow 0.2s ease, background-size .2s ease, background-position .5s ease;
+}
+
+
+:root.dark-theme .button{
+    box-shadow: 2px 2px 2px var(--c-base);
 }
 
 .button:hover {
     background-position: right;
     background-size: 500%;
-    box-shadow: 5px 5px 5px var(--basecolor-50);
+    box-shadow: 5px 5px 5px var(--c-base--50);
 }
 :root.dark-theme .buttom:hover{
-    box-shadow: 5px 5px 5px var(--basecolor);
+    box-shadow: 5px 5px 5px var(--c-base);
 
 }
 
@@ -280,14 +301,14 @@ button {
 
 .button:active {
      background-image: unset;
-     color: var(--myBlueDark);
-    background-color: var(--myLime);
+     color: var(--c-blue_dark);
+    background-color: var(--c-lime);
     text-shadow: none;
     box-shadow: none;
 }
 
 .button:focus {
-    background-color: var(--myLime);
+    background-color: var(--c-lime);
     text-shadow: none;
     box-shadow: none;
 }
@@ -317,7 +338,7 @@ button {
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: var(--basecolor-80);
+    background-color: var(--c-base--80);
     padding: 2rem;
 }
 .add-post-modal,
@@ -350,24 +371,24 @@ button.menu-open {
     height: 50px;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--myLightGray);
+    color: var(--c-gray_light);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     border-radius: 0px 20px 20px 0px;
-    background-image: var(--buttonGradient);
+    background-image: var(--c-button--gradient);
 }
 
 button.menu-open:hover {
     background-image: none;
-    background-color: var(--myRed);
+    background-color: var(--c-red);
 }
 
 button.menu-open:active {
     opacity: 100%;
-    background-color: var(--fontcolorlight);
-    color: var(--backcolor);
+    background-color: var(--c-white);
+    color: var(--c-back);
 }
 
 @media screen and (max-width: 600px) {

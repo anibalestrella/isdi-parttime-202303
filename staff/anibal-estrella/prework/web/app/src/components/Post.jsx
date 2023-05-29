@@ -81,7 +81,7 @@ export default function Post({ post: { author, id, image, text, date, likes, fav
                     {fav? <BookmarkIcon className="favIcon icon" />  : < BookmarkIconLine className="favIcon icon" />}
                 </button>
 
-                {author.id === context.userId ? <button className="post-button post-edit-button" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon icon" /> </button> : ''}
+                {author.id === context.userId ? <button className="post-button post-edit-button icon" onClick={handleOpenEditPost} name="edit"> <PencilIcon className="PencilIcon post-edit-button  icon" /> </button> : ''}
                 <button onClick={handleToggleLikePost} name="like" className="post-button post-like-button">
                     {likes && likes.includes(context.userId) ? <HeartIcon className="HeartIcon icon" /> : <HeartIconLine className="HeartIconLine icon" />} {likes && likes.length > 0 ? <span>{likes.length}</span> : ''}
                 </button>
