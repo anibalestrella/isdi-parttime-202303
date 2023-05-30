@@ -1,0 +1,18 @@
+.alert {
+    z-index: 99;
+    backdrop-filter: blur(10px);
+}
+
+.alert .panel {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fade-in 200ms;
+}
+
+.alert-message {
+    text-transform: uppercase;
+    text-align: center;
+}
+

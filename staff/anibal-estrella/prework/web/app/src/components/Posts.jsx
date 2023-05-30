@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { context } from "../ui"
 
 import retrievePosts from "../logic/retrievePosts"
 import retrieveSavedPosts from "../logic/retrieveSavedPosts"
 import retrieveUser from "../logic/retrieveUser"
+import Context from "../Context"
+
 
 import Post from "./Post.jsx"
 
 export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, user }) {
+    const { alert, freeze, unfreeze } = useContext(Context)
 
     const [posts, setPosts] = useState()
 
@@ -18,9 +21,10 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
     const handleRefreshPosts = (view) => {
 
         try {
-
-            if (view === 'saved-posts' ) {
+            freeze()
+            if (view === 'saved-posts') {
                 retrieveSavedPosts(context.userId, (error, posts) => {
+                    unfreeze()
                     if (error) {
                         alert(error.message)
                         return
@@ -28,16 +32,20 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
                     setPosts(posts)
                 })
 
-            }else            
+            } else
+            freeze()
                 retrievePosts(context.userId, (error, posts) => {
+                unfreeze()
+
+
                     if (error) {
                         alert(error.message)
                         return
                     }
                     setPosts(posts)
                 })
-            
-                console.debug('// Posts -> RENDER');
+
+            console.debug('// Posts -> RENDER');
 
 
             retrieveUser(context.userId, (error, _user) => {
@@ -58,7 +66,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
         if (lastPostsUpdate)
             handleRefreshPosts()
 
-        if (onOpenSavedPosts){
+        if (onOpenSavedPosts) {
             handleRefreshPosts(onOpenSavedPosts)
         }
 

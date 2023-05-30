@@ -8,6 +8,8 @@ import deletePost from "../logic/deletePost.js"
 import { useContext } from "react"
 import Context from "../Context"
 
+import Panel from '../library/Panel'
+
 import "./EditPostModal.css"
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { TrashIcon } from '@heroicons/react/24/solid'
@@ -105,7 +107,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
             <h3 className="modal-post-headline">Edit your post!</h3>
 
-            <form action="" className="edit-post-modal-form panel" onSubmit={handleEditPost}>
+            <Panel tag="form" className="edit-post-modal-form" onSubmit={handleEditPost}>
                 <label htmlFor="edit-post-image " className='border-top-gradient'>Image:</label>
                  <img src={previewImage} className="edit-post-th grayscale-img" alt="Preview" />
                 <div className='modal-actions-container'>
@@ -124,7 +126,7 @@ export default function EditPostModal({ onCancel, onPostEdited, postId, onDelete
 
                 </div>
 
-            </form>
+            </Panel>
 
             <div className="overlay-panel-close" onClick={handleCancel}></div>
 

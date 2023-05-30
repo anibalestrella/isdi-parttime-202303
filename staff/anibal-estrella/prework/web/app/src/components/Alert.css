@@ -3,7 +3,7 @@
     backdrop-filter: blur(10px);
 }
 
-.alert .panel {
+.alert .Panel {
     min-width: 300px;
     display: flex;
     flex-direction: column;

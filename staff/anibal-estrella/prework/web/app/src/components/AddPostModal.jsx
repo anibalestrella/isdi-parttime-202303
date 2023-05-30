@@ -1,14 +1,17 @@
+import { useState, useRef } from 'react';
+import { useContext } from "react"
+
 import { context } from "../ui.js"
 import { createPost } from "../logic/createPost.js"
 
-import { useState, useRef } from 'react';
+import Context from "../Context"
+
+import Panel from '../library/Panel'
 
 import { ArrowSmallLeftIcon } from '@heroicons/react/24/solid'
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 
-import { useContext } from "react"
-import Context from "../Context"
 
 import "./AddPostModal.css"
 
@@ -59,7 +62,8 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
 
     return <section className="add-post-modal">
         <h3 className="modal-post-headline">Shoot your post!</h3>
-        <form action="" className="add-post-modal-form panel" onSubmit={handleCreatePost}>
+
+        <Panel tag="form" className="add-post-modal-form" onSubmit={handleCreatePost}>
 
             <label htmlFor="add-post-image" className="border-top-gradient">Your awesome pic:</label>
             <img src={previewImage} className="add-post-th grayscale-img" alt="Preview" />
@@ -73,9 +77,10 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
             <div className="modal-actions-container border-top-gradient">
                 <button className="cancel post-button icon" onClick={handleCancel}>Cancel<ArrowSmallLeftIcon className="cancel icon" /></button>
                 <button className="save post-button icon" type="submit">Save <CheckIcon className="save icon" /> </button>
-
             </div>
-        </form>
+
+        </Panel>
+
         <div className="overlay-panel-close" onClick={handleCancel}></div>
     </section>
 

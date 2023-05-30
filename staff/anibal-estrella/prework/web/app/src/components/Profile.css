@@ -4,12 +4,12 @@
     margin: .5rem 0 0 0;
 }
 
-section.change-user-avatar.panel {
+section.change-user-avatar.Panel {
     padding: 1rem;
     flex-direction: column;
 }
 
-section.change-user-avatar.panel div {
+section.change-user-avatar.Panel div {
     align-self: center;
     display: flex;
 }
@@ -25,7 +25,7 @@ button.change-avatar-submit {
     align-self: self-start;
     margin: 1rem 0 0 0;
 }
-section.change-user-avatar.panel input[type="url"] {
+section.change-user-avatar.Panel input[type="url"] {
     width: 100%;
     min-width: unset;
     margin: 0;

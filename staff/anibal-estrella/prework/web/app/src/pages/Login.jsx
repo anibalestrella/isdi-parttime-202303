@@ -3,10 +3,13 @@ import { authenticateUser } from "../logic/authenticateUser.js"
 import { useContext } from "react"
 import Context from "../Context.jsx"
 
+import Panel from '../library/Panel'
+
+
 import "./Login.css"
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    const { alert } = useContext(Context)
+    const { alert, freeze, unfreeze } = useContext(Context)
     
     
     // 2 // this function will send the event to its parent 
@@ -24,7 +27,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         const password = event.target.password.value
 
         try {
-            
+            freeze()
             authenticateUser(email, password, (error, userId) => {
                 if (error) {
                     alert(error.message)
@@ -35,6 +38,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 context.userId = userId
                 
                 onUserLoggedIn()
+            unfreeze()
             })
             
             
@@ -46,7 +50,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.debug('// Login -> RENDER \npj@gmail.com');
     
     return <div className="login center-container">
-        <section className="panel">
+        <Panel tag="section">
             <h2>Login</h2>
             <form className="border-top-gradient" onSubmit={handleLogin}>
                 <label htmlFor="username">E-mail:</label>
@@ -57,6 +61,6 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             </form>
             {/* // 1 // we created a property to grab the onclick event and call a function  */}
             <p className="goto-register border-top-gradient ">Not registered? <br />Do it <a href="#" onClick={handleGoToRegisterClick}>here</a>.</p>
-        </section>
+        </ Panel >
     </div>
 }

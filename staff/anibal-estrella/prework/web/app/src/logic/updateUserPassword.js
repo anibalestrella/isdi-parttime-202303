@@ -11,7 +11,7 @@ export default function updateUserPassword(userId, password, newPassword, newPas
 
     validateCallback(callback, 'callback function')
 
-    findUserById(userId, userId => {
+    findUserById(userId, user => {
         if (!user) {
             callback(new Error('user not found'))
 

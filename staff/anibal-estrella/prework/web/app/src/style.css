@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=f-montserrat:ital,wght@0,300;0,500;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -9,7 +9,7 @@
 }
 
 :root {
-    --f-montserrat: "f-montserrat", sans-serif;
+    --f-montserrat: "montserrat", sans-serif;
     --opacity--50: /50%;
     --opacity-80: /80%;
     --c-back--values: 162 5% 20%;
@@ -160,18 +160,8 @@ section {
     margin: 2rem 0 0 0;
 }
 
-.panel {
-    padding: 2rem;
-    min-width: max-content;
-    border-radius: 10px;
-    background-color: var(--c-white);
-    box-shadow: 0px 0px 10px var(--c-base--50);
-}
 
-:root.dark-theme .panel {
-    background-color: var(--c-back);
-    box-shadow: 0px 0px 10px var(--c-base);
-}
+
 
 .home-profile section>section {
     display: flex;
@@ -292,7 +282,7 @@ button {
     background-size: 500%;
     box-shadow: 5px 5px 5px var(--c-base--50);
 }
-:root.dark-theme .buttom:hover{
+:root.dark-theme .button:hover{
     box-shadow: 5px 5px 5px var(--c-base);
 
 }
@@ -461,10 +451,6 @@ button.menu-open:active {
         padding: 0 0;
     }
 
-    .save {
-        margin: 0;
-    }
-
 }
 
 @keyframes fade-in {
@@ -475,6 +461,22 @@ button.menu-open:active {
 
     100% {
         margin-top: 0px;
-        opacity: 100%;
+        opacity: 1;
     }
+
+    
 }
+@keyframes fade-out {
+    0% {
+        margin-bottom: 0px;
+        opacity: 1;
+    }
+
+    100% {
+        margin-bottom: 100px;
+        opacity: 0;
+    }
+
+    
+}
+
