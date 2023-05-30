@@ -9,15 +9,15 @@
 }
 
 :root {
-	--opacity-50: /50%;
-	--opacity-80: /80%;
+	--op-50: /50%;
+	--op-80: /80%;
 	--montserrat: "Montserrat", sans-serif;
-	--backcolor-values: 162 5% 20%;
-	--basecolor-values: 162 5% 6%;
-	--basecolor: hsl(var(--basecolor-values));
-	--backcolor: hsl(var(--backcolor-values));
-	--backcolor-80: hsl(var(--backcolor-values) var(--opacity-80));
-	--basecolor-80: hsl(var(--basecolor-values) var(--opacity-80));
+	--backcolor-val: 162 5% 20%;
+	--basecolor-val: 162 5% 6%;
+	--basecolor: hsl(var(--basecolor-val));
+	--backcolor: hsl(var(--backcolor-val));
+	--backcolor-80: hsl(var(--backcolor-val) var(--op-80));
+	--basecolor-80: hsl(var(--basecolor-val) var(--op-80));
 	--myGray: hsl(162, 10%, 40%);
 	--myLightGray: hsl(162, 10%, 70%);
 	--myLime: hsl(162, 100%, 45%);

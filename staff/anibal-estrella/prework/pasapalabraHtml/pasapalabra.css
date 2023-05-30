@@ -3,9 +3,9 @@
 
 :root {
   --blue: rgb(0, 166, 255);
-  --green: rgb(44, 246, 179);
+  -green: rgb(44, 246, 179);
   --blush: rgb(222, 108, 131);
-  --gray: rgb(63, 74, 60);
+  -gray: rgb(63, 74, 60);
   --lgray: rgb(160, 160, 160);
   --slgray: rgb(218, 218, 218);
   --swhite: rgb(243, 245, 247);
@@ -109,10 +109,10 @@ width: 100%;
   }
 
 input[type="text"] {
-  /* background-color: var(--gray); */
+  /* background-color: var(-gray); */
   text-transform: uppercase;
   border-radius: 2.5em;
-  color: var(--gray);
+  color: var(-gray);
   font-size: 1.5em;
   height: 2rem;
   outline: 0;
@@ -121,12 +121,12 @@ input[type="text"] {
   margin: 1em 0;
   box-shadow: 0 15px 4px var(--lgray);
   box-shadow: inset 0 -2px 5px var(--lgray);
-  border: 1px solid var(--gray);
+  border: 1px solid var(-gray);
   background-color: var(--swhite);
   transition: box-shadow 0.3s, border-color 0.5s;
 }
 input[type="text"]:hover {
-  border: 1px solid var(--gray);
+  border: 1px solid var(-gray);
   box-shadow: inset 0 0 0;
 
 }
@@ -160,7 +160,7 @@ button:hover, button:focus {
 }
 button:active {
   box-shadow: none;
-  color: var(--gray);
+  color: var(-gray);
   background-color: var(--swhite);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition:  box-shadow 0.3s;
@@ -234,7 +234,7 @@ padding-bottom: 100%;
 }
 /*RIGHT ANSWER = 1*/
 .letters-list li.status-1 {
-  background: var(--green);
+  background: var(-green);
 }
 /* wrong answer = 3 */
 .letters-list li.status-2 {
@@ -303,7 +303,7 @@ color: var(--swhite);
 
 .send-answer{
   color: var(--swhite);
-  background-color: var(--green);
+  background-color: var(-green);
 }
 ul.ranking{
 font-size: 2rem;
@@ -363,6 +363,6 @@ footer{
 }
 
 input[type='checkbox'] {
-  accent-color: var(--green);
+  accent-color: var(-green);
   transition: accent-color 0.3s;
 }

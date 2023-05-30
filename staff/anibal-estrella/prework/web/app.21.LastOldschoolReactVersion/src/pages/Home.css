@@ -144,7 +144,7 @@ footer.home-footer {
 	min-width: 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px)  {
 	.home {
 		padding-top:4rem;
 	}

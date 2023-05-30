@@ -10,30 +10,30 @@
 
 :root {
     --f-montserrat: "f-montserrat", sans-serif;
-    --opacity--50: /50%;
-    --opacity-80: /80%;
-    --c-back--values: 162 5% 20%;
-    --c-base--values: 162 5% 6%;
-    --c-gray-values: 162 10% 40%;
-    --c-lime--values: 162 100% 45%;
-    --c-gray_light-values: 162 10% 70%;
-    --c-lime: hsl(var(--c-lime--values));
-    --c-lime_dark: hsl(var(--c-lime_dark--values));
-    --c-base: hsl(var(--c-base--values));
-    --c-back: hsl(var(--c-back--values));
-    --c-gray: hsl(var(--c-gray-values));
-    --c-gray_light: hsl(var(--c-gray_light-values));
-    --c-back-80: hsl(var(--c-back--values) var(--opacity-80));
-    --c-base--80: hsl(var(--c-base--values) var(--opacity-80));
-    --c-base--50: hsl(var(--c-base--values) var(--opacity--50));
-    --c-gray_light--50: hsl(var(--c-gray_light-values) var(--opacity--50));
-    --c-gray_light--80: hsl(var(--c-gray_light-values) var(--opacity-80));
-    --c-lime_dark--values:162 100% 35%;
+    --op-50: /50%;
+    --op-80: /80%;
+    --c-back-val: 162 5% 20%;
+    --c-base-val: 162 5% 6%;
+    --c-gray-val: 162 10% 40%;
+    --c-lime-val: 162 100% 45%;
+    --c-gray_light-val: 162 10% 70%;
+    --c-lime: hsl(var(--c-lime-val));
+    --c-lime_dark: hsl(var(--c-lime_dark-val));
+    --c-base: hsl(var(--c-base-val));
+    --c-back: hsl(var(--c-back-val));
+    --c-gray: hsl(var(--c-gray-val));
+    --c-gray_light: hsl(var(--c-gray_light-val));
+    --c-back-80: hsl(var(--c-back-val) var(--op-80));
+    --c-base--80: hsl(var(--c-base-val) var(--op-80));
+    --c-base--50: hsl(var(--c-base-val) var(--op-50));
+    --c-gray_light--50: hsl(var(--c-gray_light-val) var(--op-50));
+    --c-gray_light--80: hsl(var(--c-gray_light-val) var(--op-80));
+    --c-lime_dark-val:162 100% 35%;
     --c-red: hsl(340, 100%, 60%);
     --c-blue_dark: hsl(243, 100%, 22%);
     --c-white: hsl(45, 6%, 86%);
-    --c-background--gradient: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
-    --c-button--gradient: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
+    --c-bg-gr: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
+    --c-btn-gr: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
 }
 
  :root.dark-theme body {
@@ -211,7 +211,7 @@ h1 {
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
-    border-image: var(--c-button--gradient) 1 100;
+    border-image: var(--c-btn-gr) 1 100;
     padding-top: .5rem;
 }
 
@@ -276,7 +276,7 @@ button {
     color: var(--c-white);
     background-position: center;
     background-size: 110%;
-    background-image: var(--c-button--gradient);
+    background-image: var(--c-btn-gr);
     box-shadow: 2px 2px 2px var(--c-base--80);
 
     transition: box-shadow 0.2s ease, background-size .2s ease, background-position .5s ease;
@@ -377,7 +377,7 @@ button.menu-open {
     align-items: center;
     padding: 10px;
     border-radius: 0px 20px 20px 0px;
-    background-image: var(--c-button--gradient);
+    background-image: var(--c-btn-gr);
 }
 
 button.menu-open:hover {
@@ -391,7 +391,7 @@ button.menu-open:active {
     color: var(--c-back);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px)  {
     button.menu-open {
         height: 50px;
         padding: 0 1rem;

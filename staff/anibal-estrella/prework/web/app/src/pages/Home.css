@@ -25,7 +25,7 @@
     justify-content: flex-end;
     margin: 1rem;
     border-radius: 20px;
-    background: var(--c-background--gradient);
+    background: var(--c-bg-gr);
 }
 
 .hello-user {
@@ -103,7 +103,7 @@ footer.home-footer {
     margin: 1rem;
     height: 3rem;
     border-radius: 20px;
-    background: var(--c-background--gradient);
+    background: var(--c-bg-gr);
 }
 
 .home-footer button {
@@ -126,7 +126,7 @@ footer.home-footer {
 
     /* color: var(--c-white); */
     opacity: 100%;
-
+    
     /* background-color: var(--c-white); */
 }
 
@@ -139,12 +139,19 @@ footer.home-footer {
 .post-list {
     display: grid;
     Ksdisplay: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 0.5rem;
     grid-row-gap: 0.5rem;
 }
 
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 1400px) {
+    .post-list {
+    grid-template-columns: repeat(2, 1fr);
+}
+}
+
+@media screen and (max-width: 600px)  {
     .home {
         padding-top: 4rem;
     }
@@ -171,11 +178,11 @@ footer.home-footer {
         margin: 0;
         height: 40px;
         border-radius: 0;
-        background: var(--c-background--gradient);
+        background: var(--c-bg-gr);
     }
     .post-list {
        
-        grid-template-columns: 1fr;    
+    grid-template-columns: repeat(1, 1fr);
     }
 
     footer.home-footer {

@@ -17,7 +17,7 @@ article.post {
 .home-post-image {
     aspect-ratio: 1 / 1;
     width: 100%; 
-    max-width:calc(100% - 2rem); 
+    max-width:calc(100% - 3rem); 
     height: auto;
     border-radius: 12px 0px 0px 12px  ;
     align-self: center;
