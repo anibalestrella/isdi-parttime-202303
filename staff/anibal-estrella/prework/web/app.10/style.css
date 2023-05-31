@@ -322,6 +322,7 @@ button:focus {
 	text-align: center;
 	background-color: #040404b7;
 	backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 .home-menu ul {
@@ -417,6 +418,7 @@ footer.home-footer {
 	width: 100vw;
 	background-color: #000000a5;
 	backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 	padding: 2rem;
 	z-index: 1;
 }

@@ -176,6 +176,7 @@ button:active {
   flex-wrap: wrap;
   background-color: #040404dd;
   backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   width: 100%;

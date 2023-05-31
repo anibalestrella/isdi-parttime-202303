@@ -6,6 +6,7 @@
 	text-align: center;
 	background-color: var(--c-gray_light--80);
 	backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 :root.dark-theme .home-menu {

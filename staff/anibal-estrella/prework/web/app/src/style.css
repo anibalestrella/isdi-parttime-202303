@@ -334,6 +334,7 @@ button {
 .edit-post-modal {
     z-index: 1;
     backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 .add-post-modal form,

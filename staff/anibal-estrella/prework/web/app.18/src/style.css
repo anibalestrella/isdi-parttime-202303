@@ -340,6 +340,7 @@ The general sibling combinator (~) separates two selectors and matches all itera
 	text-align: center;
 	background-color: var(--basecolor-80);
  		backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 .home-menu ul {
@@ -435,6 +436,7 @@ footer.home-footer {
 	width: 100vw;
 	background-color: var(--basecolor-80);
 	backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 	padding: 2rem;
 	z-index: 1;
 }

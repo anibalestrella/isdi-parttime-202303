@@ -195,6 +195,7 @@ button:active {
   flex-wrap: wrap;
   background-color: #040404dd;
   backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   width: 100%;
@@ -251,6 +252,7 @@ padding: 0;
   width: 100vw;
   background-color: #000000c7;
   backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
   z-index: 1;
   padding: 2rem;
 }

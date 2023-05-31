@@ -5,7 +5,6 @@ article.post {
     min-width: 300px;
 }
 
-
 .post-wrapper {
     max-width: 600px;
     display: flex;
@@ -97,7 +96,6 @@ article.post {
     font-size: 1rem;
     line-height: 1.3rem;
     margin: 1rem 0;
-    align-self: center;
     max-width: 600px;
 }
 
@@ -128,10 +126,10 @@ article.post {
     color: var(--c-gray);
     font-size: smaller;
 }
+
 :root.dark-theme .post time {
 color:var(--c-white);
 }
-
 
 .grayscale-img {
     filter: grayscale();
@@ -146,7 +144,6 @@ color:var(--c-white);
 .grayscale-img:hover {
     filter: unset;
 }
-
 
 @keyframes slide-in {
     from {

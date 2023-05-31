@@ -272,6 +272,7 @@ button:active {
   text-align: center;
   background-color: #040404b7;
   backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 .home-menu ul{
@@ -349,6 +350,7 @@ footer.home-footer {
   width: 100vw;
   background-color: #000000c7;
   backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
   z-index: 1;
   padding: 2rem;
 }

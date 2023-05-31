@@ -1,6 +1,7 @@
 .alert {
     z-index: 99;
     backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 }
 
 .alert .panel {
