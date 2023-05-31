@@ -26,7 +26,10 @@ export default function retrievePosts(userId, callback) {
                         avatar: _user.avatar
                     }
                 })
-                callback(null, posts.filter(post => user.favs.includes(post.id)).toReversed())
+                if (user.favs.length === 0)
+                    callback(new Error(`${user.name}!\nYou don't have any fav post yet.`), null)
+                else
+                    callback(null, posts.filter(post => user.favs.includes(post.id)).toReversed())
             })
 
         })

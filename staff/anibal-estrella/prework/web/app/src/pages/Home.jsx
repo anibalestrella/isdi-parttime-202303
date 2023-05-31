@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react'
 import { context } from "../ui"
 import retrieveUser from "../logic/retrieveUser"
 import randomSalutation from "../logic/randomSalutation"
-import retrievePost from '../logic/retrievePost'
-import retrieveSavedPosts from '../logic/retrieveSavedPosts'
 
 import Posts from "../components/Posts"
 import AddPostModal from '../components/AddPostModal'
@@ -94,7 +92,7 @@ export default function Home({ onLoggedOut }) {
     
     const handleOpenSavedPosts = () => {
         setView('saved-posts')
-        console.debug('// OPEN => SAVED POSTS');
+        // console.debug('// OPEN => SAVED POSTS');
     }
     
     

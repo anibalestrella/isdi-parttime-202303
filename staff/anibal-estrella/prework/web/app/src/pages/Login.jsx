@@ -31,6 +31,7 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
             authenticateUser(email, password, (error, userId) => {
                 if (error) {
                     alert(error.message)
+                    unfreeze()
                     
                     return
                 }
@@ -38,15 +39,16 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 context.userId = userId
                 
                 onUserLoggedIn()
-            unfreeze()
             })
             
             
         } catch (error) {
             alert(error.message)
         }
+        unfreeze()
+        
     }
-
+    
     console.debug('// Login -> RENDER \npj@gmail.com');
     
     return <div className="login center-container">

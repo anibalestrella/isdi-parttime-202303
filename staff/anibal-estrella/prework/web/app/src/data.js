@@ -14,17 +14,19 @@ export function saveUsers(users, callback) {
     }, DELAY);
 }
 
-export const saveUser = (user, callback) => 
-    loadUsers(users => {
-        const index = users.findIndex(_user => _user.id === user.id)
+export function saveUser(user, callback) {
+    return loadUsers(users => {
+        const index = users.findIndex(_user => _user.id === user.id);
 
         if (index < 0)
-            users.push(user)
-        else
-            users.splice(index, 1, user)
+            users.push(user);
 
-        saveUsers(users, callback)
-    })
+        else
+            users.splice(index, 1, user);
+
+        saveUsers(users, callback);
+    });
+}
 
 export function findUserByEmail(email, callback) {
     loadUsers(users => {

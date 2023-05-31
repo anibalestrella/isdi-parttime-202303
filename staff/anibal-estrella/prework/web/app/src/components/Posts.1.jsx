@@ -6,6 +6,7 @@ import retrieveSavedPosts from "../logic/retrieveSavedPosts"
 import retrieveUser from "../logic/retrieveUser"
 import Context from "../Context"
 
+
 import Post from "./Post.jsx"
 
 export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, user }) {
@@ -18,29 +19,39 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
     useEffect(() => handleRefreshPosts(), [])
 
     const handleRefreshPosts = (view) => {
-
         try {
+            freeze()
+            debugger
 
-            if (view === 'saved-posts' ) {
-                retrieveSavedPosts(context.userId, (error, posts) => {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    setPosts(posts)
-                })
+            switch (view) {
+                case "posts":
+                    retrievePosts(context.userId, (error, posts) => {
 
-            }else            
-                retrievePosts(context.userId, (error, posts) => {
-                    if (error) {
-                        alert(error.message)
-                        return
-                    }
-                    setPosts(posts)
-                })
-            
-                console.debug('// Posts -> RENDER');
+                        if (error) {
+                            alert(error.message)
+                            return
+                        }
+                        console.debug('// Posts -> RENDER');
 
+                    })
+
+                    break
+
+                case 'saved-posts':
+                    retrieveSavedPosts(context.userId, (error, posts) => {
+
+                        if (error) {
+                            alert(error.message)
+                            return
+                        }
+
+                        console.debug('// OPEN => SAVED POSTS');
+                    })
+                    break
+
+            }
+
+            setPosts(posts)
 
             retrieveUser(context.userId, (error, _user) => {
                 if (error) {
@@ -49,9 +60,11 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
                 }
                 setUser(_user)
             })
+
         } catch (error) {
             alert(error.message)
         }
+        unfreeze()
     }
 
     useEffect(() => {
@@ -64,10 +77,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
             handleRefreshPosts(onOpenSavedPosts)
         }
 
-    }, [lastPostsUpdate, onOpenSavedPosts]
-
-    )
-
+    }, [lastPostsUpdate, onOpenSavedPosts])
 
     return <section className="post-list">
         {/* <h2 className="post-list-headline">All Posts</h2> */}
@@ -81,6 +91,7 @@ export default function Posts({ onEditPost, lastPostsUpdate, onOpenSavedPosts, u
             onToggledLikePost={handleRefreshPosts}
             onToggledFavPost={handleRefreshPosts}
             onPostEdited={handleRefreshPosts}
+            onOpenShowPosts={handleRefreshPosts}
         />)}
 
     </section>

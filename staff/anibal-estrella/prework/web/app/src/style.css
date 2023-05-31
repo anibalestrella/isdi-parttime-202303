@@ -201,7 +201,7 @@ h1 {
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
-    border-image: var(--c-btn-gr) 1 100;
+    border-image: var(--c-btn-gr) 2 / 1px 0 0;
     padding-top: .5rem;
 }
 
@@ -238,10 +238,9 @@ input[type="url"] {
     background-color: var(--c-gray);
 }
 
-
-
 textarea:focus,
-input:focus {
+input:focus, input:focus::placeholder
+ {
     box-shadow: none;
     border: none;
     background-color: var(--c-gray);
@@ -447,7 +446,7 @@ button.menu-open:active {
     .preview-image-button,
     form label,
     .inline-container {
-        margin: .5rem 0 0 0;
+        margin: 1rem 0 0 0;
         padding: 0 0;
     }
     .home-post-image {
