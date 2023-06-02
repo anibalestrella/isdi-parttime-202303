@@ -1,0 +1,382 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;1,700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+:root {
+  --montserrat: "Montserrat", sans-serif;
+  --basecolor: #040404;
+  --backcolor: #3a3a3a;
+  --myGray:#a3b1a3;
+  --myLightGray:#cee1c8;
+  --myLime: #00e6a1;
+  --myLimeDarker:#18c28f;
+  --myRed: #ff3478;
+  --myDarkBlue:#090645;
+  --fontcolorlight: #dddcd9;
+  --myBackgroundGradient:linear-gradient(315deg, var(--myDarkBlue) 0%, var(--myRed) 100%);
+}
+
+html{
+  height: 100%;
+}
+body {
+  font-family: var(--montserrat);
+}
+body {
+  background-color: var(--basecolor);
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+label {
+  color: var(--fontcolorlight);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.register,
+.login,
+.home {
+  min-width: 50vw;
+}
+
+.register,
+.login,
+.home,
+.add-post-panel form {
+  background-color: var(--backcolor);
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px var(--basecolor);
+  animation: fade-in 0.3s ease;
+}
+
+section {
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+}
+
+form label {
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="url"] {
+  padding: 10px 25px;
+  margin: 10px 0;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  box-shadow: 0px 0px 5px var(--basecolor);
+  background-color:var(--myGray);
+}
+
+button {
+  color: var(--fontcolorlight);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  cursor: pointer;
+  height: 50px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 5px var(--basecolor);
+  box-shadow: 2px 2px 2px #000000d5;
+  width: 50%;
+  background-color: var(--myLimeDarker);
+  align-self: center;
+}
+
+textarea:focus,
+input:focus {
+  box-shadow: none;
+  border: none;
+  background-color: var(--myLightGray);
+}
+
+button:hover {
+  background-color: var(--myLime);
+  text-shadow: 0px 0px 5px var(--basecolor);
+  box-shadow: 5px 5px 5px #000000d5;
+}
+button:active {
+  background-color: var(--myLime);
+  text-shadow: none;
+  box-shadow: none;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    margin-top: 2rem;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    margin-top: 2rem;
+  }
+  to {
+    opacity: 0;
+    margin-top: 0;
+  }
+}
+
+/* components */
+
+.goto {
+  margin: 2rem 0;
+}
+.home {
+  margin-top: 7.5rem;
+}
+.home-header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+}
+.header-items-container h1 {
+  margin: 0px 0px 0px 2rem;
+}
+.header-items-container{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  max-width: 100%;
+  border-radius: 20px;
+  margin: 1rem;
+  background: var(--myBackgroundGradient);
+}
+.home-header-avatar{
+  margin: 0 1rem 0 auto;
+}
+.home-header-avatar, .home-profile-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--myLime);
+  background-color: var(--basecolor);
+}
+.home-profile-avatar {
+  width: 90px;
+  height: 90px;
+}
+
+.home-menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: #040404b7;
+  backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 2;
+}
+.home-menu nav {
+  display: flex;
+}
+
+nav {
+}
+
+.overlay-panel-close {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
+footer {
+  position: fixed !important;
+}
+.home-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+  bottom: 0;
+  width: calc(100vw - 2rem);
+  max-width:100%;
+  height: 50px;
+  background: var(--myBackgroundGradient);
+  border-radius: 20px;
+  margin: 1rem;
+  box-sizing: border-box;
+  
+}
+.home-footer button {
+  font-size: 2rem;
+  font-weight: 700;
+  background-color: var(--myRed);
+  color: var(--fontcolorlight);
+  margin: 0;
+  box-shadow: none;
+  text-shadow: none;
+  width: 50px;
+  height: 100%;
+  border-radius: 0px;
+  padding: 0;
+}
+
+.home-footer button:hover {
+  opacity: 80%;
+}
+
+.home-footer button:active {
+  color: var(--backcolor);
+  opacity: 100%;
+  background-color: var(--fontcolorlight);
+}
+
+.add-post-panel {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000000c7;
+  backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+  z-index: 1;
+  padding: 2rem;
+}
+.add-post-panel form {
+  min-width: 300px;
+  max-width: 50vw;
+  padding: 2rem;
+}
+.add-post-panel textarea {
+  padding: 1rem;
+  height: auto;
+  border-radius: 20px;
+}
+
+
+button.menu-open {
+  all: unset;
+  height:50px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--myLightGray);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--backcolor);
+  padding: 10px;
+  border-radius: 0px 20px 20px 0px;
+  background-color: var(--myRed);
+}
+button.menu-open:hover{
+  opacity: 80%;
+}
+button.menu-open:active{
+  opacity: 100%;
+  background-color: var(--fontcolorlight);
+  color: var(--backcolor);
+}
+
+article.post{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  background-color: var(--myGray);
+  border-radius: 10px;
+}
+article.post date{
+  order: 1;
+  width: 100%;
+  margin: 1rem 0;
+  color: var(--basecolor);
+
+}
+article.post img{
+  width: 100%;
+  order: 2;
+}
+article.post p{
+  color: var(--basecolor);
+  order: 3;
+  margin: 1rem 0;
+}
+
+@media screen and  (max-width: 480px) {
+  body {
+    background-color: var(--myLime);
+  }
+
+  .register,
+  .login {
+    width: 70vw;
+  }
+  .add-post-panel form {
+    width: 100vw;
+    max-width: 100%;
+  }
+}
+.off {
+  display: none;
+  animation: fade-out 0.3s ease;
+}

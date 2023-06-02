@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>ISDI APP</title>
+		<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/icons8-futurama-bender-color-16.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/icons8-futurama-bender-color-32.png" />
+		<link rel="icon" type="image/png" sizes="48x48" href="./assets/favicon/icons8-futurama-bender-color-48.png" />
+		<link rel="icon" type="image/png" sizes="180x180" href="./assets/favicon/icons8-futurama-bender-color-180.png" />
+
+		<link rel="stylesheet" href="style.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	</head>
+
+	<body>
+		<div class="login center-container off">
+			<section class="panel">
+				<h2>Login</h2>
+				<form>
+					<label for="username">E-mail:</label>
+					<input type="text" class="email" name="email" placeholder="Enter your e-mail" value="pj@gmail.com" />
+					<label for="lastname">Password:</label>
+					<input type="password" class="password" name="password" placeholder="Enter your password" value="123" />
+					<button class="button-submit" type="submit">Login</button>
+				</form>
+				<p class="goto-register">Not registered? <br />Do it <a href="#">here</a>.</p>
+			</section>
+		</div>
+
+		<div class="register center-container off">
+			<section class="panel">
+				<h2>Register</h2>
+				<form method="get" class="register-form">
+					<label for="name">Name:</label>
+					<input type="text" class="name" name="name" placeholder="Enter your name" value="Eddie"/>
+					<label for="email">E-mail:</label>
+					<input type="text" class="email" name="email" placeholder="Enter your e-mail" value="pj@gmail.com"/>
+					<label for="password">Password:</label>
+					<input type="password" class="password" name="password" placeholder="Enter your password" value="123"/>
+					<button class="buttom button-submit" type="submit" value="register">Register</button>
+				</form>
+				<p class="goto-login">
+					Already registered? <br />
+					Login <a href="#">here</a>.
+				</p>
+			</section>
+		</div>
+
+		<div class="home off">
+			<section>
+				<header class="home-header">
+					<div class="header-items-wrapper">
+						<a href="#" class="header-title-link">
+							<h1>APP Home</h1>
+						</a>
+						<a href="#" class="home-profile-avatar-link">
+							<img class="user-avatar home-header-avatar" src="" alt="" />
+						</a>
+						<button class="menu-open">&#9776;</button>
+					</div>
+
+					<nav class="home-menu center-container off">
+						<ul>
+							<li class="menu-close">
+								<a href="#" class="close-menu">Close Menu</a>
+							</li>
+							<li class="menu-logout"><a href="#">Logout</a></li>
+							<li class="menu-profile"><a href="#">Edit your profile</a></li>
+							<li class="menu-show-posts"><a href="#">Show Posts</a></li>
+							<li class="menu-create-post"><a href="#">Create Post</a></li>
+							<!-- <div class="overlay-panel-close"></div> -->
+						</ul>
+					</nav>
+				</header>
+
+				<div class="hello-user">
+					<a href="#" class="home-profile-avatar-link">
+						<img class="user-avatar home-profile-avatar" src="" alt="" />
+					</a>
+					<h2 class="hello-user-headline">Hi <span class="hello-user-name"></span>! <br />What's up?</h2>
+				</div>
+
+				<div class="home-profile off">
+					<section>
+						<h2 class="profile-headline">Profile</h2>
+						<section class="change-user-avatar panel">
+							<h3 class="change-user-avatar-headline">Change your avatar</h3>
+							<form action="" class="change-user-avatar-form">
+								<input type="url" name="url" placeholder="Avatar image URL" accept="image/*" />
+								<button type="submit">Update Avatar</button>
+							</form>
+						</section>
+
+						<section class="change-user-password panel">
+							<h3 class="change-password-headline">Change Your Password</h3>
+							<form action="" class="change-user-password-form">
+								<input type="password" name="password" placeholder="Enter your password" />
+								<input type="password" name="newPassword" placeholder="Enter your new password" />
+								<input type="password" name="newPasswordConfirm" placeholder="Confirm your new password" />
+								<button type="submit">Update Password</button>
+							</form>
+						</section>
+
+						<section class="change-user-email panel">
+							<h3 class="change-user-email-headline">Change Your e-mail</h3>
+							<form action="" class="change-user-email-form">
+								<input type="text" name="newEmail" placeholder="Enter your new e-mail" />
+								<input type="text" name="newEmailConfirm" placeholder="Confirm your new e-mail" />
+								<button type="submit">Change e-mail</button>
+							</form>
+						</section>
+					</section>
+				</div>
+				<!-- end of profile section -->
+
+				<section class="add-post-panel off">
+					<h3 class="create-post-headline">Shoot your post!</h3>
+					<form action="" class="add-post-panel-form panel">
+						<label for="add-post-image">Image:</label>
+						<input type="url" name="image" placeholder="Paste image URL in here." />
+						<label for="add-post-text">Text:</label>
+						<textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
+						<div class="inline-container">
+							<button class="create">create</button>
+							<button class="cancel">cancel</button>
+						</div>
+					</form>
+					<div class="overlay-panel-close"></div>
+				</section>
+
+				<section class="edit-post-panel off">
+					<h3 class="edit-post-headline">Edit your post!</h3>
+					<form action="" class="edit-post-panel-form">
+						<label for="edit-post-image">Image:</label>
+						<input type="hidden" name="postId" />
+						<input type="url" name="image" placeholder="Paste image URL in here." />
+						<label for="edit-post-text">Text:</label>
+						<textarea type="text" name="text" cols="25" rows="15" placeholder="Write whatever you want in here."></textarea>
+						<div class="inline-container">
+							<button class="edit">edit</button>
+							<button class="cancel">cancel</button>
+						</div>
+					</form>
+					<div class="overlay-panel-close"></div>
+				</section>
+
+				<section class="post-list off">
+					<h2 class="post-list-headline">All Posts</h2>
+					<div></div>
+				</section>
+
+				<footer class="home-footer">
+					<div class="footer-items-wrapper">
+						<button class="add-post-button">+</button>
+					</div>
+				</footer>
+			</section>
+		</div>
+		<!-- home end -->
+		<script type="module" src="./src/main.js"></script>
+	</body>
+</html>

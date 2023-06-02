@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ISDI APP</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="login page _off">
+      <form>
+        <h1>Login</h1>
+        <label for="username">E-mail:</label>
+        <input
+          type="text"
+          class="email"
+          name="email"
+          placeholder="Enter your e-mail"
+          value="pj@gmail.com"
+        />
+        <label for="lastname">Password:</label>
+        <input
+          type="password"
+          class="password"
+          name="password"
+          placeholder="Enter your password"
+          value="123"
+        />
+        <button class="button-submit" type="submit">Login</button>
+      </form>
+      <p class="goto goto-register">
+        Not registered? Do it <a href="#">here</a>.
+      </p>
+    </div>
+
+    <div class="register page off">
+      <form action="" method="get" class="register-form">
+        <h1>Register</h1>
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          class="name"
+          name="name"
+          placeholder="Enter your name"
+        />
+        <label for="email">E-mail:</label>
+        <input
+          type="text"
+          class="email"
+          name="email"
+          placeholder="Enter your e-mail"
+        />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          class="password"
+          name="password"
+          placeholder="Enter your password"
+        />
+        <button class="buttom button-submit" type="submit" value="register">
+          Register
+        </button>
+      </form>
+      <p class="goto goto-login">
+        Already registered? Login <a href="#">here</a>.
+      </p>
+    </div>
+
+    <div class="home page off">
+      <header class="home-header">
+        <div class="header-items-container">
+
+          <h1>Home</h1>
+          <img class="home-header-avatar" src="" alt="" />
+          <button href="" class="menu-open">&#9776;</button>
+        </div>
+      </header>
+      <div class="home-menu container off">
+        <ul>
+          <li class="menu-close">
+            <a href="#" class="close-menu">Close Menu</a>
+          </li>
+          <li class="menu-logout"><a href="#">Logout</a></li>
+          <li class="menu-profile"><a href="#">Profile</a></li>
+          <li class="menu-creatre-post"><a href="#">Create Post</a></li>
+        </ul>
+      </div>
+      
+      <h1>Profile</h1>
+      
+      <h2 class="hello-user">Hello. <span class="hello-user-name"></span>!</h2>
+      
+      <img class="home-profile-avatar" src="" alt="" />
+      <section class="change-user-avatar">
+        <form action="" class="change-user-avatar-form off">
+          <h3 class="change-user-avatar-headline">Change avatar</h3>
+          <input
+            type="text"
+            name="avatarUrl"
+            placeholder="Avatar image URL"
+            accept="image/png, image/jpeg, image/gif, image/png, image/webp"
+          />
+          <button type="submit">Update Avatar</button>
+        </form>
+      </section>
+
+      <section class="change-user-password off">
+        <form action="" class="change-user-password-form">
+          <h3 class="change-password-headline">Change Your Password</h3>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+          />
+          <input
+            type="password"
+            name="newPassword"
+            placeholder="Enter your new password"
+          />
+          <input
+            type="password"
+            name="newPasswordConfirm"
+            placeholder="Confirm your new password"
+          />
+          <button type="submit">Update Password</button>
+        </form>
+      </section>
+
+      <section class="off">
+        <form action="" class="change-user-email-form">
+          <h3 class="change-user-email-headline">Change Your e-mail</h3>
+          <input
+            type="text"
+            name="newEmail"
+            placeholder="Enter your new e-mail"
+          />
+          <input
+            type="text"
+            name="newEmailConfirm"
+            placeholder="Confirm your new e-mail"
+          />
+          <button type="submit">Change e-mail</button>
+        </form>
+      </section>
+      <section class="add-post-panel off">
+        <form action="" class="add-post-panel-form">
+          <h3 class="create-post-headline">Shoot your post!</h3>
+          <label for="add-post-image">Image:</label>
+          <input class="" type="text" placeholder="Paste image URL in here." />
+          <label for="add-post-text">Text:</label>
+          <textarea
+          class=""
+          type="text"
+          cols="25"
+          rows="15"
+          placeholder="Write whatever you want in here."
+          ></textarea>
+          <button class="create">create</button>
+          <button class="cancel">cancel</button>
+        </form>
+        <div class="overlay-panel-close"></div>
+      </section>
+      
+      <section class="post-list-panel"></section>
+    </div>
+    
+  
+      <footer class="home-footer off">
+        <button class="add-post-button">+</button>
+      </footer>
+      
+      <script type="module" src="./src/main.js"></script>
+    </body>
+    </html>

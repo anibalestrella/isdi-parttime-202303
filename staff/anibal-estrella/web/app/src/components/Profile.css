@@ -1,0 +1,36 @@
+
+
+.home-profile button {
+    margin: .5rem 0 0 0;
+}
+
+section.change-user-avatar.Panel {
+    padding: 1rem;
+    flex-direction: column;
+}
+
+section.change-user-avatar.Panel div {
+    align-self: center;
+    display: flex;
+}
+
+form.change-user-avatar-form {
+    margin: 0 0 0 1rem;
+}
+
+button.preview-image-button.icon.post-button{
+    margin: 0 0 0 1rem;
+}
+button.change-avatar-submit {
+    align-self: self-start;
+    margin: 1rem 0 0 0;
+}
+section.change-user-avatar.Panel input[type="url"] {
+    width: 100%;
+    min-width: unset;
+    margin: 0;
+}
+
+form.change-user-avatar-form {
+    align-items: flex-start;
+}

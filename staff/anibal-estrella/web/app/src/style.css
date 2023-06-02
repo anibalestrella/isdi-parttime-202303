@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+:root {
+    --f-montserrat: "montserrat", sans-serif;
+    --op-50: /50%;
+    --op-80: /80%;
+    --c-back-val: 162 5% 20%;
+    --c-base-val: 162 5% 6%;
+    --c-gray-val: 162 10% 40%;
+    --c-lime-val: 162 100% 45%;
+    --c-gray_light-val: 162 10% 70%;
+    --c-lime: hsl(var(--c-lime-val));
+    --c-lime_dark: hsl(var(--c-lime_dark-val));
+    --c-base: hsl(var(--c-base-val));
+    --c-back: hsl(var(--c-back-val));
+    --c-gray: hsl(var(--c-gray-val));
+    --c-gray_light: hsl(var(--c-gray_light-val));
+    --c-back-80: hsl(var(--c-back-val) var(--op-80));
+    --c-base--80: hsl(var(--c-base-val) var(--op-80));
+    --c-base--50: hsl(var(--c-base-val) var(--op-50));
+    --c-gray_light--50: hsl(var(--c-gray_light-val) var(--op-50));
+    --c-gray_light--80: hsl(var(--c-gray_light-val) var(--op-80));
+    --c-lime_dark-val:162 100% 35%;
+    --c-red: hsl(340, 100%, 60%);
+    --c-blue_dark: hsl(243, 100%, 22%);
+    --c-white: hsl(45, 6%, 86%);
+    --c-bg-gr: linear-gradient(315deg, var(--c-lime) 0%, var(--c-blue_dark) 100%);
+    --c-btn-gr: linear-gradient(315deg, var(--c-blue_dark) 0%, var(--c-red) 100%);
+}
+
+ :root.dark-theme body {
+    background-color: var(--c-base);
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: var(--f-montserrat);
+    background-color: var(--c-gray_light);
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+label {
+    color: var(--c-base);
+}
+
+:root.dark-theme h1,
+:root.dark-theme h2,
+:root.dark-theme h3,
+:root.dark-theme p,
+:root.dark-theme a,
+:root.dark-theme label {
+    color: var(--c-white);
+}
+
+a:hover,
+a:hover h1 {
+    color: var(--c-red);
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-size: 0.9rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    width: 100%;
+    max-width: 50vw;
+}
+
+#root {
+    height: 100%;
+}
+
+section {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+}
+
+.icon {
+    width: 1.2rem;
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.block-scroll {
+    overflow: hidden;
+}
+
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    height: 100%;
+}
+
+.inline-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    align-self: center;
+    margin: auto;
+}
+
+.login,
+.register {
+    min-width: fit-content;
+    width: 500px;
+    max-width: 50vw;
+}
+
+.login h2,
+.register h2 {
+    margin: 1rem 0 2rem 0;
+}
+
+.goto-login,
+.goto-register {
+    margin: 2rem 0 0 0;
+    padding: 1rem 0 0 0;
+    font-size: 0.9rem;
+}
+
+.login button,
+.register button {
+    margin: 2rem 0 0 0;
+}
+
+
+
+
+.home-profile section>section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.home-profile section>section h3 {
+    padding: 0 0 1rem 0;
+}
+
+.home-profile section>section form {
+    max-width: 50vw;
+    min-width: 50px;
+    align-self: center;
+}
+
+h1,
+h2,
+h3 {
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 700;
+}
+
+
+.border-top-gradient {
+    border-width: 2px;
+    border-style: solid;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-image: var(--c-btn-gr) 2 / 1px 0 0;
+    padding-top: .5rem;
+}
+
+form label {
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin: 1rem 0 0 0;
+    text-transform: uppercase;
+}
+
+::placeholder {
+    color: var(--c-base);
+}
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="url"] {
+    margin: 1rem 0 0 0;
+    padding: 1rem 2rem;
+    min-width: max-content;
+    height: 3rem;
+    border-radius: 25px;
+    border: none;
+    box-shadow: 0px 0px 5px var(--c-base);
+    background-color: var(--c-gray_light);
+    transition: background-color .5s ease;
+}
+
+:root.dark-theme textarea,
+:root.dark-theme input[type="text"],
+:root.dark-theme input[type="password"],
+:root.dark-theme input[type="url"] {
+    background-color: var(--c-gray);
+}
+
+textarea:focus,
+input:focus, input:focus::placeholder
+ {
+    box-shadow: none;
+    border: none;
+    background-color: var(--c-gray);
+    color: var(--c-white);
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    align-self: center;
+}
+
+.button {
+    width: max-content;
+    min-height: 3rem;
+    min-width: 7rem;
+    padding: .5rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: var(--c-white);
+    background-position: center;
+    background-size: 110%;
+    background-image: var(--c-btn-gr);
+    box-shadow: 2px 2px 2px var(--c-base--80);
+
+    transition: box-shadow 0.2s ease, background-size .2s ease, background-position .5s ease;
+}
+
+
+:root.dark-theme .button{
+    box-shadow: 2px 2px 2px var(--c-base);
+}
+
+.button:hover {
+    background-position: right;
+    background-size: 500%;
+    box-shadow: 5px 5px 5px var(--c-base--50);
+}
+:root.dark-theme .button:hover{
+    box-shadow: 5px 5px 5px var(--c-base);
+
+}
+
+
+
+.button:active {
+     background-image: unset;
+     color: var(--c-blue_dark);
+    background-color: var(--c-lime);
+    text-shadow: none;
+    box-shadow: none;
+}
+
+.button:focus {
+    background-color: var(--c-lime);
+    text-shadow: none;
+    box-shadow: none;
+}
+
+
+
+
+.overlay-panel-close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.add-post-modal,
+.edit-post-modal,
+.alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--c-base--80);
+    padding: 2rem;
+}
+.add-post-modal,
+.edit-post-modal {
+    z-index: 1;
+    backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+}
+
+.add-post-modal form,
+.edit-post-modal form {
+    padding: 2rem;
+    z-index: 2;
+}
+
+
+
+.add-post-modal textarea,
+.edit-post-modal textarea {
+    padding: 1rem;
+    height: auto;
+    border-radius: 20px;
+}
+
+.modal-post-headline {
+    margin: 0 0 1rem 0;
+}
+
+button.menu-open {
+    all: unset;
+    height: 50px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--c-gray_light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 0px 20px 20px 0px;
+    background-image: var(--c-btn-gr);
+}
+
+button.menu-open:hover {
+    background-image: none;
+    background-color: var(--c-red);
+}
+
+button.menu-open:active {
+    opacity: 100%;
+    background-color: var(--c-white);
+    color: var(--c-back);
+}
+
+@media screen and (max-width: 600px)  {
+    button.menu-open {
+        height: 50px;
+        padding: 0 1rem;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    section {
+        padding: .5rem;
+    }
+
+    article.post {
+        padding: 1rem;
+    }
+
+    .add-post-modal form {
+        min-width: 200px;
+        max-width: 100%;
+    }
+
+    .post-buttons-wrapper{
+        padding: 1rem 0 0 0;
+    }
+
+    .add-post-modal,
+    .edit-post-modal {
+        min-width: 300px;
+    }
+
+    .home-menu ul li a {
+        font-size: 2rem;
+    }
+
+    .menu-close {
+        margin: .5rem;
+    }
+
+    .post p {
+        margin: .5rem 0 0 0;
+    }
+
+    .post-buttons {
+        margin: .5rem 0 0 0;
+    }
+
+    .add-post-modal textarea,
+    .edit-post-modal textarea {
+        max-height: 150px;
+    }
+
+    .add-post-th,
+    .edit-post-th {
+        width: 150px;
+        margin: .5rem 0 0 0;
+    }
+
+    .preview-image-container,
+    .preview-image-container input {
+        margin: .5rem 0 0 0;
+        flex-direction: column;
+    }
+
+    .preview-image-button,
+    form label,
+    .inline-container {
+        margin: 1rem 0 0 0;
+        padding: 0 0;
+    }
+    .home-post-image {
+        max-width:calc(100% - 2rem); 
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        margin-top: 100px;
+        opacity: 0;
+    }
+
+    100% {
+        margin-top: 0px;
+        opacity: 1;
+    }
+
+    
+}
+@keyframes fade-out {
+    0% {
+        margin-bottom: 0px;
+        opacity: 1;
+    }
+
+    100% {
+        margin-bottom: 100px;
+        opacity: 0;
+    }
+
+    
+}
+

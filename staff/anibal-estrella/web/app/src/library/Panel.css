@@ -1,0 +1,17 @@
+.Panel {
+    padding: 2rem;
+    min-width: max-content;
+    border-radius: 10px;
+    background-color: var(--c-white);
+    box-shadow: 0px 0px 10px var(--c-base--50);
+}
+
+
+.Panel--left {
+text-align: left;
+}
+
+:root.dark-theme .Panel {
+    background-color: var(--c-back);
+    box-shadow: 0px 0px 20px var(--c-base);
+}
