@@ -1,8 +1,15 @@
 const context = require('../../context')
+console.log('Context:', context);
+debugger;
+module.exports = (_users, _events, _places, _eventreviews) => {
+    const { users, events, places, eventreviews } = context
 
-module.exports = (_users, _events, _places, _eventReviews) => {
-    const { users, events, places, eventReviews } = context
-    console.log('populate!!!!!');
+    console.log('Users:', users);
+    console.log('Events:', events);
+    console.log('Places:', places);
+    console.log('Event Reviews:', eventreviews);
+    console.log('POPULATE!!!!!');
+
     const promises = []
 
     promises.push(users.insertMany(_users))
@@ -10,8 +17,8 @@ module.exports = (_users, _events, _places, _eventReviews) => {
     if (_events.length)
         promises.push(events.insertMany(_events))
 
-    if (_eventReviews.length)
-        promises.push(eventReviews.insertMany(_eventReviews))
+    if (_eventreviews.length)
+        promises.push(eventreviews.insertMany(_eventreviews))
 
     if (_places.length)
         promises.push(places.insertMany(_places))

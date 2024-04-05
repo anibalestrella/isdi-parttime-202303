@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 const { errors: { DuplicityError, ContentError } } = require('com')
 
 module.exports = (req, res) => {
-    debugger
     try {
         const { name, nickName, email, password, city, ipGeoLocation } = req.body
         registerUser(name, nickName, email, password, city, ipGeoLocation)

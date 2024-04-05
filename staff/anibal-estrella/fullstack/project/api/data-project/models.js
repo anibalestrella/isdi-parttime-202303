@@ -52,7 +52,6 @@ const user = new Schema({
 
 const event = new Schema({
     author: {
-        // to reference another object from user
         type: ObjectId,
         ref: 'User',
         required: true
@@ -66,7 +65,7 @@ const event = new Schema({
         type: String,
         required: true,
         trim: true,
-        minLength: 3,
+        minLength: 2,
     },
     description: {
         type: String,
@@ -103,11 +102,23 @@ const event = new Schema({
         ref: 'EventReview',
         required: true
     },
+    score: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 5
+    }
 })
 
 const artist = new Schema({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
     id: {
         type: String,
+        required: true
     },
     name: {
         type: String,
@@ -127,8 +138,14 @@ const eventReview = new Schema({
         required: true,
     },
     score: {
-        type: Number,
+        type: String,
         required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 1
     },
     text: {
         type: String,
@@ -139,6 +156,10 @@ const eventReview = new Schema({
     image: [String],
     audio: [String],
     video: [String],
+    likes: {
+        type: [ObjectId],
+        ref: 'User'
+    },
 })
 
 const scoreStats = new Schema({
@@ -158,6 +179,11 @@ const scoreStats = new Schema({
 });
 
 const place = new Schema({
+    author: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    },
     id: {
         type: String,
     },
@@ -168,7 +194,7 @@ const place = new Schema({
     city: {
         type: String,
         required: true,
-    },
+    }
 })
 
 user.index({ "ipGeoLocation.coordinates": "2dsphere" });

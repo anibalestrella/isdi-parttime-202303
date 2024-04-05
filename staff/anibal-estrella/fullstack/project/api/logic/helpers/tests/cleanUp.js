@@ -1,23 +1,24 @@
-const context = require('../../context')
+const context = require('./../../context')
 
 module.exports = () => {
     const {
         users,
         events,
-        eventReviews,
-        places
+        places,
+        eventreviews,
     } = context
 
     // in series
     // return users.deleteMany()
     //     .then(() => posts.deleteMany())
 
-    // in parallel (faster)
+
+    // in parallel (faster) Promise.all([...])
     return Promise.all([
-        console.log('>>> cleanup!!!'),
         users.deleteMany(),
         events.deleteMany(),
-        eventReviews.deleteMany(),
-        places.deleteMany()
+        places.deleteMany(),
+        eventreviews.deleteMany(),
+        console.log('>>> cleanup!!!'),
     ])
 }

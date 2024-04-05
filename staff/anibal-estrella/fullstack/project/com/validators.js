@@ -34,11 +34,11 @@ function validateName(name, explain = "name") {
  * validates a name
  * @param {string} nickName the user's nick name
  */
-function validateNickName(name, explain = "nickName") {
-    if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`);
-    if (!name.trim().length) throw new Error(`${explain} is blank`);
-    const regex = /^[a-zA-Z0-9]+$/;
-    if (!regex.test(name)) throw new Error(`${explain} should be a single word without symbols and can contain numbers`);
+function validateNickName(nickName, explain = "nickName") {
+    if (typeof nickName !== 'string') throw new TypeError(`${explain} must be a string`);
+    if (!nickName.trim().length) throw new Error(`${explain} is blank`);
+    const regex = /^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/;
+    if (!regex.test(nickName)) throw new Error(`${explain} should be a single word without symbols and can contain numbers`);
 }
 
 /**
@@ -69,9 +69,29 @@ function validateId(id, explain = 'id') {
         const char = id[i];
 
         if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not a hexadecimal`)
-
     }
+}
 
+
+function validateArtistId(id, explain = 'id') {
+    if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
+    if (id.trim().length !== 7) throw new ContentError(`${explain} doesn't have 7 characters`)
+    for (let i = 0; i < id.length; i++) {
+        const char = id[i];
+
+        if (!HEX_DICTIONARY.includes(char)) throw new ContentError(`${explain} is not a hexadecimal`)
+    }
+}
+
+
+function validatePlaceId(id, explain = 'Place id') {
+    if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
+    if (id.trim().length !== 7) throw new ContentError(`${explain} doesn't have 7 characters`)
+    for (let i = 0; i < id.length; i++) {
+        const char = id[i];
+
+        if (!'0123456789'.includes(char)) throw new ContentError(`${explain} is not a decimals`)
+    }
 }
 
 function validateText(text, explain = 'text') {
@@ -167,5 +187,7 @@ module.exports = {
     validateToken,
     validateIpGeoLocation,
     validateEuroPrice,
-    validateFileUpload
+    validateFileUpload,
+    validateArtistId,
+    validatePlaceId
 }

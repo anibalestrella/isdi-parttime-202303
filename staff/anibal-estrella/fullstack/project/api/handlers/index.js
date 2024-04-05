@@ -9,4 +9,5 @@ module.exports = {
     uploadMediaHandler: require('./uploadMediaHandler'),
     createEventHandler: require('./createEventHandler'),
     updateUserProfileHandler: require('./updateUserProfileHandler'),
+    addArtistHandler: require('./addArtistHandler')
 }

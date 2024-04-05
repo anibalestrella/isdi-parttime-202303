@@ -22,7 +22,7 @@ export default function confirm({ message, onPanelClick, onCancel, onConfirmOk }
 
                 <p className="mb-4 ">{message}</p>
 
-                <div>
+                <div className='grid grid-flow-col w-full col-span-2 place-content-center gap-2'>
                     <Button className=" max-w-fit" onClick={() => onConfirmOk(true)}
                     >OK</Button>
                     <Button className=" max-w-fit" onClick={onCancel}>Cancel</Button>

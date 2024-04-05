@@ -6,6 +6,8 @@ module.exports = {
     createEvent: require('./createEvent'),
     createEventReview: require('./createEventReview'),
     updateUserProfile: require('./updateUserProfile'),
+    addArtist: require('./addArtist'),
+    addPlace: require('./addPlace'),
     // deleteEvent: require('./deleteEvent'),
     // updateEvent: require('./updateEvent'),
     // toggleLikeEvent: require('./toggleLikeEvent'),

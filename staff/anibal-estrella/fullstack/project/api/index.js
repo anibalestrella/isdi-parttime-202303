@@ -1,9 +1,9 @@
 require('dotenv').config()
 
-const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const ImageKit = require("imagekit");
 
 if (
@@ -34,6 +34,7 @@ const {
     authenticateUserHandler,
     retrieveUserHandler,
     updateUserProfileHandler,
+    addArtistHandler,
     uploadMediaHandler,
     createEventHandler,
     createEventReviewHandler,
@@ -61,6 +62,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/users', retrieveUserHandler)
 
         api.patch('/users/user-update-profile', jsonBodyParser, updateUserProfileHandler)
+
+        api.post('/add-artist', jsonBodyParser, addArtistHandler)
 
         // api.post('/upload', jsonBodyParser, uploadMediaHandler)
 

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { retrieveUserGeolocation, logOutUser } from './logic/users'
-import AppContext from './AppContext'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { isUserLoggedIn, retrieveUser } from './logic/users/'
 import { Home, Profile, Login, Create } from './view/pages'
 import { MenuTop, MenuBottom, Footer, Alert, Confirm } from './view/components'
 import { Loader } from './view/library'
 import { useAppContext } from './view/hooks'
+import AppContext from './AppContext'
 
 const { Provider } = AppContext
-
 
 function App() {
     console.log('>>> App');
