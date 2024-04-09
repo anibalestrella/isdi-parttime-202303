@@ -47,7 +47,15 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
     return <section id="create" className='p-4'>
 
         <div>
-            {isUserLoggedIn() ? (<h2>{user?.name}, What do you want to do?</h2>) : (<> </>)}
+            {isUserLoggedIn() ? (
+                <div>
+                    {user &&
+                        <h2>
+                            {user.name}, What do you want to do?
+                        </h2>
+                    }
+                </div>
+            ) : (<> </>)}
         </div>
 
         <div className='grid gap-2 pt-4 md:grid-cols-2 mb-4'>
@@ -57,7 +65,7 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
                 <Button onClick={handleCreate} className={' mt-auto max-w-fit'}>Create Review</Button>
             </div>
             <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-right h-60'>
-                <h3 className=' text-4xl'>Create just an event</h3>
+                <h3 className=' text-4xl'>Create an event</h3>
                 <p>Fill up the fields, date, place, poster, line up artists...</p>
                 <Button onClick={handleCreate} className={'mt-auto max-w-fit'}>Create Event</Button>
             </div>

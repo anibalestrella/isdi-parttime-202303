@@ -17,78 +17,109 @@ const Profile = () => {
 
     console.debug('/// Profile  -> Render')
 
+
     const [user, setUser] = useState({
         name: '',
         nickName: '',
         email: '',
+    })
+
+    const [userUpdate, setUserUpdate] = useState({
+        userNewName: '',
+        userNewNickName: '',
         userNewEmail: '',
         userNewEmailConfirm: '',
         userCurrentPassword: '',
         userNewPassword: '',
         userNewPasswordConfirm: ''
     })
-
-    const [updatedName, setUpdatedName] = useState('');
-
-    const [Profile, setProfile] = useState(null);
-    const [error, setError] = useState(null); // Add state for error
-
+    console.log(userUpdate);
     useEffect(() => {
         try {
             retrieveUser()
-                .then(setUser)
-                .catch(error => alert(error.message))
+                .then(user => {
+                    setUser(user);
+                    setUserUpdate(prevState => ({
+                        ...prevState,
+                        userNewEmail: user.email,
+                        userNewName: user.name,
+                        userNewNickName: user.nickName
+                    }));
+                })
+                .catch(error => alert(error.message));
         } catch (error) {
-            alert(error.message)
+            alert(error.message);
         }
-    }, [])
+    }, []);
+
+
+
+    console.log(user);
+
+    const [updatedName, setUpdatedName] = useState('');
+
+    // const [Profile, setProfile] = useState(null);
+    // const [error, setError] = useState(null); 
+
+
+
+
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (name === 'name') {
-            setUpdatedName(value); // Update the temporary state for name change
-            console.log(value);
+            setUpdatedName(value);
+            console.log('handleChange >>>' + value);
         } else {
-            setUser({ ...user, [name]: value });
+            setUserUpdate({ ...user, [name]: value });
         }
     }
 
-    const handleLogin = async event => {
-        event.preventDefault();
-        const password = event.target.password.value;
 
-        try {
-            freeze();
-            await loginUser(email, password);
-        } catch (error) {
-            unfreeze();
-            alert(error.message, 'error');
-        } finally {
-            unfreeze();
-        }
-    }
 
-    const handleUpdateUserProfile = event => {
+    const handleUpdateUserProfile = async event => {
         event.preventDefault()
+
+        const userCurrentPassword = event.target.userCurrentPassword.value;
+        const userCurrentEmail = user.email;
+
+        const userNewPassword = event.target.userNewPassword.value;
         const userNewName = updatedName || user.name
-        const userNewNickName = event.target.nickName.value
+        const userNewNickName = event.target.nickName.value.substring(1);
         const userNewEmail = event.target.email.value
         const userNewEmailConfirm = event.target.userNewEmailConfirm.value
 
-        try {
-            freeze()
-            updateUserProfile(context.token, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, password, userNewPassword, error => {
-                if (error) {
-                    alert(error.message)
-                    return
-                }
-            })
-            alert('Your profile has been Successfully updated.')
+        if (user.name !== userNewName ||
+            user.nickName !== "@" + userNewNickName ||
+            user.email !== userNewEmail ||
+            userNewPassword.length > 0) {
 
-        } catch (error) {
-            alert(error.message)
+            try {
+                freeze()
+
+                await loginUser(userCurrentEmail, userCurrentPassword)
+
+
+                updateUserProfile(context.token, userNewName, userNewNickName, userCurrentEmail, userCurrentPassword, userNewEmail, userNewEmailConfirm, userNewPassword, error => {
+                    if (error) {
+                        alert(error.message, 'error');
+                        return;
+                    }
+                })
+                alert('Your profile has been Successfully updated.')
+
+                unfreeze();
+
+
+            } catch (error) {
+                alert(error.message, 'error');
+            }
+            unfreeze()
+
+        } else {
+            alert('There are no changes in your profile.')
         }
-        unfreeze()
     }
 
     const handleCancel = () => {
@@ -106,7 +137,7 @@ const Profile = () => {
 
             reader.onloadend = () => {
                 // Set the avatar state to the base64 data URL of the selected image
-                setUser({ ...user, avatar: reader.result });
+                setUserUpdate({ ...user, avatar: reader.result });
             };
 
             reader.readAsDataURL(file); // Read the file as a data URL
@@ -120,7 +151,9 @@ const Profile = () => {
                 <div >
                     {user &&
                         <div>
-                            <h2>{user.name}, Edit your profile</h2>
+                            <h2>
+                                {user.name}, Edit your profile
+                            </h2>
                         </div>
                     }
                     <p className='pb-4'>Keep your personal details private. Information you add here is visible to any who can view your profile.
@@ -177,7 +210,7 @@ const Profile = () => {
                                     <input type="text"
                                         name="name"
                                         placeholder="Your Name" autoComplete="off"
-                                        value={updatedName || user.name}
+                                        value={userUpdate.userNewName}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -187,7 +220,7 @@ const Profile = () => {
                                     <input type="text"
                                         name="nickName"
                                         placeholder="New nickname"
-                                        value={user.nickName}
+                                        value={userUpdate.userNewNickName}
                                         onChange={handleChange}
                                         autoComplete="off"
                                     />
@@ -200,7 +233,7 @@ const Profile = () => {
                                     <input type="text"
                                         name="email"
                                         placeholder="Enter your email"
-                                        value={user.email}
+                                        value={userUpdate.userNewEmail}
                                         onChange={handleChange}
                                         autoComplete="enter email"
                                         autoFocus

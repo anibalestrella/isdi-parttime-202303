@@ -10,8 +10,9 @@ const { validateToken, validateEmail, validateCallback, validateName, validateNi
 export default (token, name, nickName, email, password, newEmail, newEmailConfirm, userNewPassword, userNewPasswordConfirm, callback) => {
     validateToken(token)
     validateEmail(email, 'Email')
-    validateEmail(newEmail, 'new Email')
-    validateEmail(newEmailConfirm, 'Email')
+    newEmail !== email ? (validateEmail(newEmail, 'new Email'), validateEmail(newEmailConfirm, 'Email')) : null;
+
+
     validateName(name, 'name')
     validateNickName(nickName, 'nickname')
     validateEmail(password, 'password')
