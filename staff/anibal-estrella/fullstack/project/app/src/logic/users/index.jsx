@@ -1,3 +1,4 @@
+import context from './context'
 import registerUser from './registerUser'
 import getUserId from './getUserId'
 import loginUser from './loginUser'
@@ -6,12 +7,32 @@ import retrieveUserEmail from './retrieveUserEmail'
 
 import isCurrentUser from './isCurrentUser'
 import isUserLoggedIn from './isUserLoggedIn'
-import updateUserProfile from './updateUserProfile'
 import logOutUser from './logOutUser'
-import context from './context'
 import retrieveUserGeolocation from './retrieveUserGeolocation'
 
+import updateUserProfile from './updateUserProfile'
+import updateUserEmail from './updateUserEmail'
+import updateUserAvatar from './updateUserAvatar'
+import updateUserName from './updateUserName'
+import updateUserNickName from './updateUserNickName'
+import updateUserPassword from './updateUserPassword'
+
 export {
+    context,
     retrieveUserGeolocation,
-    retrieveUserEmail, retrieveUser, loginUser, registerUser, updateUserProfile, getUserId, isCurrentUser, logOutUser, isUserLoggedIn, context
+    retrieveUserEmail,
+    retrieveUser,
+    loginUser,
+    registerUser,
+    getUserId,
+    isCurrentUser,
+    logOutUser,
+    isUserLoggedIn,
+    updateUserProfile,
+    updateUserEmail,
+    updateUserName,
+    updateUserNickName,
+    updateUserPassword,
+    updateUserAvatar,
+
 }

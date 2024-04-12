@@ -24,6 +24,7 @@ const Profile = () => {
         email: '',
     })
 
+
     const [userUpdate, setUserUpdate] = useState({
         userNewName: '',
         userNewNickName: '',
@@ -31,20 +32,24 @@ const Profile = () => {
         userNewEmailConfirm: '',
         userCurrentPassword: '',
         userNewPassword: '',
-        userNewPasswordConfirm: ''
-    })
-    console.log(userUpdate);
+        userNewPasswordConfirm: '',
+        userNewAvatar: ''
+    });
+
+    console.log(userUpdate)
+    console.log(user)
+
+    const [avatar, setAvatar] = useState(user.avatar || "");
     useEffect(() => {
         try {
             retrieveUser()
                 .then(user => {
                     setUser(user);
-                    setUserUpdate(prevState => ({
-                        ...prevState,
-                        userNewEmail: user.email,
+                    setUserUpdate({
                         userNewName: user.name,
-                        userNewNickName: user.nickName
-                    }));
+                        userNewNickName: user.nickName,
+                        userNewEmail: user.email
+                    });
                 })
                 .catch(error => alert(error.message));
         } catch (error) {
@@ -54,26 +59,21 @@ const Profile = () => {
 
 
 
-    console.log(user);
 
-    const [updatedName, setUpdatedName] = useState('');
+    //////////////////////////////// Error when updating the fields when typing
+    // https://bobbyhadz.com/blog/react-component-changing-uncontrolled-input
 
-    // const [Profile, setProfile] = useState(null);
-    // const [error, setError] = useState(null); 
-
-
-
-
-
+    // const handleChange = (event) => {
+    //     const { name, value } = event.target;
+    //     setUserUpdate({ ...user, [name]: value })
+    // }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        if (name === 'name') {
-            setUpdatedName(value);
-            console.log('handleChange >>>' + value);
-        } else {
-            setUserUpdate({ ...user, [name]: value });
-        }
+        setUserUpdate(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     }
 
 
@@ -83,25 +83,34 @@ const Profile = () => {
 
         const userCurrentPassword = event.target.userCurrentPassword.value;
         const userCurrentEmail = user.email;
+        const userCurrentName = user.name;
+        const userCurrentNickname = user.nickName;
+
 
         const userNewPassword = event.target.userNewPassword.value;
-        const userNewName = updatedName || user.name
-        const userNewNickName = event.target.nickName.value.substring(1);
-        const userNewEmail = event.target.email.value
+        const userNewPasswordConfirm = event.target.userNewPasswordConfirm.value;
+        const userNewName = event.target.userNewName.value || user.name
+        const userNewNickName = event.target.userNewNickName.value.substring(1);
+        const userNewEmail = event.target.userNewEmail.value
         const userNewEmailConfirm = event.target.userNewEmailConfirm.value
 
-        if (user.name !== userNewName ||
-            user.nickName !== "@" + userNewNickName ||
-            user.email !== userNewEmail ||
-            userNewPassword.length > 0) {
+
+        if (userCurrentName !== userNewName ||
+            userCurrentNickname !== "@" + userNewNickName ||
+            userCurrentEmail !== userNewEmail ||
+            (userNewPassword.length > 0)) {
+
+            if (userNewPassword !== userNewPasswordConfirm) {
+                alert('password dont match', 'error');
+                return
+            }
 
             try {
                 freeze()
 
                 await loginUser(userCurrentEmail, userCurrentPassword)
 
-
-                updateUserProfile(context.token, userNewName, userNewNickName, userCurrentEmail, userCurrentPassword, userNewEmail, userNewEmailConfirm, userNewPassword, error => {
+                updateUserProfile(context.token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword, error => {
                     if (error) {
                         alert(error.message, 'error');
                         return;
@@ -122,12 +131,6 @@ const Profile = () => {
         }
     }
 
-    const handleCancel = () => {
-        console.log('CANCEL!!');
-    }
-
-    const [avatar, setAvatar] = useState(user.avatar);
-
     const handleAvatarChange = (event) => {
         console.log('AVATAAARRR!');
         const files = event.target.files;
@@ -142,6 +145,10 @@ const Profile = () => {
 
             reader.readAsDataURL(file); // Read the file as a data URL
         }
+    }
+
+    const handleCancel = () => {
+        console.log('CANCEL!!');
     }
 
     return (
@@ -160,7 +167,7 @@ const Profile = () => {
                     </p>
                     {user &&
                         <form action="" onSubmit={handleUpdateUserProfile} >
-                            <div div='user-avatar' className="flex flex-col">
+                            <div id='user-avatar' className="flex flex-col">
                                 <p className='grow'>Avatar:</p>
 
                                 <div className='flex flex-row  items-center my-4'>
@@ -203,13 +210,17 @@ const Profile = () => {
 
                                 </div>
                             </ div>
-                            <div className='sm:grid gap-2 grid-cols-2 [&>h3]:col-span-2 [&>h3]:mt-4'>
+                            <div id="user-data" className='sm:grid gap-2 grid-cols-2 [&>h3]:col-span-2 [&>h3]:mt-4'>
                                 <h3 >Name:</h3>
                                 <div>
                                     <label htmlFor="Name">Edit Name:</label>
-                                    <input type="text"
-                                        name="name"
-                                        placeholder="Your Name" autoComplete="off"
+
+
+                                    <input
+                                        type="text"
+                                        name="userNewName"
+                                        placeholder="Your Name"
+                                        autoComplete="off"
                                         value={userUpdate.userNewName}
                                         onChange={handleChange}
                                     />
@@ -218,7 +229,7 @@ const Profile = () => {
 
                                     <label htmlFor="nickName">Edit nickname:</label>
                                     <input type="text"
-                                        name="nickName"
+                                        name="userNewNickName"
                                         placeholder="New nickname"
                                         value={userUpdate.userNewNickName}
                                         onChange={handleChange}
@@ -231,7 +242,7 @@ const Profile = () => {
 
                                     <label htmlFor="email">Edit email:</label>
                                     <input type="text"
-                                        name="email"
+                                        name="userNewEmail"
                                         placeholder="Enter your email"
                                         value={userUpdate.userNewEmail}
                                         onChange={handleChange}
@@ -264,15 +275,19 @@ const Profile = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="userNewPassword">New password:</label>
-                                    <input type="Password"
-                                        name="userNewPassword" placeholder="new password"
+                                    <input
+                                        type="Password"
+                                        name="userNewPassword"
+                                        placeholder="new password"
                                         onChange={handleChange}
                                         autoComplete="off"
                                     />
 
                                     <label htmlFor="userNewPasswordConfirm">Confirm new password:</label>
-                                    <input type="Password"
-                                        name="userNewPasswordConfirm" placeholder="Confirm new password"
+                                    <input
+                                        type="Password"
+                                        name="userNewPasswordConfirm"
+                                        placeholder="Confirm new password"
                                         onChange={handleChange}
                                         autoComplete="off" />
                                 </div>
