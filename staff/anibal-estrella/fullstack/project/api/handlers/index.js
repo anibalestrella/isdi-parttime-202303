@@ -8,6 +8,7 @@ module.exports = {
     retrieveUserHandler: require('./retrieveUserHandler'),
     uploadMediaHandler: require('./uploadMediaHandler'),
     createEventHandler: require('./createEventHandler'),
-    updateUserProfileHandler: require('./updateUserProfileHandler'),
+    updateUserNameHandler: require('./updateUserNameHandler'),
+    updateUserNickNameHandler: require('./updateUserNickNameHandler'),
     addArtistHandler: require('./addArtistHandler')
 }

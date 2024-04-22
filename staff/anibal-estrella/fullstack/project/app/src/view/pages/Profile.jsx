@@ -59,15 +59,6 @@ const Profile = () => {
 
 
 
-
-    //////////////////////////////// Error when updating the fields when typing
-    // https://bobbyhadz.com/blog/react-component-changing-uncontrolled-input
-
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setUserUpdate({ ...user, [name]: value })
-    // }
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setUserUpdate(prevState => ({
@@ -81,16 +72,16 @@ const Profile = () => {
     const handleUpdateUserProfile = async event => {
         event.preventDefault()
 
-        const userCurrentPassword = event.target.userCurrentPassword.value;
-        const userCurrentEmail = user.email;
         const userCurrentName = user.name;
         const userCurrentNickname = user.nickName;
+        const userCurrentEmail = user.email;
+        const userCurrentPassword = event.target.userCurrentPassword.value;
 
 
         const userNewPassword = event.target.userNewPassword.value;
-        const userNewPasswordConfirm = event.target.userNewPasswordConfirm.value;
-        const userNewName = event.target.userNewName.value || user.name
-        const userNewNickName = event.target.userNewNickName.value.substring(1);
+        const userNewPasswordConfirm = event.target.userNewPasswordConfirm.value
+        const userNewName = event.target.userNewName.value
+        const userNewNickName = event.target.userNewNickName.value.substring(1)
         const userNewEmail = event.target.userNewEmail.value
         const userNewEmailConfirm = event.target.userNewEmailConfirm.value
 
@@ -108,7 +99,9 @@ const Profile = () => {
             try {
                 freeze()
 
-                await loginUser(userCurrentEmail, userCurrentPassword)
+                // await loginUser(userCurrentEmail, userCurrentPassword)
+
+                await isUserLoggedIn()
 
                 updateUserProfile(context.token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword, error => {
                     if (error) {

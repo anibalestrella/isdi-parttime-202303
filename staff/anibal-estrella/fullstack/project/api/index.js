@@ -33,11 +33,12 @@ const {
     authenticateUserEmailHandler,
     authenticateUserHandler,
     retrieveUserHandler,
-    updateUserProfileHandler,
     addArtistHandler,
+    updateUserNameHandler,
+    updateUserNickNameHandler,
     uploadMediaHandler,
     createEventHandler,
-    createEventReviewHandler,
+    createEventReviewHandler
 } = require('./handlers')
 
 
@@ -53,15 +54,12 @@ mongoose.connect(process.env.MONGODB_URL)
         api.get('/', helloApiHandler)
 
         api.post('/users', jsonBodyParser, registerUserHandler)
-        debugger
 
         api.post('/users/auth/email', jsonBodyParser, authenticateUserEmailHandler)
 
         api.post('/users/auth', jsonBodyParser, authenticateUserHandler)
 
         api.get('/users', retrieveUserHandler)
-
-        api.patch('/users/user-update-profile', jsonBodyParser, updateUserProfileHandler)
 
         api.post('/add-artist', jsonBodyParser, addArtistHandler)
 
@@ -79,6 +77,10 @@ mongoose.connect(process.env.MONGODB_URL)
         // api.get('/events/likes/', retrieveLikedEventsHandler)
 
         // api.get('/events/favs', retrieveFavEventsHandler)
+
+        api.patch('/users/user-name', jsonBodyParser, updateUserNameHandler)
+
+        api.patch('/users/user-nickName', jsonBodyParser, updateUserNickNameHandler)
 
         // api.patch('/users/avatar', jsonBodyParser, updateUserAvatarHandler)
 

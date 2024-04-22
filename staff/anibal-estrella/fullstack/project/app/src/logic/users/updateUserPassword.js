@@ -1,15 +1,56 @@
 import { validators } from 'com'
+const { validateToken, validatePassword } = validators
+
+export default async (token, password, newPassword, newPasswordConfirm) => {
+    validateToken(token)
+
+    if (newPassword !== newPasswordConfirm) {
+        throw new Error('password confirmation mismatch')
+    } else if (newUserName === newUserNameConfirm) {
+        throw new Error('new password should not match old password')
+    } else {
+        validatePassword(password, 'password')
+        validatePassword(newPassword, 'new password')
+
+        try {
+
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/users/password`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ password, newPassword }),
+            });
+
+            if (res.status !== 201) {
+                const { error } = await res.json();
+                throw new Error(error);
+            }
+        } catch (error) {
+            throw new Error('connection error');
+        }
+    }
+
+}
+
+
+/* with callback function
+
+import { validators } from 'com'
 const { validateToken, validatePassword, validateCallback } = validators
 
-/**
- * 
- */
+
 
 export default (token, password, newPassword, newPasswordConfirm, callback) => {
     validateToken(token)
-    validatePassword(password, 'password')
-    validatePassword(newPassword, 'password')
-    validatePassword(newPasswordConfirm, 'password')
+
+    if (newPassword !== newPasswordConfirm) {
+        throw new Error('password confirmation mismatch')
+    } else {
+        validatePassword(password, 'password')
+        validatePassword(newPassword, 'password')
+    }
 
     if (callback) {
         validateCallback(callback, 'callback function')
@@ -71,4 +112,39 @@ export default (token, password, newPassword, newPasswordConfirm, callback) => {
         .then(() => { })
 
 }
+*/
+/*   
 
+import { validators } from 'com'
+import { saveUser, findUserById } from '../data'
+
+const { validatePassword, validateId, validateCallback } = validators
+
+export default function updateUserPassword(userId, password, newPassword, newPasswordConfirm, callback) {
+    validateId(userId, 'user id')
+    validatePassword(password)
+    validatePassword(newPassword, 'new password')
+    if (newPassword === password) throw new Error('new password equals old password')
+    validatePassword(newPasswordConfirm, 'new password confirm')
+if (newPassword !== newPasswordConfirm) throw new Error('password confirmation mismatch')
+validateCallback(callback)
+
+findUserById(userId, user => {
+    if (!user) {
+        callback(new Error('user not found'))
+        
+        return
+    }
+    
+    if (password !== user.password) {
+        callback(new Error('wrong password'))
+        
+        return
+    }
+    
+    user.password = newPassword
+    
+    saveUser(user, () => callback(null))
+})
+}
+*/
