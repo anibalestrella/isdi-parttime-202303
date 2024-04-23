@@ -1,8 +1,9 @@
+const bcrypt = require('bcryptjs');
 const {
     errors: { ExistenceError, ContentError },
     validators: { validatePassword, validateId } } = require('com')
 
-const { User, Post } = require('../data/models.js')
+const { User, Post } = require('../data-project/models.js')
 
 /**
  * 
@@ -20,23 +21,29 @@ module.exports = (userId, password, newPassword, newPasswordConfirm) => {
     validatePassword(newPassword, 'password')
     validatePassword(newPasswordConfirm, 'password')
 
-    if (newPassword !== newPasswordConfirm) throw new ExistenceError(`the new passwords confirmation doesn't match`)
+    if (newPassword !== newPasswordConfirm) throw new ExistenceError(`the new passwords confirmation doesn't match`);
 
+    return User.findById(userId, 'password')
+        .then(user => {
+            if (!user) throw new ExistenceError(`The user id not found in the DB`);
 
-    return Promise.all([
-        User.findById(userId, 'password').lean(),
+            // Compare hashed passwords
+            return bcrypt.compare(password, user.password)
+                .then(passwordsMatch => {
+                    if (!passwordsMatch) throw new ExistenceError(`Password mismatch with DB`);
 
-    ]).then(([user]) => {
-        if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
-        if (password !== user.password) throw new ExistenceError(`password missmatch with db`)
-        if (newPassword === user.password) throw new ExistenceError(`new password must be different from old one`)
+                    // Hash the new password
+                    return bcrypt.hash(newPassword, 10);
+                })
+                .then(hashedNewPassword => {
+                    if (password === newPassword) throw new ExistenceError(`New password must be different from the old one`);
 
-        return User.updateOne(
-            { _id: userId },
-            {
-                password: newPassword,
-            })
-    })
-        .then(() => { })
-}
-
+                    return User.updateOne(
+                        { _id: userId },
+                        {
+                            password: hashedNewPassword,
+                        }
+                    );
+                });
+        });
+};

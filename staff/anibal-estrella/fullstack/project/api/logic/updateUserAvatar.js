@@ -2,7 +2,7 @@ const {
     errors: { ExistenceError, ContentError },
     validators: { validateUrl, validateId } } = require('com')
 
-const { User, Post } = require('../data/models.js')
+const { User } = require('../data-project/models.js')
 
 /**
  * 
@@ -21,7 +21,7 @@ module.exports = (userId, avatar) => {
 
     ])
         .then(([user]) => {
-            if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
+            if (!user) throw new ExistenceError(`User id not found in the DB`)
 
             return User.updateOne(
                 { _id: userId },

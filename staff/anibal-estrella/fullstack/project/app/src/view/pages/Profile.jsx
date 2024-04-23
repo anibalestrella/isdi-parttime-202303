@@ -164,7 +164,7 @@ const Profile = () => {
                                 <p className='grow'>Avatar:</p>
 
                                 <div className='flex flex-row  items-center my-4'>
-                                    <img className=" h-28 w-28  mr-2 rounded-full  border-solid transition duration-150 bg-gray-200 " src={user.avatar} alt={user.avatar} />
+                                    <img className="h-28 w-28  object-cover rounded-full  border-2 border-solid transition duration-150  mr-2  bg-gray-200 " src={user.avatar} alt={user.avatar} />
                                     <div className="grid grid-flow-row">
 
                                         <label htmlFor='avatar' >

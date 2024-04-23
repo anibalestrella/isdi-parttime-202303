@@ -1,6 +1,6 @@
 const {
     errors: { ExistenceError, ContentError },
-    validators: { validateName, validateId }
+    validators: { validateNickName, validateId }
 } = require('com')
 
 const { User } = require('../data-project/models')
@@ -16,7 +16,7 @@ const bcrypt = require('bcryptjs')
 
 module.exports = async (userId, userNewNickName) => {
     validateId(userId, 'user id')
-    validateName(userNewNickName, 'name')
+    validateNickName(userNewNickName, 'name')
 
     try {
         const user = await User.findById(userId)
@@ -26,7 +26,7 @@ module.exports = async (userId, userNewNickName) => {
 
         if (userNewNickName === user.nickName) throw new ExistenceError('New nick name must be different from old one')
 
-        await User.updateOne({ _id: userId }, { nickName: userNewNickName })
+        await User.updateOne({ _id: userId }, { nickName: '@' + userNewNickName })
     } catch (error) {
         throw error
     }

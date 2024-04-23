@@ -10,5 +10,8 @@ module.exports = {
     createEventHandler: require('./createEventHandler'),
     updateUserNameHandler: require('./updateUserNameHandler'),
     updateUserNickNameHandler: require('./updateUserNickNameHandler'),
+    updateUserPasswordHandler: require('./updateUserPasswordHandler'),
+    updateUserAvatarHandler: require('./updateUserAvatarHandler'),
     addArtistHandler: require('./addArtistHandler')
+
 }

@@ -21,14 +21,21 @@ function validatePassword(password, explain = "password") {
     if (typeof password !== 'string') throw new TypeError(`${explain} must be a string`)
     if (password.trim().length < 8) throw new RangeError(`The ${explain} must be more than 8 characters long`)
 }
+const regex = /^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/;
+const alphaRegex = /^[a-z\s]+$/;
+;
 
 /**
  * validates a name
  * @param {string} name the name
  */
+
 function validateName(name, explain = "name") {
-    if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!name.trim().length) throw new ContentError(`${explain} is blank`)
+    if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`);
+    if (!name.trim().length) throw new Error(`${explain} is blank`);
+    if (name.trim().length < 2) throw new Error(`${explain} must be at least two characters long`);
+    if (name.trim().length > 24) throw new Error(`${explain} cannot exceed 24 characters`);
+    if (!alphaRegex.test(name)) throw new Error(`${explain} can only contain lowercase alphabetic characters and spaces`);
 }
 /**
  * validates a name
@@ -37,7 +44,7 @@ function validateName(name, explain = "name") {
 function validateNickName(nickName, explain = "nickName") {
     if (typeof nickName !== 'string') throw new TypeError(`${explain} must be a string`);
     if (!nickName.trim().length) throw new Error(`${explain} is blank`);
-    const regex = /^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/;
+    if (nickName.trim().length > 12) throw new Error(`${explain} cannot exceed 12 characters`);
     if (!regex.test(nickName)) throw new Error(`${explain} should be a single word without symbols and can contain numbers`);
 }
 

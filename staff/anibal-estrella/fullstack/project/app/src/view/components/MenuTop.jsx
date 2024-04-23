@@ -98,7 +98,7 @@ function menuTop({ navigate, isVisible, setIsVisible, isUserLoggedIn, handleLogO
                             <div div='user-avatar' className="relative">
                                 <Link className="hidden-arrow flex items-center whitespace-nowrap" to="/profile" >
                                     {user && <>
-                                        <img className="h-10 w-10 rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} label={'go to ptofile'} /> </>}
+                                        <img className="h-10 w-10 object-cover rounded-full border-2 hover:border-red border-solid transition duration-150 bg-gray-200 hover:bg-red ease-in-out  motion-reduce:transition-none" src={user.avatar} alt={user.avatar} label={'go to ptofile'} /> </>}
                                 </Link>
                             </ div>
                         ) : (

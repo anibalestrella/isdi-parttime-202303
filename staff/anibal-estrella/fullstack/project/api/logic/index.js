@@ -10,6 +10,8 @@ module.exports = {
     addPlace: require('./addPlace'),
     updateUserName: require('./updateUserName'),
     updateUserNickName: require('./updateUserNickName'),
+    updateUserPassword: require('./updateUserPassword'),
+    updateUserAvatar: require('./updateUserAvatar'),
     // deleteEvent: require('./deleteEvent'),
     // updateEvent: require('./updateEvent'),
     // toggleLikeEvent: require('./toggleLikeEvent'),

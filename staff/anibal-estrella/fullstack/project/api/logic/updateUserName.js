@@ -14,13 +14,15 @@ const bcrypt = require('bcryptjs')
  * @returns
  */
 
-module.exports = async (userId, userNewName) => {
+module.exports = async (userId, userName) => {
+    const userNewName = userName.toLowerCase()
+
     validateId(userId, 'user id')
     validateName(userNewName, 'name')
 
     try {
         const user = await User.findById(userId)
-        if (!user) throw new ExistenceError(`User with the id ${userId} not found`)
+        if (!user) throw new ExistenceError(`The User id is not found in the DB`)
 
         // You need to implement proper password validation here
 
@@ -32,38 +34,4 @@ module.exports = async (userId, userNewName) => {
     }
 }
 
-
-
-// module.exports = (userId, userNewName) => {
-//     debugger
-//     validateId(userId, 'user id')
-//     validatename(userNewName, 'name')
-
-
-//     return (async () => {
-//         const user = await User.findOne({ email })
-//         if (!user) throw new ExistenceError('user not found')
-
-//         const match = await bcrypt.compare(password, user.password)
-//         if (!match) {
-//             throw new AuthError('wrong credentials');
-//         }
-
-//     })()
-
-//     return Promise.all([
-//         User.findById(userId, 'name').lean(),
-
-//     ]).then(([user]) => {
-//         if (!user) throw new ExistenceError(`user with the id ${userId} not found`)
-//         if (userNewName === user.name) throw new ExistenceError(`new name must be different from old one`)
-
-//         return User.updateOne(
-//             { _id: userId },
-//             {
-//                 name: userNewName,
-//             })
-//     })
-//         .then(() => { })
-// }
 
