@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const {
     helloApiHandler,
     registerUserHandler,
-    authenticateUserEmailHandler,
+    authenticateUserHandler,
     updateUserAvatarHandler,
     updateUserPasswordHandler,
     updateUserEmailHandler,
@@ -24,6 +24,7 @@ const {
     addCommentToPostHandler,
     removeCommentFromPostHandler
 } = require('./handlers')
+
 const mongoose = require('mongoose')
 
 mongoose.connect(process.env.MONGODB_URL)

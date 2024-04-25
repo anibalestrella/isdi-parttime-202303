@@ -12,6 +12,7 @@ module.exports = {
     updateUserNickNameHandler: require('./updateUserNickNameHandler'),
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
+    updateUserEmailHandler: require('./updateUserEmailHandler'),
     addArtistHandler: require('./addArtistHandler')
 
 }

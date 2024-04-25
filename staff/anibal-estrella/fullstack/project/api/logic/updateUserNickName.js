@@ -35,7 +35,7 @@ module.exports = async (userId, userNewNickName) => {
 
 
 // module.exports = (userId, userNewNickName) => {
-//     debugger
+//      
 //     validateId(userId, 'user id')
 //     validatename(userNewNickName, 'name')
 

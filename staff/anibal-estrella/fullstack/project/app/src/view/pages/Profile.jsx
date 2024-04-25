@@ -8,7 +8,6 @@ import {
     retrieveUser,
     isUserLoggedIn,
     updateUserProfile,
-    loginUser,
     context
 } from "../../logic/users"
 
@@ -35,6 +34,7 @@ const Profile = () => {
         userNewPasswordConfirm: '',
         userNewAvatar: ''
     });
+
 
     console.log(userUpdate)
     console.log(user)
@@ -85,43 +85,34 @@ const Profile = () => {
         const userNewEmail = event.target.userNewEmail.value
         const userNewEmailConfirm = event.target.userNewEmailConfirm.value
 
-
-        if (userCurrentName !== userNewName ||
-            userCurrentNickname !== "@" + userNewNickName ||
-            userCurrentEmail !== userNewEmail ||
-            (userNewPassword.length > 0)) {
-
-            if (userNewPassword !== userNewPasswordConfirm) {
-                alert('password dont match', 'error');
-                return
-            }
-
-            try {
-                freeze()
-
-                // await loginUser(userCurrentEmail, userCurrentPassword)
-
-                await isUserLoggedIn()
-
-                updateUserProfile(context.token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword, error => {
-                    if (error) {
-                        alert(error.message, 'error');
-                        return;
-                    }
-                })
-                alert('Your profile has been Successfully updated.')
-
-                unfreeze();
+        debugger
 
 
-            } catch (error) {
-                alert(error.message, 'error');
-            }
+        try {
+            freeze()
+
+            // await loginUser(userCurrentEmail, userCurrentPassword)
+
+            await isUserLoggedIn()
+
+            updateUserProfile(context.token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword, error => {
+                if (error) {
+                    alert(error.message, 'error');
+                    return;
+                }
+            })
+            // alert('Your profile has been Successfully updated.')
+
+            unfreeze();
+
+
+        } catch (error) {
             unfreeze()
-
-        } else {
-            alert('There are no changes in your profile.')
+            alert(error.message)
+        } finally {
+            unfreeze();
         }
+
     }
 
     const handleAvatarChange = (event) => {
@@ -161,7 +152,7 @@ const Profile = () => {
                     {user &&
                         <form action="" onSubmit={handleUpdateUserProfile} >
                             <div id='user-avatar' className="flex flex-col">
-                                <p className='grow'>Avatar:</p>
+                                <h3 >Avatar:</h3>
 
                                 <div className='flex flex-row  items-center my-4'>
                                     <img className="h-28 w-28  object-cover rounded-full  border-2 border-solid transition duration-150  mr-2  bg-gray-200 " src={user.avatar} alt={user.avatar} />

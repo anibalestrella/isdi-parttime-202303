@@ -11,24 +11,31 @@ const { User } = require('../data-project/models.js')
  * @returns 
  */
 
-module.exports = (userId, avatar) => {
-
+module.exports = function updateUserAvatar(userId, avatar) {
     validateId(userId, 'user id')
     validateUrl(avatar, 'Image URL')
 
-    return Promise.all([
-        User.findById(userId, 'avatar').lean(),
+    return (async () => {
+        const user = await User.findById(userId)
 
-    ])
-        .then(([user]) => {
-            if (!user) throw new ExistenceError(`User id not found in the DB`)
+        if (!user) throw new ExistenceError('User not found')
 
-            return User.updateOne(
-                { _id: userId },
-                {
-                    avatar: avatar,
-                })
-        })
-        .then(() => { })
+        await user.updateOne({ avatar: avatar })
+    })()
+
+    // return Promise.all([
+    //     User.findById(userId, 'avatar').lean(),
+
+    // ])
+    //     .then(([user]) => {
+    //         if (!user) throw new ExistenceError(`User id not found in the DB`)
+
+    //         return User.updateOne(
+    //             { _id: userId },
+    //             {
+    //                 avatar: avatar,
+    //             })
+    //     })
+    //     .then(() => { })
 }
 

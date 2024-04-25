@@ -31,7 +31,7 @@ const alphaRegex = /^[a-z\s]+$/;
  */
 
 function validateName(name, explain = "name") {
-    if (typeof name !== 'string') throw new TypeError(`${explain} must be a string`);
+    if (typeof name !== 'string') throw new TypeError(`The ${explain} > ${name} must be a string`);
     if (!name.trim().length) throw new Error(`${explain} is blank`);
     if (name.trim().length < 2) throw new Error(`${explain} must be at least two characters long`);
     if (name.trim().length > 24) throw new Error(`${explain} cannot exceed 24 characters`);
@@ -40,7 +40,7 @@ function validateName(name, explain = "name") {
 /**
  * validates a name
  * @param {string} nickName the user's nick name
- */
+*/
 function validateNickName(nickName, explain = "nickName") {
     if (typeof nickName !== 'string') throw new TypeError(`${explain} must be a string`);
     if (!nickName.trim().length) throw new Error(`${explain} is blank`);
@@ -51,7 +51,7 @@ function validateNickName(nickName, explain = "nickName") {
 /**
  * validates a city
  * @param {string} city the city
- */
+*/
 function validateCity(city, explain = "city") {
     if (typeof city !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!city.trim().length) throw new ContentError(`${explain} is blank`)
@@ -61,7 +61,7 @@ function validateCity(city, explain = "city") {
  * 
  * @param {string} url an URL
  * @param {string} explain alternative edescription in case of error
- */
+*/
 function validateUrl(url, explain = 'URL') {
     if (typeof url !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!url.trim().length) throw new ContentError(`${explain} is empty`)
@@ -114,12 +114,13 @@ function validateToken(token, explain = 'token') {
     if (typeof token !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
     if (token.split('.').length != 3) throw new ContentError(`${explain} is not `)
 }
-function validateIpGeoLocation(ipGeoLocationCoordinates, explain = 'ipGeoLocation') {
-    if (!Array.isArray(ipGeoLocationCoordinates)) throw new TypeError(`${explain} must be an array`);
 
-    if (ipGeoLocationCoordinates.length !== 2) throw new ContentError(`${explain} must contain exactly two values (latitude and longitude)`);
+function validateIpGeoLocation(ipGeoLocation, explain = 'ipGeoLocation') {
+    if (!Array.isArray(ipGeoLocation)) throw new TypeError(`${explain} must be an array`);
 
-    const [latitude, longitude] = ipGeoLocationCoordinates;
+    if (ipGeoLocation.length !== 2) throw new ContentError(`${explain} must contain exactly two values (latitude and longitude)`);
+
+    const [latitude, longitude] = ipGeoLocation;
 
     if (typeof latitude !== 'number' || latitude < -90 || latitude > 90) {
         throw new ContentError(`${explain} contains an invalid latitude`);

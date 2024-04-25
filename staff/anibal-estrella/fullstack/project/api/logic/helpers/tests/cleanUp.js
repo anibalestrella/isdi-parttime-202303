@@ -1,24 +1,22 @@
-const context = require('./../../context')
-
-module.exports = () => {
-    const {
-        users,
-        events,
-        places,
-        eventreviews,
-    } = context
-
-    // in series
-    // return users.deleteMany()
-    //     .then(() => posts.deleteMany())
+const {
+    User,
+    Event,
+    Place,
+    EventReview,
+} = require('../../../data-project/models')
 
 
-    // in parallel (faster) Promise.all([...])
-    return Promise.all([
-        users.deleteMany(),
-        events.deleteMany(),
-        places.deleteMany(),
-        eventreviews.deleteMany(),
-        console.log('>>> cleanup!!!'),
+module.exports = async function cleanUp() {
+    await Promise.all([User.deleteMany(), Avatar.deleteMany()])
+}
+
+module.exports = async function cleanUp() {
+    await Promise.all([
+
+        User.deleteMany(),
+        Event.deleteMany(),
+        Place.deleteMany(),
+        EventReview.deleteMany(),
     ])
+    console.log('>>> cleanup!!!')
 }

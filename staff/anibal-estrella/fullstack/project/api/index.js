@@ -37,12 +37,12 @@ const {
     updateUserNameHandler,
     updateUserNickNameHandler,
     updateUserPasswordHandler,
+    updateUserEmailHandler,
     uploadMediaHandler,
     createEventHandler,
     createEventReviewHandler,
     updateUserAvatarHandler
 } = require('./handlers')
-
 
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => {
@@ -63,23 +63,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.get('/users', retrieveUserHandler)
 
-        api.post('/add-artist', jsonBodyParser, addArtistHandler)
-
-        // api.post('/upload', jsonBodyParser, uploadMediaHandler)
-
-        // api.post('/create-event', jsonBodyParser, createEventHandler)
-
-        // api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
-
-
-        // api.get('/events', retrieveEventsHandler)
-
-        // api.get('/events/:postId', retrieveEventHandler)
-
-        // api.get('/events/likes/', retrieveLikedEventsHandler)
-
-        // api.get('/events/favs', retrieveFavEventsHandler)
-
         api.patch('/users/user-name', jsonBodyParser, updateUserNameHandler)
 
         api.patch('/users/user-nickName', jsonBodyParser, updateUserNickNameHandler)
@@ -88,6 +71,23 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/user-password', jsonBodyParser, updateUserPasswordHandler)
 
+        api.patch('/users/user-email', jsonBodyParser, updateUserEmailHandler)
+
+        api.post('/add-artist', jsonBodyParser, addArtistHandler)
+
+        // api.post('/upload', jsonBodyParser, uploadMediaHandler)
+
+        // api.post('/create-event', jsonBodyParser, createEventHandler)
+
+        // api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
+
+        // api.get('/events', retrieveEventsHandler)
+
+        // api.get('/events/likes/', retrieveLikedEventsHandler)
+
+        // api.get('/events/favs', retrieveFavEventsHandler)
+
+        // api.get('/events/:postId', retrieveEventHandler)
 
         // api.patch('/events/:postId/likes', toggleLikeEventHandler)
 
@@ -102,8 +102,6 @@ mongoose.connect(process.env.MONGODB_URL)
         // api.delete('/events/:postId/comments/:commentId', removeCommentFromEventHandler)
 
         api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n//////////////`))
-
-
 
     })
 

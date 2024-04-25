@@ -1,70 +1,39 @@
-import { validators } from 'com'
-const { validateToken, validateUserName, validateCallback } = validators
+import { validators } from 'com';
+
+const { validateToken, validateName } = validators;
 
 /**
+ * updateUserName.js
  * 
+ * This function updates the user's username with the provided new username.
+ * 
+ * @param {string} token - User authentication token.
+ * @param {string} userNewName - New username to be updated.
+ * 
+ * @throws {TypeError} - If the token or new username is not a string.
+ * @throws {Error} - If the token or new username is blank, or if the new username contains invalid characters.
+ * 
+ * @returns {Promise<void>} - Returns a Promise that resolves when the update operation is successful.
  */
+export default async (token, userNewName) => {
+    validateToken(token);
+    validateName(userNewName, 'userNewName');
 
-export default (token, userNewName, callback) => {
-    validateToken(token)
-    validateUserName(userNewName, 'userNewName')
+    try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/user-name`, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ userNewName }),
+        });
 
-    if (callback) {
-        validateCallback(callback, 'callback function')
-
-        const xhr = new XMLHttpRequest()
-
-        xhr.onload = () => {
-            const { status } = xhr
-
-            if (status !== 201) {
-                const { response: json } = xhr
-                const { error } = JSON.parse(json)
-
-                callback(new Error(error))
-
-                return
-            }
-            callback(null)
+        if (response.status !== 201) {
+            const { error: message } = await response.json();
+            throw new Error(message);
         }
-
-        xhr.onerror = () => {
-            callback(new Error('connection error'))
-        }
-
-        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/user-name`)
-
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-        const data = {
-            name: userNewName,
-        }
-
-        const json = JSON.stringify(data)
-
-        xhr.send(json)
-        return
-
+    } catch (error) {
+        throw new Error("There was a problem updating the username: " + error.message);
     }
-
-    return fetch(`${import.meta.env.VITE_API_URL}/Users/Email`, {
-        method: 'PATCH',
-        headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ userNewName }),
-    }).then((res) => {
-        if (res.status !== 201) {
-            //return the json object
-            return res.json().then(({ error: message }) => {
-                throw new Error(message)
-                    .then(() => { })
-            })
-        }
-    })
-        .then(() => { })
-
-}
-
+};

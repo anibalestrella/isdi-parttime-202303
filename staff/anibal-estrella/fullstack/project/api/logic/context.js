@@ -1,6 +1,6 @@
 module.exports = {
-    users: null,
-    events: null,
-    places: null,
-    eventreviews: null,
+    User: null,
+    Event: null,
+    Place: null,
+    EventReview: null,
 }

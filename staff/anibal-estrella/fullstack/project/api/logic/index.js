@@ -12,6 +12,7 @@ module.exports = {
     updateUserNickName: require('./updateUserNickName'),
     updateUserPassword: require('./updateUserPassword'),
     updateUserAvatar: require('./updateUserAvatar'),
+    updateUserEmail: require('./updateUserEmail'),
     // deleteEvent: require('./deleteEvent'),
     // updateEvent: require('./updateEvent'),
     // toggleLikeEvent: require('./toggleLikeEvent'),

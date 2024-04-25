@@ -9,7 +9,8 @@ const user = new Schema({
     nickName: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     email: {
         type: String,
@@ -49,6 +50,7 @@ const user = new Schema({
         ref: 'User'
     }
 })
+
 
 const event = new Schema({
     author: {

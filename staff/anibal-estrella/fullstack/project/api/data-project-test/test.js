@@ -1,6 +1,6 @@
 const context = require('../logic/context')
 console.log(context);
-debugger
+
 
 const mongodb = require('mongodb')
 const { MongoClient } = mongodb

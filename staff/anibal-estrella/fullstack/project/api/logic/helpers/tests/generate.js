@@ -8,28 +8,35 @@ const getRandomCityName = () => {
     }
     return cityName.charAt(0).toUpperCase() + cityName.slice(1);
 };
+function generateRandomAlphaString(length) {
+    const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let randomString = '';
 
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * alphanumeric.length);
+        randomString += alphanumeric[randomIndex];
+    }
+    return randomString;
+}
 const randomCityName = getRandomCityName();
 
 module.exports = {
-    user: () => {
-        try {
-            return {
-                name: `name-${Math.random()}`,
-                nickName: `nickname-${Math.floor(Math.random() * 10000)}`,
-                email: `email-${Math.random().toString(36).substring(7)}@mail.com`, // Random valid email format
-                password: `password-${Math.random()}`,
-                ipGeoLocation: [Math.random(), Math.random()],
-                favArtists: `favArtists-${Math.random()}`,
-                avatar: `avatar-${Math.random()}`,
-                registrationDate: new Date().toISOString(),
-                city: `city-${randomCityName}`,
-            };
-        } catch (error) {
-            console.error('Error generating user:', error);
-            throw error;
-        }
-    },
+
+
+    user: () => ({
+        _id: `post-${Math.random()}`,
+        name: `${generateRandomAlphaString(10).toLowerCase()}`,
+        nickName: `${generateRandomAlphaString(11).toLowerCase()}`,
+        email: `email-${Math.random().toString(36).substring(7)}@mail.com`, // Random valid email format
+        password: `${generateRandomAlphaString(8)}`,
+        ipGeoLocation: [Math.random(), Math.random()],
+        favArtists: `favArtists-${Math.random()}`,
+        // avatar: `avatar-${Math.random()}`,
+        avatar: `./assets/avatar-default.svg`,
+        registrationDate: new Date().toISOString(),
+        city: `city-${randomCityName}`,
+
+    }),
 
     event: () => {
         try {

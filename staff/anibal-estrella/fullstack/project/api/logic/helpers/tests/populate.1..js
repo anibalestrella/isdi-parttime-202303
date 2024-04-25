@@ -8,7 +8,7 @@ module.exports = (_users, _events, _places, _eventreviews) => {
     console.log('Places:', places);
     console.log('Event Reviews:', eventreviews);
 
-    debugger;
+    ;
 
     const promises = [];
     if (_users.length) {

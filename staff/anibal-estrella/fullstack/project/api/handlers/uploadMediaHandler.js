@@ -3,7 +3,7 @@ const { uploadMedia } = require('../logic')
 const { errors: { DuplicityError, ContentError, UploadError } } = require('com')
 
 module.exports = (req, res) => {
-    debugger
+
     try {
         const { file, fileName } = req.body
         uploadMedia(file, fileName)
