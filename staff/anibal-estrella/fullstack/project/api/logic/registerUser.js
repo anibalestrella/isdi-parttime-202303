@@ -18,12 +18,12 @@ const bcrypt = require('bcryptjs')
  */
 
 module.exports = function registerUser(name, nickName, email, password, city, ipGeoLocation) {
+
     validateName(name)
     validateNickName(nickName)
     validateEmail(email)
     validatePassword(password)
     validateCity(city)
-    debugger
 
     validateIpGeoLocation(ipGeoLocation)
 
@@ -35,7 +35,7 @@ module.exports = function registerUser(name, nickName, email, password, city, ip
             const defaultAvatar = "./assets/avatar-default.svg"
 
 
-            await User.create({
+            const newUser = await User.create({
                 name,
                 nickName: "@" + nickName,
                 email,
@@ -45,16 +45,17 @@ module.exports = function registerUser(name, nickName, email, password, city, ip
                     type: "Point",
                     coordinates: [latitude, longitude]
                 },
-                // avatar: "./assets/avatar-default.svg",
+                avatar: "./assets/avatar-default.svg",
                 favArtists: []
             });
 
-            // Resolve the promise after successful registration
-            // return Promise.resolve("User registration successful");
+            // debugger
+            // console.log("New user:", newUser);
+
         } catch (error) {
             if (error.message.includes('E11000')) {
                 if (error.keyPattern && error.keyPattern.email) {
-                    throw new DuplicityError(`User with email ${user.email} already exists`);
+                    throw new DuplicityError(`User with email ${email} already exists`);
                 } else if (error.keyPattern && error.keyPattern.nickName) {
                     throw new DuplicityError(`User with nickname ${nickName} already exists`);
                 } else {
@@ -63,5 +64,6 @@ module.exports = function registerUser(name, nickName, email, password, city, ip
             }
             throw error;
         }
+
     })()
 };

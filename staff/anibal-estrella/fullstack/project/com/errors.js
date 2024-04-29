@@ -50,8 +50,16 @@ class UploadError extends Error {
         return UploadError.name;
     }
 }
+class FormatError extends Error {
+    constructor(message) {
+        super(message);
+    }
 
-module.exports = UploadError;
+    get name() {
+        return FormatError.name;
+    }
+}
+
 
 
 module.exports = {
@@ -60,5 +68,6 @@ module.exports = {
     ExistenceError,
     AuthError,
     UnknownError,
+    FormatError,
     UploadError
 }

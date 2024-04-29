@@ -1,15 +1,16 @@
-const { ContentError } = require('./errors')
+const { ContentError, FormatError } = require('./errors')
 
 /**
  * Validates an email
  * @param {string} email an email
  */
 
-function validateEmail(email, explain = "email") {
+function validateEmail(email, explain = "Email") {
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    if (email === " ") throw new ContentError(`${explain} should not be a blank space`)
     if (typeof email !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!email.trim().length) throw new ContentError(`${explain} is blank`)
-    if (!emailRegex.test(email)) throw new ContentError(`${email}, is not an ${explain}.`)
+    if (!emailRegex.test(email)) throw new FormatError(`${email} is not valid ${explain} format`)
 }
 
 /**
@@ -17,10 +18,18 @@ function validateEmail(email, explain = "email") {
  * @param {string} password the password
  * @param {string} explain alternative edescription in case of error
  */
-function validatePassword(password, explain = "password") {
-    if (typeof password !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (password.trim().length < 8) throw new RangeError(`The ${explain} must be more than 8 characters long`)
+//passwordRegex This regex ensures that the password contains at least one lowercase letter, one uppercase letter, one digit, one special character, and is at least 8 characters long
+
+function validatePassword(password, explain = "Password") {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+
+    if (!password) throw new ContentError(`${explain} is blank`)
+    if (typeof password !== "string") throw new TypeError(`${explain} is not a string`);
+    if (password === " ") throw new ContentError(`${explain} should not be a blank space`)
+    if (password.trim().length < 8) throw new RangeError(`${explain} must be more than 8 characters long`);
+    if (!passwordRegex.test(password)) throw new FormatError(`${explain} format incorrect, should contain at least one lowercase letter, one uppercase letter, one digit, one special character, and should be at least 8 characters long`)
 }
+
 const regex = /^[a-zA-Z0-9]+(?:[-_][a-zA-Z0-9]+)*$/;
 const alphaRegex = /^[a-z\s]+$/;
 ;
@@ -30,7 +39,8 @@ const alphaRegex = /^[a-z\s]+$/;
  * @param {string} name the name
  */
 
-function validateName(name, explain = "name") {
+function validateName(name, explain = "Name") {
+    if (name === " ") throw new ContentError(`${explain} should not be a blank space`)
     if (typeof name !== 'string') throw new TypeError(`The ${explain} > ${name} must be a string`);
     if (!name.trim().length) throw new Error(`${explain} is blank`);
     if (name.trim().length < 2) throw new Error(`${explain} must be at least two characters long`);
@@ -42,7 +52,7 @@ function validateName(name, explain = "name") {
  * @param {string} nickName the user's nick name
 */
 function validateNickName(nickName, explain = "nickName") {
-    if (typeof nickName !== 'string') throw new TypeError(`${explain} must be a string`);
+    if (typeof nickName !== 'string') throw new TypeError(`The ${explain} > ${nickName} must be a string`);
     if (!nickName.trim().length) throw new Error(`${explain} is blank`);
     if (nickName.trim().length > 12) throw new Error(`${explain} cannot exceed 12 characters`);
     if (!regex.test(nickName)) throw new Error(`${explain} should be a single word without symbols and can contain numbers`);
@@ -64,7 +74,7 @@ function validateCity(city, explain = "city") {
 */
 function validateUrl(url, explain = 'URL') {
     if (typeof url !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!url.trim().length) throw new ContentError(`${explain} is empty`)
+    if (!url.trim().length) throw new ContentError(`${explain} is blank`)
 }
 
 const HEX_DICTIONARY = '0123456789abcdef'

@@ -3,11 +3,13 @@ const { expect } = require("chai")
 const mongoose = require("mongoose")
 const { User } = require("../../data-project/models")
 const registerUser = require("../registerUser")
-const { cleanUp, generate } = require("../helpers/tests")
+const { cleanUp, generate, populate } = require("../helpers/tests")
 const { errors: { DuplicityError } } = require("com")
 const bcrypt = require('bcryptjs')
+const nonString = Math.floor(Math.random() * 100001);
 
 describe("LIVE DIVE registerUser", () => {
+
     before(async () => {
         await mongoose.connect(process.env.MONGODB_URL)
     })
@@ -16,7 +18,6 @@ describe("LIVE DIVE registerUser", () => {
 
     beforeEach(async () => {
         user = generate.user()
-        // console.log(user);
 
         await cleanUp()
     })
@@ -27,6 +28,8 @@ describe("LIVE DIVE registerUser", () => {
     })
 
     it("should succeed on creating an user", async () => {
+        // await populate([user], []);
+
         await registerUser(user.name, user.nickName, user.email, user.password, user.city, user.ipGeoLocation)
 
         const userRegistered = await User.findOne({ email: user.email })
@@ -56,21 +59,14 @@ describe("LIVE DIVE registerUser", () => {
     });
 
     it('should fail to register user with existing email', async () => {
-        // Prepare known existing email address
-        const existingEmail = 'existing@example.com';
+        await registerUser(user.name, 'nickname1', user.email, user.password, user.city, user.ipGeoLocation);
 
-        // Attempt to register a user with the existing email
         try {
-            // Call the registerUser function with the existing email
-            await registerUser('john doe', 'john.doe', existingEmail, 'password123', 'New York', [40.7128, -74.0060]);
-
-            // If registration succeeds, fail the test
-            throw new Error('Expected registration to fail but succeeded');
+            await registerUser(user.name, 'nickname2', user.email, user.password, user.city, user.ipGeoLocation);
         } catch (error) {
-            // Assert that the error is an instance of DuplicityError
-            expect(error).to.be.an.instanceOf(DuplicityError);
-            // Assert that the error message indicates the email duplication
-            expect(error.message).to.equal(`User with email ${existingEmail} already exists`);
+            expect(error).to.be.instanceOf(Error);
+            expect(error).to.be.instanceOf(DuplicityError);
+            expect(error.message).to.equal(`User with email ${user.email} already exists`);
         }
     });
 
@@ -80,7 +76,7 @@ describe("LIVE DIVE registerUser", () => {
 
         // Simula un error desconocido arrojando una excepción con un mensaje específico.
         try {
-            await registerUser(user.name, user.email, user.password);
+            await registerUser(user.name, user.nickName, user.email, user.password, user.city, user.ipGeoLocation);
             throw new Error(errorMessage); // Simula un error desconocido
         } catch (error) {
             expect(error).to.be.instanceOf(Error);
@@ -89,63 +85,68 @@ describe("LIVE DIVE registerUser", () => {
     });
 
     //!Sync errors
-    it('should fail on empty name', () =>
+    it('should fail on blank name', () =>
         expect(() =>
-            registerUser('', user.email, user.password)
-        ).to.throw(Error, 'Username is empty'))
+            registerUser('', user.nickName, user.email, user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, 'Name is blank'))
 
-    it('should fail on empty email', () =>
+    it('should fail on blank email', () =>
         expect(() =>
-            registerUser(user.name, "", user.password)
-        ).to.throw(Error, "Email is empty"))
+            registerUser(user.name, user.nickName, '', user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Email is blank"))
 
-    it('should fail on empty password', () =>
+    it('should fail on blank password', () =>
         expect(() =>
-            registerUser(user.name, user.email, "")
-        ).to.throw(Error, "Password is empty"))
+            registerUser(user.name, user.nickName, user.email, '', user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Password is blank"))
 
     it('should fail on blank space name', () =>
         expect(() =>
-            registerUser(' ', user.email, user.password)
-        ).to.throw(Error, "Username cant be a blankSpace"))
+            registerUser(' ', user.nickName, user.email, user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Name should not be a blank space"))
 
     it('should fail on blank space email', () =>
         expect(() =>
-            registerUser(user.name, " ", user.password)
-        ).to.throw(Error, "Email cant be a blankSpace"))
+            registerUser(user.name, user.nickName, ' ', user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Email should not be a blank space"))
 
     it('should fail on blank space password', () =>
         expect(() =>
-            registerUser(user.name, user.email, " ")
-        ).to.throw(Error, "Password cant be a blankSpace"))
+            registerUser(user.name, user.nickName, user.email, ' ', user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Password should not be a blank space"))
 
-    it('should fail on non string name', () =>
+    it('SHOULD fail on non string name', () =>
         expect(() =>
-            registerUser(22, user.email, user.password)
-        ).to.throw(Error, "Username is not a string"))
+            registerUser(nonString, user.nickName, user.email, user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, `The Name > ${nonString} must be a string`)
+    )
 
     it('should fail on non string email', () =>
         expect(() =>
-            registerUser(user.name, 22, user.password)
-        ).to.throw(Error, "Email is not a string"))
+            registerUser(user.name, user.nickName, 11, user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Email must be a string"))
 
     it('should fail on non string password', () =>
         expect(() =>
-            registerUser(user.name, user.email, 22)
+            registerUser(user.name, user.nickName, user.email, 11, user.city, user.ipGeoLocation)
         ).to.throw(Error, "Password is not a string"))
 
-    it('should fail on wrong format email', () =>
+    it('should fail on wrong format email', () => {
+        const invalidEmailFormat = 'user.email'
         expect(() =>
-            registerUser(user.name, "minameisdrluke", user.password)
-        ).to.throw(Error, 'Invalid email format'))
+            registerUser(user.name, user.nickName, invalidEmailFormat, user.password, user.city, user.ipGeoLocation)
+        ).to.throw(Error, `${invalidEmailFormat} is not valid Email format`)
+    })
 
-    it('should fail on wrong format password', () =>
+    it('should fail on wrong format password', () => {
+        const invalidPasswordFormat = 'adfghjklñq';
         expect(() =>
-            registerUser(user.name, user.email, "minameisdrluke")
-        ).to.throw(Error, `password format incorrect`))
+            registerUser(user.name, user.nickName, user.email, invalidPasswordFormat, user.city, user.ipGeoLocation)
+        ).to.throw(Error, `Password format incorrect, should contain at least one lowercase letter, one uppercase letter, one digit, one special character, and should be at least 8 characters long`)
+    })
 
     it('should fail on short range password', () =>
         expect(() =>
-            registerUser(user.name, user.nickName, user.email, '1234', user.city, user.ipGeoLocationCoordinates)
-        ).to.throw(Error, "Password is shorter than 4 characters"))
+            registerUser(user.name, user.nickName, user.email, '1234', user.city, user.ipGeoLocation)
+        ).to.throw(Error, "Password must be more than 8 characters long"))
 })

@@ -1,40 +1,70 @@
-const getRandomCityName = () => {
-    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    const length = Math.floor(Math.random() * 8) + 3;
-    let cityName = '';
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * alphabet.length);
-        cityName += alphabet[randomIndex];
-    }
-    return cityName.charAt(0).toUpperCase() + cityName.slice(1);
-};
+
 function generateRandomAlphaString(length) {
-    const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let randomString = '';
 
     for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * alphanumeric.length);
-        randomString += alphanumeric[randomIndex];
+        const randomIndex = Math.floor(Math.random() * alpha.length);
+        randomString += alpha[randomIndex];
     }
     return randomString;
 }
-const randomCityName = getRandomCityName();
+
+function generateRandomPassword(length) {
+    const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const digitChars = '0123456789';
+    const specialChars = '!@#$%^&*';
+
+    // Combine all character sets
+    const allChars = lowercaseChars + uppercaseChars + digitChars + specialChars;
+
+    let password = '';
+    let hasLowercase = false;
+    let hasUppercase = false;
+    let hasDigit = false;
+    let hasSpecialChar = false;
+
+    // Generate random password
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * allChars.length);
+        const randomChar = allChars[randomIndex];
+        password += randomChar;
+
+        // Check if the character type is found in the password
+        if (lowercaseChars.includes(randomChar)) {
+            hasLowercase = true;
+        } else if (uppercaseChars.includes(randomChar)) {
+            hasUppercase = true;
+        } else if (digitChars.includes(randomChar)) {
+            hasDigit = true;
+        } else if (specialChars.includes(randomChar)) {
+            hasSpecialChar = true;
+        }
+    }
+
+    // Ensure password meets the criteria
+    if (!(hasLowercase && hasUppercase && hasDigit && hasSpecialChar)) {
+        // Regenerate the password if it doesn't meet the criteria
+        return generateRandomPassword(length);
+    }
+
+    return password;
+}
 
 module.exports = {
-
-
     user: () => ({
         _id: `post-${Math.random()}`,
         name: `${generateRandomAlphaString(10).toLowerCase()}`,
         nickName: `${generateRandomAlphaString(11).toLowerCase()}`,
         email: `email-${Math.random().toString(36).substring(7)}@mail.com`, // Random valid email format
-        password: `${generateRandomAlphaString(8)}`,
+        password: `${generateRandomPassword(12)}`,
         ipGeoLocation: [Math.random(), Math.random()],
         favArtists: `favArtists-${Math.random()}`,
         // avatar: `avatar-${Math.random()}`,
         avatar: `./assets/avatar-default.svg`,
         registrationDate: new Date().toISOString(),
-        city: `city-${randomCityName}`,
+        city: generateRandomAlphaString(10),
 
     }),
 
