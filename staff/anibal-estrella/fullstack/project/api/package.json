@@ -15,7 +15,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "chai": "^4.3.7",
+        "chai": "^4.4.1",
         "mocha": "^10.2.0",
         "nyc": "^15.1.0"
     },
@@ -27,7 +27,7 @@
         "express": "^4.18.2",
         "imagekit": "^5.0.0",
         "jsonwebtoken": "^9.0.0",
-        "mongoose": "^7.3.2",
+        "mongoose": "^8.3.3",
         "node-watch": "^0.7.3"
     }
 }

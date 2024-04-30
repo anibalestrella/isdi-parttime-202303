@@ -23,9 +23,9 @@ const imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
 });
 
-console.log("Public Key:", process.env.IMAGEKIT_PUBLIC_KEY);
-console.log("Private Key:", process.env.IMAGEKIT_PRIVATE_KEY);
-console.log("URL Endpoint:", process.env.IMAGEKIT_URL_ENDPOINT);
+// console.log("Public Key:", process.env.IMAGEKIT_PUBLIC_KEY);
+// console.log("Private Key:", process.env.IMAGEKIT_PRIVATE_KEY);
+// console.log("URL Endpoint:", process.env.IMAGEKIT_URL_ENDPOINT);
 
 const {
     helloApiHandler,
@@ -52,6 +52,9 @@ mongoose.connect(process.env.MONGODB_URL)
         const jsonBodyParser = bodyParser.json()
 
         api.use(cors())
+
+        // Serve static files from the 'assets' directory
+        api.use('/assets', express.static('assets'));
 
         api.get('/', helloApiHandler)
 
@@ -101,7 +104,7 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // api.delete('/events/:postId/comments/:commentId', removeCommentFromEventHandler)
 
-        api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n//////////////`))
+        api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n////////////// \n eli@gmail.com \n 12341234Ab*`))
 
     })
 

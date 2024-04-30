@@ -131,6 +131,40 @@ describe("LIVE DIVE registerUser", () => {
             registerUser(user.name, user.nickName, user.email, 11, user.city, user.ipGeoLocation)
         ).to.throw(Error, "Password is not a string"))
 
+    it('should fail on non string city', () =>
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, nonString, user.ipGeoLocation)
+        ).to.throw(Error, `The City > ${nonString} must be a string`))
+
+    it("should fail on non 2 values array user's ip GeoLocation", () =>
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, user.city, [12345, 123456, 123456])
+        ).to.throw(Error, `IP GeoLocation must contain exactly two values (latitude and longitude)`))
+
+    it("should fail on user's ip GeoLocation wrong format", () => {
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, user.city, 'not an array')
+        ).to.throw(Error, `IP GeoLocation must be an array`);
+
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, user.city, ['latitudeNotNumber', 12.3456])
+        ).to.throw(Error, `IP GeoLocation invalid latitude format`);
+
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, user.city, [-100, 12.3456])
+        ).to.throw(Error, `IP GeoLocation invalid latitude format`);
+
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, user.city, [12.3456, 'longitudeNotNumber'])
+        ).to.throw(Error, `IP GeoLocation invalid longitude format`);
+
+        expect(() =>
+            registerUser(user.name, user.nickName, user.email, user.password, user.city, [12.3456, -181])
+        ).to.throw(Error, `IP GeoLocation invalid longitude format`);
+
+    });
+
+
     it('should fail on wrong format email', () => {
         const invalidEmailFormat = 'user.email'
         expect(() =>
@@ -149,4 +183,6 @@ describe("LIVE DIVE registerUser", () => {
         expect(() =>
             registerUser(user.name, user.nickName, user.email, '1234', user.city, user.ipGeoLocation)
         ).to.throw(Error, "Password must be more than 8 characters long"))
+
+
 })

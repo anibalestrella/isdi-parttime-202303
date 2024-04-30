@@ -13,7 +13,7 @@ const bcrypt = require('bcryptjs')
  * @param {string} email User's email
  * @param {string} password User's password
  * @param {string} city User's city
- * @param {string[]} ipGeoLocation User's city geo data [lon, lat]
+ * @param {number[]} ipGeoLocation User's city geo data [lon, lat]
  * @returns {Promise} Promise that resolves after user registration
  */
 

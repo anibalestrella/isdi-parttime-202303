@@ -27,13 +27,11 @@ import { updateUserName } from '../../logic/users/';
 export default async (token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword) => {
     validateToken(token)
     validateName(userNewName, 'user new name')
-
-    if (userCurrentName !== userNewName) {
-        try {
+    try {
+        if (userCurrentName !== userNewName)
             await updateUserName(token, userNewName)
 
-        } catch (error) {
-            throw new Error(message)
-        }
+    } catch (error) {
+        throw new Error(error)
     }
 }

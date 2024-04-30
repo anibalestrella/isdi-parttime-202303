@@ -60,7 +60,7 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
 
         <div className='grid gap-2 pt-4 md:grid-cols-2 mb-4'>
             <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 hover:bg-gray-200 duration-300 bg-center h-60 '>
-                <h3 className=' text-4xl'>Create an event review</h3>
+                <h3 className=' text-4xl'>Review an event</h3>
                 <p>Fill up the fields, create event, text review, images, audio, video, score...</p>
                 <Button onClick={handleCreate} className={' mt-auto max-w-fit'}>Create Review</Button>
             </div>

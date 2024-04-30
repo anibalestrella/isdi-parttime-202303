@@ -63,7 +63,7 @@ const Login = ({ city, ipGeoLocation }) => {
             freeze()
             registerUser(name, nickName, email, emailConfirm, password, repeatPassword, city, ipGeoLocation)
                 .then(() => {
-                    alert(`${name}, you have been succesfully registered!`)
+                    alert(`Thank you ${name}!\n you have been succesfully registered\n with the ${email} email address.`)
                     setShowPasswordLayer(null)
                 })
                 .catch(error => alert(error.message))

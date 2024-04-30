@@ -85,9 +85,6 @@ const Profile = () => {
         const userNewEmail = event.target.userNewEmail.value
         const userNewEmailConfirm = event.target.userNewEmailConfirm.value
 
-        debugger
-
-
         try {
             freeze()
 
@@ -95,22 +92,14 @@ const Profile = () => {
 
             await isUserLoggedIn()
 
-            updateUserProfile(context.token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword, error => {
-                if (error) {
-                    alert(error.message, 'error');
-                    return;
-                }
-            })
-            // alert('Your profile has been Successfully updated.')
+            await updateUserProfile(context.token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword)
 
             unfreeze();
-
+            alert('Your profile has been successfully updated.')
 
         } catch (error) {
             unfreeze()
             alert(error.message)
-        } finally {
-            unfreeze();
         }
 
     }

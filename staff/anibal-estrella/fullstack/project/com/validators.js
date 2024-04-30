@@ -53,22 +53,15 @@ function validateName(name, explain = "Name") {
 */
 function validateNickName(nickName, explain = "nickName") {
     if (typeof nickName !== 'string') throw new TypeError(`The ${explain} > ${nickName} must be a string`);
+    if (nickName === " ") throw new ContentError(`${explain} should not be a blank space`)
     if (!nickName.trim().length) throw new Error(`${explain} is blank`);
     if (nickName.trim().length > 12) throw new Error(`${explain} cannot exceed 12 characters`);
     if (!regex.test(nickName)) throw new Error(`${explain} should be a single word without symbols and can contain numbers`);
 }
 
-/**
- * validates a city
- * @param {string} city the city
-*/
-function validateCity(city, explain = "city") {
-    if (typeof city !== 'string') throw new TypeError(`${explain} must be a string`)
-    if (!city.trim().length) throw new ContentError(`${explain} is blank`)
-}
 
 /**
- * 
+ * Validates an URL string
  * @param {string} url an URL
  * @param {string} explain alternative edescription in case of error
 */
@@ -76,6 +69,12 @@ function validateUrl(url, explain = 'URL') {
     if (typeof url !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!url.trim().length) throw new ContentError(`${explain} is blank`)
 }
+
+
+/**
+ * validates an id
+ * @param {string} id the user's id
+*/
 
 const HEX_DICTIONARY = '0123456789abcdef'
 
@@ -89,7 +88,10 @@ function validateId(id, explain = 'id') {
     }
 }
 
-
+/**
+ * validates an artist's id
+ * @param {string} id the artist's id
+*/
 function validateArtistId(id, explain = 'id') {
     if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
     if (id.trim().length !== 7) throw new ContentError(`${explain} doesn't have 7 characters`)
@@ -100,7 +102,10 @@ function validateArtistId(id, explain = 'id') {
     }
 }
 
-
+/**
+ * validates a places's id
+ * @param {string} id the place's id
+*/
 function validatePlaceId(id, explain = 'Place id') {
     if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
     if (id.trim().length !== 7) throw new ContentError(`${explain} doesn't have 7 characters`)
@@ -111,21 +116,23 @@ function validatePlaceId(id, explain = 'Place id') {
     }
 }
 
+/**
+ * validates a text field
+ * @param {*} text the text content
+ */
 function validateText(text, explain = 'text') {
     if (text.length < 1) throw new Error(`${explain} must be longer than one character'`)
     if (typeof text !== 'string') throw new TypeError(`${explain} must be a string`)
     if (!text.trim().length) throw new ContentError(`${explain} is blank`)
 }
 
-function validateCallback(callback, explain = "callback") {
-    if (typeof callback != 'function') throw new Error(`${explain} must be a function`)
-}
-function validateToken(token, explain = 'token') {
-    if (typeof token !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
-    if (token.split('.').length != 3) throw new ContentError(`${explain} is not `)
-}
 
-function validateIpGeoLocation(ipGeoLocation, explain = 'ipGeoLocation') {
+/**
+ * validates user's IP geolocation data [lon, lat]
+ * @param {number[]} ipGeoLocation User's city geo data [lon, lat] 
+*/
+function validateIpGeoLocation(ipGeoLocation, explain = 'IP GeoLocation') {
+    debugger
     if (!Array.isArray(ipGeoLocation)) throw new TypeError(`${explain} must be an array`);
 
     if (ipGeoLocation.length !== 2) throw new ContentError(`${explain} must contain exactly two values (latitude and longitude)`);
@@ -133,14 +140,28 @@ function validateIpGeoLocation(ipGeoLocation, explain = 'ipGeoLocation') {
     const [latitude, longitude] = ipGeoLocation;
 
     if (typeof latitude !== 'number' || latitude < -90 || latitude > 90) {
-        throw new ContentError(`${explain} contains an invalid latitude`);
+        throw new ContentError(`${explain} invalid latitude format`);
     }
 
     if (typeof longitude !== 'number' || longitude < -180 || longitude > 180) {
-        throw new ContentError(`${explain} contains an invalid longitude`);
+        throw new ContentError(`${explain} invalid longitude format`);
     }
 }
 
+/**
+ * validates a city
+ * @param {string} city the city
+*/
+function validateCity(city, explain = "City") {
+    if (typeof city !== 'string') throw new TypeError(`The ${explain} > ${city} must be a string`);
+    if (!city.trim().length) throw new ContentError(`${explain} is blank`)
+    if (city === " ") throw new ContentError(`${explain} should not be a blank space`)
+}
+
+/**
+ * validates price in € format
+ * @param {string} price the price value to validate
+*/
 function validateEuroPrice(price, explain = "price") {
     // This regex assumes a price in euro format like "123,45"
     const euroPriceRegex = /^\d+,\d{2}$/;
@@ -153,7 +174,28 @@ function validateEuroPrice(price, explain = "price") {
     if (!euroPriceRegex.test(price)) throw new ContentError(`${explain} is not a valid price`);
 }
 
+/**
+ * validates a callback
+ * @param {string} callback the city
+*/
+function validateCallback(callback, explain = "callback") {
+    if (typeof callback != 'function') throw new Error(`${explain} must be a function`)
+}
 
+/**
+ * validates token
+ * @param {string} token the token
+*/
+function validateToken(token, explain = 'token') {
+    if (typeof token !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
+    if (token.split('.').length != 3) throw new ContentError(`${explain} is not `)
+}
+
+
+/**
+ * validates an uploaded file
+ * @param {string} fileInfo the file Info to validate
+*/
 const fs = require('fs');
 
 function validateFileUpload(fileInfo, explain = 'file') {
@@ -200,12 +242,12 @@ module.exports = {
     validateUrl,
     validateId,
     validateText,
-    validateCallback,
     validateCity,
     validateToken,
     validateIpGeoLocation,
     validateEuroPrice,
     validateFileUpload,
     validateArtistId,
-    validatePlaceId
+    validatePlaceId,
+    validateCallback
 }

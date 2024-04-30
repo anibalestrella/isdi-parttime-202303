@@ -17,7 +17,9 @@ const { validateToken, validateName } = validators;
  */
 export default async (token, userNewName) => {
     validateToken(token);
-    validateName(userNewName, 'userNewName');
+    validateName(userNewName, 'user New Name');
+    console.log(`#################################### ${userNewName} ####################################`);
+    debugger
 
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/users/user-name`, {
@@ -29,11 +31,12 @@ export default async (token, userNewName) => {
             body: JSON.stringify({ userNewName }),
         });
 
-        if (response.status !== 201) {
-            const { error: message } = await response.json();
+        if (response.status !== 204) {
+            const { message } = await response.json();
             throw new Error(message);
         }
     } catch (error) {
-        throw new Error("There was a problem updating the username: " + error.message);
+        throw error.message; // Return the error message
     }
-};
+}
+
