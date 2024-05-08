@@ -38,10 +38,10 @@ const {
     updateUserNickNameHandler,
     updateUserPasswordHandler,
     updateUserEmailHandler,
+    updateUserAvatarHandler,
     uploadMediaHandler,
     createEventHandler,
     createEventReviewHandler,
-    updateUserAvatarHandler
 } = require('./handlers')
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -68,13 +68,14 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/user-name', jsonBodyParser, updateUserNameHandler)
 
-        api.patch('/users/user-nickName', jsonBodyParser, updateUserNickNameHandler)
+        api.patch('/users/user-nickname', jsonBodyParser, updateUserNickNameHandler)
 
-        api.patch('/users/user-avatar', jsonBodyParser, updateUserAvatarHandler)
+        api.patch('/users/user-email', jsonBodyParser, updateUserEmailHandler)
 
         api.patch('/users/user-password', jsonBodyParser, updateUserPasswordHandler)
 
-        api.patch('/users/user-email', jsonBodyParser, updateUserEmailHandler)
+        api.patch('/users/user-avatar', jsonBodyParser, updateUserAvatarHandler)
+
 
         api.post('/add-artist', jsonBodyParser, addArtistHandler)
 

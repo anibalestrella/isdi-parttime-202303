@@ -1,5 +1,5 @@
 import { validators } from 'com';
-
+import context from "./context"
 const { validateToken, validateName } = validators;
 
 /**
@@ -7,36 +7,36 @@ const { validateToken, validateName } = validators;
  * 
  * This function updates the user's username with the provided new username.
  * 
- * @param {string} token - User authentication token.
+ * @param {string} context.token - User authentication token.
  * @param {string} userNewName - New username to be updated.
- * 
- * @throws {TypeError} - If the token or new username is not a string.
  * @throws {Error} - If the token or new username is blank, or if the new username contains invalid characters.
  * 
  * @returns {Promise<void>} - Returns a Promise that resolves when the update operation is successful.
  */
-export default async (token, userNewName) => {
-    validateToken(token);
+export default function updateUserName(userNewName) {
+    validateToken(context.token, 'Session Token');
     validateName(userNewName, 'user New Name');
-    console.log(`#################################### ${userNewName} ####################################`);
-    debugger
 
-    try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/user-name`, {
-            method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ userNewName }),
-        });
+    return (async () => {
 
-        if (response.status !== 204) {
-            const { message } = await response.json();
-            throw new Error(message);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/user-name`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: `Bearer ${context.token}`,
+                },
+                body: JSON.stringify({ userNewName }),
+            });
+
+            if (response.status !== 204) {
+                const { error, type } = await response.json();
+                throw new Error(error, type);
+            }
+        } catch (error) {
+            throw error;
         }
-    } catch (error) {
-        throw error.message; // Return the error message
-    }
+
+    })()
 }
 

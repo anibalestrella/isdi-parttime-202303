@@ -37,7 +37,7 @@ module.exports = function registerUser(name, nickName, email, password, city, ip
 
             const newUser = await User.create({
                 name,
-                nickName: "@" + nickName,
+                nickName: nickName,
                 email,
                 password: hash,
                 city,

@@ -35,8 +35,7 @@ const Profile = () => {
         userNewAvatar: ''
     });
 
-    const [avatar, setAvatar] = useState(user.avatar || "")
-
+    const [avatar, setAvatar] = useState(user.avatar || "");
     useEffect(() => {
         try {
             retrieveUser()
@@ -45,11 +44,7 @@ const Profile = () => {
                     setUserUpdate({
                         userNewName: user.name,
                         userNewNickName: user.nickName,
-                        userNewEmail: user.email,
-                        userCurrentPassword: '',
-                        userNewPasswordConfirm: '',
-                        userNewPassword: ''
-
+                        userNewEmail: user.email
                     });
                 })
                 .catch(error => alert(error.message));
@@ -71,85 +66,48 @@ const Profile = () => {
     const handleUpdateUserProfile = async event => {
         event.preventDefault()
 
-        function getUserNewValues(user) {
-            const userNewValues = {}
+        const userCurrentName = user.name;
+        const userCurrentNickName = user.nickName;
+        const userCurrentEmail = user.email;
+        const userCurrentPassword = event.target.userCurrentPassword.value;
 
-            const propertiesToCheck = [
-                { name: 'Name', current: user.name, new: event.target.userNewName.value },
-                { name: 'NickName', current: user.nickName, new: event.target.userNewNickName.value },
-                { name: 'Email', current: user.email, new: event.target.userNewEmail.value },
-                { name: 'Password', current: event.target.userCurrentPassword.value, new: event.target.userNewPassword.value },
-                { name: 'EmailConfirm', current: null, new: event.target.userNewEmailConfirm.value },
-                { name: 'PasswordConfirm', current: null, new: event.target.userNewPasswordConfirm.value },
 
-            ];
+        const userNewPassword = event.target.userNewPassword.value;
+        const userNewPasswordConfirm = event.target.userNewPasswordConfirm.value
+        const userNewName = event.target.userNewName.value
+        const userNewNickName = '@' + event.target.userNewNickName.value
+        const userNewEmail = event.target.userNewEmail.value
+        const userNewEmailConfirm = event.target.userNewEmailConfirm.value
 
-            propertiesToCheck.forEach(property => {
-                if (property.current !== null)
-                    userNewValues['userCurrent' + property.name] = property.current;
 
-                if (property.current !== property.new) {
-                    userNewValues['userNew' + property.name] = property.new;
-                } else {
-                    userNewValues['userNew' + property.name] = null;
-                }
-            });
-
-            return userNewValues;
-        }
-
-        const userNewProfileValues = getUserNewValues(user);
 
         try {
             freeze()
 
             await isUserLoggedIn()
 
-            const profileChanges = await updateUserProfile(
-                userNewProfileValues.userCurrentName,
-                userNewProfileValues.userCurrentEmail,
-                userNewProfileValues.userCurrentPassword,
-                userNewProfileValues.userCurrentNickName,
-                userNewProfileValues.userNewName,
-                userNewProfileValues.userNewNickName,
-                userNewProfileValues.userNewEmail,
-                userNewProfileValues.userNewEmailConfirm,
-                userNewProfileValues.userNewPassword,
-                userNewProfileValues.userNewPasswordConfirm);
+            const profileChanges = await updateUserProfile(userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickName, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, userNewPassword, userNewPasswordConfirm)
+
+
 
             unfreeze()
-
-
 
             let alertMessage = `Your profile updated successfully.\nChanges:
             \n`
 
             if (profileChanges.length > 0) {
                 profileChanges.forEach(change => {
-                    alertMessage += `-New ${change}`;
+                    alertMessage += `\n- ${change}\n`;
                 });
 
                 alert(alertMessage)
             } else {
-                alert(userNewProfileValues.userCurrentName.toUpperCase() + `, 
-                no changes were made to your profile.`)
+                alert(userCurrentName + ',\nNo changes were made to your profile.')
             }
-
-
         } catch (error) {
             unfreeze()
             alert(error.message)
         }
-        setUserUpdate({
-            userNewName: user.name,
-            userNewNickName: user.nickName,
-            userNewEmail: user.email,
-            userNewEmailConfirm: '',
-            userCurrentPassword: '',
-            userNewPassword: '',
-            userNewPasswordConfirm: '',
-            userNewAvatar: ''
-        });
 
     }
 
@@ -293,10 +251,7 @@ const Profile = () => {
                                         name="userCurrentPassword"
                                         placeholder="current password"
                                         onChange={handleChange}
-                                        autoComplete="off"
-                                        value={userUpdate.userCurrentPassword}
-
-                                    />
+                                        autoComplete="off" />
                                 </div>
                                 <div>
                                     <label htmlFor="userNewPassword">New password:</label>
@@ -306,8 +261,6 @@ const Profile = () => {
                                         placeholder="new password"
                                         onChange={handleChange}
                                         autoComplete="off"
-                                        value={userUpdate.userNewPassword}
-
                                     />
 
                                     <label htmlFor="userNewPasswordConfirm">Confirm new password:</label>
@@ -316,10 +269,7 @@ const Profile = () => {
                                         name="userNewPasswordConfirm"
                                         placeholder="Confirm new password"
                                         onChange={handleChange}
-                                        autoComplete="off"
-                                        value={userUpdate.userNewPasswordConfirm}
-
-                                    />
+                                        autoComplete="off" />
                                 </div>
                                 <div className="grid grid-flow-col w-full  col-span-2 place-content-center gap-2">
                                     <Button type="button" className={'button-cancel max-w-fit hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>

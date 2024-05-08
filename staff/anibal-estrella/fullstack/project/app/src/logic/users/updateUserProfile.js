@@ -1,37 +1,64 @@
 import { saveUser, findUserById } from '../../data'
 import { validators } from 'com'
-const { validateToken, validateId, validateName } = validators
-import { updateUserName } from '../../logic/users/';
+import context from "./context"
+const { validateToken, validateId, validateName, validateNickName } = validators
+import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword, loginUser } from '../../logic/users/'
 
 /**
- * updateUserProfile.js
- * 
+ * updateUserProfile:
  * This function updates the user's profile information based on the provided parameters.
  * 
- * @param {string} token - User authentication token.
  * @param {string} userCurrentName - Current username of the user.
  * @param {string} userCurrentEmail - Current email address of the user.
  * @param {string} userCurrentPassword - Current password of the user.
- * @param {string} userCurrentNickname - Current nickname of the user.
+ * @param {string} userCurrentNickName - Current nickname of the user.
  * @param {string} userNewName - New name to be updated for the user.
  * @param {string} userNewNickName - New nickname to be updated for the user.
  * @param {string} userNewEmail - New email address to be updated for the user.
+ * @param {string} userNewEmailConfirm - Confirmation of the new email address.
  * @param {string} userNewPassword - New password to be updated for the user.
  * 
- * @throws {TypeError} - If any of the parameters are not of type string.
- * @throws {Error} - If the token is invalid, or if the new name contains invalid characters.
+ * @throws {Error} - If any of the parameters are not of type string.
  * 
- * @returns {Promise} - Returns a Promise that resolves when the update operation is successful.
+ * @returns {Promise} - Returns a Promise that resolves with an array of names of the changes made.
+ * 
  */
 
-export default async (token, userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickname, userNewName, userNewNickName, userNewEmail, userNewPassword) => {
-    validateToken(token)
-    validateName(userNewName, 'user new name')
+export default async (userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickName, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, userNewPassword, userNewPasswordConfirm) => {
+    validateToken(context.token, 'Session Token');
+
+    const changes = [];
     try {
-        if (userCurrentName !== userNewName)
-            await updateUserName(token, userNewName)
+        debugger
+        if (!userCurrentPassword)
+            throw new Error('You must enter password to change your profile')
+
+
+        if (userNewName)
+            if (userCurrentName !== userNewName) {
+                await updateUserName(userNewName)
+                changes.push(`Name: ${userNewName}`);
+            }
+        if (userNewNickName)
+            if (userCurrentNickName !== userNewNickName) {
+                await updateUserNickName(userNewNickName)
+                changes.push(`Nickname: ${userNewNickName}`);
+            }
+        if (userNewEmail)
+            if (userCurrentEmail !== userNewEmail) {
+                await updateUserEmail(userNewEmail, userNewEmailConfirm)
+                changes.push(`Email: ${userNewEmail}`);
+            }
+        if (userNewPassword)
+            if (userNewPassword !== !userNewPassword) {
+                await updateUserPassword(userCurrentPassword, userNewPassword, userNewPasswordConfirm)
+                changes.push(`Password`);
+            }
+
 
     } catch (error) {
         throw new Error(error)
     }
+
+    return changes
 }

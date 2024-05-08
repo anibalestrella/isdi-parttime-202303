@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
  * Api/handlers/ExtractUserId.js
  * Extract User ID from token
  * @param {string} req 
- * @returns 
+ * @returns {string} the user Id
  */
 function extractUserId(req) {
 

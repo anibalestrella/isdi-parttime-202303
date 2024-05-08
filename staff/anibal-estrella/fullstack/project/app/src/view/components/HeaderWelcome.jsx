@@ -20,7 +20,7 @@ function HeaderWelcome({ handleClick, user }) {
                 </p>
                 <div className=' text-right'>
                     <Link to="/create">
-                        <Button className={'max-w-fit mb-4 md:mb-0'} >let's go</Button>
+                        <Button className={'max-w-fit mb-4 md:mb-0'} >let's review</Button>
                     </Link>
                 </div>
             </div>

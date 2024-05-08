@@ -3,7 +3,6 @@ const { extractUserId, handleErrors } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
-    const { password, newPassword, newPasswordConfirm } = req.body
-
-    return updateUserPassword(userId, password, newPassword, newPasswordConfirm).then(() => res.status(201).send())
+    const { userCurrentPassword, userNewPassword, userNewPasswordConfirm } = req.body
+    return updateUserPassword(userId, userCurrentPassword, userNewPassword, userNewPasswordConfirm).then(() => res.status(201).send())
 })
