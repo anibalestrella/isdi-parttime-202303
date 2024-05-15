@@ -3,7 +3,6 @@ import { useAppContext } from "../hooks"
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { Button } from '../library'
-import { AuthPassword } from '../components'
 
 import {
     retrieveUser,
@@ -12,7 +11,7 @@ import {
     context
 } from "../../logic/users"
 
-const Profile = ({ onOk, onPanelClick, onCancel }) => {
+const Profile = () => {
     const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     console.debug('/// Profile  -> Render')
@@ -23,23 +22,18 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         email: '',
     })
 
-    const [userUpdate, setUserUpdate] = useState(
-        {
-            userNewName: '',
-            userNewNickName: '',
-            userNewEmail: '',
-            userNewEmailConfirm: '',
-            userCurrentPassword: '',
-            userNewPassword: '',
-            userNewPasswordConfirm: '',
-            userNewAvatar: '',
-            userCurrentEmail: ''
-        }
-    );
+    const [userUpdate, setUserUpdate] = useState({
+        userNewName: '',
+        userNewNickName: '',
+        userNewEmail: '',
+        userNewEmailConfirm: '',
+        userCurrentPassword: '',
+        userNewPassword: '',
+        userNewPasswordConfirm: '',
+        userNewAvatar: ''
+    });
 
-    const [avatar, setAvatar] = useState(user.avatar || "");
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [showAuthPassword, setShowAuthPassword] = useState(false);
+    const [avatar, setAvatar] = useState(user.avatar || "")
 
 
     useEffect(() => {
@@ -53,8 +47,8 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                         userNewEmail: user.email,
                         userCurrentPassword: '',
                         userNewPasswordConfirm: '',
-                        userNewPassword: '',
-                        userCurrentEmail: user.email,
+                        userNewPassword: ''
+
                     });
                 })
                 .catch(error => alert(error.message));
@@ -71,27 +65,9 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         }));
     }
 
-    const [formEvent, setFormEvent] = useState(null);
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        setFormEvent(event);
-        setShowAuthPassword(true);
-    }
-
-    const handleAuthPassword = (isAuthenticated) => {
-        console.log(isAuthenticated)
-        if (isAuthenticated) {
-            // setIsAuthenticated(true)
-            handleUpdateUserProfile(formEvent, isAuthenticated)
-        }
-    }
-
-
-
-    const handleUpdateUserProfile = async (event, isAuthenticated) => {
+    const handleUpdateUserProfile = async event => {
         event.preventDefault()
-
 
         function getUserNewValues(user) {
             const userNewValues = {}
@@ -122,63 +98,57 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
 
         const userNewProfileValues = getUserNewValues(user);
 
+        try {
+            freeze()
 
-        if (isAuthenticated) {
-            setShowAuthPassword(false);
+            await isUserLoggedIn()
 
-            try {
-                await isUserLoggedIn()
-                setUserUpdate({
-                    userNewName: user.name,
-                    userNewNickName: user.nickName,
-                    userNewEmail: user.email,
-                    userNewEmailConfirm: '',
-                    userCurrentPassword: '',
-                    userNewPassword: '',
-                    userNewPasswordConfirm: '',
-                    userNewAvatar: ''
+            const profileChanges = await updateUserProfile(
+                userNewProfileValues.userCurrentName,
+                userNewProfileValues.userCurrentEmail,
+                userNewProfileValues.userCurrentPassword,
+                userNewProfileValues.userCurrentNickName,
+                userNewProfileValues.userNewName,
+                userNewProfileValues.userNewNickName,
+                userNewProfileValues.userNewEmail,
+                userNewProfileValues.userNewEmailConfirm,
+                userNewProfileValues.userNewPassword,
+                userNewProfileValues.userNewPasswordConfirm);
+
+            unfreeze()
+
+
+
+            let alertMessage = `Your profile updated successfully.\nChanges:
+            \n`
+
+            if (profileChanges.length > 0) {
+                profileChanges.forEach(change => {
+                    alertMessage += `-New ${change}`;
                 });
 
-                freeze()
-                const profileChanges = await updateUserProfile(
-                    userNewProfileValues.userCurrentName,
-                    userNewProfileValues.userCurrentEmail,
-                    userNewProfileValues.userCurrentPassword,
-                    userNewProfileValues.userCurrentNickName,
-                    userNewProfileValues.userNewName,
-                    userNewProfileValues.userNewNickName,
-                    userNewProfileValues.userNewEmail,
-                    userNewProfileValues.userNewEmailConfirm,
-                    userNewProfileValues.userNewPassword,
-                    userNewProfileValues.userNewPasswordConfirm);
-
-                unfreeze()
-
-                let alertMessage = `Your profile updated successfully.\nChanges:
-                    \n`
-
-                if (profileChanges.length > 0) {
-                    profileChanges.forEach(change => {
-                        alertMessage += `-New ${change}`;
-                    });
-
-                    alert(alertMessage)
-                } else {
-                    alert(userNewProfileValues.userCurrentName.toUpperCase() + `, 
-                        no changes were made to your profile.`)
-                }
-
-
-
-            } catch (error) {
-                unfreeze()
-                alert(error.message)
+                alert(alertMessage)
+            } else {
+                alert(userNewProfileValues.userCurrentName.toUpperCase() + `, 
+                no changes were made to your profile.`)
             }
 
+        } catch (error) {
+            unfreeze()
+            alert(error.message)
         }
+        setUserUpdate({
+            userNewName: user.name,
+            userNewNickName: user.nickName,
+            userNewEmail: user.email,
+            userNewEmailConfirm: '',
+            userCurrentPassword: '',
+            userNewPassword: '',
+            userNewPasswordConfirm: '',
+            userNewAvatar: ''
+        });
+
     }
-
-
 
     const handleAvatarChange = (event) => {
         console.log('AVATAAARRR!');
@@ -196,7 +166,9 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         }
     }
 
-
+    const handleCancel = () => {
+        console.log('CANCEL!!');
+    }
 
     return (
         <div className='px-3 pt-6'>
@@ -213,10 +185,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     <p className='pb-4'>Keep your personal details private. Information you add here is visible to any who can view your profile.
                     </p>
                     {user &&
-                        // <form action="" onSubmit={(event) => handleUpdateUserProfile(event)}>
-                        <form action="" onSubmit={handleFormSubmit}>
-
-
+                        <form action="" onSubmit={handleUpdateUserProfile} >
                             <div id='user-avatar' className="flex flex-col">
                                 <h3 >Avatar:</h3>
 
@@ -229,7 +198,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                                 onChange={handleAvatarChange}
                                                 type='file'
                                                 id='avatar'
-                                                accept="image/png, image/gif, image/jpg, .png, .jpg, .jpeg"
+                                                accept='image/*'
                                                 className='
                                                     max-w-fit
                                                     h-11    
@@ -350,7 +319,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                     />
                                 </div>
                                 <div className="grid grid-flow-col w-full  col-span-2 place-content-center gap-2">
-                                    <Button type="button" className={'button-cancel max-w-fit hover:button-cancel-hover'} onClick={onCancel}>Cancel</Button>
+                                    <Button type="button" className={'button-cancel max-w-fit hover:button-cancel-hover'} onClick={handleCancel}>Cancel</Button>
                                     <Button type="submit" className={'max-w-fit '}>Save profile</Button>
 
                                 </div>
@@ -358,15 +327,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                         </form>
                     }
 
-                    {showAuthPassword &&
-                        <AuthPassword
-                            onOk={onOk}
-                            onAuthentication={handleAuthPassword}
-                            onChange={handleInputChange}
-                            onPanelClick={onPanelClick}
-                            onCancel={onCancel}
-                            userCurrentEmail={userUpdate.userCurrentEmail}
-                        />}
 
                 </div>
 
@@ -374,11 +334,10 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                 <div>
                     <h3>User must be logged</h3>
                 </div>
-            )
-            }
+            )}
 
 
-        </div >
+        </div>
 
 
 

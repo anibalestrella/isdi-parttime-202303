@@ -12,6 +12,7 @@ import CreateEventReview from './CreateEventReview'
 import DraggableSlider from './DraggableSlider'
 import HeaderWelcome from './HeaderWelcome'
 import Confirm from './Confirm'
+import AuthPassword from './AuthPassword'
 
 export {
     SearchPlace,
@@ -27,5 +28,6 @@ export {
     Footer,
     Drawer,
     HeaderWelcome,
-    Confirm
+    Confirm,
+    AuthPassword
 }

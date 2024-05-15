@@ -13,6 +13,7 @@ module.exports = {
     updateUserPasswordHandler: require('./updateUserPasswordHandler'),
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
     updateUserEmailHandler: require('./updateUserEmailHandler'),
-    addArtistHandler: require('./addArtistHandler')
+    addArtistHandler: require('./addArtistHandler'),
+    // authUserPasswordHandler: require('./authUserPasswordHandler'),
 
 }

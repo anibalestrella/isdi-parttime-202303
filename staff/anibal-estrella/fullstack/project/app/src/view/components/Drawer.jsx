@@ -7,7 +7,7 @@ import { CreateEventReview } from '../components'
 
 function Drawer({ openDrawer, isDrawerOpen }) {
     const location = useLocation();
-    const [reloadKey, setReloadKey] = useState(0)
+    const [reloadKey, setReloadKey] = useState(0) //re render component
 
     const handleClose = () => {
         openDrawer()

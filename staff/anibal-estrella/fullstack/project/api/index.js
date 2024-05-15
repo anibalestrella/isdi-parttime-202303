@@ -39,6 +39,7 @@ const {
     updateUserPasswordHandler,
     updateUserEmailHandler,
     updateUserAvatarHandler,
+    authUserPasswordHandler,
     uploadMediaHandler,
     createEventHandler,
     createEventReviewHandler,
@@ -73,6 +74,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.patch('/users/user-email', jsonBodyParser, updateUserEmailHandler)
 
         api.patch('/users/user-password', jsonBodyParser, updateUserPasswordHandler)
+
+        // api.post('/users/auth-password', jsonBodyParser, authUserPasswordHandler)
 
         api.patch('/users/user-avatar', jsonBodyParser, updateUserAvatarHandler)
 

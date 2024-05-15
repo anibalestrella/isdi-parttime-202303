@@ -29,9 +29,7 @@ export default async (userCurrentName, userCurrentEmail, userCurrentPassword, us
 
     const changes = [];
     try {
-        debugger
-        if (!userCurrentPassword)
-            throw new Error('You must enter password to change your profile')
+
 
 
         if (userNewName)

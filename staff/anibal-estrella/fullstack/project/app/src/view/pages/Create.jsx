@@ -44,6 +44,7 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
         // Handle form submission here
         console.log(formData);
     }
+
     return <section id="create" className='p-4'>
 
         <div>

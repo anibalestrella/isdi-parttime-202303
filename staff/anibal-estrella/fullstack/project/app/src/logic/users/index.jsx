@@ -16,6 +16,7 @@ import updateUserAvatar from './updateUserAvatar'
 import updateUserName from './updateUserName'
 import updateUserNickName from './updateUserNickName'
 import updateUserPassword from './updateUserPassword'
+import authUserPassword from './authUserPassword'
 
 export {
     context,
@@ -34,5 +35,6 @@ export {
     updateUserNickName,
     updateUserPassword,
     updateUserAvatar,
+    authUserPassword
 
 }
