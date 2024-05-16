@@ -7,14 +7,13 @@ const { User } = require('../data-project/models.js')
 
 /**
  * 
- * @param {*} userCurrentPassword 
  * @param {*} userNewPassword 
  * @param {*} userNewPasswordConfirm 
  * @returns 
  */
 
-module.exports = (userId, userCurrentPassword, userNewPassword, userNewPasswordConfirm) => {
-    validatePassword(userCurrentPassword, 'Current Password')
+module.exports = (userId, userNewPassword, userNewPasswordConfirm) => {
+    validateId(userId, 'userId')
     validatePassword(userNewPassword, 'New password')
     validatePassword(userNewPasswordConfirm, 'Password confirmation')
 
@@ -24,14 +23,13 @@ module.exports = (userId, userCurrentPassword, userNewPassword, userNewPasswordC
         .then(user => {
             if (!user) throw new ExistenceError(`The user id not found in the DB`);
 
-            return bcrypt.compare(userCurrentPassword, user.password)
+            return bcrypt.compare(userNewPassword, user.password)
                 .then(passwordsMatch => {
-                    if (!passwordsMatch) throw new ExistenceError(`Password mismatch with DB`);
+                    if (passwordsMatch) throw new ExistenceError(`New password must be different from the old one`);
 
                     return bcrypt.hash(userNewPassword, 10);
                 })
                 .then(hashedNewPassword => {
-                    if (userCurrentPassword === userNewPassword) throw new ExistenceError(`New password must be different from the old one`);
 
                     return User.updateOne(
                         { _id: userId },

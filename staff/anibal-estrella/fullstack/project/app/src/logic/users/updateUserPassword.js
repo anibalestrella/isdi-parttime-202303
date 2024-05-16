@@ -3,15 +3,15 @@ import context from "./context"
 
 const { validateToken, validatePassword } = validators
 
-export default function updateUserPassword(userCurrentPassword, userNewPassword, userNewPasswordConfirm) {
+export default function updateUserPassword(userNewPassword, userNewPasswordConfirm) {
     validateToken(context.token, 'token')
 
     if (userNewPassword !== userNewPasswordConfirm) {
         throw new Error('password confirmation mismatch')
-    } else if (userNewPassword === userCurrentPassword) {
-        throw new Error('new password should not match old password')
+        // } else if (userNewPassword === userCurrentPassword) {
+        //     throw new Error('new password should not match old password')
     } else {
-        validatePassword(userCurrentPassword, 'password')
+        // validatePassword(userCurrentPassword, 'password')
         validatePassword(userNewPassword, 'new password')
 
         return (async () => {
@@ -23,7 +23,7 @@ export default function updateUserPassword(userCurrentPassword, userNewPassword,
                         'Content-type': 'application/json',
                         Authorization: `Bearer ${context.token}`,
                     },
-                    body: JSON.stringify({ userCurrentPassword, userNewPassword, userNewPasswordConfirm }),
+                    body: JSON.stringify({ userNewPassword, userNewPasswordConfirm }),
                 });
 
                 if (res.status !== 201) {

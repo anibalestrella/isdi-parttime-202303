@@ -1,71 +1,46 @@
 import { validators } from 'com'
-const { validateToken, validateUrl, validateCallback } = validators
+const { validateToken, validateFileUpload } = validators
 
-/**
- * Updates User's Avatar Image
- * @param {*} token 
- * @param {*} postId 
- * @param {*} image 
- * */
+const updateUserAvatar = async (userId, file) => {
+    validateId(userId, 'user id')
+    validateFileUpload(file, 'file upload')
 
-export default (token, avatar, callback) => {
-    validateToken(token)
-    validateUrl(avatar, 'avatar image url')
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
 
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/Users/user-email`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${context.token}`,
+            },
+            body: JSON.stringify({ file }),
+        })
 
-    if (callback) {
-        validateCallback(callback, 'callback function')
-
-        const xhr = new XMLHttpRequest()
-
-        xhr.onload = () => {
-            const { status } = xhr
-
-            if (status !== 201) {
-                const { response: json } = xhr
-                const { error } = JSON.parse(json)
-
-                callback(new Error(error))
-
-                return
-            }
-            callback(null)
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
         }
 
-        xhr.onerror = () => {
-            callback(new Error('connection error'))
+        const { imageUrl } = await response.json();
+
+        // Make a POST request to update the user's avatar in the database
+        const updateResponse = await fetch('/update-avatar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ imageUrl }),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Failed to update avatar');
         }
 
-        xhr.open('PATCH', `${import.meta.env.VITE_API_URL}/users/avatar`)
-
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-
-        const data = { avatar: avatar }
-        const json = JSON.stringify(data)
-
-        xhr.send(json)
-        return
-
+        console.log('Avatar updated successfully');
+    } catch (error) {
+        console.error('Error updating avatar:', error);
     }
+};
 
-    return fetch(`${import.meta.env.VITE_API_URL}/Users/avatar`, {
-        method: 'PATCH',
-        headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ avatar }),
-    }).then((res) => {
-        if (res.status !== 201) {
-            //return the json object
-            return res.json().then(({ error: message }) => {
-                throw new Error(message)
-                    .then(() => { })
-            })
-        }
-    })
-        .then(() => { })
-
-}
-
+export default updateUserAvatar;

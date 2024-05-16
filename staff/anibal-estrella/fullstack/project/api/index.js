@@ -82,7 +82,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.post('/add-artist', jsonBodyParser, addArtistHandler)
 
-        // api.post('/upload', jsonBodyParser, uploadMediaHandler)
 
         // api.post('/create-event', jsonBodyParser, createEventHandler)
 

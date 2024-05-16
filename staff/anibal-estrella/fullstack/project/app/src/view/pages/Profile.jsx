@@ -1,7 +1,7 @@
 import { useAppContext } from "../hooks"
 
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../library'
 import { AuthPassword } from '../components'
 
@@ -13,7 +13,7 @@ import {
 } from "../../logic/users"
 
 const Profile = ({ onOk, onPanelClick, onCancel }) => {
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
+    const { alert, freeze, unfreeze, useNavigate, navigate } = useAppContext()
 
     console.debug('/// Profile  -> Render')
 
@@ -29,7 +29,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             userNewNickName: '',
             userNewEmail: '',
             userNewEmailConfirm: '',
-            userCurrentPassword: '',
             userNewPassword: '',
             userNewPasswordConfirm: '',
             userNewAvatar: '',
@@ -40,6 +39,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
     const [avatar, setAvatar] = useState(user.avatar || "");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showAuthPassword, setShowAuthPassword] = useState(false);
+    const [formChanged, setFormChanged] = useState(false);
 
 
     useEffect(() => {
@@ -51,7 +51,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                         userNewName: user.name,
                         userNewNickName: user.nickName,
                         userNewEmail: user.email,
-                        userCurrentPassword: '',
                         userNewPasswordConfirm: '',
                         userNewPassword: '',
                         userCurrentEmail: user.email,
@@ -69,6 +68,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             ...prevState,
             [name]: value
         }));
+        setFormChanged(true);
     }
 
     const [formEvent, setFormEvent] = useState(null);
@@ -82,7 +82,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
     const handleAuthPassword = (isAuthenticated) => {
         console.log(isAuthenticated)
         if (isAuthenticated) {
-            // setIsAuthenticated(true)
             handleUpdateUserProfile(formEvent, isAuthenticated)
         }
     }
@@ -100,7 +99,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                 { name: 'Name', current: user.name, new: event.target.userNewName.value },
                 { name: 'NickName', current: user.nickName, new: event.target.userNewNickName.value },
                 { name: 'Email', current: user.email, new: event.target.userNewEmail.value },
-                { name: 'Password', current: event.target.userCurrentPassword.value, new: event.target.userNewPassword.value },
+                { name: 'Password', current: null, new: event.target.userNewPassword.value },
                 { name: 'EmailConfirm', current: null, new: event.target.userNewEmailConfirm.value },
                 { name: 'PasswordConfirm', current: null, new: event.target.userNewPasswordConfirm.value },
 
@@ -133,17 +132,16 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     userNewNickName: user.nickName,
                     userNewEmail: user.email,
                     userNewEmailConfirm: '',
-                    userCurrentPassword: '',
                     userNewPassword: '',
                     userNewPasswordConfirm: '',
                     userNewAvatar: ''
                 });
 
                 freeze()
+
                 const profileChanges = await updateUserProfile(
                     userNewProfileValues.userCurrentName,
                     userNewProfileValues.userCurrentEmail,
-                    userNewProfileValues.userCurrentPassword,
                     userNewProfileValues.userCurrentNickName,
                     userNewProfileValues.userNewName,
                     userNewProfileValues.userNewNickName,
@@ -154,12 +152,15 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
 
                 unfreeze()
 
+                setFormChanged(false);
+
+
                 let alertMessage = `Your profile updated successfully.\nChanges:
                     \n`
 
                 if (profileChanges.length > 0) {
                     profileChanges.forEach(change => {
-                        alertMessage += `-New ${change}`;
+                        alertMessage += ` · New ${change}`;
                     });
 
                     alert(alertMessage)
@@ -168,6 +169,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                         no changes were made to your profile.`)
                 }
 
+                navigate('/profile', { replace: true });
 
 
             } catch (error) {
@@ -187,10 +189,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             const file = files[0]; // Get the first file from the input
             const reader = new FileReader();
 
-            reader.onloadend = () => {
-                // Set the avatar state to the base64 data URL of the selected image
-                setUserUpdate({ ...user, avatar: reader.result });
-            };
+
 
             reader.readAsDataURL(file); // Read the file as a data URL
         }
@@ -213,7 +212,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     <p className='pb-4'>Keep your personal details private. Information you add here is visible to any who can view your profile.
                     </p>
                     {user &&
-                        // <form action="" onSubmit={(event) => handleUpdateUserProfile(event)}>
                         <form action="" onSubmit={handleFormSubmit}>
 
 
@@ -314,19 +312,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
 
                                 <h3>Password:</h3>
                                 <div>
-
-                                    <label htmlFor="userCurrentPassword">Current password:</label>
-                                    <input
-                                        type="Password"
-                                        name="userCurrentPassword"
-                                        placeholder="current password"
-                                        onChange={handleInputChange}
-                                        autoComplete="off"
-                                        value={userUpdate.userCurrentPassword}
-
-                                    />
-                                </div>
-                                <div>
                                     <label htmlFor="userNewPassword">New password:</label>
                                     <input
                                         type="Password"
@@ -337,6 +322,8 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                         value={userUpdate.userNewPassword}
 
                                     />
+                                </div>
+                                <div>
 
                                     <label htmlFor="userNewPasswordConfirm">Confirm new password:</label>
                                     <input
@@ -346,12 +333,17 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                         onChange={handleInputChange}
                                         autoComplete="off"
                                         value={userUpdate.userNewPasswordConfirm}
-
                                     />
                                 </div>
                                 <div className="grid grid-flow-col w-full  col-span-2 place-content-center gap-2">
-                                    <Button type="button" className={'button-cancel max-w-fit hover:button-cancel-hover'} onClick={onCancel}>Cancel</Button>
-                                    <Button type="submit" className={'max-w-fit '}>Save profile</Button>
+
+                                    <Button type="button" className={`max-w-fit  ${formChanged ? 'button-cancel  hover:button-cancel-hover' : ' hidden'}`} disabled={!formChanged} onClick={onCancel}>
+                                        cancel
+                                    </Button>
+
+                                    <Button type="submit" className={`max-w-fit  ${formChanged ? '' : ' hover:bg-gray-400 button-cancel active:bg-gray-500 text-gray-200'}`} disabled={!formChanged}>
+                                        Save profile
+                                    </Button>
 
                                 </div>
                             </div>
@@ -365,7 +357,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                             onChange={handleInputChange}
                             onPanelClick={onPanelClick}
                             onCancel={onCancel}
-                            userCurrentEmail={userUpdate.userCurrentEmail}
+                            userCurrentEmail={user.email}
                         />}
 
                 </div>

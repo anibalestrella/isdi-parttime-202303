@@ -10,7 +10,6 @@ import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword
  * 
  * @param {string} userCurrentName - Current username of the user.
  * @param {string} userCurrentEmail - Current email address of the user.
- * @param {string} userCurrentPassword - Current password of the user.
  * @param {string} userCurrentNickName - Current nickname of the user.
  * @param {string} userNewName - New name to be updated for the user.
  * @param {string} userNewNickName - New nickname to be updated for the user.
@@ -24,7 +23,7 @@ import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword
  * 
  */
 
-export default async (userCurrentName, userCurrentEmail, userCurrentPassword, userCurrentNickName, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, userNewPassword, userNewPasswordConfirm) => {
+export default async (userCurrentName, userCurrentEmail, userCurrentNickName, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, userNewPassword, userNewPasswordConfirm) => {
     validateToken(context.token, 'Session Token');
 
     const changes = [];
@@ -49,7 +48,7 @@ export default async (userCurrentName, userCurrentEmail, userCurrentPassword, us
             }
         if (userNewPassword)
             if (userNewPassword !== !userNewPassword) {
-                await updateUserPassword(userCurrentPassword, userNewPassword, userNewPasswordConfirm)
+                await updateUserPassword(userNewPassword, userNewPasswordConfirm)
                 changes.push(`Password`);
             }
 

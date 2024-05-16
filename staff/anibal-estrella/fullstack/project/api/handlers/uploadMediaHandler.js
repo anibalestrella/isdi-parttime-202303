@@ -1,31 +1,8 @@
 const { uploadMedia } = require('../logic')
+const { extractUserId, handleErrors } = require('./helpers')
 
-const { errors: { DuplicityError, ContentError, UploadError } } = require('com')
-
-module.exports = (req, res) => {
-
-    try {
-        const { file, fileName } = req.body
-        uploadMedia(file, fileName)
-            // happy path 😄
-            .then(response => res.status(201).json(response))
-            // unhappy path 😢
-            .catch(error => {
-                let status = 500
-
-                if (error instanceof DuplicityError)
-                    status = 409
-                else if (error instanceof UploadError)
-                    status = 400 // 400 for Bad Request, but you can adjust this
-
-                res.status(status).json({ error: error.message })
-            })
-    } catch (error) {
-        let status = 500
-
-        if (error instanceof TypeError || error instanceof ContentError || error instanceof RangeError)
-            status = 406
-
-        res.status(status).json({ error: error.message })
-    }
-}
+module.exports = handleErrors((req, res) => {
+    const userId = extractUserId(req)
+    const { filePath, fileName } = req.body
+    return uploadMedia(userId, filePath, fileName).then(() => res.status(201).send())
+})
