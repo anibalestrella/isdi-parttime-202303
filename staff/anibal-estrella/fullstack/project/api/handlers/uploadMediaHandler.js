@@ -1,8 +1,23 @@
-const { uploadMedia } = require('../logic')
-const { extractUserId, handleErrors } = require('./helpers')
+// const { uploadMedia } = require('../logic')
+// const { extractUserId, handleErrors } = require('./helpers')
 
-module.exports = handleErrors((req, res) => {
-    const userId = extractUserId(req)
-    const { filePath, fileName } = req.body
-    return uploadMedia(userId, filePath, fileName).then(() => res.status(201).send())
-})
+// module.exports = handleErrors((req, res) => {
+//     const userId = extractUserId(req)
+//     const { files } = req.body
+//     return uploadMedia(files).then(() => res.status(201).send())
+// })
+
+const { uploadMedia } = require('../logic');
+const { extractUserId, handleErrors } = require('./helpers');
+
+module.exports = handleErrors(async (req, res) => {
+    const userId = extractUserId(req);
+    const { files } = req.body;
+
+    try {
+        const results = await uploadMedia(files);
+        res.status(201).json(results);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});

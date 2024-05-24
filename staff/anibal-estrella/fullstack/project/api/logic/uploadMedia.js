@@ -1,7 +1,11 @@
-const fs = require('fs')
+const fs = require('fs');
 const ImageKit = require("imagekit");
 
-// You can initialize ImageKit here or in your main application.
+const {
+    errors: { ExistenceError, ContentError },
+    validators: { validateText, validateId }
+} = require('com');
+
 
 const imagekit = new ImageKit({
     publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -9,27 +13,47 @@ const imagekit = new ImageKit({
     urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT
 });
 
+const uploadMedia = async (files) => {
+    if (files.length > 5) {
+        return Promise.reject(new Error("Exceeded maximum number of files. Maximum allowed: 5"));
+    }
 
-/**
- * Function to upload media file to ImageKit service
- * @param {string} filePath - Path to the media file
- * @param {string} fileName - Name of the file
- * @returns {Promise<Object>} - A Promise that resolves with the upload result or rejects with an error
- */
+    const uploadPromises = files.map(({ file }) => {
+        return new Promise((resolve, reject) => {
+            try {
+                const base64Image = file.file.split(',')[1]; // Extract base64 string
+                const name = file.fileName
+                const fileSizeInBytes = Buffer.byteLength(base64Image, 'base64');
+                const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
+                if (fileSizeInMegabytes > 25) {
+                    return reject(new Error('File exceeds the maximum file size of 25 MB'));
+                }
 
-const uploadMedia = (filePath, fileName) => {
-    return new Promise((resolve, reject) => {
-        const fileData = fs.readFileSync(filePath);
-        const base64Image = fileData.toString('base64'); // Convert buffer to base64
+                imagekit.upload({
+                    file: base64Image,
+                    fileName: name
+                }, (error, result) => {
+                    if (error) {
+                        return reject(error);
+                    } else {
+                        console.log(result);
+                        resolve(result);
+                    }
+                });
 
-        imagekit.upload({
-            file: base64Image, // Base64 encoded string
-            fileName: fileName
-        }, function (error, result) {
-            if (error) reject(error);
-            else resolve(result);
+            } catch (error) {
+                reject(error);
+
+            }
         });
     });
+
+    try {
+        const results = await Promise.all(uploadPromises);
+        return results;
+    } catch (error) {
+        throw new Error(`Error uploading files: ${error.message}`);
+    }
 };
 
 module.exports = uploadMedia;

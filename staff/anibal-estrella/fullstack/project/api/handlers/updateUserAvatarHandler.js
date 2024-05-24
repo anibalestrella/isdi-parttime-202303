@@ -3,7 +3,7 @@ const { extractUserId, handleErrors } = require('./helpers')
 
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
-    const { avatar } = req.body
+    const { imageUrl } = req.body
 
-    return updateUserAvatar(userId, avatar).then(() => res.status(201).send())
+    return updateUserAvatar(userId, imageUrl).then(() => res.status(201).send())
 })

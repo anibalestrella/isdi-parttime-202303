@@ -50,11 +50,10 @@ mongoose.connect(process.env.MONGODB_URL)
 
         const api = express()
 
-        const jsonBodyParser = bodyParser.json()
+        const jsonBodyParser = bodyParser.json({ limit: '50mb' });
 
         api.use(cors())
 
-        // Serve static files from the 'assets' directory
         api.use('/assets', express.static('assets'));
 
         api.get('/', helloApiHandler)
@@ -75,13 +74,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/user-password', jsonBodyParser, updateUserPasswordHandler)
 
-        // api.post('/users/auth-password', jsonBodyParser, authUserPasswordHandler)
-
         api.patch('/users/user-avatar', jsonBodyParser, updateUserAvatarHandler)
 
+        api.patch('/users/upload-media', jsonBodyParser, uploadMediaHandler)
 
-        api.post('/add-artist', jsonBodyParser, addArtistHandler)
-
+        // api.post('/add-artist', jsonBodyParser, addArtistHandler)
 
         // api.post('/create-event', jsonBodyParser, createEventHandler)
 

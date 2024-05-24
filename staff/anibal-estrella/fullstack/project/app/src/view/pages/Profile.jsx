@@ -1,4 +1,5 @@
 import { useAppContext } from "../hooks"
+// import { IKContext, IKUpload } from 'imagekitio-react'
 
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import {
     retrieveUser,
     isUserLoggedIn,
     updateUserProfile,
+    updateUserAvatar,
     context
 } from "../../logic/users"
 
@@ -36,7 +38,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         }
     );
 
-    const [avatar, setAvatar] = useState(user.avatar || "");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showAuthPassword, setShowAuthPassword] = useState(false);
     const [formChanged, setFormChanged] = useState(false);
@@ -47,6 +48,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             retrieveUser()
                 .then(user => {
                     setUser(user);
+                    setUserAvatarImage(user.avatar);
                     setUserUpdate({
                         userNewName: user.name,
                         userNewNickName: user.nickName,
@@ -181,18 +183,32 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
     }
 
 
+    const [userAvatarImage, setUserAvatarImage] = useState(user.avatar || "");
 
     const handleAvatarChange = (event) => {
-        console.log('AVATAAARRR!');
-        const files = event.target.files;
-        if (files.length > 0) { // Check if files array is not empty
-            const file = files[0]; // Get the first file from the input
-            const reader = new FileReader();
+        // console.log(event.target.files[0].name)
+        const [file] = event.target.files
 
+        const reader = new FileReader()
+        reader.onloadend = async () => {
+            const image = {
+                file: reader.result, // Base64 encoded string
+                fileName: file.name
+            }
+            // console.log(reader.result);
+            console.log(image);
+            setUserAvatarImage(image)
 
-
-            reader.readAsDataURL(file); // Read the file as a data URL
+            try {
+                freeze()
+                await updateUserAvatar(image)
+                unfreeze()
+            } catch (error) {
+                unfreeze()
+                alert(error.message)
+            }
         }
+        reader.readAsDataURL(file)
     }
 
 
@@ -213,21 +229,20 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     </p>
                     {user &&
                         <form action="" onSubmit={handleFormSubmit}>
-
-
                             <div id='user-avatar' className="flex flex-col">
                                 <h3 >Avatar:</h3>
-
                                 <div className='flex flex-row  items-center my-4'>
-                                    <img className="h-28 w-28  object-cover rounded-full  border-2 border-solid transition duration-150  mr-2  bg-gray-200 " src={user.avatar} alt={user.avatar} />
+                                    <img className="h-28 w-28  object-cover rounded-full  border-2 border-solid transition duration-150  mr-2  bg-gray-200 " src={userAvatarImage} alt='avatar image' />
                                     <div className="grid grid-flow-row">
 
                                         <label htmlFor='avatar' >
                                             <input
+                                                // label={avatarImageName}
                                                 onChange={handleAvatarChange}
                                                 type='file'
                                                 id='avatar'
-                                                accept="image/png, image/gif, image/jpg, .png, .jpg, .jpeg"
+                                                name='avatar'
+                                                accept="image/*"
                                                 className='
                                                     max-w-fit
                                                     h-11    
@@ -252,7 +267,11 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                                     active:bg-gray-100
                                                     '/>
                                         </label>
-                                        <Button type="button" className={'max-w-fit place-self-middle'}>Change</Button>
+                                        <Button
+                                            type="button"
+                                            className={'max-w-fit place-self-middle'}
+                                            onClick={handleAvatarChange}
+                                        >Change</Button>
 
                                     </div>
 

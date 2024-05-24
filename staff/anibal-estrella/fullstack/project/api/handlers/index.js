@@ -6,7 +6,6 @@ module.exports = {
     authenticateUserEmailHandler: require('./authenticateUserEmailHandler'),
     authenticateUserHandler: require('./authenticateUserHandler'),
     retrieveUserHandler: require('./retrieveUserHandler'),
-    uploadMediaHandler: require('./uploadMediaHandler'),
     createEventHandler: require('./createEventHandler'),
     updateUserNameHandler: require('./updateUserNameHandler'),
     updateUserNickNameHandler: require('./updateUserNickNameHandler'),
@@ -14,6 +13,7 @@ module.exports = {
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     addArtistHandler: require('./addArtistHandler'),
+    uploadMediaHandler: require('./uploadMediaHandler')
     // authUserPasswordHandler: require('./authUserPasswordHandler'),
 
 }
