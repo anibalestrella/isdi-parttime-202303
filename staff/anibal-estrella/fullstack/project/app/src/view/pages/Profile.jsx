@@ -124,16 +124,56 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     alert(`${userNewProfileValues.userCurrentName.toUpperCase()}, no changes were made to your profile.`);
                 }
 
-                navigate('/profile', { replace: true });
+                const updatedUser = {
+                    name: userNewProfileValues.userNewName || user.name,
+                    nickName: userNewProfileValues.userNewNickName || user.nickName,
+                    email: userNewProfileValues.userNewEmail || user.email,
+                    avatar: userNewProfileValues.userNewAvatar || user.avatar
+                };
+
+                setUser(updatedUser);
+                setUserUpdate({
+                    userNewName: updatedUser.name,
+                    userNewNickName: updatedUser.nickName,
+                    userNewEmail: updatedUser.email,
+                    userNewPassword: '',
+                    userNewPasswordConfirm: '',
+                    userNewAvatar: '',
+                    userNewEmailConfirm: '',
+                    userCurrentEmail: updatedUser.email
+                });
+                setUserAvatarImagePreview(updatedUser.avatar);
+
+                // navigate('/profile', { replace: true });
 
             } catch (error) {
-                unfreeze();
+                unfreeze()
                 alert(error.message);
+
+                setUserUpdate(getInitialUserUpdateState(user))
+                setUserAvatarImagePreview(user.avatar)
+                setFormChanged(false);
+
             }
-
-
         }
     }
+
+    const getInitialUserUpdateState = (user) => ({
+        userNewName: user.name,
+        userNewNickName: user.nickName,
+        userNewEmail: user.email,
+        userNewPassword: '',
+        userNewPasswordConfirm: '',
+        userNewAvatar: '',
+        userNewEmailConfirm: '',
+        userCurrentEmail: user.email
+    });
+
+    const handleCancel = () => {
+        setUserUpdate(getInitialUserUpdateState(user));
+        setUserAvatarImagePreview(user.avatar);
+        setFormChanged(false);
+    };
 
     const handleAvatarChange = async (event) => {
         const file = event.target.files[0];
@@ -160,7 +200,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             { name: 'Password', current: null, new: event.target.userNewPassword.value },
             { name: 'EmailConfirm', current: null, new: event.target.userNewEmailConfirm.value },
             { name: 'PasswordConfirm', current: null, new: event.target.userNewPasswordConfirm.value },
-            { name: 'Avatar', current: avatarCurrentObject.file, new: userAvatarImagePreview }
+            { name: 'Avatar', current: avatarCurrentObject.file, new: event.target.userNewAvatar.value }
         ];
 
         propertiesToCheck.forEach(property => {
@@ -201,20 +241,18 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
 
                                         <label htmlFor='avatar' >
                                             <input
-                                                // label={avatarImageName}
-                                                // onChange={handleAvatarChange}
                                                 onChange={handleInputChange}
                                                 type='file'
                                                 name='userNewAvatar'
                                                 accept="image/*"
+                                                value={userUpdate.userNewAvatar}
+
                                                 className='
                                                     max-w-fit
                                                     h-11    
                                                     text-sm
                                                     pl-0
-                                                    font-normal
                                                     file:h-11
-                                                    file:font-normal 
                                                     file:mr-4
                                                     file:py-2
                                                     file:px-4
@@ -231,11 +269,6 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                                     active:bg-gray-100
                                                     '/>
                                         </label>
-                                        <Button
-                                            type="button"
-                                            className={'max-w-fit place-self-middle'}
-                                            onClick={handleAvatarChange}
-                                        >Change</Button>
 
                                     </div>
 
@@ -289,6 +322,8 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                         name="userNewEmailConfirm"
                                         placeholder="Confirm New Email"
                                         onChange={handleInputChange}
+                                        value={userUpdate.userNewEmailConfirm}
+
                                         autoComplete="off" />
                                 </div>
 
@@ -320,7 +355,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                 </div>
                                 <div className="grid grid-flow-col w-full  col-span-2 place-content-center gap-2">
 
-                                    <Button type="button" className={`max-w-fit  ${formChanged ? 'button-cancel  hover:button-cancel-hover' : ' hidden'}`} disabled={!formChanged} onClick={onCancel}>
+                                    <Button type="button" className={`max-w-fit  ${formChanged ? 'button-cancel  hover:button-cancel-hover' : ' hidden'}`} disabled={!formChanged} onClick={handleCancel}>
                                         cancel
                                     </Button>
 

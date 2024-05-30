@@ -60,7 +60,7 @@ export default async (userCurrentName, userCurrentEmail, userCurrentNickName, us
 
 
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error.message)
     }
 
     return changes

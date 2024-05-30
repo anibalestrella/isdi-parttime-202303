@@ -4,13 +4,12 @@ import context from "./context"
 
 const updateUserAvatar = async (files) => {
     validateToken(context.token, 'Session Token');
-    debugger
+
     files.map((file, index) => {
         return validateFileUpload(file);
     })
 
     try {
-        // const formData = new FormData();
         const response = await fetch(`${import.meta.env.VITE_API_URL}/users/upload-media`, {
             method: 'PATCH',
             headers: {
@@ -25,7 +24,7 @@ const updateUserAvatar = async (files) => {
         else {
             console.log(response)
         }
-        debugger
+
         const responseData = await response.json();
         const imageUrl = responseData[0].url
 
@@ -44,7 +43,7 @@ const updateUserAvatar = async (files) => {
 
         console.log('Avatar updated successfully');
     } catch (error) {
-        console.error('Error updating avatar:', error);
+        console.error('Error updating avatar: ', + error.message);
     }
 };
 
