@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks'
-import { handleKeyPress } from '../../logic/utilities/keyPressUtils'
+import { keyPressUtils } from '../../logic/utilities'
 
 
 import searchArtist from '../../logic/searchArtist'
@@ -77,7 +77,7 @@ const SearchArtist = () => {
 
                 <input type="text" value={artistName}
                     onChange={handleInputChange}
-                    onKeyDown={(event) => handleKeyPress(event, handleRetrieveArtistsList)}
+                    onKeyDown={(event) => keyPressUtils(event, handleRetrieveArtistsList)}
                     placeholder="Enter artist name"
                     className='pl-4 w-full block '
                 />

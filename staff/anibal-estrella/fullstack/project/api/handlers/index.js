@@ -14,6 +14,5 @@ module.exports = {
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     addArtistHandler: require('./addArtistHandler'),
     uploadMediaHandler: require('./uploadMediaHandler')
-    // authUserPasswordHandler: require('./authUserPasswordHandler'),
 
 }

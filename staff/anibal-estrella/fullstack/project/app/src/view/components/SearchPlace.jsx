@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks'
-import { handleKeyPress } from '../../logic/utilities/keyPressUtils'
+import { keyPressUtils } from '../../logic/utilities'
 
 
 import searchPlace from '../../logic/searchPlace';
@@ -50,7 +50,7 @@ const SearchPlace = () => {
                     type="text"
                     value={placeName}
                     onChange={handleInputChange}
-                    onKeyDown={(event) => handleKeyPress(event, handleSearchPlaces)}
+                    onKeyDown={(event) => keyPressUtils(event, handleSearchPlaces)}
                     placeholder="Enter place name" />
                 <span className='absolute top-3 right-3 h-6 w-6 rounded-full cursor-pointer'>
                     <MagnifyingGlassIcon className='text-gray-500 ' />

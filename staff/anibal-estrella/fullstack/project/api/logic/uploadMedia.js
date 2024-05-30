@@ -3,7 +3,7 @@ const ImageKit = require("imagekit");
 
 const {
     errors: { ExistenceError, ContentError },
-    validators: { validateText, validateId }
+    validators: { validateText, validateId, validateFileUpload }
 } = require('com');
 
 
@@ -18,7 +18,12 @@ const uploadMedia = async (files) => {
         return Promise.reject(new Error("Exceeded maximum number of files. Maximum allowed: 5"));
     }
 
-    const uploadPromises = files.map(({ file }) => {
+    debugger
+
+    const uploadPromises = files.map((file, index) => {
+
+        validateFileUpload(file);
+
         return new Promise((resolve, reject) => {
             try {
                 const base64Image = file.file.split(',')[1]; // Extract base64 string

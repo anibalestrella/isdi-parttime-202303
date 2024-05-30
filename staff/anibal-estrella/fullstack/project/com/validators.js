@@ -193,41 +193,68 @@ function validateToken(token, explain = 'token') {
 
 
 /**
- * validates an uploaded file
- * @param {string} fileInfo the file Info to validate
-*/
-const fs = require('fs');
+ * Validates an uploaded file.
+ * @param {Object} fileObject - The file information to validate.
+ * @param {string} [explain='file'] - Explanation for the error message if the file is missing.
+ * @returns {boolean} - Returns true if the file is valid, otherwise false.
+ * @throws {Error} - Throws an error if the file is missing or has an invalid format.
+ */
 
-function validateFileUpload(fileInfo, explain = 'file') {
-    if (!fileInfo) {
+function validateFileUpload(fileObject, explain = 'file') {
+    if (!fileObject) {
         throw new Error(`${explain} is missing`);
     }
 
-    if (!fileInfo.filePath || !fileInfo.fileName) {
-        throw new Error(`${explain} is invalid`);
+    if (typeof fileObject !== 'object') {
+        throw new ContentError(`${explain} is is not a valid format, object: ${typeof fileObject}`);
     }
 
-    const stats = fs.statSync(fileInfo.filePath);
-    const fileSizeInBytes = stats.size;
-    const fileSizeInMegabytes = fileSizeInBytes / (1024 * 1024);
 
-    if (fileSizeInMegabytes > 25) {
-        throw new Error(`${fileInfo.fileName} exceeds the maximum file size of 25 MB`);
+    const maxSizeInMB = 25;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+    const videoExtensions = ['mp4', 'avi', 'mov', 'wmv', 'mkv'];
+    const audioExtensions = ['mp3', 'wav', 'ogg', 'flac'];
+    const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp"];
+    const validImageMimeTypes = ["image/jpeg", "image/png", "image/gif", "image/bmp", "image/webp"];
+    const fileName = fileObject.fileName;
+    const fileExtension = fileObject.fileName.split('.').pop().toLowerCase();
+
+    // Check if 'file' and 'fileName' properties exist
+    if (!fileObject.hasOwnProperty('file') || !fileObject.hasOwnProperty('fileName')) {
+        throw new TypeError(`${fileName} must be valid file`);
     }
 
-    // Supported file extensions for video, audio, and image formats
-    const videoExtensions = ['.mp4', '.avi', '.mov', '.wmv', '.mkv'];
-    const audioExtensions = ['.mp3', '.wav', '.ogg', '.flac'];
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
 
-    const fileExtension = fileInfo.fileName.split('.').pop().toLowerCase();
-
+    // Check if the file extension is valid
     if (
         !videoExtensions.includes(fileExtension) &&
         !audioExtensions.includes(fileExtension) &&
         !imageExtensions.includes(fileExtension)
     ) {
-        throw new Error(`${fileInfo.fileName} must be a video, audio, or image file`);
+        throw new TypeError(`${fileObject.fileName} must be valid file`);
+    }
+
+    // Check if 'file' is a valid base64 string with a valid image mime type
+    const fileMatch = fileObject.file.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,([A-Za-z0-9+/=]+)$/);
+    if (!fileMatch) {
+        throw new TypeError(`${fileObject.fileName} must be valid file`);
+    }
+
+    const mimeType = fileMatch[1];
+    const base64Data = fileMatch[2];
+
+    // Check the mime type
+    if (!validImageMimeTypes.includes(mimeType)) {
+        throw new TypeError(`${fileObject.fileName} must be valid file`);
+    }
+
+    // Check the size of the base64 string
+    const base64Length = base64Data.length;
+    const padding = (base64Data.endsWith('==') ? 2 : (base64Data.endsWith('=') ? 1 : 0));
+    const sizeInBytes = (base64Length * 3 / 4) - padding;
+
+    if (sizeInBytes > maxSizeInBytes) {
+        throw new ContentError(`${fileObject.fileName} is larger than ${maxSizeInBytes} bytes`);
     }
 
 }

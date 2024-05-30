@@ -1,61 +1,71 @@
+import { useAppContext } from "../hooks"
+// import { IKContext, IKUpload } from 'imagekitio-react'
+
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useAppContext } from "../hooks"
 import { Button } from '../library'
 import { AuthPassword } from '../components'
-import { createBase64ImageObject } from '../../logic/utilities'
+
 import {
     retrieveUser,
     isUserLoggedIn,
     updateUserProfile,
-    updateUserAvatar
+    updateUserAvatar,
+    context
 } from "../../logic/users"
 
 const Profile = ({ onOk, onPanelClick, onCancel }) => {
-    const { alert, freeze, unfreeze, navigate } = useAppContext()
+    const { alert, freeze, unfreeze, useNavigate, navigate } = useAppContext()
+
+    console.debug('/// Profile  -> Render')
 
     const [user, setUser] = useState({
         name: '',
         nickName: '',
         email: '',
-        avatar: ''
     })
 
-    const [userUpdate, setUserUpdate] = useState({
-        userNewName: '',
-        userNewNickName: '',
-        userNewEmail: '',
-        userNewEmailConfirm: '',
-        userNewPassword: '',
-        userNewPasswordConfirm: '',
-        userNewAvatar: '',
-        userCurrentEmail: ''
-    });
+    const [userUpdate, setUserUpdate] = useState(
+        {
+            userNewName: '',
+            userNewNickName: '',
+            userNewEmail: '',
+            userNewEmailConfirm: '',
+            userNewPassword: '',
+            userNewPasswordConfirm: '',
+            userNewAvatar: '',
+            userCurrentEmail: ''
+        }
+    );
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showAuthPassword, setShowAuthPassword] = useState(false);
     const [formChanged, setFormChanged] = useState(false);
-    const [userAvatarImagePreview, setUserAvatarImagePreview] = useState("");
+    const [userAvatarImagePreview, setUserAvatarImagePreview] = useState(user.avatar || "");
     const [avatarObject, setAvatarObject] = useState(null);
-    const [formEvent, setFormEvent] = useState(null);
+
 
     useEffect(() => {
-        retrieveUser()
-            .then(user => {
-                setUser(user);
-                setUserAvatarImagePreview(user.avatar);
-                setUserUpdate({
-                    userNewName: user.name,
-                    userNewNickName: user.nickName,
-                    userNewEmail: user.email,
-                    userNewPasswordConfirm: '',
-                    userNewPassword: '',
-                    userCurrentEmail: user.email,
-                    userCurrentAvatar: user.avatar
-                });
-            })
-            .catch(error => alert(error.message));
-    }, [alert]);
+        try {
+            retrieveUser()
+                .then(user => {
+                    setUser(user);
+                    setUserAvatarImagePreview(user.avatar);
+                    setUserUpdate({
+                        userNewName: user.name,
+                        userNewNickName: user.nickName,
+                        userNewEmail: user.email,
+                        userNewPasswordConfirm: '',
+                        userNewPassword: '',
+                        userCurrentEmail: user.email,
+                        userCurrentAvatar: user.avatar
+                    });
+                })
+                .catch(error => alert(error.message));
+        } catch (error) {
+            alert(error.message);
+        }
+    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -64,10 +74,10 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             [name]: value
         }));
         setFormChanged(true);
-        if (name === 'userNewAvatar') {
-            handleAvatarChange(event);
-        }
+        handleAvatarChange(event)
     }
+
+    const [formEvent, setFormEvent] = useState(null);
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -76,22 +86,62 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
     }
 
     const handleAuthPassword = (isAuthenticated) => {
+        console.log(isAuthenticated)
         if (isAuthenticated) {
             handleUpdateUserProfile(formEvent, isAuthenticated)
         }
     }
 
     const handleUpdateUserProfile = async (event, isAuthenticated) => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const userNewProfileValues = await getUserNewValues(user, event, userAvatarImagePreview);
+        function getUserNewValues(user) {
+            const userNewValues = {}
+
+            const propertiesToCheck = [
+                { name: 'Name', current: user.name, new: event.target.userNewName.value },
+                { name: 'NickName', current: user.nickName, new: event.target.userNewNickName.value },
+                { name: 'Email', current: user.email, new: event.target.userNewEmail.value },
+                { name: 'Password', current: null, new: event.target.userNewPassword.value },
+                { name: 'EmailConfirm', current: null, new: event.target.userNewEmailConfirm.value },
+                { name: 'PasswordConfirm', current: null, new: event.target.userNewPasswordConfirm.value },
+                { name: 'avatar', current: user.avatar, new: userAvatarImagePreview },
+
+            ];
+
+            propertiesToCheck.forEach(property => {
+                if (property.current !== null)
+                    userNewValues['userCurrent' + property.name] = property.current;
+
+                if (property.current !== property.new) {
+                    userNewValues['userNew' + property.name] = property.new;
+                } else {
+                    userNewValues['userNew' + property.name] = null;
+                }
+            });
+
+            return userNewValues;
+        }
+
+        const userNewProfileValues = getUserNewValues(user);
+
 
         if (isAuthenticated) {
             setShowAuthPassword(false);
 
             try {
-                await isUserLoggedIn();
-                freeze();
+                await isUserLoggedIn()
+                setUserUpdate({
+                    userNewName: user.name,
+                    userNewNickName: user.nickName,
+                    userNewEmail: user.email,
+                    userNewEmailConfirm: '',
+                    userNewPassword: '',
+                    userNewPasswordConfirm: '',
+                    userNewAvatar: user.avatar
+                });
+
+                freeze()
 
                 const profileChanges = await updateUserProfile(
                     userNewProfileValues.userCurrentName,
@@ -103,14 +153,13 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     userNewProfileValues.userNewEmailConfirm,
                     userNewProfileValues.userNewPassword,
                     userNewProfileValues.userNewPasswordConfirm,
-                    userNewProfileValues.userCurrentAvatar,
-                    userNewProfileValues.userNewAvatar,
-                    avatarObject
+                    userNewProfileValues.userNewAvatar
                 );
 
-                unfreeze();
+                unfreeze()
 
                 setFormChanged(false);
+
 
                 let alertMessage = `Your profile updated successfully: `
 
@@ -119,63 +168,50 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                         alertMessage += ` · New ${change}`;
                     });
 
-                    alert(alertMessage);
+                    alert(alertMessage)
                 } else {
-                    alert(`${userNewProfileValues.userCurrentName.toUpperCase()}, no changes were made to your profile.`);
+                    alert(userNewProfileValues.userCurrentName.toUpperCase() + `, 
+                        no changes were made to your profile.`)
                 }
 
                 navigate('/profile', { replace: true });
 
             } catch (error) {
-                unfreeze();
-                alert(error.message);
+                unfreeze()
+                alert(error.message)
             }
+            // avatar change
+            try {
+                freeze()
 
-
+                await updateUserAvatar([avatarObject]);
+                unfreeze()
+            } catch (error) {
+                unfreeze()
+                alert(error.message)
+            }
         }
     }
 
-    const handleAvatarChange = async (event) => {
-        const file = event.target.files[0];
 
-        try {
-            const avatarObject = await createBase64ImageObject(file);
-            setUserAvatarImagePreview(avatarObject.file);
-            setAvatarObject(avatarObject);
-            console.log('Avatar object:', avatarObject);
-        } catch (error) {
-            console.error('Error converting file to base64:', error);
-        }
-    };
+    const handleAvatarChange = (event) => {
+        const [file] = event.target.files
 
-    async function getUserNewValues(user, event, userAvatarImagePreview) {
-        const avatarCurrentObject = await createBase64ImageObject(user.avatar);
-
-        const userNewValues = {}
-
-        const propertiesToCheck = [
-            { name: 'Name', current: user.name, new: event.target.userNewName.value },
-            { name: 'NickName', current: user.nickName, new: event.target.userNewNickName.value },
-            { name: 'Email', current: user.email, new: event.target.userNewEmail.value },
-            { name: 'Password', current: null, new: event.target.userNewPassword.value },
-            { name: 'EmailConfirm', current: null, new: event.target.userNewEmailConfirm.value },
-            { name: 'PasswordConfirm', current: null, new: event.target.userNewPasswordConfirm.value },
-            { name: 'Avatar', current: avatarCurrentObject.file, new: userAvatarImagePreview }
-        ];
-
-        propertiesToCheck.forEach(property => {
-            if (property.current !== null)
-                userNewValues['userCurrent' + property.name] = property.current;
-
-            if (property.current !== property.new) {
-                userNewValues['userNew' + property.name] = property.new;
-            } else {
-                userNewValues['userNew' + property.name] = null;
+        const reader = new FileReader()
+        reader.onloadend = async () => {
+            const avatarObject = {
+                file: reader.result,
+                fileName: file.name
             }
-        });
+            setUserAvatarImagePreview(reader.result)
+            setAvatarObject(avatarObject)
+            console.log(`avatar object: ${avatarObject}` + avatarObject)
 
-        return userNewValues;
+        }
+        reader.readAsDataURL(file)
     }
+
+
 
     return (
         <div className='px-3 pt-6'>

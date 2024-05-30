@@ -2,7 +2,7 @@ import { saveUser, findUserById } from '../../data'
 import { validators } from 'com'
 import context from "./context"
 const { validateToken, validateId, validateName, validateNickName } = validators
-import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword, loginUser } from '../../logic/users/'
+import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword, updateUserAvatar } from '../../logic/users/'
 
 /**
  * updateUserProfile:
@@ -23,7 +23,7 @@ import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword
  * 
  */
 
-export default async (userCurrentName, userCurrentEmail, userCurrentNickName, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, userNewPassword, userNewPasswordConfirm) => {
+export default async (userCurrentName, userCurrentEmail, userCurrentNickName, userNewName, userNewNickName, userNewEmail, userNewEmailConfirm, userNewPassword, userNewPasswordConfirm, userCurrentAvatar, userNewAvatar, avatarObject) => {
     validateToken(context.token, 'Session Token');
 
     const changes = [];
@@ -50,6 +50,12 @@ export default async (userCurrentName, userCurrentEmail, userCurrentNickName, us
             if (userNewPassword !== !userNewPassword) {
                 await updateUserPassword(userNewPassword, userNewPasswordConfirm)
                 changes.push(`Password`);
+            }
+
+        if (userNewAvatar)
+            if (userNewAvatar !== !userNewAvatar) {
+                await updateUserAvatar([avatarObject])
+                changes.push(`Avatar`);
             }
 
 
