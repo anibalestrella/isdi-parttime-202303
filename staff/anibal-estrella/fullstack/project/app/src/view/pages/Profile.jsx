@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+// import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAppContext } from "../hooks"
 import { Button } from '../library'
 import { AuthPassword } from '../components'
@@ -7,11 +7,10 @@ import { createBase64ImageObject } from '../../logic/utilities'
 import {
     retrieveUser,
     isUserLoggedIn,
-    updateUserProfile,
-    updateUserAvatar
+    updateUserProfile
 } from "../../logic/users"
 
-const Profile = ({ onOk, onPanelClick, onCancel }) => {
+export default function Profile({ onOk, onPanelClick, onCancel }) {
     const { alert, freeze, unfreeze, navigate } = useAppContext()
 
     const [user, setUser] = useState({
@@ -32,12 +31,11 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         userCurrentEmail: ''
     });
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [showAuthPassword, setShowAuthPassword] = useState(false);
-    const [formChanged, setFormChanged] = useState(false);
-    const [userAvatarImagePreview, setUserAvatarImagePreview] = useState("");
-    const [avatarObject, setAvatarObject] = useState(null);
-    const [formEvent, setFormEvent] = useState(null);
+    const [showAuthPassword, setShowAuthPassword] = useState(false)
+    const [formChanged, setFormChanged] = useState(false)
+    const [userAvatarImagePreview, setUserAvatarImagePreview] = useState("")
+    const [avatarObject, setAvatarObject] = useState(null)
+    const [formEvent, setFormEvent] = useState(null)
 
     useEffect(() => {
         retrieveUser()
@@ -51,11 +49,12 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     userNewPasswordConfirm: '',
                     userNewPassword: '',
                     userCurrentEmail: user.email,
-                    userCurrentAvatar: user.avatar
+                    userCurrentAvatar: user.avatar,
+                    userNewAvatar: '',
                 });
             })
             .catch(error => alert(error.message));
-    }, [alert]);
+    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -65,14 +64,14 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         }));
         setFormChanged(true);
         if (name === 'userNewAvatar') {
-            handleAvatarChange(event);
+            handleAvatarChange(event)
         }
     }
 
     const handleFormSubmit = (event) => {
-        event.preventDefault();
-        setFormEvent(event);
-        setShowAuthPassword(true);
+        event.preventDefault()
+        setFormEvent(event)
+        setShowAuthPassword(true)
     }
 
     const handleAuthPassword = (isAuthenticated) => {
@@ -82,16 +81,16 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
     }
 
     const handleUpdateUserProfile = async (event, isAuthenticated) => {
-        event.preventDefault();
+        event.preventDefault()
 
-        const userNewProfileValues = await getUserNewValues(user, event, userAvatarImagePreview);
+        const userNewProfileValues = await getFormNewValues(user, event)
 
         if (isAuthenticated) {
-            setShowAuthPassword(false);
+            setShowAuthPassword(false)
 
             try {
-                await isUserLoggedIn();
-                freeze();
+                await isUserLoggedIn()
+                freeze()
 
                 const profileChanges = await updateUserProfile(
                     userNewProfileValues.userCurrentName,
@@ -129,9 +128,10 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     nickName: userNewProfileValues.userNewNickName || user.nickName,
                     email: userNewProfileValues.userNewEmail || user.email,
                     avatar: userNewProfileValues.userNewAvatar || user.avatar
-                };
+                }
+                console.log(updatedUser);
+                setUser(updatedUser)
 
-                setUser(updatedUser);
                 setUserUpdate({
                     userNewName: updatedUser.name,
                     userNewNickName: updatedUser.nickName,
@@ -141,10 +141,9 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                     userNewAvatar: '',
                     userNewEmailConfirm: '',
                     userCurrentEmail: updatedUser.email
-                });
-                setUserAvatarImagePreview(updatedUser.avatar);
+                })
 
-                // navigate('/profile', { replace: true });
+                setUserAvatarImagePreview(user.avatar);
 
             } catch (error) {
                 unfreeze()
@@ -179,17 +178,17 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
         const file = event.target.files[0];
 
         try {
-            const avatarObject = await createBase64ImageObject(file);
-            setUserAvatarImagePreview(avatarObject.file);
-            setAvatarObject(avatarObject);
-            console.log('Avatar object:', avatarObject);
+            const avatarObject = await createBase64ImageObject(file)
+            setUserAvatarImagePreview(avatarObject.file)
+            setAvatarObject(avatarObject)
         } catch (error) {
-            console.error('Error converting file to base64:', error);
+            console.error('Error converting file to base64:', error)
+            alert(error.message)
         }
     };
 
-    async function getUserNewValues(user, event, userAvatarImagePreview) {
-        const avatarCurrentObject = await createBase64ImageObject(user.avatar);
+    async function getFormNewValues(user, event) {
+        const avatarCurrentObject = await createBase64ImageObject(user.avatar)
 
         const userNewValues = {}
 
@@ -207,11 +206,11 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
             if (property.current !== null)
                 userNewValues['userCurrent' + property.name] = property.current;
 
-            if (property.current !== property.new) {
+            if (property.current !== property.new)
                 userNewValues['userNew' + property.name] = property.new;
-            } else {
-                userNewValues['userNew' + property.name] = null;
-            }
+            else
+                userNewValues['userNew' + property.name] = null
+
         });
 
         return userNewValues;
@@ -239,13 +238,15 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                     <img className="h-28 w-28  object-cover rounded-full  border-2 border-solid transition duration-150  mr-2  bg-gray-200 " src={userAvatarImagePreview} alt='avatar image' />
                                     <div className="grid grid-flow-row">
 
-                                        <label htmlFor='avatar' >
+                                        <label htmlFor='userNewAvatar' >
                                             <input
                                                 onChange={handleInputChange}
+                                                value={userUpdate.userNewAvatar}
+
+                                                id='userNewAvatar'
                                                 type='file'
                                                 name='userNewAvatar'
                                                 accept="image/*"
-                                                value={userUpdate.userNewAvatar}
 
                                                 className='
                                                     max-w-fit
@@ -277,11 +278,10 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                             <div id="user-data" className='sm:grid gap-2 grid-cols-2 [&>h3]:col-span-2 [&>h3]:mt-4'>
                                 <h3 >Name:</h3>
                                 <div>
-                                    <label htmlFor="Name">Edit Name:</label>
-
-
+                                    <label htmlFor="userNewName">Edit Name:</label>
                                     <input
                                         type="text"
+                                        id='userNewName'
                                         name="userNewName"
                                         placeholder="Your Name"
                                         autoComplete="off"
@@ -291,22 +291,25 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                 </div>
                                 <div>
 
-                                    <label htmlFor="nickName">Edit nickname:</label>
+                                    <label htmlFor="userNewNickName">Edit nickname:</label>
+
                                     <input type="text"
                                         name="userNewNickName"
+                                        id='userNewNickName'
                                         placeholder="New nickname"
                                         value={userUpdate.userNewNickName}
                                         onChange={handleInputChange}
-                                        autoComplete="off"
-                                    />
+                                        autoComplete="off" />
+
                                 </div>
 
                                 <h3>Email:</h3>
                                 <div>
 
-                                    <label htmlFor="email">Edit email:</label>
+                                    <label htmlFor="userNewEmail">Edit email:</label>
                                     <input type="text"
                                         name="userNewEmail"
+                                        id='userNewEmail'
                                         placeholder="Enter your email"
                                         value={userUpdate.userNewEmail}
                                         onChange={handleInputChange}
@@ -319,12 +322,13 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                     <label htmlFor="userNewEmailConfirm">Confirm new email:</label>
                                     <input
                                         type="text"
+                                        id="userNewEmailConfirm"
                                         name="userNewEmailConfirm"
                                         placeholder="Confirm New Email"
                                         onChange={handleInputChange}
                                         value={userUpdate.userNewEmailConfirm}
-
-                                        autoComplete="off" />
+                                        autoComplete="off"
+                                    />
                                 </div>
 
 
@@ -332,20 +336,21 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                 <div>
                                     <label htmlFor="userNewPassword">New password:</label>
                                     <input
-                                        type="Password"
+                                        type="password"
                                         name="userNewPassword"
-                                        placeholder="new password"
+                                        id='userNewPassword'
+                                        placeholder="New Password"
                                         onChange={handleInputChange}
                                         autoComplete="off"
                                         value={userUpdate.userNewPassword}
-
                                     />
                                 </div>
-                                <div>
 
+                                <div>
                                     <label htmlFor="userNewPasswordConfirm">Confirm new password:</label>
                                     <input
-                                        type="Password"
+                                        type="password"
+                                        id='userNewPasswordConfirm'
                                         name="userNewPasswordConfirm"
                                         placeholder="Confirm new password"
                                         onChange={handleInputChange}
@@ -353,6 +358,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                                         value={userUpdate.userNewPasswordConfirm}
                                     />
                                 </div>
+
                                 <div className="grid grid-flow-col w-full  col-span-2 place-content-center gap-2">
 
                                     <Button type="button" className={`max-w-fit  ${formChanged ? 'button-cancel  hover:button-cancel-hover' : ' hidden'}`} disabled={!formChanged} onClick={handleCancel}>
@@ -384,15 +390,7 @@ const Profile = ({ onOk, onPanelClick, onCancel }) => {
                 <div>
                     <h3>User must be logged</h3>
                 </div>
-            )
-            }
-
-
+            )}
         </div >
-
-
-
-    );
+    )
 };
-
-export default Profile;

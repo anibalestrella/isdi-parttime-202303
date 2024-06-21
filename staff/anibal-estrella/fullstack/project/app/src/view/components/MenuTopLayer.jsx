@@ -11,15 +11,15 @@ export default function MenuTopLayer({ closeMenuTopLayer, items, isUserLoggedIn,
             <ul className="px-4 self-center [&>*]:font-normal [&>*]:text-3xl">
 
                 <MenuItem className="absolute top-2 right-2 cursor-pointer" handleItemClick={closeMenuTopLayer} >
-                    <XCircleIcon className='w-8 h-8' />
+                    <XCircleIcon className='w-8 h-8 hover:text-lime-100' />
                 </MenuItem>
 
-                <MenuItem tag={Link} id="home" className="m-2 text-gray-100" to="/" handleItemClick={closeMenuTopLayer} >
+                <MenuItem tag={Link} id="home" className="m-2 text-gray-100 hover:text-lime-100" to="/" handleItemClick={closeMenuTopLayer} >
                     Home
                 </MenuItem>
 
                 {isUserLoggedIn() ?? (
-                    <MenuItem tag={Link} id="profile" className="m-2 text-gray-100" to="/profile" handleItemClick={closeMenuTopLayer} >
+                    <MenuItem tag={Link} id="profile" className="m-2 text-gray-100" to="/profile hover:text-lime-100" handleItemClick={closeMenuTopLayer} >
                         profile
                     </MenuItem>
                 )}
@@ -29,7 +29,7 @@ export default function MenuTopLayer({ closeMenuTopLayer, items, isUserLoggedIn,
                         key={item.id}
                         tag={Link}
                         id={item.id}
-                        className="m-2 text-gray-100"
+                        className="m-2 text-gray-100 hover:text-lime-100"
                         to={item.link}
                         handleItemClick={item.click ? item.click : closeMenuTopLayer}
                     >

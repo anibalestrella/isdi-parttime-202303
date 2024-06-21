@@ -6,12 +6,14 @@ const {
 const { User } = require('../data-project/models');
 
 /**
+ * API/ updateUserAvatar.js
  * Updates the user's avatar.
  * 
  * @param {string} userId The user's ID
  * @param {string} imageUrl The path to the image image file
  * @returns {Promise<void>}
  */
+
 module.exports = async (userId, imageUrl) => {
     try {
         validateId(userId, 'user id');

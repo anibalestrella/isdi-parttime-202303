@@ -3,7 +3,7 @@ import context from "./context"
 const { validateToken, validateEmail } = validators
 
 /**
- * UpdateUserEmail:
+ * APP/ UpdateUserEmail:
  * Updates the user's email address.
  * 
  * @param {string} userNewEmail - The new email address to be updated for the user.

@@ -4,14 +4,18 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const ImageKit = require("imagekit");
+const ImageKit = require("imagekit")
+const spotifyConfig = require('./config');
+
 
 if (
     !process.env.IMAGEKIT_PUBLIC_KEY ||
     !process.env.IMAGEKIT_PRIVATE_KEY ||
     !process.env.IMAGEKIT_URL_ENDPOINT ||
     !process.env.MONGODB_URL ||
-    !process.env.PORT
+    !process.env.PORT ||
+    !process.env.SPOTIFY_CLIENT_ID ||
+    !process.env.SPOTIFY_CLIENT_SECRET
 ) {
     console.error("Missing required configuration in environment variables.");
     process.exit(1);
@@ -43,6 +47,7 @@ const {
     uploadMediaHandler,
     createEventHandler,
     createEventReviewHandler,
+    searchSpotifyHandler
 } = require('./handlers')
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -78,10 +83,11 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/upload-media', jsonBodyParser, uploadMediaHandler)
 
+
+        api.post('/create-event', jsonBodyParser, createEventHandler)
+
+
         // api.post('/add-artist', jsonBodyParser, addArtistHandler)
-
-        // api.post('/create-event', jsonBodyParser, createEventHandler)
-
         // api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
 
         // api.get('/events', retrieveEventsHandler)
@@ -103,6 +109,16 @@ mongoose.connect(process.env.MONGODB_URL)
         // api.post('/events/:postId/comments', jsonBodyParser, addCommentToEventHandler)
 
         // api.delete('/events/:postId/comments/:commentId', removeCommentFromEventHandler)
+
+        // Spotify search endpoint
+        /**
+         * Endpoint to search Spotify for tracks, artists, or albums.
+         * @param {string} req.query.query - The search query string.
+         * @returns {object} JSON response with search results.
+         */
+        // Spotify search endpoint
+        api.post('/spotify-search', jsonBodyParser, searchSpotifyHandler);
+
 
         api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n////////////// \n eli@gmail.com \n 12341234Ab*`))
 

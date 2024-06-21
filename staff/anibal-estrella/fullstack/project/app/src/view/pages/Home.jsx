@@ -1,31 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { Button } from '../library'
 
 import { useAppContext } from '../hooks'
 import { EventCard, DraggableSlider, HeaderWelcome } from '../components'
 import { isUserLoggedIn, retrieveUser } from '../../logic/users/'
 
-export default ({ city }) => {
+export default function Home({ city, user }) {
     console.debug('// Home  -> Render');
-    const [user, setUser] = useState()
     const items = Array(10).fill(0).map((_, index) => index + 1) //temporary for the cards slider
-    const { alert, confirm, freeze, unfreeze, navigate } = useAppContext(); // Access the context using custom hook
-    // const [showMenuLayer, setShowMenuLayer] = useState(false)
+    const { alert, confirm, freeze, unfreeze, navigate } = useAppContext();
 
-    useEffect(() => {
-        try {
-            if (isUserLoggedIn()) {
-                freeze()
-                retrieveUser()
-                    .then(user => {
-                        setUser(user);
-                    })
-                    .catch(error => alert(error.message))
-            }
-        } catch (error) {
-            alert(error.message)
-        }
-        unfreeze()
-    }, [])
+
 
     return <section id="home" className="px-3 [&>section]:pt-4">
 

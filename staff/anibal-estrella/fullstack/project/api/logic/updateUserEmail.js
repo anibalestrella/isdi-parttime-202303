@@ -6,8 +6,9 @@ const {
 const { User, Post } = require('../data-project/models.js')
 
 /**
- * updateUserEmail.js 
+ * API/ updateUserEmail.js 
  * Updates a user's email profile in the database.
+ * 
  * @param {string} userId - The ID of the user whose email is being updated.
  * @param {string} userNewEmail - The new email address to be set for the user.
  * @param {string} userNewEmailConfirm - The confirmation of the new email address.

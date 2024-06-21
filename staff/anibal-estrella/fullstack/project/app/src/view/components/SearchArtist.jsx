@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAppContext } from '../hooks'
 
-import retrieveIdArtistDetailsFromDiscogs from '../../logic/retrieveIdArtistDetailsFromDiscogs'
+import retrieveIdArtistDetailsFromDiscogs from '../../logic/retrieveArtistIDFromDiscogs'
 import { Button } from '../library'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 

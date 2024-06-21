@@ -15,6 +15,7 @@ module.exports = {
     updateUserAvatar: require('./updateUserAvatar'),
     updateUserEmail: require('./updateUserEmail'),
     uploadMedia: require('./uploadMedia'),
+    searchSpotify: require('./searchSpotify')
     // deleteEvent: require('./deleteEvent'),
     // updateEvent: require('./updateEvent'),
     // toggleLikeEvent: require('./toggleLikeEvent'),

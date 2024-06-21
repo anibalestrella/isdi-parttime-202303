@@ -7,11 +7,12 @@ const { User } = require('../data-project/models')
 const bcrypt = require('bcryptjs')
 
 /** 
- * UPDATE USER NAME
+ * API/ updateUserNickName.js
+ * Updates the user's nickname.
  *
- * @param {*} userId
- * @param {*} userNewNickName
- * @returns
+ * @param {string} userId - The user's ID.
+ * @param {string} userNewNickName - The user's desired new nickname.
+ * @throws {Error} - Throws an error if validation fails, user doesn't exist, or new nickname is the same as the old one.
  */
 
 module.exports = async (userId, userNewNickName) => {

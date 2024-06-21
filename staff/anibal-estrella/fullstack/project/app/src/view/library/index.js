@@ -6,6 +6,7 @@ import ButtonAction from './ButtonAction'
 import PanelBackground from './PanelBackground'
 import PanelBackgroundClose from './PanelBackgroundClose'
 import MenuItem from './MenuItem'
+import ToggleButtons from './ToggleButtons'
 
 export {
     Loader,
@@ -15,5 +16,6 @@ export {
     TopLine,
     PanelBackground,
     PanelBackgroundClose,
-    MenuItem
+    MenuItem,
+    ToggleButtons
 }

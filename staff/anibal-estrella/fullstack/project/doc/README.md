@@ -66,6 +66,9 @@ https://github.com/users/anibalestrella/projects/1
 ### Epics & Stories
 #### Access Control
 - Me as a user, I want to register my credentials and access with them to the App
+#### User Registration and Profile Management
+- As a user, I want to be able to register with my email, nickname, and password.
+- As a user, I want to be able to edit my profile details such as my user profile avatar image, email, username, and password.
 #### Create an Event and Refresh Events
 - As a user, I want to be able to Create an Event 
 - As a user, I want to be able to add an upcomming or past event and it's date.
@@ -96,6 +99,5 @@ https://github.com/users/anibalestrella/projects/1
 - As a user, I want to be able to toggle an artist if fav or not.
 - As a user, I want to be able to add an artist to my artist favorite list
 - As a user, I want to be able display abd see all my favorite asrtists as a list
-
 #### Add artists to the user artists fav list suing Spotify API
 - As a user, I want to be able to automatically sync my fav artists using my spotify account's favorite artists

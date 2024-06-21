@@ -1,108 +1,138 @@
 import React, { useState } from 'react'
+import { useAppContext } from '../hooks'
 import { Button } from '../library'
-import { SearchArtistList as SearchArtist, SearchPlace } from './'
-// import retrieveArtistDetailsFromDisco    gs from '../../logic/retrieveArtistDetailsFromDiscogs';
-// import uploadMedia from '../../logic/'
+import { SearchArtistList as SearchArtist, SearchPlace, UploadMedia, EditPublishEventReview, CreateStepsList } from './'
 
+/**
+ * CreateEventReview component handles the multi-step process of creating an event review.
+ * 
+ * @prop {number} currentStep - Current step in the process (1-based indexing).
+ * @prop {function} handleNextStep - Function called to move to the next step.
+ * @prop {function} handlePreviousStep - Function called to move to the previous step.
+ * @prop {function} handleChange - Function to handle form input changes.
+ * @prop {object} eventReviewFormData - Object containing current event review data.
+ * @prop {function} handleFileChange - Function to handle file upload changes.
+ * @prop {function} handleCancel - Function called to cancel the review creation process.
+ * 
+ * @returns {JSX.Element} - JSX element representing the component.
+ */
 
-function CreateEventReview(reloadKey) {
+function CreateEventReview({ handleCancel, user }) {
     console.log('CreateEventReview => RENDER');
+
+    const { alert, confirm, freeze, unfreeze, navigate } = useAppContext()
+
 
     const [file, setFile] = useState(null);
     const [fileType, setFileType] = useState('');
+    const [currentStep, setCurrentStep] = useState(1);
 
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
+    const [eventReviewFormData, setEventReviewFormData] = useState({
+        author: '',
+        poster: '',
+        name: '',
+        description: '',
+        lineUp: [],
+        dates: [],
+        place: '',
+        price: 0,
+        likes: [],
+        eventReviews: []
+    });
 
-        // Determine the type of file based on its MIME type
-        const mimeType = event.target.files[0].type;
-        if (mimeType.startsWith('image')) {
-            setFileType('image');
-        } else if (mimeType.startsWith('audio')) {
-            setFileType('audio');
-        } else if (mimeType.startsWith('video')) {
-            setFileType('video');
-        }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setEventReviewFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
-    const handleUpload = async () => {
-        if (file && fileType) {
-            const reader = new FileReader();
-            reader.onload = async (event) => {
-                const fileData = event.target.result;
-
-                try {
-                    const response = await fetch('/upload', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ fileData, fileType }),
-                    });
-
-                    const data = await response.json();
-                    console.log(`${fileType} uploaded successfully`, data);
-                } catch (error) {
-                    console.error(`Error uploading ${fileType}`, error);
-                }
-            };
-
-            reader.readAsDataURL(file);
-        }
+    const steps = ['Search Artist', 'Search Place', 'Upload Image', 'Publish Event'];
+    const handleNextStep = () => {
+        setCurrentStep(prevStep => prevStep + 1);
     };
 
-    return <section id='create-review' className='flex flex-col p-2'    >
-        <SearchArtist key={`${reloadKey}-artist`} />
-        <SearchPlace key={`${reloadKey}-place`} />
-        {/* {location.pathname === '/create' ?
-                <>
-                    <SearchPlace key={`${reloadKey}-place`} />
-                    <SearchArtist key={`${reloadKey}-artist`} />
-                </> : ''} */}
+    const handlePreviousStep = () => {
+        setCurrentStep(prevStep => prevStep - 1);
+    };
 
+    const handleStepChange = (step) => {
+        setCurrentStep(step);
+    };
 
-        <div className='' >
-            <h3 className='text-gray-300 '>Choose images, audio or video to share.</h3>
+    const [stepData, setStepData] = useState({
+        step1: {},
+        step2: {},
+        step3: {},
+        step4: {},
+    });
 
-            <input
-                onChange={handleFileChange}
-                accept="image/*"
-                type="file"
-                multiple
-                className='
-                    pl-0
-                    mt-2
-                    mb-0
-                    h-10
-                     max-w-full
-                     text-sm 
-                     font-normal
-                    file:font-normal 
-                    file:mr-4
-                    file:py-2
-                    file:px-4
-                    file:h-10
-                    file:rounded-full file:border-0
-                    file:text-xs
-                    file:text-white
-                    file:uppercase
-                    file:bg-lime-300 
-                    hover:file:bg-violet-100
-                    '
-            />
-            <div className='w-full overflow-x-auto overflow-y-hidden col-span-2 my-4' >
-                <div className="flex flex-row">
+    const handleCancelReview = () => {
+        setStepData({
+            step1: {},
+            step2: {},
+            step3: {},
+            step4: {}
+        });
+        // prompt for review
+        const actionType = "cancelReview"
+        confirm(`${user.name}, are you sure you want leave your event creation? `, actionType);
 
-                    <div className="h-24 aspect-square bg-gray-300 rounded-lg m-2"></div>
-                    <div className="h-24 aspect-square bg-gray-300 rounded-lg m-2"></div>
-                    <div className="h-24 aspect-square bg-gray-300 rounded-lg m-2"></div>
-                    <div className="h-24 aspect-square bg-gray-300 rounded-lg m-2"></div>
-                </div>
-            </div>
-            <Button onClick={handleUpload} className={'w-full mt-0 '}> Upload files</Button>
+        // handleCancel()
+
+    };
+
+    const handleLogOut = () => {
+        const actionType = "logout"
+        confirm(`${user.name}, are you sure you want to log out ? `, actionType);
+    };
+
+    const handleSubmit = (event, data) => {
+        evnt.preventDefault();
+        setStepData(prevData => ({
+            ...prevData,
+            [`step${currentStep}`]: data
+        }));
+        console.log(stepData);
+    };
+
+    return <>
+        {/* {currentStep > 1 && (
+            )} */}
+        <div>
+            <CreateStepsList steps={steps} currentStep={currentStep} handleStepChange={handleStepChange} />
         </div>
-    </section>
+        <h2>create Event Review:</h2>
+        <div id='create-event-review' className='flex flex-col p-2'>
+            <div className='flex flex-col rounded-2xl p-4  bg-pattern-02 bg-gray-300 duration-300 bg-center h-auto'>
+                {currentStep === 1 && <SearchArtist handleChange={handleChange} eventReviewFormData={eventReviewFormData} />}
+                {currentStep === 2 && <SearchPlace handleChange={handleChange} eventReviewFormData={eventReviewFormData} />}
+                {currentStep === 3 && <UploadMedia eventReviewFormData={eventReviewFormData} />}
+                {currentStep === 4 && <EditPublishEventReview eventReviewFormData={eventReviewFormData} />}
+            </div>
 
+            <div className='flex justify-between mt-4'>
+                <Button onClick={handleCancelReview} className={'button-cancel hover:button-cancel-hover'}>
+                    Cancel
+                </Button>
+                {currentStep > 2 && (
+                    <Button onClick={() => handlePreviousStep(eventReviewFormData)} className="mt-auto max-w-fit">
+                        Previous
+                    </Button>
+                )}
+                {currentStep < 4 && (
+                    <Button onClick={() => handleNextStep(eventReviewFormData)} className="mt-auto max-w-fit">
+                        Next
+                    </Button>
+                )}
+            </div>
+        </div>
+    </>
+        ;
 }
+
+
 
 export default CreateEventReview

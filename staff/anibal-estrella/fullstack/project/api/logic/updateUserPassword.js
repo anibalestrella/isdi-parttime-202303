@@ -6,10 +6,13 @@ const {
 const { User } = require('../data-project/models.js')
 
 /**
- * 
- * @param {*} userNewPassword 
- * @param {*} userNewPasswordConfirm 
- * @returns 
+ * Api/ updateuserPassword.js
+ * Updates the user's password.
+ *
+ * @param {string} userId - The user's ID.
+ * @param {string} userNewPassword - The user's desired new password.
+ * @param {string} userNewPasswordConfirm - Confirmation of the user's new password.
+ * @throws {Error} - Throws an error if validation fails, user doesn't exist, new password doesn't match confirmation, or new password is the same as the old one.
  */
 
 module.exports = (userId, userNewPassword, userNewPasswordConfirm) => {
@@ -25,7 +28,7 @@ module.exports = (userId, userNewPassword, userNewPasswordConfirm) => {
 
             return bcrypt.compare(userNewPassword, user.password)
                 .then(passwordsMatch => {
-                    if (passwordsMatch) throw new ExistenceError(`New password must be different from the old one`);
+                    if (passwordsMatch) throw new ContentError(`New password must be different from the old one`);
 
                     return bcrypt.hash(userNewPassword, 10);
                 })

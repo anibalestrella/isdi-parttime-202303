@@ -13,6 +13,7 @@ module.exports = {
     updateUserAvatarHandler: require('./updateUserAvatarHandler'),
     updateUserEmailHandler: require('./updateUserEmailHandler'),
     addArtistHandler: require('./addArtistHandler'),
-    uploadMediaHandler: require('./uploadMediaHandler')
+    uploadMediaHandler: require('./uploadMediaHandler'),
+    searchSpotifyHandler: require('./searchSpotifyHandler'),
 
 }

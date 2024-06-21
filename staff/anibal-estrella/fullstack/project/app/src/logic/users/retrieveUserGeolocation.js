@@ -1,3 +1,14 @@
+/**
+ * APP / retrieveUserGeolocation
+ * Calculates the distance between two geographical coordinates using the Haversine formula.
+ *
+ * @param {number} lat1 - Latitude of the first point in degrees.
+ * @param {number} lon1 - Longitude of the first point in degrees.
+ * @param {number} lat2 - Latitude of the second point in degrees.
+ * @param {number} lon2 - Longitude of the second point in degrees.
+ * @returns {number} - The distance between the two points in kilometers.
+ */
+
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
     const toRad = (angle) => angle * (Math.PI / 180);
     lat1 = toRad(lat1);

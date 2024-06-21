@@ -15,6 +15,7 @@ const { User } = require('../data-project/models.js')
  * Errors:
  * @throws { ExistenceError} on non-existing user
  */
+
 module.exports = (email) => {
     validateEmail(email)
 

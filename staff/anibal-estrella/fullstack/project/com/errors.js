@@ -1,66 +1,58 @@
 class DuplicityError extends Error {
-    // constructor function
     constructor(message) {
-        super(message)
-
-        //this.name = DuplicityError.name
+        super(message);
     }
-    // "getter" to set an estatic property of the constructor function of the class
-    get name() { return DuplicityError.name }
+    get name() { return DuplicityError.name; }
 }
 
 class ContentError extends Error {
     constructor(message) {
-        super(message)
+        super(message);
     }
-
-    get name() { return ContentError.name }
+    get name() { return ContentError.name; }
 }
 
 class ExistenceError extends Error {
     constructor(message) {
-        super(message)
+        super(message);
     }
-
-    get name() { return ExistenceError.name }
+    get name() { return ExistenceError.name; }
 }
 
 class AuthError extends Error {
     constructor(message) {
-        super(message)
+        super(message);
     }
-
-    get name() { return AuthError.name }
+    get name() { return AuthError.name; }
 }
 
 class UnknownError extends Error {
     constructor(message) {
-        super(message)
+        super(message);
     }
-
-    get name() { return UnknownError.name }
+    get name() { return UnknownError.name; }
 }
 
 class UploadError extends Error {
     constructor(message) {
         super(message);
     }
-
-    get name() {
-        return UploadError.name;
-    }
+    get name() { return UploadError.name; }
 }
+
 class FormatError extends Error {
     constructor(message) {
         super(message);
     }
-
-    get name() {
-        return FormatError.name;
-    }
+    get name() { return FormatError.name; }
 }
 
-
+class ApiConnectionError extends Error {
+    constructor(message) {
+        super(message);
+    }
+    get name() { return ApiConnectionError.name; }
+}
 
 module.exports = {
     DuplicityError,
@@ -69,5 +61,6 @@ module.exports = {
     AuthError,
     UnknownError,
     FormatError,
-    UploadError
-}
+    UploadError,
+    ApiConnectionError
+};

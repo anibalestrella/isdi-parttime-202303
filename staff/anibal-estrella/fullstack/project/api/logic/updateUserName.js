@@ -7,7 +7,7 @@ const { User } = require('../data-project/models')
 const bcrypt = require('bcryptjs')
 
 /**
- * UPDATE USER NAME
+ * API/ UPDATE USER NAME
  * updateUserName.js
  * 
  * Updates the name of a user in the database.

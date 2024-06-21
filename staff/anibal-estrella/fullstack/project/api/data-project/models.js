@@ -15,13 +15,14 @@ const user = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address.']
     },
     password: {
         type: String,
         required: true,
         trim: true,
-        minLength: 8
+        minlength: 8
     },
     registrationDate: {
         type: Date,
@@ -34,7 +35,13 @@ const user = new Schema({
         },
         coordinates: {
             type: [Number], // array of numbers: [longitude, latitude]
-            required: true
+            required: true,
+            validate: {
+                validator: function (v) {
+                    return v.length === 2;
+                },
+                message: props => `${props.value} is not a valid coordinates array!`
+            }
         }
     },
     city: {
@@ -67,23 +74,35 @@ const event = new Schema({
         type: String,
         required: true,
         trim: true,
-        minLength: 2,
+        minlength: 2,
     },
     description: {
         type: String,
         required: true,
         trim: true,
-        minLength: 10
+        minlength: 10
     },
     lineUp: {
-        type: [ObjectId],
-        ref: 'Artist',
-        minLength: 1,
+        type: [{
+            artist: {
+                type: ObjectId,
+                ref: 'Artist',
+                required: true
+            },
+            category: {
+                type: ObjectId,
+                ref: 'Category',
+                required: true
+            }
+        }],
         required: true
     },
+    categories: [{
+        type: ObjectId,
+        ref: 'Category'
+    }],
     dates: [{
         type: Date,
-        minLength: 1,
         required: true
     }],
     place: {
@@ -104,13 +123,23 @@ const event = new Schema({
         ref: 'EventReview',
         required: true
     },
-    score: {
-        type: String,
+    score: [{
+        value: {
+            type: Number,
+            required: true
+        },
+        userId: {
+            type: ObjectId,
+            ref: 'User',
+            required: true
+        }
+    }],
+    eventTag: {
+        type: [String],
         required: true,
-        trim: true,
-        minLength: 5
     }
-})
+});
+
 
 const artist = new Schema({
     author: {
@@ -134,7 +163,7 @@ const eventReview = new Schema({
         ref: 'User',
         required: true
     },
-    event: {
+    eventId: {
         type: ObjectId,
         ref: 'Event',
         required: true,
@@ -147,13 +176,17 @@ const eventReview = new Schema({
         type: String,
         required: true,
         trim: true,
-        minLength: 1
+        minlength: 1
     },
     text: {
         type: String,
         required: true,
         trim: true,
-        minLength: 1
+        minlength: 1
+    },
+    setList: {
+        type: [String],
+        required: false
     },
     image: [String],
     audio: [String],

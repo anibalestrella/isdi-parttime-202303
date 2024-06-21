@@ -2,6 +2,15 @@ import { validators } from 'com'
 const { validateToken, validateFileUpload } = validators
 import context from "./context"
 
+/**
+ * App/ updateUserAvatar
+ * Updates the user's avatar image.
+ *
+ * @param {Array<Object>} files - An array of file objects with properties:
+ *  - `file` (String): The base64 encoded content of the image.
+ * @throws {Error} - Throws an error if validation fails, upload fails, or avatar update fails.
+ */
+
 const updateUserAvatar = async (files) => {
     validateToken(context.token, 'Session Token');
 

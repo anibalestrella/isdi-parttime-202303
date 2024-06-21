@@ -5,7 +5,7 @@ import replaceIdsWithNamesInArtistBio from './helpers/replaceIdsWithNamesInArtis
 
 // WIP //sarch by artistId not artistName
 
-async function retrieveArtistDetailsFromDiscogs(artistId) {
+async function retrieveArtistIDFromDiscogs(artistId) {
     const artistDetails = {};
     try {
 
@@ -58,4 +58,4 @@ async function retrieveArtistDetailsFromDiscogs(artistId) {
         throw new Error(`Error fetching artist data: ${error.message}`);
     }
 }
-export default retrieveArtistDetailsFromDiscogs;
+export default retrieveArtistIDFromDiscogs;

@@ -2,6 +2,14 @@ import { validators } from 'com'
 import context from "./context"
 
 const { validateToken, validatePassword } = validators
+/**
+ * APP/ updateUserPassword
+  * Updates the user's password.
+ *
+ * @param {string} userNewPassword - The user's new password.
+ * @param {string} userNewPasswordConfirm - Confirmation of the user's new password.
+ * @throws {Error} - Throws an error if validation fails, passwords don't match, or the API request fails.
+ */
 
 export default function updateUserPassword(userNewPassword, userNewPasswordConfirm) {
     validateToken(context.token, 'token')

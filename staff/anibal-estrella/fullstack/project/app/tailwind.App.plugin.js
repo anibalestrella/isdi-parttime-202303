@@ -17,8 +17,10 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             letterSpacing: '-0.025em',
             textTransform: 'uppercase',
             paddingBottom: '0.5rem',
+            marginTop: '3rem',
+            marginBottom: '.5rem',
         },
-        'a:focus, input:focus, button:focus': {
+        'a:focus, input:focus, button:focus, textarea:focus': {
             outline: 'none',
             boxShadow: 'none',
             borderWidth: '0',
@@ -53,7 +55,20 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             fontWeight: '300',
             margin: '0.5rem 0'
         },
+        'textarea': {
+            width: '100%',
+            borderRadius: '20px',
+            padding: '1rem',
+            fontWeight: '300',
+            letterSpacing: '0.06em',
+            color: 'black',
+            fontSize: '1rem',
 
+
+
+
+
+        },
         backgroundImage: {
             'logo-background': "url('./assets/LiveDive-Logo-W.svg')",
         }

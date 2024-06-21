@@ -3,7 +3,7 @@ const { validators: { validateId },
 const { User } = require('../data-project/models')
 
 /**
- *  * Api/retriveUser:
+ *  Api/retriveUser:
  * Retrieves a user by id
  * @param {string} userId 
  * @returns {Promise<string>} The user ID

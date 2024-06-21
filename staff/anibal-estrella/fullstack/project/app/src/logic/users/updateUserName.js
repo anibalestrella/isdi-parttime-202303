@@ -3,7 +3,7 @@ import context from "./context"
 const { validateToken, validateName } = validators;
 
 /**
- * updateUserName.js
+ * APP/  updateUserName.js
  * 
  * This function updates the user's username with the provided new username.
  * 
