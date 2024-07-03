@@ -1,62 +1,34 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL
-const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY
-const DISCOGS_API_SECRET_KEY = import.meta.env.VITE_DISCOGS_API_SECRET_KEY
-import replaceIdsWithNamesInArtistBio from './helpers/replaceIdsWithNamesInArtistBio'
+import { validators } from 'com';
 
-async function retrieveArtistDetailsFromDiscogs(artistName) {
-    const artistDetails = {};
+const { validateArtistId } = validators;
+
+// SearchArtistDiscogsApi.js
+/**
+ * Performs a search on Discogs using the provided artistName.
+ * @param {string} artistId - The search query string.
+ * @returns {Promise<object>} Response data from Discogs API.
+ */
+export default async function searchArtistDiscogsApi(artistId) {
+    console.log(artistId, " ", typeof artistId);
+    validateArtistId(artistId, 'artist Id')
+
     try {
-        // Get Artist ID
-        const artistResponse = await fetch(`${BASE_URL}/database/search?q=${encodeURIComponent(artistName)}&key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}&type=artist&sort=popularity`);
-        const artistData = await artistResponse.json();
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/discogs-artist-details`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ artistId })
+        });
 
-        if (artistData.results.length > 0) {
-            const artist = artistData.results[0];
-            const artistId = artist.id;
-
-            // Get Artist Profile
-            const artistProfileResponse = await fetch(`${BASE_URL}/artists/${artistId}?key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}`);
-            const artistProfileData = await artistProfileResponse.json();
-
-            // Set Artist's Details
-            artistDetails.discogsId = artistId;
-            artistDetails.discogsUrl = `https://www.discogs.com/artist/${artistId}`;
-            artistDetails.name = artistProfileData.name.replace(/\s*\(\d+\)\s*/, '');
-            artistDetails.bio = await replaceIdsWithNamesInArtistBio(artistProfileData.profile)
-            artistDetails.image = artistProfileData.images.find(image => image.type === 'primary')?.resource_url || null
-            if (artistProfileData.urls)
-                artistDetails.urls = artistProfileData.urls.filter(url =>
-                    url.includes("facebook") ||
-                    url.includes("instagram") ||
-                    url.includes("wikipedia") ||
-                    url.includes("youtube") ||
-                    url === artistProfileData.urls[0]
-                );
-
-
-            // Get Artist's Releases
-            const releasesResponse = await fetch(`${BASE_URL}/artists/${artistId}/releases?key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}`);
-            const releasesData = await releasesResponse.json();
-            const uniqueReleaseNames = new Set();
-            const uniqueReleases = releasesData.releases.filter(release => {
-                if (!uniqueReleaseNames.has(release.title)) {
-                    uniqueReleaseNames.add(release.title);
-                    return true;
-                }
-                return false;
-            });
-            const releases = uniqueReleases
-
-            // Set First 5 Albums
-            artistDetails.albums = releases.map(release => release.title);
-
-            return artistDetails;
-
-        } else {
-            throw new Error(`No results found for artist: ${artistName}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok', response.status);
         }
+
+        const data = await response.json();
+        return data;
     } catch (error) {
-        throw new Error(`Error fetching artist data: ${error.message}`);
+        console.error(`Failed to search Discogs: ${error.message}`);
+        throw new Error(`Failed to search Discogs: ${error.message}`);
     }
 }
-export default retrieveArtistDetailsFromDiscogs;

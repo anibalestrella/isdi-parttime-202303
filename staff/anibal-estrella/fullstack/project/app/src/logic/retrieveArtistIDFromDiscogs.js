@@ -22,7 +22,10 @@ async function retrieveArtistIDFromDiscogs(artistId) {
             artistDetails.discogsUrl = `https://www.discogs.com/artist/${artistId}`;
             artistDetails.name = artistProfileData.name.replace(/\s*\(\d+\)\s*/, '');
             artistDetails.bio = await replaceIdsWithNamesInArtistBio(artistProfileData.profile)
-            artistDetails.image = artistProfileData.images.find(image => image.type === 'primary')?.resource_url || null
+            artistDetails.image = Array.isArray(artistProfileData.images)
+                ? artistProfileData.images.find(image => image.type === 'primary')?.resource_url || null
+                : null;
+
             if (artistProfileData.urls)
                 artistDetails.urls = artistProfileData.urls.filter(url =>
                     url.includes("facebook") ||

@@ -7,9 +7,11 @@ import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 export default function SearchArtistSpotify() {
     console.debug('// SearchArtistSpotify  -> Render');
 
+    const { alert, freeze, unfreeze } = useAppContext();
+
     const [artistName, setArtistName] = useState('');
     const [results, setResults] = useState([]);
-    const { alert, freeze, unfreeze } = useAppContext();
+    const [expandedArtistId, setExpandedArtistId] = useState(null);
 
     const handleSearch = async () => {
         try {
@@ -22,8 +24,6 @@ export default function SearchArtistSpotify() {
             unfreeze();
         }
     };
-
-    const [expandedArtistId, setExpandedArtistId] = useState(null);
 
     const toggleExpand = (artistId) => {
         if (expandedArtistId === artistId) {

@@ -1,5 +1,5 @@
 import SearchArtist from './SearchArtist'
-import SearchArtistList from './SearchArtistList'
+import SearchArtistList from './SearchArtistList.jsx'
 import SearchPlace from './SearchPlace'
 import EventCard from './EventCard'
 import MenuTop from './MenuTop'

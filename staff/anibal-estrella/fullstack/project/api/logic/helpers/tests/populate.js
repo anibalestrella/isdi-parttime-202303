@@ -1,6 +1,6 @@
 const context = require('../../context')
 console.log('Context:', context);
-;
+
 module.exports = (_users, _events, _places, _eventreviews) => {
     const { users, events, places, eventreviews } = context
 

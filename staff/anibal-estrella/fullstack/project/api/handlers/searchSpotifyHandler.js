@@ -1,5 +1,4 @@
 const { extractUserId, handleErrors } = require('./helpers');
-// searchSpotifyHandler.js
 const spotifyConfig = require('../config/spotifyConfig');
 const searchSpotify = require('../logic/searchSpotify');
 
@@ -9,6 +8,7 @@ const searchSpotify = require('../logic/searchSpotify');
  * @param {object} req - Express request object.
  * @param {object} res - Express response object.
  */
+
 module.exports = async (req, res) => {
     const { artistName } = req.body;
 

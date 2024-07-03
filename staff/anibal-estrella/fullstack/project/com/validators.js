@@ -47,6 +47,20 @@ function validateName(name, explain = "Name") {
     if (name.trim().length > 24) throw new Error(`${explain} cannot exceed 24 characters`);
     if (!alphaRegex.test(name)) throw new Error(`${explain} can only contain lowercase alphabetic characters and spaces`);
 }
+
+/**
+ * validates a name
+ * @param {string} name the name
+ */
+
+function validateArtistName(name, explain = "Artist Name") {
+    if (name === " ") throw new ContentError(`${explain} should not be a blank space`)
+    if (typeof name !== 'string') throw new TypeError(`The ${explain} > ${name} must be a string`);
+    if (!name.trim().length) throw new Error(`${explain} is blank`);
+    if (name.trim().length < 1) throw new Error(`${explain} must be at least one character long`);
+    if (name.trim().length > 24) throw new Error(`${explain} cannot exceed 24 characters`);
+}
+
 /**
  * validates a name
  * @param {string} nickName the user's nick name
@@ -93,8 +107,9 @@ function validateId(id, explain = 'id') {
  * @param {string} id the artist's id
 */
 function validateArtistId(id, explain = 'id') {
-    if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
-    if (id.trim().length !== 7) throw new ContentError(`${explain} doesn't have 7 characters`)
+    if (typeof id !== 'number') throw new TypeError(`${explain} is ${typeof id} and must be a number`)
+    if (id.length < 1)
+        throw new ContentError(`${explain} doesn't have more than 1 characters`)
     for (let i = 0; i < id.length; i++) {
         const char = id[i];
 
@@ -276,5 +291,6 @@ module.exports = {
     validateFileUpload,
     validateArtistId,
     validatePlaceId,
-    validateCallback
+    validateCallback,
+    validateArtistName
 }

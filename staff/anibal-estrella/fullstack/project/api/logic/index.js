@@ -15,7 +15,10 @@ module.exports = {
     updateUserAvatar: require('./updateUserAvatar'),
     updateUserEmail: require('./updateUserEmail'),
     uploadMedia: require('./uploadMedia'),
-    searchSpotify: require('./searchSpotify')
+    searchSpotify: require('./searchSpotify'),
+    retrieveArtistDataFromTivo: require('./retrieveArtistDataFromTivo'),
+    searchArtistDiscogs: require('./searchArtistDiscogs'),
+    retrieveArtistDataFromDiscogs: require('./retrieveArtistDataFromDiscogs')
     // deleteEvent: require('./deleteEvent'),
     // updateEvent: require('./updateEvent'),
     // toggleLikeEvent: require('./toggleLikeEvent'),

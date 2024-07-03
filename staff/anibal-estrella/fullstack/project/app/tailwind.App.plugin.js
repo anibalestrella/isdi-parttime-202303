@@ -16,9 +16,7 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             lineHeight: '100%',
             letterSpacing: '-0.025em',
             textTransform: 'uppercase',
-            paddingBottom: '0.5rem',
-            marginTop: '3rem',
-            marginBottom: '.5rem',
+            margin: '.5rem 0',
         },
         'a:focus, input:focus, button:focus, textarea:focus': {
             outline: 'none',

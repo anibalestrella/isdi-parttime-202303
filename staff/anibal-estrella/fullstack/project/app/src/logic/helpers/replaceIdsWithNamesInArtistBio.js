@@ -43,6 +43,7 @@ const DISCOGS_API_SECRET_KEY = import.meta.env.VITE_DISCOGS_API_SECRET_KEY;
 
 async function replaceIdsWithNamesInArtistBio(text) {
     // Function to fetch name by discogs ID based on type
+    debugger
     async function fetchNameByIdAndType(id, type) {
         let endpoint;
         switch (type) {

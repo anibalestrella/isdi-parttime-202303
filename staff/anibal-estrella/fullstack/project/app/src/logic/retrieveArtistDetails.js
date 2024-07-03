@@ -4,6 +4,7 @@ import { getWikipediaLinkFromWikidataId } from './helpers/getWikipediaLinkFromWi
  * 
  */
 const retrieveArtistDetails = async (artistName) => {
+    debugger
     try {
         // Fetch artist details from MusicBrainz API
         const userAgent = 'LiveDive/0.0.1 ( zensirdes@gmail.com )'

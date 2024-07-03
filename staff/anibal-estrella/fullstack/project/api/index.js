@@ -15,7 +15,10 @@ if (
     !process.env.MONGODB_URL ||
     !process.env.PORT ||
     !process.env.SPOTIFY_CLIENT_ID ||
-    !process.env.SPOTIFY_CLIENT_SECRET
+    !process.env.SPOTIFY_CLIENT_SECRET ||
+    !process.env.DISCOGS_BASE_URL ||
+    !process.env.DISCOGS_API_KEY ||
+    !process.env.DISCOGS_API_SECRET_KEY
 ) {
     console.error("Missing required configuration in environment variables.");
     process.exit(1);
@@ -47,7 +50,10 @@ const {
     uploadMediaHandler,
     createEventHandler,
     createEventReviewHandler,
-    searchSpotifyHandler
+    searchSpotifyHandler,
+    searchTivoHandler,
+    searchArtistDiscogsHandler,
+    retrieveArtistDataFromDiscogsHandler
 } = require('./handlers')
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -83,7 +89,6 @@ mongoose.connect(process.env.MONGODB_URL)
 
         api.patch('/users/upload-media', jsonBodyParser, uploadMediaHandler)
 
-
         api.post('/create-event', jsonBodyParser, createEventHandler)
 
 
@@ -110,14 +115,16 @@ mongoose.connect(process.env.MONGODB_URL)
 
         // api.delete('/events/:postId/comments/:commentId', removeCommentFromEventHandler)
 
+
         // Spotify search endpoint
-        /**
-         * Endpoint to search Spotify for tracks, artists, or albums.
-         * @param {string} req.query.query - The search query string.
-         * @returns {object} JSON response with search results.
-         */
-        // Spotify search endpoint
-        api.post('/spotify-search', jsonBodyParser, searchSpotifyHandler);
+        api.post('/api/spotify-search', jsonBodyParser, searchSpotifyHandler)
+
+        //Tivo.com endpoint
+        api.post('/api/tivo-search', jsonBodyParser, searchTivoHandler);
+
+        //Discogs.com endpoint 
+        api.post('/api/discogs-search', jsonBodyParser, searchArtistDiscogsHandler);
+        api.post('/api/discogs-artist-details', jsonBodyParser, retrieveArtistDataFromDiscogsHandler);
 
 
         api.listen(process.env.PORT, () => console.log(`//////////////\nSERVER RUNNING\nIN PORT *${process.env.PORT}*\n////////////// \n eli@gmail.com \n 12341234Ab*`))

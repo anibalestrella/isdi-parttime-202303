@@ -15,5 +15,7 @@ module.exports = {
     addArtistHandler: require('./addArtistHandler'),
     uploadMediaHandler: require('./uploadMediaHandler'),
     searchSpotifyHandler: require('./searchSpotifyHandler'),
-
+    searchTivoHandler: require('./searchTivoHandler'),
+    searchArtistDiscogsHandler: require('./searchArtistDiscogsHandler'),
+    retrieveArtistDataFromDiscogsHandler: require('./retrieveArtistDataFromDiscogsHandler'),
 }

@@ -8,7 +8,7 @@ import { validators } from 'com';
  */
 export default async function searchArtistSpotify(artistName) {
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/spotify-search`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/spotify-search`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

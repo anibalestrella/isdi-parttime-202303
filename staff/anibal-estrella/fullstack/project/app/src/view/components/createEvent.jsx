@@ -115,7 +115,6 @@ export default function CreateEvent() {
                         value={formData.eventName}
                         onChange={handleChange}
                         ref={eventNameRef}
-                        required
                     ></textarea>
                 </div>
                 <div>
@@ -125,7 +124,6 @@ export default function CreateEvent() {
                         value={formData.eventDescription}
                         onChange={handleChange}
                         ref={eventDescriptionRef}
-                        required
                     ></textarea>
                 </div>
                 <div id='line-up'>
@@ -142,22 +140,6 @@ export default function CreateEvent() {
                         ))}
 
 
-                        {/*
-                        <div className="form-group">
-                            <label htmlFor="artist">Search Artist</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="artist"
-                                name="artist"
-                                placeholder="Enter Artist Name"
-                                value={currentArtist.artist}
-                                onChange={handleArtistChange}
-                            />
-                        </div>
-
-                    </div> */}
-
                         <div className="">
                             <SearchArtist handleAddArtist={handleAddArtist} handleArtistChange={handleArtistChange} setCurrentArtist={setCurrentArtist} currentArtist={currentArtist} />
                         </div>
@@ -173,11 +155,15 @@ export default function CreateEvent() {
                 </div>
                 <div>
                     <h3>Event Place:</h3>
-                    <input type="text" name="eventPlace" value={formData.eventPlace} onChange={handleChange} required />
+                    <input type="text" name="eventPlace" value={formData.eventPlace} onChange={handleChange}
+                    //required
+                    />
                 </div>
                 <div>
                     <h3>Ticket price:</h3>
-                    <input type="text" name="eventPriceInCents" value={formData.eventPriceInCents} onChange={handleChange} required />
+                    <input type="text" name="eventPriceInCents" value={formData.eventPriceInCents} onChange={handleChange}
+                    //required
+                    />
                 </div>
                 <div id='event-poster' className="flex flex-col">
                     <h3>Event Poster:</h3>
