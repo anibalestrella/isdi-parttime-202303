@@ -17,13 +17,13 @@ module.exports = handleErrors(async (req, res) => {
         return res.status(400).json({ error: 'artistId parameter is required' });
     }
 
+    // Convert artistId to a number explicitly
+    const parsedArtistId = parseInt(artistId, 10); // radix 10 for decimal numbers
+
     try {
-        const results = await retrieveArtistDataFromDiscogs(artistId);
+        const results = await retrieveArtistDataFromDiscogs(parsedArtistId);
         res.json(results);
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error: ' + error.message });
     }
 });
-
-
-

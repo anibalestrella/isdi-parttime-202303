@@ -203,7 +203,10 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist }) {
                                                         ))}
                                                         {searchArtists[item.id].albums.length > 5 && (
                                                             <li>
-                                                                <a href={searchArtists[item.id].discogsUrl} className="hover:text-red transition-all duration-300" target="_blank">
+                                                                <a href={searchArtists[item.id].discogsUrl} className="
+                                                              font-normal
+                                                                    text-lime-300
+                                                                hover:text-red-100 transition-all duration-300" target="_blank">
                                                                     more ...
                                                                 </a>
                                                             </li>
@@ -219,7 +222,9 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist }) {
                                                                 const siteName = urlObject.hostname.replace('www.', '');
                                                                 return (
                                                                     <li key={index}>
-                                                                        <a href={url} className="hover:text-red transition-all duration-300" target="_blank">{siteName}</a>
+                                                                        <a href={url} className=" 
+                                                                        font-normal
+                                                                        text-lime-300 hover:text-red-100 transition-all duration-300" target="_blank">{siteName}</a>
                                                                     </li>
                                                                 );
                                                             })}
@@ -244,7 +249,13 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist }) {
                                             </div>
 
                                             <div className='pt-4 pr-2 flex justify-end text-gray-400'>
-                                                <a target="_blank" href={searchArtists[item.id].discogsUrl} className="hover:text-red transition-all duration-300 text-xs">
+                                                <a target="_blank" href={searchArtists[item.id].discogsUrl}
+                                                    className=" font-normal
+                                                    text-lime-300
+                                                    hover:text-red-100
+                                                    transition-all
+                                                    duration-300
+                                                    text-xs">
                                                     Find more {searchArtists[item.id].name}'s Info at Discogs.com
                                                 </a>
                                             </div>

@@ -61,11 +61,6 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             letterSpacing: '0.06em',
             color: 'black',
             fontSize: '1rem',
-
-
-
-
-
         },
         backgroundImage: {
             'logo-background': "url('./assets/LiveDive-Logo-W.svg')",
