@@ -1,0 +1,379 @@
+{
+    "queryId": "97d05268fac525b",
+    "hitCount": 539,
+    "hits": [
+        {
+            "id": "MN0000041633",
+            "altIds": {
+                "amgClassicId": "Q   286249",
+                "amgPopId": "P  2046845",
+                "appleAdamId": "1449318917"
+            },
+            "name": "Pearl",
+            "type": "I",
+            "birth": {
+                "place": "St. Petersburg, FL"
+            },
+            "active": [
+                "2010s"
+            ],
+            "similars": [
+                {
+                    "id": "MN0003402955",
+                    "name": "Violet Chachki",
+                    "type": "I",
+                    "weight": 5
+                },
+                {
+                    "id": "MN0000852656",
+                    "name": "RuPaul",
+                    "type": "I",
+                    "weight": 5
+                },
+                {
+                    "id": "MN0000616786",
+                    "name": "Jeffree Star",
+                    "type": "I",
+                    "weight": 5
+                },
+                {
+                    "id": "MN0000072485",
+                    "name": "BT",
+                    "type": "I",
+                    "weight": 5
+                },
+                {
+                    "id": "MN0000502989",
+                    "name": "Armin van Buuren",
+                    "type": "I",
+                    "weight": 6
+                },
+                {
+                    "id": "MN0003071327",
+                    "name": "Alaska Thunderfuck",
+                    "type": "I",
+                    "weight": 5
+                }
+            ],
+            "musicBio": {
+                "headlineBio": "Perfumer and [muzeItalic]RuPaul's Drag Race[/muzeItalic] runner-up, Pearl Liaison is also a successful producer of EDM music.",
+                "biography": [
+                    {
+                        "text": "Producer, perfumer, and runner-up on season seven of [muzeItalic]RuPaul's Drag Race[/muzeItalic], [roviLink=\"MN0000041633\"]Pearl[/roviLink], or [roviLink=\"MN0000041633\"]Pearl Liaison[/roviLink], is the drag persona of [roviLink=\"MN0000041633\"]Matthew James Lent[/roviLink]. Born and raised in St. Petersburg, Florida, [roviLink=\"MN0000041633\"]Lent[/roviLink] later moved to Chicago and debuted as drag show star [roviLink=\"MN0000041633\"]Pearl[/roviLink] in 2012. The success of [roviLink=\"MN0000041633\"]Pearl[/roviLink] brought him to the clubs of Brooklyn where, in 2014,  [roviLink=\"MN0000041633\"]Lent[/roviLink] announced [roviLink=\"MN0000041633\"]Pearl[/roviLink] had joined the reality television show [muzeItalic]RuPaul's Drag Race[/muzeItalic]. Putting the [muzeItalic]Stepford Wives[/muzeItalic] persona to icy good use, [roviLink=\"MN0000041633\"]Pearl[/roviLink] became runner-up, losing to [roviLink=\"MN0003402955\"]Violet Chachki[/roviLink] but gaining a loyal fan base. In 2015, [roviLink=\"MN0000041633\"]Pearl[/roviLink] the producer debuted when [roviLink=\"MN0000041633\"]Lent[/roviLink] released the EDM effort [roviLink=\"MW0002851740\"]Pleasure[/roviLink]. The album climbed to number 11 on Billboard's Dance/Electronic Albums chart, while its appearance coincided with the release of Flazéda, [roviLink=\"MN0000041633\"]Pearl[/roviLink]'s signature fragrance. ~ David Jeffries",
+                        "author": "David Jeffries"
+                    }
+                ]
+            },
+            "musicGenres": [
+                {
+                    "id": "MA0000002572",
+                    "name": "Electronic",
+                    "weight": 5
+                },
+                {
+                    "id": "MA0000013412",
+                    "name": "EDM",
+                    "weight": 8
+                },
+                {
+                    "id": "MA0000002544",
+                    "name": "Club/Dance",
+                    "weight": 5
+                }
+            ],
+            "moods": [
+                {
+                    "id": "XA0000000952",
+                    "name": "Bright",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000000703",
+                    "name": "Celebratory",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000000709",
+                    "name": "Dreamy",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000000711",
+                    "name": "Euphoric",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001035",
+                    "name": "Light",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001113",
+                    "name": "Stylish",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001011",
+                    "name": "Graceful",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001096",
+                    "name": "Smooth",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001101",
+                    "name": "Spacey",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000000994",
+                    "name": "Exciting",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001095",
+                    "name": "Slick",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001056",
+                    "name": "Opulent",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000000955",
+                    "name": "Campy",
+                    "weight": 7
+                }
+            ],
+            "country": "United States of America",
+            "gender": "MALE",
+            "composedTrackCount": 0,
+            "albumCount": 1,
+            "performedTrackCount": 0,
+            "releaseCount": 1
+        },
+        {
+            "id": "MN0001842437",
+            "altIds": {
+                "amgClassicId": "Q  1624422",
+                "amgPopId": "P   509812"
+            },
+            "name": "Pearl",
+            "type": "G",
+            "active": [
+                "2000s"
+            ],
+            "similars": [
+                {
+                    "id": "MN0000101072",
+                    "name": "The Pussycat Dolls",
+                    "type": "G",
+                    "weight": 7
+                }
+            ],
+            "musicGenres": [
+                {
+                    "id": "MA0000002809",
+                    "name": "R&B",
+                    "weight": 10
+                }
+            ],
+            "moods": [
+                {
+                    "id": "XA0000001118",
+                    "name": "Swaggering",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001091",
+                    "name": "Sexual",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001094",
+                    "name": "Sleazy",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000000770",
+                    "name": "Sexy",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001113",
+                    "name": "Stylish",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000001070",
+                    "name": "Provocative",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001112",
+                    "name": "Street-Smart",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000000703",
+                    "name": "Celebratory",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000000764",
+                    "name": "Sensual",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000000722",
+                    "name": "Intimate",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001142",
+                    "name": "Wistful",
+                    "weight": 7
+                },
+                {
+                    "id": "XA0000001054",
+                    "name": "Nocturnal",
+                    "weight": 5
+                }
+            ],
+            "gender": "FEMALE",
+            "composedTrackCount": 9,
+            "albumCount": 2,
+            "performedTrackCount": 18,
+            "releaseCount": 2
+        },
+        {
+            "id": "MN0001599101",
+            "altIds": {
+                "amgClassicId": "Q  1475564",
+                "amgPopId": "P  1135343"
+            },
+            "name": "Pearl",
+            "type": "G",
+            "musicGenres": [
+                {
+                    "id": "MA0000002613",
+                    "name": "Pop/Rock",
+                    "weight": 10
+                }
+            ],
+            "composedTrackCount": 3,
+            "albumCount": 2,
+            "performedTrackCount": 21,
+            "releaseCount": 2
+        },
+        {
+            "id": "MN0001372276",
+            "altIds": {
+                "amgClassicId": "Q  1255788",
+                "amgPopId": "P   767678"
+            },
+            "name": "Pearl",
+            "type": "G",
+            "musicGenres": [
+                {
+                    "id": "MA0000002809",
+                    "name": "R&B",
+                    "weight": 10
+                }
+            ],
+            "composedTrackCount": 0,
+            "albumCount": 1,
+            "performedTrackCount": 17,
+            "releaseCount": 1
+        },
+        {
+            "id": "MN0000037822",
+            "altIds": {
+                "amgClassicId": "Q   284606",
+                "amgPopId": "P    19807"
+            },
+            "name": "Pearl",
+            "type": "G",
+            "active": [
+                "2000s"
+            ],
+            "musicGenres": [
+                {
+                    "id": "MA0000002600",
+                    "name": "French",
+                    "weight": 5
+                },
+                {
+                    "id": "MA0000002816",
+                    "name": "Rap",
+                    "weight": 10
+                },
+                {
+                    "id": "MA0000002613",
+                    "name": "Pop/Rock",
+                    "weight": 10
+                },
+                {
+                    "id": "MA0000002544",
+                    "name": "Club/Dance",
+                    "weight": 9
+                },
+                {
+                    "id": "MA0000002660",
+                    "name": "International",
+                    "weight": 5
+                },
+                {
+                    "id": "MA0000002572",
+                    "name": "Electronic",
+                    "weight": 9
+                },
+                {
+                    "id": "MA0000004467",
+                    "name": "Western European Traditions",
+                    "weight": 5
+                }
+            ],
+            "moods": [
+                {
+                    "id": "XA0000000765",
+                    "name": "Sentimental",
+                    "weight": 8
+                },
+                {
+                    "id": "XA0000000758",
+                    "name": "Romantic",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000000772",
+                    "name": "Strong",
+                    "weight": 8
+                },
+                {
+                    "id": "XA0000000764",
+                    "name": "Sensual",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000000774",
+                    "name": "Swinging",
+                    "weight": 5
+                },
+                {
+                    "id": "XA0000000709",
+                    "name": "Dreamy",
+                    "weight": 5
+                }
+            ],
+            "country": "France",
+            "composedTrackCount": 14,
+            "albumCount": 10,
+            "performedTrackCount": 157,
+            "releaseCount": 20
+        }
+    ]
+}
