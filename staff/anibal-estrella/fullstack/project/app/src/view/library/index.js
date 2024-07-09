@@ -7,6 +7,7 @@ import PanelBackground from './PanelBackground'
 import PanelBackgroundClose from './PanelBackgroundClose'
 import MenuItem from './MenuItem'
 import ToggleButtons from './ToggleButtons'
+import InlineLoader from './InlineLoader.jsx'
 
 export {
     Loader,
@@ -17,5 +18,6 @@ export {
     PanelBackground,
     PanelBackgroundClose,
     MenuItem,
-    ToggleButtons
+    ToggleButtons,
+    InlineLoader
 }

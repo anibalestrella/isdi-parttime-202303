@@ -4,7 +4,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { isUserLoggedIn, retrieveUser } from './logic/users/'
 import { Home, Profile, Login, Create } from './view/pages'
 import { MenuTop, MenuBottom, Footer, Alert, Confirm } from './view/components'
-import { Loader } from './view/library'
+import { Loader, InlineLoader } from './view/library'
 import { useAppContext } from './view/hooks'
 import AppContext from './AppContext'
 
@@ -20,38 +20,45 @@ function App() {
     const [feedback, setFeedback] = useState(null)
     const [feedbackConfirm, setFeedbackConfirm] = useState(null)
 
-    // const [loader, setLoader] = useState(false)
 
-    const [loaderPercentage, setLoaderPercentage] = useState(0);
+    const [loaderPercentage, setLoaderPercentage] = useState(0)
+    const [useInlineLoader, setUseInlineLoader] = useState(false);
+
 
     let interval;
 
     const freeze = () => {
         let fastIncrement = true;
+        if (!useInlineLoader) {
 
-        setLoaderPercentage(10);
-        interval = setInterval(() => {
-            setLoaderPercentage(prev => {
-                if (prev >= 100) {
-                    clearInterval(interval);
-                    return 100;
-                }
-                if (fastIncrement) {
-                    return prev + 2;
-                }
-                return prev + 0.5;
-            });
-        }, 50);
+            setLoaderPercentage(10);
+            interval = setInterval(() => {
+                setLoaderPercentage(prev => {
+                    if (prev >= 100) {
+                        clearInterval(interval);
+                        return 100;
+                    }
+                    if (fastIncrement) {
+                        return prev + 2;
+                    }
+                    return prev + 0.5;
+                });
+            }, 50);
 
-        setTimeout(() => {
-            fastIncrement = false;
-        }, 1000);
+            setTimeout(() => {
+                fastIncrement = false;
+            }, 1000);
+        }
     }
 
     const unfreeze = () => {
         clearInterval(interval);
         setLoaderPercentage(100);
         setTimeout(() => setLoaderPercentage(0), 500);  // Reset after a half-second delay
+    }
+
+    const inlineFreeze = () => {
+        setUseInlineLoader(prev => !prev);
     }
 
     const alert = (message, level = 'info') => setFeedback({ message, level })
@@ -129,7 +136,7 @@ function App() {
     }, []);
 
 
-    return <Provider value={{ alert, confirm, freeze, unfreeze }} >
+    return <Provider value={{ alert, confirm, freeze, unfreeze, inlineFreeze }} >
 
         <MenuTop
             isVisible={isVisible}
@@ -174,7 +181,8 @@ function App() {
                 onConfirmOk={handleConfirmOk}
             />}
 
-        {loaderPercentage > 0 && <Loader percentage={loaderPercentage} />}
+        {loaderPercentage > 0 && !useInlineLoader && <Loader percentage={loaderPercentage} />}
+        {loaderPercentage > 0 && useInlineLoader && <InlineLoader />}
 
         <Footer isUserLoggedIn={isUserLoggedIn} city={city} ipGeoLocation={ipGeoLocation} user={user} />
         <MenuBottom />

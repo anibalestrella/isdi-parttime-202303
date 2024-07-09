@@ -15,7 +15,7 @@ import { CreateEventReview, CreateStepsList, CreateEvent } from '../components'
  */
 
 const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
-    const { alert, freeze, unfreeze, navigate, confirm } = useAppContext()
+    const { alert, freeze, unfreeze, inlineFreeze, navigate, confirm } = useAppContext()
 
     const [Profile, setProfile] = useState(null);
     const [error, setError] = useState(null); // Add state for error

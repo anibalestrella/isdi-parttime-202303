@@ -25,6 +25,8 @@ export default function SearchArtistSpotify() {
         }
     };
 
+
+
     const toggleExpand = (artistId) => {
         if (expandedArtistId === artistId) {
             setExpandedArtistId(null);

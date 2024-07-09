@@ -3,12 +3,13 @@ import { createEvent } from '../../logic';
 import { createBase64ImageObject, autosizeTextArea } from '../../logic/utilities';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Button } from '../library';
-import { SelectDate, SearchArtistList as SearchArtist, SearchArtistSpotify } from '../components';
+import { SelectDate, SearchArtistList as SearchArtist } from '../components';
 import { useAppContext } from '../hooks'
 
 export default function CreateEvent() {
     const { alert, confirm, freeze, unfreeze, navigate } = useAppContext();
 
+    const lineUpRef = useRef(null);
 
     const [formData, setFormData] = useState({
         author: '',
@@ -45,13 +46,6 @@ export default function CreateEvent() {
             setCurrentArtist({ artist: '', category: '' });
             console.log(currentArtist);
         }
-    };
-
-    const handleRemoveArtist = (artistIndex) => {
-        setFormData(prevState => ({
-            ...prevState,
-            lineup: prevState.lineup.filter((_, index) => index !== artistIndex)
-        }));
     };
 
     const handleChange = (event) => {
@@ -99,7 +93,7 @@ export default function CreateEvent() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const { author, eventPoster, eventName, eventDescription, lineup, eventDates, eventPlace, eventPriceInCents } = formData;
-        createEvent(author, eventPoster, eventName, eventDescription, lineup, eventDates, eventPlace, eventPriceInCents);
+        // createEvent(author, eventPoster, eventName, eventDescription, lineup, eventDates, eventPlace, eventPriceInCents);
     };
 
 
@@ -126,25 +120,14 @@ export default function CreateEvent() {
                         ref={eventDescriptionRef}
                     ></textarea>
                 </div>
-                <div id='line-up'>
+                <div id='line-up' ref={lineUpRef}>
                     <div>
                         <h3>Line Up:</h3>
-                        {formData.lineup.map((artist, index) => (
-                            <div key={index} className="flex items-center mb-2">
-                                <p className="mr-4">{artist.artist}</p>
-                                <p className="mr-4">{artist.category}</p>
-                                <button type="button" onClick={() => handleRemoveArtist(index)}>
-                                    <XCircleIcon className="w-5 h-5 text-red-500 text-l" />
-                                </button>
-                            </div>
-                        ))}
-
 
                         <div className="">
-                            <SearchArtist handleAddArtist={handleAddArtist} handleArtistChange={handleArtistChange} setCurrentArtist={setCurrentArtist} currentArtist={currentArtist} />
+                            <SearchArtist handleAddArtist={handleAddArtist} handleArtistChange={handleArtistChange} setCurrentArtist={setCurrentArtist} currentArtist={currentArtist} lineUpRef={lineUpRef} />
                         </div>
-                        <h3>Spotify</h3>
-                        <SearchArtistSpotify />
+
 
                     </div>
                 </div>

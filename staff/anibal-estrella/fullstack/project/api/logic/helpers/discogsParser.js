@@ -50,7 +50,7 @@ module.exports = async (text) => {
     newText = newText.replace(/\[i\](.*?)\[\/i\]/g, '<em>$1</em>')
         .replace(/\[b\](.*?)\[\/b\]/g, '<strong>$1</strong>')
         .replace(/\[[a-zA-Z]=|\[|\]/g, '')
-        .replace(/\r\n/g, '<br>')
+        // .replace(/\r\n/g, '<br>')
         .trim();
 
     return newText;
