@@ -2,6 +2,7 @@ require('dotenv').config();
 
 module.exports = async (text) => {
     const { DISCOGS_BASE_URL, DISCOGS_API_KEY, DISCOGS_API_SECRET_KEY } = process.env;
+    // DISCOGS_BASE_URL = https://api.discogs.com
 
 
     async function fetchNameByIdAndType(id, type) {
@@ -23,7 +24,7 @@ module.exports = async (text) => {
                 return '';
         }
 
-        const url = `https://api.discogs.com/${endpoint}/${id}?key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}`;
+        const url = `${DISCOGS_BASE_URL}/${endpoint}/${id}?key=${DISCOGS_API_KEY}&secret=${DISCOGS_API_SECRET_KEY}`;
 
         const response = await fetch(url);
         const data = await response.json();

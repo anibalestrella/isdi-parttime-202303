@@ -19,7 +19,7 @@ import CreateStepsList from './CreateStepsList'
 import EditPublishEventReview from './EditPublishEventReview'
 import SelectDate from './SelectDate.jsx'
 import SearchArtistSpotify from './SearchArtistSpotify.jsx'
-
+import MaxCharactersCounter from './MaxCharactersCounter.jsx'
 export {
     SearchPlace,
     SearchArtist,
@@ -42,4 +42,5 @@ export {
     SelectDate,
     EditPublishEventReview,
     SearchArtistSpotify,
+    MaxCharactersCounter
 }

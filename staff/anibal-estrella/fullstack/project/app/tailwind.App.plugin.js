@@ -2,6 +2,7 @@ const plugin = require('tailwindcss/plugin')
 
 export default plugin(({ addBase, addComponents, addUtilities, theme, config }) => {
     addBase({
+
         'h1, h2': {
             fontSize: theme('fontSize.5xl'),
             letterSpacing: '-0.025em',

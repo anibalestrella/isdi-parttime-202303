@@ -1,12 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../hooks'
 import { keyPressUtils } from '../../logic/utilities'
 
-
 import { searchPlace, retrievePlaceDetails } from '../../logic';
 import { Button } from '../library'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import { MagnifyingGlassIcon, XCircleIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
 
 /**
  * SearchPlace component allows users to search for places.
@@ -25,9 +23,9 @@ export default function SearchPlace() {
     const [error, setError] = useState(null)
 
     const [placeName, setPlaceName] = useState('')
-    const [placeDetails, setPlaceDetails] = useState(null)
+    const [placeResultList, setPlaceResultList] = useState(null)
     const [selectedPlaceId, setSelectedPlaceId] = useState(null)
-    const [searchAPlace, setSearchAPlace] = useState(null)
+    const [retrievedPlaceDetails, setRetrievedPlaceDetails] = useState(null)
 
     const handleInputChange = (event) => {
         setPlaceName(event.target.value);
@@ -37,18 +35,18 @@ export default function SearchPlace() {
         try {
             freeze();
             const details = await searchPlace(placeName);
-            setPlaceDetails(details);
+            setPlaceResultList(details);
             setError(null);
         } catch (error) {
             alert(error.message, 'error');
             setError(`Place "${placeName}" was not found`)
-            setPlaceDetails(null);
+            setPlaceResultList(null);
         } finally {
             unfreeze();
         }
     };
 
-    const handleSelectPlace = (placeId) => { // New handler
+    const handleSelectPlace = (placeId) => {
         if (selectedPlaceId === placeId) {
             setSelectedPlaceId(null);
             console.log('>>>' + { selectedPlaceId } + ' placeId: ' + placeId)
@@ -63,12 +61,12 @@ export default function SearchPlace() {
         try {
             freeze();
             const details = await retrievePlaceDetails(placeId);
-            setSearchAPlace(details);
+            setRetrievedPlaceDetails(details);
             setError(null);
         } catch (error) {
             alert(error.message, 'error');
             setError(`Place "${placeId}" was not found`);
-            setSearchAPlace(null);
+            setRetrievedPlaceDetails(null);
         } finally {
             unfreeze();
             setSearchPlace(null);
@@ -99,64 +97,58 @@ export default function SearchPlace() {
                 </span>
                 <Button onClick={handleSearchPlaces}>Search for a place</Button>
                 {error &&
-                    <p className="text-red-100 pt-4">{error}</p>
+                    <div className="full">
+
+                        <p className="text-red-100 pt-4">{error}</p>
+                        <Button onClick={handleCreatePlace}>Create a new place</Button>
+                    </div>
+
                 }
             </div>
 
 
-            {placeDetails && !error && (
+            {placeResultList && !error && (
                 <div>
-                    <table className=' w-full text-left'>
-
-                        <tbody>
-                            {placeDetails.slice(0, 5).map((item) => (
-                                <React.Fragment key={item.placeId}>
-                                    <tr className={selectedPlaceId === item.placeId ? ' bg-gray-100 hover:text-gray-300' : ' hover:bg-gray-100 p-0 hover:text-gray-300'} >
-                                        <td class="pl-3 text-left">
-                                            {item.homePage ? (<a className="hover:text-red transition-all duration-300"
+                    <div className='w-full text-left'>
+                        {placeResultList.slice(0, 5).map((item) => (
+                            <React.Fragment key={item.placeId}>
+                                <div className={selectedPlaceId === item.placeId ? 'bg-gray-100 hover:text-gray-300 flex items-center' : 'hover:bg-gray-100 p-0 hover:text-gray-300 flex items-center cursor-pointer'} onClick={() => handleRetrieveDetails(item.placeId)}>
+                                    <div className="pl-3 text-left flex-1">
+                                        {item.homePage ? (
+                                            <a className="hover:text-red transition-all duration-300"
                                                 href={item.homePage}
                                                 target="_blank"
                                                 rel="noopener noreferrer" >
                                                 {item.name}
                                             </a>) : (item.name)}
-                                        </td>
-                                        <td>{item.city}</td>
-                                        <td class=" text-right align-middle p-2">
-                                            {selectedPlaceId === item.placeId && (
-                                                <span>
-                                                    <Button className={' w-fit mt-0 mr-4'} onClick={() => handleSelectPlace(item.placeId)}>
-                                                        Unselect
-                                                    </Button>
+                                    </div>
+                                    <div className="flex-1">
+                                        {item.city}
+                                    </div>
+                                    <div className='text-right align-middle p-0 group-hover:animate-bounce [animation-delay:-0.15s]'>
+                                        <ChevronDownIcon className='h-6 w-6 ' title={`Expand for ${item.name}\'s details `} />
+                                    </div>
+                                    <div className="text-right align-middle p-2" >
+                                        {retrievedPlaceDetails && (
+                                            <div className="rounded-xl bg-gray-100 p-4">
 
-                                                    <Button className={'w-fit mt-0'} onClick={() => handleRetrieveDetails(item.placeId)}>
-                                                        next
-                                                    </Button>
+                                                <h3 className=' text-gray-400 '>
+                                                    {retrievedPlaceDetails.name}
+                                                </h3>
+                                            </div>
+                                        )}
 
-                                                </span>
-                                            )}
-
-                                            {selectedPlaceId !== item.placeId && (
-
-                                                <Button
-                                                    onClick={() => handleSelectPlace(item.placeId)}
-                                                    className={selectedPlaceId ? '  opacity-10 align-middle hover:opacity-10 hover:text-white' : 'text-gray-100 hover:text-white'}
-                                                    disabled={!!selectedPlaceId}>
-                                                    Select
-                                                </Button>
-
-                                            )}                                        </td>
-                                    </tr>
-                                </React.Fragment>
-                            ))}
-                        </tbody>
-                    </table>
-                    <p className='mt-4 '>Place you're looking for is not in the list?</p>
+                                    </div>
+                                </div>
+                            </React.Fragment>
+                        ))}
+                    </div>
+                    <p className='mt-4'>Place you're looking for is not in the list?</p>
                     <Button onClick={handleCreatePlace}>Create a new place</Button>
-
-                </div >
+                </div>
             )}
-        </div >
 
+
+        </div>
     </>
 };
-

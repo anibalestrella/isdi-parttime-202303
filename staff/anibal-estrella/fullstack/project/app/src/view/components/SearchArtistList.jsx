@@ -107,14 +107,14 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
         }
     };
 
-    const handleCategoryChange = (category, artistId) => {
+    const handleArtistLineupCategoryChange = (category, artistId) => {
         setSelectedCategories((prevCategories) => ({
             ...prevCategories,
             [artistId]: category,
         }));
     };
 
-    const handleAddArtistWithCategory = (artistId) => {
+    const handleAddArtistToLineupWithCategory = (artistId) => {
         if (addedArtists.some((artist) => artist.id === artistId)) {
             alert('Artist is already in the lineup', 'error');
             return;
@@ -167,10 +167,9 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
     ];
 
     return (
-
         <div id='search-artist'>
             {addedArtists.length > 0 && (
-                <div id='selected-artist-lineUp-list' className='mt-8'>
+                <div id='selected-artist-lineUp-list' className='my-8'>
                     <ul id='added-artists-list' className=''>
                         {addedArtists.map((artist) => (
                             <li key={artist.id} className='flex items-center uppercase justify-between mt-2 pr-2  text-gray-300 font-normal bg-lime-100 hover:bg-gray-200 hover:text-white rounded-xl text-lg ' >
@@ -181,17 +180,17 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                     </ul>
                 </div>
             )}
-            <div className='py-2'>
+            <div>
                 <div className='relative'>
                     <input
                         type="text"
-                        placeholder="Enter artist name"
-                        className='pl-4 w-full block'
+                        placeholder="Enter artist name to search..."
+                        className='pl-10 w-full block '
                         value={artistName}
                         onChange={handleInputChange}
                         onKeyDown={(event) => keyPressUtils(event, handleRetrieveArtistsList)}
                     />
-                    <span className='absolute top-3 right-3 h-6 w-6 rounded-full cursor-pointer' onClick={handleRetrieveArtistsList}>
+                    <span className='absolute top-3 left-3 h-6 w-6 rounded-full cursor-pointer' onClick={handleRetrieveArtistsList}>
                         <MagnifyingGlassIcon className='text-gray-500 ' />
                     </span>
                     <Button onClick={handleRetrieveArtistsList}>Search Artist</Button>
@@ -220,32 +219,35 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                                     </div>
                                 </div>
                                 {expandedArtists[item.id] && searchArtists[item.id] && (
-
-
-
                                     <div className='px-3 pb-3 '>
                                         <div>
                                             <div className='mb-4 relative'>
-                                                {searchArtists[item.id]?.image && (
+                                                <span className=' text-xs uppercase font-normal my-2'> artist</span>
+                                                {searchArtists[item.id]?.image ?
                                                     <div>
-                                                        <h2 className='absolute z-10 font-light text-7xl text-white top-0 left-0 m-4'>
-                                                            {searchArtists[item.id].name}
-                                                        </h2>
+                                                        <div className=''>
+
+                                                            <h2 className=' font-light text-5xl  m-1' >
+
+                                                                {searchArtists[item.id].name}
+                                                            </h2>
+                                                        </div>
+
                                                         <img
                                                             className='w-full object-cover aspect-square grayscale rounded-lg border-4 border-gray-400'
                                                             src={searchArtists[item.id].image}
                                                             alt={searchArtists[item.id].name}
                                                         />
-                                                    </div>
-                                                )}
+                                                    </div> : <h2 className="font-light text-7xl text-gray-300"> {searchArtists[item.id].name}</h2>
+                                                }
                                             </div>
                                         </div>
-
                                         {searchArtists[item.id].bio && (
                                             <div>
+                                                <p className=' text-xs uppercase font-normal my-2'> artist bio</p>
                                                 {searchArtists[item.id].bio && (
                                                     <div>
-                                                        <p className='text-gray-400'>
+                                                        <p className='text-gray-400 text-base'>
                                                             {expandedBios[item.id] || searchArtists[item.id].bio.length <= 500 ? (
                                                                 <span dangerouslySetInnerHTML={{ __html: searchArtists[item.id].bio }} />
                                                             ) : (
@@ -253,38 +255,15 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                                                             )}
                                                         </p>
                                                         {searchArtists[item.id].bio.length > 500 && (
-                                                            <div onClick={() => toggleBioExpansion(item.id)} className=" text-lime-300 hover:text-lime-200 text-sm uppercase w-full cursor-pointer ">
+                                                            <div
+                                                                className=" text-lime-300 hover:text-lime-200 text-sm uppercase w-full cursor-pointer ">
+                                                                onClick={() => toggleBioExpansion(item.id)}
                                                                 {expandedBios[item.id] ? 'Show less' : 'Show more'}
                                                             </div>
                                                         )}
                                                     </div>
                                                 )}
-                                                <div id='spotify-profile' className='flex mt-4 self-end'>
 
-                                                    {spotifyArtistList[0].name === searchArtists[item.id].name
-                                                        && (
-                                                            < div className=' flex flex-col '>
-
-                                                                {/* <p> <span className=' font-bold'> Genres: </span>{spotifyArtistList[0].genres.join(', ')}</p> */}
-
-                                                                <a
-                                                                    href={spotifyArtistList[0].external_urls.spotify}
-                                                                    className='flex items-center'
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                >
-                                                                    <span>
-                                                                        Listen on Spotify
-                                                                    </span>
-                                                                    <img
-                                                                        src="/assets/Spotify_Icon_RGB_Black.png"
-                                                                        alt="Spotify Logo"
-                                                                        className='m-2 w-6 aspect-square'
-                                                                    />
-                                                                </a>
-                                                            </ div>
-                                                        )}
-                                                </div>
                                             </div>
                                         )}
                                         <div className="flex gap-6 pt-4">
@@ -324,22 +303,61 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                                                     </ul>
                                                 </div>
                                             )}
+
+                                            {spotifyArtistList[0].name === searchArtists[item.id].name
+                                                && (
+                                                    <div id='spotify-profile' className='flex-1 '>
+                                                        <h3 className='text-gray-400'>Listen on</h3>
+                                                        <ul className='text-gray-400 *:mb-3 hover:*:px-1 *:py-1 *:rounded-lg *:transition-all *:duration-75 *:max-w-fit'>
+                                                            <li className='hover:bg-gray-100'>
+                                                                <a
+                                                                    href={spotifyArtistList[0].external_urls.spotify}
+                                                                    className='flex items-center'
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                >
+                                                                    <img
+                                                                        src="/assets/Spotify_Icon_RGB_Black.png"
+                                                                        alt="Spotify Logo"
+                                                                        className='mr-2 w-6 aspect-square'
+                                                                    />
+                                                                    <span>Spotify</span>
+                                                                </a>
+                                                            </li>
+                                                            <li className='hover:bg-gray-100'>
+                                                                <a
+                                                                    href={spotifyArtistList[0].external_urls.spotify}
+                                                                    className='flex items-center'
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                >
+                                                                    <img
+                                                                        src="/assets/Apple_Music_Icon_blk_sm.svg"
+                                                                        alt="Apple Logo"
+                                                                        className='mr-2 w-6 aspect-square'
+                                                                    />
+                                                                    <span>Apple Music</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </ div>
+                                                )}
+
                                         </div>
 
-                                        <div id='artist-category ' className='my-8 flex flex-col flex-wrap '>
+                                        <div id='artist-categories' className='my-8 flex flex-col flex-wrap '>
                                             <h3 className=''>Choose Artist Category</h3>
 
                                             <ToggleButtons
                                                 options={categoryOptions}
                                                 selectedOption={selectedCategories[item.id] || ''}
-                                                onOptionChange={(category) => handleCategoryChange(category, item.id)}
+                                                onOptionChange={(category) => handleArtistLineupCategoryChange(category, item.id)}
                                             />
-                                            <div className='overflow-y-auto'>
-                                            </div>
+
                                         </div>
 
                                         <div className='my-8'>
-                                            <Button type="button" className="flex btn btn-primary w-full p-8 items-center justify-center text-white text-xl" onClick={() => handleAddArtistWithCategory(item.id)} >
+                                            <Button type="button" className="flex btn btn-primary w-full p-8 items-center justify-center text-white text-xl" onClick={() => handleAddArtistToLineupWithCategory(item.id)} >
                                                 {addedArtist === item.name ? `${item.name} just added to Line Up` : `Add ${item.name} to Line Up`}
                                             </Button>
                                         </div>
