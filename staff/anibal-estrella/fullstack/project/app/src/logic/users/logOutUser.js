@@ -2,7 +2,7 @@
 
 // export default () => context.token = null
 
-import context from './context';
+import context from '../context';
 
 export default () => {
     // Clear the token in the context

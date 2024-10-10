@@ -18,7 +18,8 @@ module.exports = {
     searchSpotify: require('./searchSpotify'),
     retrieveArtistDataFromTivo: require('./retrieveArtistDataFromTivo'),
     searchArtistDiscogs: require('./searchArtistDiscogs'),
-    retrieveArtistDataFromDiscogs: require('./retrieveArtistDataFromDiscogs')
+    retrieveArtistDataFromDiscogs: require('./retrieveArtistDataFromDiscogs'),
+    fetchGoogleMaps: require('./fetchGoogleMaps')
     // deleteEvent: require('./deleteEvent'),
     // updateEvent: require('./updateEvent'),
     // toggleLikeEvent: require('./toggleLikeEvent'),

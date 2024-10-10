@@ -6,7 +6,7 @@ import { Button } from '../library';
 import { SelectDate, SearchArtistList as SearchArtist, MaxCharactersCounter, SearchPlace } from '../components';
 import { useAppContext } from '../hooks'
 
-export default function CreateEvent() {
+export default function CreateEvent({ handleCancelCreate, user }) {
     const { alert, confirm, freeze, unfreeze, navigate } = useAppContext();
 
     const lineUpRef = useRef(null);
@@ -14,18 +14,24 @@ export default function CreateEvent() {
     const [formData, setFormData] = useState({
         author: '',
         eventName: '',
-        lineup: [],
+        eventLineup: [],
         eventDates: '',
         eventPlace: '',
         eventDescription: '',
-        eventPriceInCents: '',
+        eventPrice: '',
         eventPoster: '',
         eventPosterUrl: '',
     });
 
     const [currentArtist, setCurrentArtist] = useState({
         artist: '',
-        category: ''
+        name: '',
+        category: '',
+        discogsUrl: '',
+        image: '',
+        albums: [],
+        bio: '',
+        urls: [],
     });
 
     const eventNameRef = useRef(null);
@@ -33,20 +39,7 @@ export default function CreateEvent() {
     autosizeTextArea(eventNameRef.current, formData.eventName);
     autosizeTextArea(eventDescriptionRef.current, formData.eventDescription);
 
-
     const [eventPosterPreview, setEventPosterPreview] = useState("");
-    const [eventPosterObject, setEventPosterObject] = useState(null);
-
-    const handleAddArtist = () => {
-        if (currentArtist.artist && currentArtist.category) {
-            setFormData(prevState => ({
-                ...prevState,
-                lineup: [...prevState.lineup, currentArtist]
-            }));
-            setCurrentArtist({ artist: '', category: '' });
-            console.log(currentArtist);
-        }
-    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -55,8 +48,38 @@ export default function CreateEvent() {
 
     const handleArtistChange = (event) => {
         const { name, value } = event.target;
+        console.log(`Updating ${name} to ${value}`); // Log the name and value being set
         setCurrentArtist(prevState => ({ ...prevState, [name]: value }));
     };
+
+    const handleAddArtist = () => {
+        // Check if artist and category are present
+        if (currentArtist.artist && currentArtist.category) {
+            // Add the current artist to the lineup
+            setFormData(prevState => {
+                const updatedLineup = [...prevState.eventLineup, currentArtist];
+                console.log("Updated Lineup after adding artist:", updatedLineup); // Log updated lineup
+                return { ...prevState, eventLineup: updatedLineup };  // Return updated state
+            });
+
+            console.log("Artist added to lineup:", currentArtist); // Log current artist
+
+            // Reset currentArtist for next input
+            setCurrentArtist({
+                artist: '',
+                name: '',
+                category: '',
+                discogsUrl: '',
+                image: '',
+                albums: [],
+                bio: '',
+                urls: [],
+            });
+        } else {
+            console.warn("Artist or category is missing, cannot add to lineup."); // Log warning
+        }
+    };
+
 
     const handleEventPosterChange = async (event) => {
         let file;
@@ -81,7 +104,6 @@ export default function CreateEvent() {
         }
     };
 
-
     const handleRemovePoster = () => {
         setEventPosterPreview('');
         setFormData(prevState => ({
@@ -93,15 +115,37 @@ export default function CreateEvent() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const { author, eventPoster, eventName, eventDescription, lineup, eventDates, eventPlace, eventPriceInCents } = formData;
-        console.log(formData);
-        // createEvent(author, eventPoster, eventName, eventDescription, lineup, eventDates, eventPlace, eventPriceInCents);
+        const { author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPrice } = formData;
+
+        console.log("Form Data Before Submit:", formData); // Log all form data
+        console.log("Current Event Lineup:", eventLineup); // Log the lineup to see its contents
+
+        // Ensure eventLineup is populated before submission
+        if (eventLineup.length === 0) {
+            alert("Please add at least one artist to the lineup."); // Alert if lineup is empty
+            return;
+        }
+
+        try {
+            freeze();
+            createEvent(author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPrice)
+                .then(() => {
+                    alert(`Thank you ${user.name}!\n you have successfully created event: ${eventName}`);
+                })
+                .catch(error => alert(error.message));
+        } catch (error) {
+            alert(error.message);
+        }
+        unfreeze();
     };
 
-
+    const handleCancelCreateClick = () => {
+        const actionType = 'create';
+        confirm(`${user.name}, are you sure you want to leave your event creation? `, actionType);
+    };
 
     return (
-        <div id="create-event-container">
+        <div id="create-event-container" className='p-4'>
             <h2>Create Event</h2>
             <form onSubmit={handleSubmit}>
                 <div id='event-name'>
@@ -112,6 +156,7 @@ export default function CreateEvent() {
                         value={formData.eventName}
                         onChange={handleChange}
                         ref={eventNameRef}
+                        className='h-14'
                     ></textarea>
                 </div>
                 <div id='event-description'>
@@ -122,6 +167,7 @@ export default function CreateEvent() {
                         value={formData.eventDescription}
                         onChange={handleChange}
                         ref={eventDescriptionRef}
+                        className='h-14'
                     ></textarea>
                     {formData.eventDescription && (
                         <MaxCharactersCounter
@@ -130,7 +176,7 @@ export default function CreateEvent() {
                         />
                     )}
                 </div>
-                <div id='event-lineup' ref={lineUpRef}>
+                <div id='event-lineUp' ref={lineUpRef}>
                     <h3>Line Up:</h3>
                     <SearchArtist
                         handleAddArtist={handleAddArtist}
@@ -140,22 +186,21 @@ export default function CreateEvent() {
                         lineUpRef={lineUpRef}
                     />
                 </div>
-
-                <div id='event-date' className=''>
-                    <h3>Dates:</h3>
-                    <SelectDate />
-                </div>
                 <div id='event-place'>
                     <SearchPlace />
                 </div>
+                <div id='event-date'>
+                    <h3>Dates:</h3>
+                    <SelectDate />
+                </div>
                 <div id='event-ticket-price'>
                     <h3>Ticket price:</h3>
-                    <input type="text"
-                        name="eventPriceInCents"
+                    <input
+                        type="text"
+                        name="eventPrice"
                         placeholder="Enter event ticket cost..."
-                        value={formData.eventPriceInCents}
+                        value={formData.eventPrice}
                         onChange={handleChange}
-                    //required
                     />
                 </div>
                 <div id='event-poster' className="flex flex-col">
@@ -173,7 +218,7 @@ export default function CreateEvent() {
                             <input
                                 type="url"
                                 id="eventPosterUrl"
-                                placeholder="Enter an image URL : https://www.example.com "
+                                placeholder="Enter an image URL: https://www.example.com"
                                 name="eventPosterUrl"
                                 value={formData.eventPosterUrl}
                                 onChange={handleEventPosterChange}
@@ -190,6 +235,9 @@ export default function CreateEvent() {
                     </div>
                 </div>
                 <Button type="submit">Create Event</Button>
+                <Button onClick={handleCancelCreateClick} className={'button-cancel hover:button-cancel-hover'}>
+                    Cancel
+                </Button>
             </form>
         </div>
     );

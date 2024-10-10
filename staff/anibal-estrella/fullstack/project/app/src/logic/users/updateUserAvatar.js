@@ -1,6 +1,6 @@
 import { validators } from 'com'
 const { validateToken, validateFileUpload } = validators
-import context from "./context"
+import context from "../context"
 
 /**
  * App/ updateUserAvatar

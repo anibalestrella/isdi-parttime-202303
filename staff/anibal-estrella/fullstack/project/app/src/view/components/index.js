@@ -20,6 +20,7 @@ import EditPublishEventReview from './EditPublishEventReview'
 import SelectDate from './SelectDate.jsx'
 import SearchArtistSpotify from './SearchArtistSpotify.jsx'
 import MaxCharactersCounter from './MaxCharactersCounter.jsx'
+import GoogleMapsContainer from './GoogleMapsContainer.jsx'
 export {
     SearchPlace,
     SearchArtist,
@@ -42,5 +43,6 @@ export {
     SelectDate,
     EditPublishEventReview,
     SearchArtistSpotify,
-    MaxCharactersCounter
+    MaxCharactersCounter,
+    GoogleMapsContainer
 }

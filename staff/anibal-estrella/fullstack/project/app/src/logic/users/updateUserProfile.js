@@ -1,6 +1,6 @@
 import { saveUser, findUserById } from '../../data'
 import { validators } from 'com'
-import context from "./context"
+import context from "../context"
 const { validateToken, validateId, validateName, validateNickName } = validators
 import { updateUserName, updateUserNickName, updateUserEmail, updateUserPassword, updateUserAvatar } from '../../logic/users/'
 

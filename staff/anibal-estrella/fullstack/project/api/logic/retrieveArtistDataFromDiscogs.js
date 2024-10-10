@@ -1,3 +1,4 @@
+require('dotenv').config();
 // retrieveArtistDataFromDiscogs.js
 /**
  * retrieveArtistDataFromDiscogs
@@ -6,7 +7,6 @@
  * @returns {Promise<string>} The artist bio or a fallback message if not available.
  * @throws {Error} If there is an error fetching the bio.
  */
-require('dotenv').config();
 const { discogsParser } = require('../logic/helpers');
 
 const { validators: { validateArtistId },

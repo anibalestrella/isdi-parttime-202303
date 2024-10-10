@@ -19,6 +19,14 @@ export default plugin(({ addBase, addComponents, addUtilities, theme, config }) 
             textTransform: 'uppercase',
             margin: '.5rem 0',
         },
+        'h4': {
+            fontSize: theme('fontSize.xl'),
+            fontWeight: '200',
+            lineHeight: '100%',
+            letterSpacing: '-0.025em',
+            textTransform: 'uppercase',
+            margin: '.5rem 0',
+        },
         'a:focus, input:focus, button:focus, textarea:focus': {
             outline: 'none',
             boxShadow: 'none',

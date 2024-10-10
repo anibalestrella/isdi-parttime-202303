@@ -8,7 +8,7 @@ const ToggleButtons = ({ options, selectedOption, onOptionChange }) => {
                 <button
                     key={option.value}
                     type="button"
-                    className={`flex text-sm px-4 py-4 rounded-full transition-all duration-200  uppercase justify-center shadow-lg border-2 border-gray-300 whitespace-nowrap min-w-fit ${selectedOption === option.value ? 'bg-red-300 text-white' : 'bg-gray-100 text-gray-700 hover:text-white hover:bg-gray-300'}`}
+                    className={`flex text-sm px-4 py-4 rounded-full transition-all duration-200  uppercase justify-center shadow-lg border-2 border-gray-300 whitespace-nowrap min-w-fit text-gray-300 ${selectedOption === option.value ? 'bg-red-300 text-white' : 'bg-gray-100 text-gray-700 hover:text-white hover:bg-gray-300'}`}
                     onClick={() => onOptionChange(option.value)}
                 >
                     {option.label}

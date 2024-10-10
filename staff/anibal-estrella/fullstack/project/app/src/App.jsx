@@ -3,7 +3,7 @@ import { retrieveUserGeolocation, logOutUser } from './logic/users'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { isUserLoggedIn, retrieveUser } from './logic/users/'
 import { Home, Profile, Login, Create } from './view/pages'
-import { MenuTop, MenuBottom, Footer, Alert, Confirm } from './view/components'
+import { MenuTop, MenuBottom, Footer, Alert, Confirm, CreateEvent, CreateEventReview } from './view/components'
 import { Loader, InlineLoader } from './view/library'
 import { useAppContext } from './view/hooks'
 import AppContext from './AppContext'
@@ -78,7 +78,9 @@ function App() {
         setFeedback(null)
         setFeedbackConfirm(null)
     }
-
+    const handleCancelCreate = () => {
+        navigate('/create');
+    };
     function closeMenuTopLayer() {
         setIsVisible(false);
     }
@@ -95,8 +97,11 @@ function App() {
                 case "sendMessage":
                     console.log("Sending message...");
                     break;
+                case 'create':
+                    handleCancelCreate()
                 default:
                     handleCancel()
+
             }
         }
     };
@@ -161,7 +166,9 @@ function App() {
             <Route path="/events" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
             <Route path="/reviews" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
             <Route path="/artists" element={<Home city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
-            <Route path="/Create" element={<Create city={city} ipGeoLocation={ipGeoLocation} user={user} onOk={handleClose} onPanelClick={handlePanelClick} />} />
+            <Route path="/create" element={<Create city={city} ipGeoLocation={ipGeoLocation} user={user} />} />
+            <Route path="/create-event" element={<CreateEvent city={city} ipGeoLocation={ipGeoLocation} user={user} handleCancelCreate={handleCancelCreate} />} />
+            <Route path="/create-review" element={<CreateEventReview city={city} ipGeoLocation={ipGeoLocation} user={user} handleCancelCreate={handleCancelCreate} />} />
 
         </Routes>
 

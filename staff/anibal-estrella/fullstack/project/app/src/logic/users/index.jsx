@@ -1,4 +1,4 @@
-import context from './context'
+import context from '../context'
 import registerUser from './registerUser'
 import getUserId from './getUserId'
 import loginUser from './loginUser'

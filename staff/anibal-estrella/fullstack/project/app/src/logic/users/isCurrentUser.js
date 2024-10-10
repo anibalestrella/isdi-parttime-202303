@@ -1,5 +1,5 @@
 import { utils } from 'com'
-import context from './context'
+import context from '../context'
 
 const { extractSubFromToken } = utils
 

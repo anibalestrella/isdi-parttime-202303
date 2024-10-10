@@ -57,6 +57,19 @@ const user = new Schema({
         ref: 'User'
     }
 })
+const artistEventCategory = new Schema({
+    name: {
+        type: String,
+        enum: ['Opener', 'Headliner', 'Special Guest', 'Other'],
+        required: true,
+        unique: true,
+        trim: true
+    },
+    description: {
+        type: String,
+        trim: true
+    }
+});
 
 
 const event = new Schema({
@@ -85,22 +98,19 @@ const event = new Schema({
     lineUp: {
         type: [{
             artist: {
-                type: ObjectId,
-                ref: 'Artist',
+                type: Schema.Types.ObjectId,
+                ref: 'Artist', // Reference to the Artist model
                 required: true
             },
             category: {
-                type: ObjectId,
-                ref: 'Category',
+                type: Schema.Types.ObjectId,
+                ref: 'ArtistEventCategory', // Reference to the Category model
                 required: true
             }
         }],
         required: true
     },
-    categories: [{
-        type: ObjectId,
-        ref: 'Category'
-    }],
+
     dates: [{
         type: Date,
         required: true
@@ -128,7 +138,7 @@ const event = new Schema({
             type: Number,
             required: true
         },
-        userId: {
+        user: {
             type: ObjectId,
             ref: 'User',
             required: true
@@ -147,14 +157,19 @@ const artist = new Schema({
         ref: 'User',
         required: true
     },
-    id: {
+    discogsId: {
         type: String,
         required: true
     },
     name: {
         type: String,
         required: true
-    }
+    },
+    discogsUrl: [String],
+    image: String,
+    albums: [String],
+    bio: String,
+    urls: [String],
 })
 
 const eventReview = new Schema({
@@ -240,6 +255,7 @@ const Artist = model('Artist', artist)
 const EventReview = model('EventReview', eventReview)
 const Place = model('Place', place)
 const ScoreStats = model('ScoreStats', scoreStats);
+const ArtistEventCategory = model('ArtistEventCategory', artistEventCategory);
 
 module.exports = {
     User,
@@ -247,5 +263,6 @@ module.exports = {
     Artist,
     EventReview,
     Place,
-    ScoreStats
+    ScoreStats,
+    ArtistEventCategory
 }

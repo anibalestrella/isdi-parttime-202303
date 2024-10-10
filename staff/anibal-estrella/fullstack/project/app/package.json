@@ -13,6 +13,7 @@
     "dependencies": {
         "@heroicons/react": "^2.0.18",
         "@rollup/plugin-commonjs": "^25.0.0",
+        "@vis.gl/react-google-maps": "^1.1.0",
         "com": "file:../com",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",

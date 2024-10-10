@@ -53,7 +53,8 @@ const {
     searchSpotifyHandler,
     searchTivoHandler,
     searchArtistDiscogsHandler,
-    retrieveArtistDataFromDiscogsHandler
+    retrieveArtistDataFromDiscogsHandler,
+    fetchGoogleMapsHandler
 } = require('./handlers')
 
 mongoose.connect(process.env.MONGODB_URL)
@@ -92,7 +93,8 @@ mongoose.connect(process.env.MONGODB_URL)
         api.post('/create-event', jsonBodyParser, createEventHandler)
 
 
-        // api.post('/add-artist', jsonBodyParser, addArtistHandler)
+        api.post('/add-artist', jsonBodyParser, addArtistHandler)
+
         // api.post('/create-event-review', jsonBodyParser, createEventReviewHandler)
 
         // api.get('/events', retrieveEventsHandler)
@@ -119,8 +121,8 @@ mongoose.connect(process.env.MONGODB_URL)
         // Spotify search endpoint
         api.post('/api/spotify-search', jsonBodyParser, searchSpotifyHandler)
 
-        //Tivo.com endpoint
-        api.post('/api/tivo-search', jsonBodyParser, searchTivoHandler);
+        //Google.com endpoint
+        api.get('/api/google-maps', fetchGoogleMapsHandler)
 
         //Discogs.com endpoint 
         api.post('/api/discogs-search', jsonBodyParser, searchArtistDiscogsHandler);

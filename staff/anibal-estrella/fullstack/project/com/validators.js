@@ -123,11 +123,9 @@ function validateArtistId(id, explain = 'id') {
 */
 function validatePlaceId(id, explain = 'Place id') {
     if (typeof id !== 'string') throw new TypeError(`${explain} is ${typeof id} and must be a string`)
-    if (id.trim().length !== 7) throw new ContentError(`${explain} doesn't have 7 characters`)
-    for (let i = 0; i < id.length; i++) {
-        const char = id[i];
-
-        if (!'0123456789'.includes(char)) throw new ContentError(`${explain} is not a decimals`)
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+        throw new Error(`${explain} is not a valid UUID format`);
     }
 }
 
@@ -163,6 +161,25 @@ function validateIpGeoLocation(ipGeoLocation, explain = 'IP GeoLocation') {
     }
 }
 
+/**
+ * Validate latitude and longitude values.
+ * @param {number} latitude - The latitude to validate.
+ * @param {number} longitude - The longitude to validate.
+ * @returns {object} - Returns an object with isValid (boolean) and message (string) properties.
+ */
+function validateCoordinates(latitude, longitude, explain = 'coordinates') {
+    if (typeof latitude !== 'number' || typeof longitude !== 'number') {
+        throw new TypeError(`${explain} must be a number`);
+    }
+    if (latitude < -90 || latitude > 90) {
+        throw new ContentError(`${explain} invalid latitude format`);
+
+    }
+    if (longitude < -180 || longitude > 180) {
+        throw new ContentError(`${explain} Longitude must be between -180 and 180 degrees.`);
+    }
+
+}
 /**
  * validates a city
  * @param {string} city the city
@@ -272,9 +289,49 @@ function validateFileUpload(fileObject, explain = 'file') {
         throw new ContentError(`${fileObject.fileName} is larger than ${maxSizeInBytes} bytes`);
     }
 
+
 }
 
-module.exports = validateFileUpload;
+function validateArray(value, explain = 'value') {
+    if (!Array.isArray(value)) throw new TypeError(`${explain} is ${typeof value} and must be an array`);
+}
+
+function validateLineUp(lineUp, explain = 'lineUp') {
+    validateArray(lineUp, explain);
+    lineUp.forEach((item, index) => {
+        if (typeof item.discogsId !== 'number') throw new TypeError(`${explain}[${index}].discogsId is ${typeof item.discogsId} and must be a number`);
+        if (isNaN(item.discogsId)) throw new Error(`${explain}[${index}].discogsId must be a valid number`);
+
+        if (typeof item.category !== 'string') throw new TypeError(`${explain}[${index}].category is ${typeof item.category} and must be a string`);
+        if (item.category.trim().length === 0) throw new Error(`${explain}[${index}].category cannot be empty`);
+    });
+}
+function validateScore(score, explain = 'score') {
+    validateArray(score, explain);
+    score.forEach((s, index) => {
+        validateId(s.user, `${explain}[${index}].user`); // Validate user ID
+        if (typeof s.value !== 'number') {
+            throw new TypeError(`${explain}[${index}].value is ${typeof s.value} and must be a number`);
+        }
+        if (s.value < 0) {
+            throw new Error(`${explain}[${index}].value cannot be negative`);
+        }
+    });
+}
+
+function validateLikes(likes, explain = 'Likes') {
+    validateArray(likes, explain);
+    likes.forEach((like, index) => {
+        validateId(like, `${explain}[${index}]`);
+    });
+}
+
+function validateEventReviews(eventReviews, explain = 'eventReviews') {
+    validateArray(eventReviews, explain);
+    eventReviews.forEach((review, index) => {
+        validateId(review, `${explain}[${index}]`);
+    });
+}
 
 module.exports = {
     validatePassword,
@@ -292,5 +349,11 @@ module.exports = {
     validateArtistId,
     validatePlaceId,
     validateCallback,
-    validateArtistName
+    validateArtistName,
+    validateCoordinates,
+    validateArray,
+    validateLineUp,
+    validateScore,
+    validateLikes,
+    validateEventReviews
 }

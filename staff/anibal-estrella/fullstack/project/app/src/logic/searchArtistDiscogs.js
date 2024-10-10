@@ -1,7 +1,7 @@
 /**
  * Performs a search on Discogs using the provided artistName.
  * @param {string} artistName - The search query string.
- * @returns {Promise<object>} Response data from Discogs API.
+ * @returns {Promise<object>} Response data from Discogs API or error object.
  */
 export default async function searchArtistDiscogs(artistName) {
     try {
@@ -13,14 +13,17 @@ export default async function searchArtistDiscogs(artistName) {
             body: JSON.stringify({ artistName })
         });
 
+        // Check if the response is not OK (status code 2xx)
         if (!response.ok) {
-            throw new Error(`Failed to fetch from Discogs API: ${response.status}`);
+            const errorData = await response.json(); // Parse the error message returned from the server
+            throw new Error(errorData.error || `Failed to fetch from Discogs API: ${response.status}`);
         }
 
         const data = await response.json();
         return data;
     } catch (error) {
+        // Log the specific error message from the backend or any general error
         console.error(`Failed to search Discogs: ${error.message}`);
-        throw new Error(`Failed to search Discogs: ${error.message}`);
+        throw new Error(error.message); // Re-throw to be handled by the calling function in the front end
     }
 }

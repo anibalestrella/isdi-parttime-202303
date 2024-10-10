@@ -7,20 +7,25 @@ const { extractUserId, handleErrors } = require('./helpers')
 module.exports = handleErrors((req, res) => {
     const userId = extractUserId(req)
 
-    const { poster, title, description, lineUp, dates, place, price, eventReviews, score, likes } = req.body
+    const {
+        eventPoster,
+        eventName,
+        eventDescription,
+        eventLineup,
+        eventDates,
+        eventPlace,
+        eventPrice } = req.body
 
     return createEvent(
+
         userId,
-        poster,
-        title,
-        description,
-        lineUp,
-        dates,
-        place,
-        price,
-        eventReviews,
-        score,
-        likes).then(() => res.status(201).send())
+        eventPoster,
+        eventName,
+        eventDescription,
+        eventLineup,
+        eventDates,
+        eventPlace,
+        eventPrice).then(() => res.status(201).send())
 })
 
 

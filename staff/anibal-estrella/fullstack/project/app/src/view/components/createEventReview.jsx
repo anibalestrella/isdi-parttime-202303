@@ -12,12 +12,12 @@ import { SearchArtistList as SearchArtist, SearchPlace, UploadMedia, EditPublish
  * @prop {function} handleChange - Function to handle form input changes.
  * @prop {object} eventReviewFormData - Object containing current event review data.
  * @prop {function} handleFileChange - Function to handle file upload changes.
- * @prop {function} handleCancel - Function called to cancel the review creation process.
+ * @prop {function} handleCancelCreate - Function called to cancel the review creation process.
  * 
  * @returns {JSX.Element} - JSX element representing the component.
  */
 
-function CreateEventReview({ handleCancel, user }) {
+function CreateEventReview({ handleCancelCreate, user }) {
     console.log('CreateEventReview => RENDER');
 
     const { alert, confirm, freeze, unfreeze, navigate } = useAppContext()
@@ -69,7 +69,7 @@ function CreateEventReview({ handleCancel, user }) {
         step4: {},
     });
 
-    const handleCancelReview = () => {
+    const handleCancelCreateClick = () => {
         setStepData({
             step1: {},
             step2: {},
@@ -77,17 +77,10 @@ function CreateEventReview({ handleCancel, user }) {
             step4: {}
         });
         // prompt for review
-        const actionType = "cancelReview"
-        confirm(`${user.name}, are you sure you want leave your event creation? `, actionType);
-
-        // handleCancel()
-
+        const actionType = 'create'
+        confirm(`${user.name}, are you sure you want leave your event review creation? `, actionType);
     };
 
-    const handleLogOut = () => {
-        const actionType = "logout"
-        confirm(`${user.name}, are you sure you want to log out ? `, actionType);
-    };
 
     const handleSubmit = (event, data) => {
         evnt.preventDefault();
@@ -97,6 +90,8 @@ function CreateEventReview({ handleCancel, user }) {
         }));
         console.log(stepData);
     };
+
+
 
     return <>
         {/* {currentStep > 1 && (
@@ -114,7 +109,7 @@ function CreateEventReview({ handleCancel, user }) {
             </div>
 
             <div className='flex justify-between mt-4'>
-                <Button onClick={handleCancelReview} className={'button-cancel hover:button-cancel-hover'}>
+                <Button onClick={handleCancelCreateClick} className={'button-cancel hover:button-cancel-hover'}>
                     Cancel
                 </Button>
                 {currentStep > 2 && (

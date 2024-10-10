@@ -1,4 +1,4 @@
-import context from './context'
+import context from '../context'
 import { utils } from 'com'
 
 const { isTokenValid, isTokenAlive } = utils

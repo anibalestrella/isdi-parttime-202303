@@ -1,17 +1,20 @@
 import { validators } from 'com';
+import context from "./context"
 
-const { validateText } = validators;
+const { validateToken, validateText } = validators;
 
 
 export default async function createEvent(author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPriceInCents) {
-    validateText(eventDescription, 'Event\'s Description');
+    validateToken(context.token, 'Session Token');
     validateText(eventName, 'Event\'s name');
+    validateText(eventDescription, 'Event\'s Description');
 
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/create-event`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${context.token}`,
             },
             body: JSON.stringify({ author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPriceInCents })
         });

@@ -9,7 +9,7 @@ export default function EventCard() {
     return <div id='event-card' className="flex-shrink-0 text-white p-2 w-48 h-auto rounded-lg bg-gray-300 hover:bg-gray-200  transition-all duration-200 ">
         <a id='event-link' href="#" className="">
             <div className="w-full aspect-square mb-2">
-                <img srcSet="https://picsum.photos/1500?random=2" alt="" loading="lazy" className="h-full w-full rounded-md" />
+                <img srcSet="https://picsum.photos/1500?random=3" alt="" loading="lazy" className="h-full w-full rounded-md grayscale" />
             </div>
             <div id='event-details' className="text-sm">
                 <div id='event-name' className="font-bold

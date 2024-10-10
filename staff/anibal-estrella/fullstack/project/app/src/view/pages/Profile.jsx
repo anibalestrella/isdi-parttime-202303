@@ -81,17 +81,18 @@ export default function Profile({ onOk, onPanelClick, onCancel }) {
     }
 
     const handleUpdateUserProfile = async (event, isAuthenticated) => {
-        event.preventDefault()
+        event.preventDefault();
 
-        const userNewProfileValues = await getFormNewValues(user, event)
+        const userNewProfileValues = await getFormNewValues(user, event);
 
         if (isAuthenticated) {
-            setShowAuthPassword(false)
+            setShowAuthPassword(false);
 
             try {
-                await isUserLoggedIn()
-                freeze()
+                await isUserLoggedIn();
+                freeze();
 
+                // Perform the profile update, including the new avatar
                 const profileChanges = await updateUserProfile(
                     userNewProfileValues.userCurrentName,
                     userNewProfileValues.userCurrentEmail,
@@ -104,58 +105,45 @@ export default function Profile({ onOk, onPanelClick, onCancel }) {
                     userNewProfileValues.userNewPasswordConfirm,
                     userNewProfileValues.userCurrentAvatar,
                     userNewProfileValues.userNewAvatar,
-                    avatarObject
+                    avatarObject // Make sure avatarObject is passed correctly
                 );
 
                 unfreeze();
-
                 setFormChanged(false);
 
-                let alertMessage = `Your profile updated successfully: `
+                // Update the user state with the new values, including the avatar
+                const updatedUser = {
+                    name: userNewProfileValues.userNewName || user.name,
+                    nickName: userNewProfileValues.userNewNickName || user.nickName,
+                    email: userNewProfileValues.userNewEmail || user.email,
+                    avatar: avatarObject ? avatarObject.file : user.avatar  // Use the new avatar if available
+                };
 
+                setUser(updatedUser);
+                setUserAvatarImagePreview(updatedUser.avatar); // Update avatar preview
+
+                // Notify user about the changes
+                let alertMessage = `Your profile updated successfully: `;
                 if (profileChanges.length > 0) {
                     profileChanges.forEach(change => {
                         alertMessage += ` · New ${change}`;
                     });
-
                     alert(alertMessage);
                 } else {
                     alert(`${userNewProfileValues.userCurrentName.toUpperCase()}, no changes were made to your profile.`);
                 }
 
-                const updatedUser = {
-                    name: userNewProfileValues.userNewName || user.name,
-                    nickName: userNewProfileValues.userNewNickName || user.nickName,
-                    email: userNewProfileValues.userNewEmail || user.email,
-                    avatar: userNewProfileValues.userNewAvatar || user.avatar
-                }
-                console.log(updatedUser);
-                setUser(updatedUser)
-
-                setUserUpdate({
-                    userNewName: updatedUser.name,
-                    userNewNickName: updatedUser.nickName,
-                    userNewEmail: updatedUser.email,
-                    userNewPassword: '',
-                    userNewPasswordConfirm: '',
-                    userNewAvatar: '',
-                    userNewEmailConfirm: '',
-                    userCurrentEmail: updatedUser.email
-                })
-
-                setUserAvatarImagePreview(user.avatar);
-
             } catch (error) {
-                unfreeze()
+                unfreeze();
                 alert(error.message);
 
-                setUserUpdate(getInitialUserUpdateState(user))
-                setUserAvatarImagePreview(user.avatar)
+                // Revert state on error
+                setUserUpdate(getInitialUserUpdateState(user));
+                setUserAvatarImagePreview(user.avatar); // Revert avatar to original on error
                 setFormChanged(false);
-
             }
         }
-    }
+    };
 
     const getInitialUserUpdateState = (user) => ({
         userNewName: user.name,
@@ -177,13 +165,21 @@ export default function Profile({ onOk, onPanelClick, onCancel }) {
     const handleAvatarChange = async (event) => {
         const file = event.target.files[0];
 
+        if (!file) {
+            return;
+        }
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            setUserAvatarImagePreview(reader.result);
+        }
+        reader.readAsDataURL(file)
+
         try {
             const avatarObject = await createBase64ImageObject(file)
-            setUserAvatarImagePreview(avatarObject.file)
-            setAvatarObject(avatarObject)
+            setAvatarObject(avatarObject);
         } catch (error) {
-            console.error('Error converting file to base64:', error)
-            alert(error.message)
+            console.error('Error converting file to base64:', error);
+            alert(error.message);
         }
     };
 

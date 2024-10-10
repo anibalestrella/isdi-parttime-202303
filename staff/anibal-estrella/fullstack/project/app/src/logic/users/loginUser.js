@@ -1,5 +1,5 @@
 import { validators, errors } from 'com'
-import context from './context'
+import context from '../context'
 
 const { validateEmail, validatePassword } = validators
 

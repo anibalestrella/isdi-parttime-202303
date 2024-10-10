@@ -1,0 +1,25 @@
+// fetchGoogleMapsHandler.js
+
+const { handleErrors } = require('./helpers');
+
+const { fetchGoogleMaps } = require('../logic');
+
+
+/**
+ * fetchGoogleMapsHandler
+ * Handler for google maps API key endpoint.
+ * @param {object} req - Express request object.
+ * @param {object} res - Express response object.
+ * @returns {object} - Express response
+ * @throws {Error} - If an error occurs
+ */
+
+module.exports = handleErrors(async (req, res) => {
+    try {
+        const apiKey = await fetchGoogleMaps();
+
+        res.json({ apiKey });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error: ' + error.message });
+    }
+});

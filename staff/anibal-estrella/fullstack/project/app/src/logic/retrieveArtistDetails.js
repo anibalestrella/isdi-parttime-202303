@@ -1,8 +1,13 @@
 import { cleanWikipediaImageUrl } from './helpers/cleanWikipediaImageUrl';
 import { getWikipediaLinkFromWikidataId } from './helpers/getWikipediaLinkFromWikidataId';
 /**
+ * Retrieve artist details from MusicBrainz API
+ * @param {string} artistName
+ * @returns {Promise<ArtistDetails>}
+ * @throws {Error}
  * 
  */
+
 const retrieveArtistDetails = async (artistName) => {
     debugger
     try {

@@ -18,4 +18,5 @@ module.exports = {
     searchTivoHandler: require('./searchTivoHandler'),
     searchArtistDiscogsHandler: require('./searchArtistDiscogsHandler'),
     retrieveArtistDataFromDiscogsHandler: require('./retrieveArtistDataFromDiscogsHandler'),
+    fetchGoogleMapsHandler: require('./fetchGoogleMapsHandler'),
 }

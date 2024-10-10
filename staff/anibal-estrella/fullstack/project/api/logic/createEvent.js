@@ -1,55 +1,94 @@
 const {
     errors: { ExistenceError, ContentError },
-    validators: { validateText, validateUrl, validateId, validateEuroPrice, validatePlaceId }
+    validators: { validateText, validateUrl, validateId, validateEuroPrice, validatePlaceId, validateEventReviews, validateLineUp }
 } = require('com');
 
 const { User, Event, Artist, Place } = require('../data-project/models.js');
+const addArtist = require('./addArtist'); // Import the addArtist function
 
-module.exports = (userId, poster, name, description, artistId, dates, placeId, price, score) => {
+module.exports = async (
+    userId,
+    eventPoster,
+    eventName,
+    eventDescription,
+    eventLineup,
+    eventDates,
+    eventPlace,
+    eventPrice
+) => {
+    // Validate inputs
     validateId(userId, 'user id');
-    validateUrl(poster, 'Image URL');
-    validateText(name, 'Event\'s title')
-    validateText(description, 'Event\'s description')
-    validateText(score, 'Event\'s review score')
-    validateEuroPrice(price, 'Event\'s price in euro');
-    validatePlaceId(placeId, 'Event place ID')
+    validateText(eventName, 'Event\'s title Name');
+    validateText(eventDescription, 'Event\'s description');
+    validateLineUp(eventLineup, 'Event\'s line up');  // Validate artist objects in the eventLineup
+    validateText(eventDates, 'Event\'s line up');  // Validate artist objects in the eventLineup
+    validateEuroPrice(eventPrice, 'Event\'s price in euro');
+    validateEventReviews(eventReviews, 'Event\'s reviews');
 
-    let priceInCents;
+    if (eventPoster) validateUrl(eventPoster, `${action} Poster Image URL`);
 
-    if (price) {
-        priceInCents = parseInt(price.replace(',', ''), 10);
-    } else {
-        priceInCents = 0;
+    if (eventPlace) validatePlaceId(eventPlace, 'Event\'s place ID');
+
+    // Convert price to cents
+    function convertPriceToCents(eventPrice) {
+        if (eventPrice) {
+            return parseInt(eventPrice.replace(',', ''), 10);
+        }
+        return 0;
     }
 
-    // Check if the artist ID exists in the artist collection
-    return Artist.findOne({ id: artistId })
-        .then(artist => {
-            if (!artist) {
-                throw new ExistenceError(`Artist with ID ${artistId} does not exist`);
-            } else {
-                return Place.findOne({ id: placeId })
-                    .then(place => {
-                        if (!place) {
-                            throw new ExistenceError(`Place with ID ${placeId} does not exist`);
-                        } else {
-                            return User.findById(userId)
-                                .then(user => {
-                                    if (!user) throw new ExistenceError(`User with id ${userId} does not exist`);
-                                    return Event.create({
-                                        author: userId,
-                                        poster,
-                                        name,
-                                        description,
-                                        lineUp: artist._id,
-                                        dates,
-                                        place: place._id,
-                                        price: priceInCents,
-                                        score,
-                                    });
-                                });
-                        }
-                    });
-            }
-        });
+    const priceInCents = convertPriceToCents(eventPrice);
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new ExistenceError(`User with ID ${userId} does not exist`);
+    }
+
+    // Iterate through each artist in the eventLineup and either add or retrieve them
+    const artistIds = [];
+    for (const artist of eventLineup) {
+        let dbArtist = await Artist.findOne({ discogsId: artist.discogsId });
+
+        if (!dbArtist) {
+            // If artist does not exist, use addArtist to add them
+            dbArtist = await addArtist(
+                userId,                   // The user creating the artist
+                artist.discogsId,          // Artist Discogs ID
+                artist.name,               // Artist name
+                artist.discogsUrl,         // Artist Discogs URL
+                artist.image,              // Artist image URL (optional)
+                artist.albums,             // Artist albums (optional)
+                artist.bio,                // Artist bio (optional)
+                artist.urls                // Additional artist URLs (optional)
+            );
+        }
+
+        // Add the artist's ID to the artistIds array
+        artistIds.push(dbArtist._id);
+    }
+
+    // Check if the place exists
+    const place = await Place.findOne({ _id: placeId });
+    if (!place) {
+        throw new ExistenceError(`Place with ID ${placeId} does not exist`);
+    }
+
+    // Create the event
+    const event = await Event.create({
+        author: userId,
+        poster: eventPoster,
+        name: eventName,
+        description: eventDescription,
+        lineUp: artistIds,  // Use the artist IDs in the event
+        dates: eventDates,
+        place: place._id,
+        price: priceInCents,
+        score: "",
+        likes: [],
+        eventTag: [],
+        eventReviews: []
+    });
+
+    return event;
 };

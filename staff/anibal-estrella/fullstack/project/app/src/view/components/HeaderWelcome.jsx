@@ -25,7 +25,7 @@ function HeaderWelcome({ handleClick, user }) {
                 </div>
             </div>
             <div className='overflow-hidden rounded-lg w-full h-full row-start-1 mb-4 md:mb-0 md:row-auto'>
-                <img src="https://picsum.photos/1500?random=2" alt="" className='object-cover h-full md:h-full w-full' />
+                <img src="https://picsum.photos/1500?random=1" alt="" className='object-cover h-full md:h-full w-full grayscale' />
             </div>
         </div>
     );

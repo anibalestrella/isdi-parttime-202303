@@ -6,7 +6,7 @@ import searchPlace from './searchPlace'
 import uploadMedia from './uploadMedia'
 import searchArtistSpotify from './searchArtistSpotify'
 import searchArtistTivoApi from './searchArtistTivoApi'
-
+import fetchLoadGoogleMapsApi from './fetchLoadGoogleMapsApi'
 
 export {
     createEvent,
@@ -16,5 +16,6 @@ export {
     retrieveArtistDetailsFromDiscogs,
     searchArtistDiscogs,
     searchArtistSpotify,
-    searchArtistTivoApi
+    searchArtistTivoApi,
+    fetchLoadGoogleMapsApi
 }

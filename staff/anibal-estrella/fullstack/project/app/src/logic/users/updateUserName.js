@@ -1,5 +1,5 @@
 import { validators } from 'com';
-import context from "./context"
+import context from "../context"
 const { validateToken, validateName } = validators;
 
 /**

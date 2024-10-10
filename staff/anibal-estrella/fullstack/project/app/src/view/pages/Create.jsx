@@ -14,7 +14,7 @@ import { CreateEventReview, CreateStepsList, CreateEvent } from '../components'
  * @prop {object} user - User object containing user information (likely passed as props).
  */
 
-const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
+const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user, handleCancelCreate }) => {
     const { alert, freeze, unfreeze, inlineFreeze, navigate, confirm } = useAppContext()
 
     const [Profile, setProfile] = useState(null);
@@ -22,19 +22,17 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
 
     const [create, setCreate] = useState('hello');
 
-    const handleCreateEvent = () => {
-        // Handle create event action
-        setCreate('create event');
-    };
 
     const handleCreateReview = () => {
-        // Handle create review action
-        setCreate('create review');
+        // setCreate('create review');
+        navigate('/create-review')
     };
 
-    const handleCancel = () => {
-        setCreate('hello');
-    }
+    const handleCreateEvent = () => {
+        // setCreate('create event')
+        navigate('/create-event')
+    };
+
 
     return (
         <div>
@@ -77,15 +75,15 @@ const Create = ({ city, ipGeoLocation, openDrawer, isDrawerOpen, user }) => {
 
 
                         <CreateEventReview
-                            handleCancel={handleCancel}
+                            handleCancelCreate={handleCancelCreate}
                             user={user}
                         />
 
                     </div>
                 )}
                 {create === 'create event' && (
-                    <CreateEvent />
-                )}
+                    <CreateEvent handleCancelCreate={handleCancelCreate} user={user}
+                    />)}
 
 
             </section>
