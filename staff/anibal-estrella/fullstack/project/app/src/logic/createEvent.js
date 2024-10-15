@@ -4,7 +4,7 @@ import context from "./context"
 const { validateToken, validateText } = validators;
 
 
-export default async function createEvent(author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPriceInCents) {
+export default async function createEvent(author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPrice) {
     validateToken(context.token, 'Session Token');
     validateText(eventName, 'Event\'s name');
     validateText(eventDescription, 'Event\'s Description');
@@ -16,7 +16,7 @@ export default async function createEvent(author, eventPoster, eventName, eventD
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${context.token}`,
             },
-            body: JSON.stringify({ author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPriceInCents })
+            body: JSON.stringify({ author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPrice })
         });
 
         if (response.status !== 201) {

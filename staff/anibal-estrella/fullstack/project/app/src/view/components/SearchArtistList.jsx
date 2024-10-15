@@ -135,11 +135,20 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                 [artistId]: category,
             }));
         }
+        const currentArtistDetails = {
+            artist: artistDetails.name,
+            discogsUrl: artistDetails.discogsUrl,
+            category,
+            albums: artistDetails.albums,
+            spotifyUrl: spotifyArtistList?.[0]?.external_urls?.spotify || '', // Add Spotify URL
+            image: artistDetails.image, // Add image if needed
+            bio: artistDetails.bio // Add bio if needed
+        };
 
-        setCurrentArtist({ artist: artistDetails.name, discogsUrl: artistDetails.discogsUrl, category });
+        setCurrentArtist(currentArtistDetails); // Ensure you pass the full artist object here
 
         // Call to parent function
-        handleAddArtist(artistId, category);
+        handleAddArtist(currentArtistDetails);
 
         // Update added artists state
         setAddedArtists((prevArtists) => {
@@ -213,7 +222,7 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
 
             {searchArtistList && !error && (
                 <div className='mt-4'>
-                    <h4>Select Artist:</h4>
+                    <h2>Select Artist:</h2>
                     <div id='artist-list' className='w-full'>
                         {searchArtistList.slice(0, 5).map((item) => (
                             <div key={item.id}>
@@ -329,50 +338,45 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                                                     </div>
                                                 )}
 
-                                                {spotifyArtistList[0].name === searchArtists[item.id].name
-                                                    && (
-                                                        <div id='spotify-profile' className='flex-1 '>
-                                                            <h3 className='text-gray-400'>Listen on</h3>
-                                                            <ul className='text-gray-400 *:mb-3 hover:*:px-1 *:py-1 *:rounded-lg *:transition-all *:duration-75 *:max-w-fit'>
-                                                                <li className='hover:bg-gray-100'>
-                                                                    <a
-                                                                        href={spotifyArtistList[0].external_urls.spotify}
-                                                                        className='flex items-center'
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                    >
-                                                                        <img
-                                                                            src="/assets/Spotify_Icon_RGB_Black.png"
-                                                                            alt="Spotify Logo"
-                                                                            className='mr-2 w-6 aspect-square'
-                                                                        />
-                                                                        <span>Spotify</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li className='hover:bg-gray-100'>
-                                                                    <a
-                                                                        href={spotifyArtistList[0].external_urls.spotify}
-                                                                        className='flex items-center'
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                    >
-                                                                        <img
-                                                                            src="/assets/Apple_Music_Icon_blk_sm.svg"
-                                                                            alt="Apple Logo"
-                                                                            className='mr-2 w-6 aspect-square'
-                                                                        />
-                                                                        <span>Apple Music</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </ div>
+                                                {spotifyArtistList && spotifyArtistList[0]?.name === searchArtists[item.id].name && (
+                                                    <div id='spotify-profile' className='flex-1 '>
+                                                        <h3 className='text-gray-400'>Listen on</h3>
+                                                        <ul className='text-gray-400 *:mb-3 hover:*:px-1 *:py-1 *:rounded-lg *:transition-all *:duration-75 *:max-w-fit'>
+                                                            <li className='hover:bg-gray-100'>
+                                                                <a
+                                                                    href={spotifyArtistList[0].external_urls.spotify}
+                                                                    className='flex items-center'
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                >
+                                                                    <img
+                                                                        src="/assets/Spotify_Icon_RGB_Black.png"
+                                                                        alt="Spotify Logo"
+                                                                        className='mr-2 w-6 aspect-square'
+                                                                    />
+                                                                    <span>Spotify</span>
+                                                                </a>
+                                                            </li>
+                                                            <li className='hover:bg-gray-100'>
+                                                                <a
+                                                                    href={spotifyArtistList[0].external_urls.spotify}
+                                                                    className='flex items-center'
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                >
+                                                                    <img
+                                                                        src="/assets/Apple_Music_Icon_blk_sm.svg"
+                                                                        alt="Apple Logo"
+                                                                        className='mr-2 w-6 aspect-square'
+                                                                    />
+                                                                    <span>Apple Music</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </ div>
 
 
-                                                    )}
-
-
-
-
+                                                )}
 
                                             </div>
 
@@ -406,6 +410,7 @@ export default function SearchArtist({ handleAddArtist, setCurrentArtist, lineUp
                                             <div className='my-2'>
                                                 <Button type="button" className="flex btn btn-primary w-full p-8 items-center justify-center text-white text-xl" onClick={() => handleAddArtistToLineupWithCategory(item.id)} >
                                                     {addedArtist === item.name ? `${item.name} just added to Line Up` : `Add ${item.name} to Line Up`}
+
                                                 </Button>
                                             </div>
 

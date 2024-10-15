@@ -3,14 +3,13 @@ import { validators } from 'com';
 const { validateArtistId } = validators;
 
 /**
- * SearchArtistDiscogsApi.js
+ * retrieveArtistDetailsFromDiscogs.js
  * Performs a search on Discogs using the provided artistName.
  * @param {string} artistId - The search query string.
  * @returns {Promise<object>} Response data from Discogs API.
  */
 
-export default async function searchArtistDiscogsApi(artistId) {
-    console.log(artistId, " ", typeof artistId);
+export default async function retrieveArtistDetailsFromDiscogs(artistId) {
     validateArtistId(artistId, 'artist Id')
 
     try {
