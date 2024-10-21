@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Link, Navigate, useLocation } from 'react-router-dom';
 
-import { CreateEventReview } from '../components'
+import { CreateMenu } from '../components'
 
 
 function Drawer({ openDrawer, isDrawerOpen }) {
@@ -22,7 +22,7 @@ function Drawer({ openDrawer, isDrawerOpen }) {
                 <button className=" px-2 pt-2 text-gray-300 text-xs self-start place-self-end" onClick={handleClose}>Close</button>
                 <div className='w-full overflow-y-auto overflow-x-hidden col-span-2'>
 
-                    <CreateEventReview handleClose={handleClose} reloadKey={reloadKey} />
+                    <CreateMenu handleClose={handleClose} reloadKey={reloadKey} openDrawer={openDrawer} />
 
                 </div>
             </div>

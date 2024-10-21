@@ -56,14 +56,14 @@ export default function CreateEvent({ handleCancelCreate, user }) {
     const handleAddArtist = (currentArtistDetails) => {
 
         if (currentArtistDetails.artist && currentArtistDetails.category) {
-            // Update the formData state with the new artist in eventLineup
+
             setFormData(prevState => {
-                const updatedLineup = [...prevState.eventLineup, currentArtistDetails]; // Use currentArtistDetails, not currentArtist
+                const updatedLineup = [...prevState.eventLineup, currentArtistDetails];
+
                 return { ...prevState, eventLineup: updatedLineup };
             });
             console.log("Updated Lineup:", formData.eventLineup);
 
-            // Reset currentArtist to its default empty state
             setCurrentArtist({
                 artist: '',
                 name: '',
@@ -81,25 +81,34 @@ export default function CreateEvent({ handleCancelCreate, user }) {
     const handleAddPlace = (place) => {
         setFormData(prevState => ({
             ...prevState,
-            eventPlace: place // store the selected place
+            eventPlace: place
         }));
-        console.log("Added Place:", formData.eventPlace); // Log the updated lineup
+        console.log("Added Place:", formData.eventPlace);
 
     };
     const handleEventPosterChange = async (event) => {
-        let file;
-        if (event.target.files && event.target.files[0]) {
+        let file, imageUrl;
+
+        if (event.target.type === 'file' && event.target.files && event.target.files[0]) {
             file = event.target.files[0];
+            setFormData(prevState => ({
+                ...prevState,
+                eventPoster: file,
+                eventPosterUrl: '', // Clear URL input if file is selected
+            }));
         } else if (event.target.type === 'url') {
-            file = event.target.value;
+            imageUrl = event.target.value;
+            setFormData(prevState => ({
+                ...prevState,
+                eventPosterUrl: imageUrl,
+                eventPoster: '', // Clear file input if URL is selected
+            }));
         }
 
-        setFormData(prevState => ({ ...prevState, [event.target.name]: file }));
-
-        if (file) {
+        if (file || imageUrl) {
             try {
                 freeze();
-                const eventPosterObject = await createBase64ImageObject(file);
+                const eventPosterObject = await createBase64ImageObject(file || imageUrl);
                 setEventPosterPreview(eventPosterObject.file);
             } catch (error) {
                 console.error('Error converting file to base64:', error);
@@ -117,9 +126,23 @@ export default function CreateEvent({ handleCancelCreate, user }) {
             eventPosterUrl: ''
         }));
     };
+    const handleRemoveArtist = (artistId) => {
+        setFormData(prevState => {
+            const updatedLineup = prevState.eventLineup.filter(artist => artist.artistId !== artistId);
+            return { ...prevState, eventLineup: updatedLineup };
+        });
+    };
     const handleRemovePlace = (placeId) => {
         console.log("Removed Place:", placeId);
     };
+
+    const handleDateChange = (selectedDate) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            eventDates: selectedDate, // Update the eventDates with the selected date
+        }));
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const { author, eventPoster, eventName, eventDescription, eventLineup, eventDates, eventPlace, eventPrice } = formData;
@@ -129,6 +152,7 @@ export default function CreateEvent({ handleCancelCreate, user }) {
             alert("Please add at least one artist to the lineup.")
             return;
         }
+
         if (!eventPlace) {
             alert("Please select a place for the event.");
             return;
@@ -190,6 +214,7 @@ export default function CreateEvent({ handleCancelCreate, user }) {
                             <h3>Line Up:</h3>
                             <SearchArtist
                                 handleAddArtist={handleAddArtist}
+                                removeArtistFromParent={handleRemoveArtist}
                                 handleArtistChange={handleArtistChange}
                                 setCurrentArtist={setCurrentArtist}
                                 currentArtist={currentArtist}
@@ -210,7 +235,7 @@ export default function CreateEvent({ handleCancelCreate, user }) {
                         </div>
                         <div id='event-date'>
                             <h3>Dates:</h3>
-                            <SelectDate />
+                            <SelectDate onDateChange={handleDateChange} />
                         </div>
                         <div id='event-ticket-price'>
                             <h3>Ticket price:</h3>

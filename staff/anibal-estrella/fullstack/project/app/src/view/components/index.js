@@ -21,6 +21,7 @@ import SelectDate from './SelectDate.jsx'
 import SearchArtistSpotify from './SearchArtistSpotify.jsx'
 import MaxCharactersCounter from './MaxCharactersCounter.jsx'
 import GoogleMapsContainer from './GoogleMapsContainer.jsx'
+import CreateMenu from './CreateMenu.jsx'
 export {
     SearchPlace,
     SearchArtist,
@@ -44,5 +45,6 @@ export {
     EditPublishEventReview,
     SearchArtistSpotify,
     MaxCharactersCounter,
-    GoogleMapsContainer
+    GoogleMapsContainer,
+    CreateMenu
 }

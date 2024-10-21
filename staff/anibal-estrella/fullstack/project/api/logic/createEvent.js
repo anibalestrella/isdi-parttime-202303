@@ -1,6 +1,6 @@
 const {
     errors: { ExistenceError, ContentError },
-    validators: { validateText, validateUrl, validateId, validateEuroPrice, validatePlaceId, validateEventReviews, validateLineUp }
+    validators: { validateText, validateUrl, validateId, validateEuroPrice, validatePlaceId, validateEventReviews, validateLineUp, validateDates }
 } = require('com');
 
 const { User, Event, Artist, Place } = require('../data-project/models.js');
@@ -20,14 +20,13 @@ module.exports = async (
     validateId(userId, 'user id');
     validateText(eventName, 'Event\'s title Name');
     validateText(eventDescription, 'Event\'s description');
-    validateLineUp(eventLineup, 'Event\'s line up');  // Validate artist objects in the eventLineup
-    validateText(eventDates, 'Event\'s line up');  // Validate artist objects in the eventLineup
-    validateEuroPrice(eventPrice, 'Event\'s price in euro');
-    validateEventReviews(eventReviews, 'Event\'s reviews');
-
-    if (eventPoster) validateUrl(eventPoster, `${action} Poster Image URL`);
+    validateLineUp(eventLineup, 'Event\'s line up');
+    validateDates(eventDates, 'Event\'s dates');
 
     if (eventPlace) validatePlaceId(eventPlace, 'Event\'s place ID');
+
+    if (eventPoster) validateFileUpload(eventPoster, `Event\'s Poster Image URL`);
+
 
     // Convert price to cents
     function convertPriceToCents(eventPrice) {
@@ -38,6 +37,7 @@ module.exports = async (
     }
 
     const priceInCents = convertPriceToCents(eventPrice);
+    validateEuroPrice(priceInCents, 'Event\'s price in euro');
 
     // Check if the user exists
     const user = await User.findById(userId);
@@ -53,14 +53,14 @@ module.exports = async (
         if (!dbArtist) {
             // If artist does not exist, use addArtist to add them
             dbArtist = await addArtist(
-                userId,                   // The user creating the artist
-                artist.discogsId,          // Artist Discogs ID
-                artist.name,               // Artist name
-                artist.discogsUrl,         // Artist Discogs URL
-                artist.image,              // Artist image URL (optional)
-                artist.albums,             // Artist albums (optional)
-                artist.bio,                // Artist bio (optional)
-                artist.urls                // Additional artist URLs (optional)
+                userId,
+                artist.discogsId,
+                artist.name,
+                artist.discogsUrl,
+                artist.image,
+                artist.albums,
+                artist.bio,
+                artist.urls
             );
         }
 
